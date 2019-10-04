@@ -1,8 +1,8 @@
 # CS319-3D-SW
-The repository is to implement the project in CS319 course. Group : 3D
+The repository is to implement the project in CS319 course.
 
-Group Members
--------------
+Group Members (Group: 3D)
+-------------------------
 - Munib Emre Sevilgen
 - Esra Nur Deniz
 - Meryem Banu Cavlak
@@ -20,3 +20,4 @@ Project Reports
 
 Meeting Hours
 -------------
+Tuesday 18.00-22.00
