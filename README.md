@@ -11,7 +11,6 @@ Group Members (Group: 3D)
 
 Description
 -----------
-fs
 
 Includes-Excludes
 -----------------
