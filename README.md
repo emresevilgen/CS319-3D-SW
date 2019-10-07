@@ -30,6 +30,7 @@ Includes-Excludes
 Project Reports
 ---------------
 
-Meeting Hours
+Meeting Hours and Agenda
 -------------
 Tuesday 18.00-22.00
+https://docs.google.com/document/d/1wur8KFRKE3CdrKLQakjvKO5Un3WoKlW-3x-mb8U-ofk/edit?usp=sharing
