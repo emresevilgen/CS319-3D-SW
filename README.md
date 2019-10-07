@@ -15,6 +15,8 @@ Description
 
 Includes-Excludes
 -----------------
+- This game will include a feature which will enable visually handicapped people to play this game through audio description of necessary information to visually handicapped users.
+
 
 Project Reports
 ---------------
