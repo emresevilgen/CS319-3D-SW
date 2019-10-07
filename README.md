@@ -16,6 +16,13 @@ Description
 Includes-Excludes
 -----------------
 - This game will include a feature which will enable visually handicapped people to play this game through audio description of necessary information to visually handicapped users.
+- This game will include secret skill cards which every player receive randomly at the beginning of the game and affect the calculation of victory points.
+- Players will have an option to not to sell his/her resources or bargain for the price of the resource to sell.
+- This will be an online game.
+- Players can choose to get loot instead of victory points from wars which happen at the end of each age.d
+- This game will include sound effects.
+- 
+
 
 
 Project Reports
