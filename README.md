@@ -32,6 +32,4 @@ Project Reports
 
 Meeting Hours and Agenda
 -------------
-Tuesday 18.00-22.00
-
-[Meeting Agenda](https://docs.google.com/document/d/1wur8KFRKE3CdrKLQakjvKO5Un3WoKlW-3x-mb8U-ofk/edit?usp=sharing)
+Tuesdays, 18.00-22.00 / [Meeting Agenda](https://docs.google.com/document/d/1wur8KFRKE3CdrKLQakjvKO5Un3WoKlW-3x-mb8U-ofk/edit?usp=sharing)
