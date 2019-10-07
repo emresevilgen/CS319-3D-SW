@@ -18,16 +18,18 @@ Includes-Excludes
 - This game will include a feature which will enable visually handicapped people to play this game through audio description of necessary information to visually handicapped users.
 - This game will include secret skill cards which every player receive randomly at the beginning of the game and affect the calculation of victory points.
 - Players will have an option to not to sell his/her resources or bargain for the price of the resource to sell.
-- This will be an online game.
 - Players can choose to get loot instead of victory points from wars which happen at the end of each age.d
 - This game will include sound effects.
-- 
-
-
+- At the end of each age players position will be changed randomly.
+- If players make invalid movements, they will be charged by penalty points instead of invalid movement warning.
+ -- All of the features above will be optional, at the beginning of each game users can include this features if they want to do so.
+- This will be an online game.
+- Players will be able to see their rankings in the global leaderboard.
+- Two player mode for experienced players will be excluded.
 
 Project Reports
 ---------------
 
 Meeting Hours
 -------------
-Tuesdays, 18.00-22.00
+Tuesday 18.00-22.00
