@@ -30,4 +30,4 @@ Project Reports
 
 Meeting Hours
 -------------
-Tuesday 18.00-22.00
+Tuesdays, 18.00-22.00
