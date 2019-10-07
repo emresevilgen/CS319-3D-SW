@@ -22,6 +22,7 @@ Includes-Excludes
 - This game will include sound effects.
 - At the end of each age players position will be changed randomly.
 - If players make invalid movements, they will be charged by penalty points instead of invalid movement warning.
+ 
  -- All of the features above will be optional, at the beginning of each game users can include this features if they want to do so.
 - This will be an online game.
 - Players will be able to see their rankings in the global leaderboard.
