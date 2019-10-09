@@ -7,7 +7,7 @@ Group Members (Group: 3D)
 - Esra Nur Deniz
 - Meryem Banu Cavlak
 - Nogay Evirgen
-- Aziz Utku Kağıtçı
+- Aziz Utku Kağıtcı
 
 Description
 -----------
