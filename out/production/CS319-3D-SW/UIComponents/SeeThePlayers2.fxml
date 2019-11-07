@@ -16,7 +16,7 @@
                 <Font size="23.0" />
             </font>
         </Label>
-        <Button fx:id="LeaveButton" layoutX="1653.0" layoutY="964.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="197.0" text="Leave the Lobby" onAction="#moveToMainMenu">
+        <Button fx:id="leaveButton" layoutX="1653.0" layoutY="964.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="197.0" text="Leave the Lobby" onAction="#moveToMainMenu">
             <font>
                 <Font size="19.0" />
             </font>
