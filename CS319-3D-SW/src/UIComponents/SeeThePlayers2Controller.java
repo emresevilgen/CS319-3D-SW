@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class SeeThePlayers2Controller {
-    public Button LeaveButton;
+    public Button leaveButton;
     public Button readyButton;
     public Label seePlayersLabel;
     public Label firstNameLabel;
@@ -26,7 +26,7 @@ public class SeeThePlayers2Controller {
         Stage stage;
         Parent root;
 
-        stage = (Stage) LeaveButton.getScene().getWindow();
+        stage = (Stage) leaveButton.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 
         Scene scene = new Scene(root);
