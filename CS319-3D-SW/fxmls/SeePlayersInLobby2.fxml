@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIComponents.SignInScene">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dde4e8" height="594.0" layoutX="542.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="865.0" AnchorPane.bottomAnchor="254.0" AnchorPane.leftAnchor="542.0" AnchorPane.rightAnchor="513.0" AnchorPane.topAnchor="232.0" />
+      <Label fx:id="seePlayersLabel" layoutX="679.0" layoutY="260.0" prefHeight="43.0" prefWidth="559.0" text="See the players ......">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Button fx:id="LeaveButton" layoutX="1653.0" layoutY="964.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="197.0" text="Leave the Lobby">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Button fx:id="readyButton" layoutX="1131.0" layoutY="734.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="197.0" text="Ready">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dde4e8" height="329.0" layoutX="619.0" layoutY="347.0" stroke="BLACK" strokeType="INSIDE" width="97.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dde4e8" height="329.0" layoutX="716.0" layoutY="347.0" stroke="BLACK" strokeType="INSIDE" width="307.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dde4e8" height="329.0" layoutX="1022.0" layoutY="347.0" stroke="BLACK" strokeType="INSIDE" width="307.0" />
+      <Label layoutX="650.0" layoutY="365.0" prefHeight="24.0" prefWidth="35.0" text="No">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="820.0" layoutY="365.0" prefHeight="30.0" prefWidth="86.0" text="Name">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="1132.0" layoutY="365.0" prefHeight="30.0" prefWidth="97.0" text="State">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Line endX="609.0" layoutX="720.0" layoutY="416.0" startX="-100.0" />
+      <Line endX="609.0" layoutX="720.0" layoutY="481.0" startX="-100.0" />
+      <Line endX="609.0" layoutX="720.0" layoutY="549.0" startX="-100.0" />
+      <Line endX="609.0" layoutX="720.0" layoutY="613.0" startX="-100.0" />
+      <Label layoutX="661.0" layoutY="434.0" text="1">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="661.0" layoutY="495.0" text="2">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="661.0" layoutY="563.0" text="3">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="661.0" layoutY="629.0" text="4">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="830.0" layoutY="434.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="1082.0" layoutY="434.0" text="Waiting for Others">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="833.0" layoutY="495.0" prefHeight="34.0" prefWidth="73.0" text="You">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="thirdNameLabel" layoutX="791.0" layoutY="563.0" prefHeight="34.0" prefWidth="143.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="fourthNameLabel" layoutX="791.0" layoutY="629.0" prefHeight="34.0" prefWidth="143.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="1109.0" layoutY="495.0" prefHeight="34.0" prefWidth="143.0" text="Not Ready">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="thirdStateLabel" layoutX="1113.0" layoutY="564.0" prefHeight="34.0" prefWidth="143.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="fourthStateLabel" layoutX="1113.0" layoutY="630.0" prefHeight="34.0" prefWidth="143.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="firstNameLabel" layoutX="791.0" layoutY="434.0" prefHeight="34.0" prefWidth="143.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
