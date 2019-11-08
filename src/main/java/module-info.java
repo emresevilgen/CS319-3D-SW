@@ -1,4 +1,4 @@
-module org.openjfx {
+module uiComponents {
     requires javafx.controls;
     requires javafx.fxml;
 

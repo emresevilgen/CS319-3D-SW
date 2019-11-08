@@ -8,9 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-
 public class SeeThePlayersController {
     public Button deleteLobbyButton;
     public Button startGameButton;
@@ -29,9 +26,7 @@ public class SeeThePlayersController {
         Parent root;
 
         stage = (Stage) deleteLobbyButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src\\main\\resources\\fxml\\MainMenu.fxml"));
-        root = loader.load(fileInputStream);
+        root = FXMLLoader.load(getClass().getResource("src\\main\\resources\\fxml\\MainMenu.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

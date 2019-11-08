@@ -19,7 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src\\main\\resources\\fxml\\SignIn.fxml"));
+        FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"SignIn.fxml"));
         Parent root = loader.load(fileInputStream);
 
         //Parent root = FXMLLoader.load(getClass().getResource("C:\\Users\\esrad\\Desktop\\CS319-3D-SW\\src\\main\\resources\\fxml\\SignIn.fxml"));

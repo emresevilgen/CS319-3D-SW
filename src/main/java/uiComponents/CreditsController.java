@@ -7,9 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-
 public class CreditsController {
     public Button backButton;
 
@@ -18,9 +15,7 @@ public class CreditsController {
         Parent root;
 
         stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src\\main\\resources\\fxml\\MainMenu.fxml"));
-        root = loader.load(fileInputStream);
+        root = FXMLLoader.load(getClass().getResource("src\\main\\resources\\fxml\\MainMenu.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

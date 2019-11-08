@@ -10,9 +10,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-
 public class MainMenuController {
 
      public Button createLobbyButton;
@@ -26,13 +23,10 @@ public class MainMenuController {
         Parent root;
 
         stage = (Stage) createLobbyButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src\\main\\resources\\fxml\\CreateLobby.fxml"));
-        root = loader.load(fileInputStream);
+        root = FXMLLoader.load(getClass().getResource("src\\main\\resources\\fxml\\CreateLobby.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
 
     }
 
@@ -53,9 +47,7 @@ public class MainMenuController {
         Parent root;
 
         stage = (Stage) seeRankingsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src\\main\\resources\\fxml\\Rankings.fxml"));
-        root = loader.load(fileInputStream);
+        root = FXMLLoader.load(getClass().getResource("src\\main\\resources\\fxml\\Rankings.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -67,9 +59,7 @@ public class MainMenuController {
         Parent root;
 
         stage = (Stage) settingsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src\\main\\resources\\fxml\\Settings.fxml"));
-        root = loader.load(fileInputStream);
+        root = FXMLLoader.load(getClass().getResource("src\\main\\resources\\fxml\\Settings.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -81,9 +71,7 @@ public class MainMenuController {
         Parent root;
 
         stage = (Stage) creditsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src\\main\\resources\\fxml\\Credits.fxml"));
-        root = loader.load(fileInputStream);
+        root = FXMLLoader.load(getClass().getResource("src\\main\\resources\\fxml\\Credits.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

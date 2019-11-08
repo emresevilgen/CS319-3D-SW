@@ -8,9 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-
 public class SeeThePlayers2Controller {
     public Button leaveButton;
     public Button readyButton;
@@ -30,9 +27,7 @@ public class SeeThePlayers2Controller {
         Parent root;
 
         stage = (Stage) leaveButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src\\main\\resources\\fxml\\MainMenu.fxml"));
-        root = loader.load(fileInputStream);
+        root = FXMLLoader.load(getClass().getResource("src\\main\\resources\\fxml\\MainMenu.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
