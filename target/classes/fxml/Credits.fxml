@@ -15,7 +15,7 @@
                 <Font size="19.0" />
             </font>
         </Button>
-        <TextArea layoutX="733.0" layoutY="317.0" prefHeight="450.0" prefWidth="456.0" text="Thank you for using our app...&#10;&#10;   - Esra Nur Deniz&#10;   - Meryem Banu Cavlak&#10;   - Munib Emre Sevilgen&#10;   - Nogay Evirgen&#10;   - Utku Kağıtçı&#10;&#10;&#10;" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="730.0" AnchorPane.rightAnchor="730.0" AnchorPane.topAnchor="300.0">
+        <TextArea layoutX="733.0" layoutY="317.0" prefHeight="450.0" prefWidth="456.0" text="Thank you for using our app...&#10;&#10;   - Esra Nur Deniz&#10;   - Meryem Banu Cavlak&#10;   - Munib Emre Sevilgen&#10;   - Nogay Evirgen&#10;   - Utku Kağıtcı&#10;&#10;&#10;" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="730.0" AnchorPane.rightAnchor="730.0" AnchorPane.topAnchor="300.0">
             <font>
                 <Font size="30.0" />
             </font>

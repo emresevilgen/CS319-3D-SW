@@ -31,7 +31,9 @@ public class SignInController {
         Parent root;
 
         stage = (Stage) signUpButton.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"SignUp.fxml"));
+        root = loader.load(fileInputStream);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
