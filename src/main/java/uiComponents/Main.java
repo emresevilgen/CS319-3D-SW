@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
@@ -23,16 +24,18 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"SignIn.fxml"));
-        Parent root = loader.load(fileInputStream);
+        AnchorPane root = (AnchorPane)loader.load(fileInputStream);
+        FileInputStream inputStream = new FileInputStream("src/main/resources/icons/mainPaper.jpeg");
+        Image image = new Image(inputStream);
+
+        ImageView imageView = (ImageView) root.getChildren().get(0);
+        imageView.setImage(image);
         Scene scene = new Scene(root);
+
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        String current = new java.io.File( "." ).getCanonicalPath();
-        System.out.println("Current dir:"+current);
-        String currentDir = System.getProperty("user.dir");
-        System.out.println("Current dir using System:" +currentDir);
     }
 
 

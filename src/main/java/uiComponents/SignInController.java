@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SignInController {
+public class SignInController implements Initializable{
 
     public Button signUpButton;
     public Button signInButton;
@@ -138,4 +138,8 @@ public class SignInController {
         alert.showAndWait();
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }
