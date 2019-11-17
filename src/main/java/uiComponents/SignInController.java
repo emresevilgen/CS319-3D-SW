@@ -1,22 +1,24 @@
 package uiComponents;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.User;
 import rest.ApiClient;
 import rest.ApiInterface;
-import rest.models.UserResponse;
+import rest.models.GeneralResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SignInController {
@@ -40,71 +42,71 @@ public class SignInController {
         stage.show();
     }
 
-    public void moveToMainMenu(ActionEvent event) throws Exception {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-
-        signIn(username,password);
-
-
+    public void moveToMainMenu() {
+        Stage stage;
+        stage = (Stage) signInButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        Parent root = null;
+        try {
+            fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"MainMenu.fxml"));
+            root = loader.load(fileInputStream);
+            if (root != null) {
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public void signIn(String username, String password) throws IOException {
- /*       ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+    public void signIn(ActionEvent actionEvent) {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
 
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<UserResponse> call = apiService.login(username, password);
-        call.enqueue(new Callback<UserResponse>() {
+        Call<GeneralResponse<User>> call = apiService.login(username, password);
+        call.enqueue(new Callback<GeneralResponse<User>>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                UserResponse userResponse = null;
+            public void onResponse(Call<GeneralResponse<User>> call, Response<GeneralResponse<User>> response) {
                 if (response.body() != null) {
 
-                    userResponse = response.body();
+                    GeneralResponse<User> userGeneralResponse = response.body();
+                    System.out.println(userGeneralResponse.toString());
 
-                    if(userResponse == null){
-                        //TODO Show error message
-                        System.out.println("EROR!1");
-                    } else {
-                        System.out.println(userResponse.toString());
-                        Stage stage;
-                        Parent root = null;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (userGeneralResponse.success)
+                                moveToMainMenu();
+                            else {
+                                showErrorMessage(userGeneralResponse.message);
 
-                        stage = (Stage) signInButton.getScene().getWindow();
-                        try {
-                            root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                            }
                         }
-
-                        Scene scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.show();
-                    }
-
+                    });
 
                 } else {
-                    //TODO Show error message
-                    System.out.println("EROR!2");
+                    showErrorMessage("There is something wrong with the connection");
                 }
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
-                // CurrencyLog error here since request failed
-
+            public void onFailure(Call<GeneralResponse<User>> call, Throwable t) {
+                showErrorMessage("There is something wrong with the connection");
             }
-        });*/
-        Stage stage;
-        stage = (Stage) signInButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"MainMenu.fxml"));
-        Parent root = loader.load(fileInputStream);
+        });
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    }
+
+    private void showErrorMessage(String errorMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.showAndWait();
     }
 }

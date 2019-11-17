@@ -9,7 +9,7 @@
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SignInController">
 <children>
-    <Button fx:id="signInButton" alignment="CENTER" layoutX="1048.0" layoutY="620.0" mnemonicParsing="false" onAction="#moveToMainMenu" prefHeight="62.0" prefWidth="220.0" text="Sign In">
+    <Button fx:id="signInButton" alignment="CENTER" layoutX="1048.0" layoutY="620.0" mnemonicParsing="false" onAction="#signIn" prefHeight="62.0" prefWidth="220.0" text="Sign In">
         <font>
             <Font size="30.0" />
         </font>
@@ -29,12 +29,12 @@
             <Font size="30.0" />
         </font>
     </Label>
-    <TextField fx:id="usernameField" alignment="CENTER" layoutX="876.0" layoutY="471.0">
+    <TextField fx:id="usernameField" layoutX="876.0" layoutY="471.0">
         <font>
             <Font size="30.0" />
         </font>
     </TextField>
-    <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="876.0" layoutY="540.0">
+    <PasswordField fx:id="passwordField" layoutX="876.0" layoutY="540.0">
         <font>
             <Font size="30.0" />
         </font>

@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uiComponents.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SignUpController">
     <children>
-        <Button layoutX="1017.0" layoutY="743.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="220.0" text="Sign Up" fx:id="signUpButton" onAction="#moveToMainMenu">
+        <Button fx:id="signUpButton" layoutX="1044.0" layoutY="742.0" mnemonicParsing="false" onAction="#signUp" prefHeight="62.0" prefWidth="220.0" text="Sign Up">
             <font>
                 <Font size="30.0" />
             </font>
@@ -30,12 +29,12 @@
                 <Font size="30.0" />
             </font>
         </Label>
-        <TextField layoutX="872.0" layoutY="534.0">
+        <TextField fx:id="usernameField" layoutX="872.0" layoutY="534.0">
             <font>
                 <Font size="30.0" />
             </font>
         </TextField>
-        <PasswordField layoutX="872.0" layoutY="640.0">
+        <PasswordField fx:id="passwordField" layoutX="872.0" layoutY="640.0">
             <font>
                 <Font size="30.0" />
             </font>
@@ -45,7 +44,7 @@
                 <Font size="30.0" />
             </font>
         </Label>
-        <TextField layoutX="872.0" layoutY="431.0">
+        <TextField fx:id="nameField" layoutX="872.0" layoutY="431.0">
             <font>
                 <Font size="30.0" />
             </font>
