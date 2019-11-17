@@ -1,13 +1,17 @@
 package uiComponents;
 
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import models.User;
 import rest.ApiClient;
@@ -20,6 +24,8 @@ import retrofit2.Response;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SignUpController {
     public Button signUpButton;
@@ -76,21 +82,31 @@ public class SignUpController {
                     });
 
                 } else {
-                    //TODO Show error message
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            showErrorMessage("There is something wrong with the connection");
+                    try {
+                        String errorResponse = response.errorBody().string();
+                        GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(userGeneralResponse.message);
 
-                        }
-                    });
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<GeneralResponse<User>> call, Throwable t) {
-                showErrorMessage("There is something wrong with the connection");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        showErrorMessage("There is something wrong with the connection");
 
+                    }
+                });
             }
         });
 
@@ -103,5 +119,6 @@ public class SignUpController {
         alert.setContentText(errorMsg);
         alert.showAndWait();
     }
+
 }
 

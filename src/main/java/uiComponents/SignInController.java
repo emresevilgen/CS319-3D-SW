@@ -1,15 +1,21 @@
 package uiComponents;
 
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import models.User;
+import okhttp3.ResponseBody;
 import rest.ApiClient;
 import rest.ApiInterface;
 import rest.models.GeneralResponse;
@@ -20,6 +26,8 @@ import retrofit2.Response;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SignInController {
 
@@ -27,6 +35,9 @@ public class SignInController {
     public Button signInButton;
     public TextField usernameField;
     public PasswordField passwordField;
+    @FXML
+    private ImageView imageView;
+
 
     public void moveToSignUp(ActionEvent event) throws Exception {
         Stage stage;
@@ -69,6 +80,7 @@ public class SignInController {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         Call<GeneralResponse<User>> call = apiService.login(username, password);
+
         call.enqueue(new Callback<GeneralResponse<User>>() {
             @Override
             public void onResponse(Call<GeneralResponse<User>> call, Response<GeneralResponse<User>> response) {
@@ -82,21 +94,37 @@ public class SignInController {
                         public void run() {
                             if (userGeneralResponse.success)
                                 moveToMainMenu();
-                            else {
+                            else
                                 showErrorMessage(userGeneralResponse.message);
-
-                            }
                         }
                     });
 
                 } else {
-                    showErrorMessage("There is something wrong with the connection");
+                    try {
+                        String errorResponse = response.errorBody().string();
+                        GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(userGeneralResponse.message);
+
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<GeneralResponse<User>> call, Throwable t) {
-                showErrorMessage("There is something wrong with the connection");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        showErrorMessage("There is something wrong with the connection");
+
+                    }
+                });
             }
         });
 
@@ -109,4 +137,5 @@ public class SignInController {
         alert.setContentText(errorMsg);
         alert.showAndWait();
     }
+
 }

@@ -13,7 +13,7 @@ public interface ApiInterface {
     Call<GeneralResponse<User>> login(@Field("username") String username, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("signUp.php")
+    @POST("signup.php")
     Call<GeneralResponse<User>> signUp(@Field("name") String name, @Field("username") String username, @Field("password") String password);
 
 }

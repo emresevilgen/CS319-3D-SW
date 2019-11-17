@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -21,13 +24,15 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"SignIn.fxml"));
         Parent root = loader.load(fileInputStream);
-
-        //Parent root = FXMLLoader.load(getClass().getResource("C:\\Users\\esrad\\Desktop\\CS319-3D-SW\\src\\main\\resources\\fxml\\SignIn.fxml"));
-        primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        String current = new java.io.File( "." ).getCanonicalPath();
+        System.out.println("Current dir:"+current);
+        String currentDir = System.getProperty("user.dir");
+        System.out.println("Current dir using System:" +currentDir);
     }
 
 
