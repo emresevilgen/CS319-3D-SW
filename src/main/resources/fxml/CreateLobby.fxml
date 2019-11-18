@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.CreateLobbyController">
+    <children>
+        <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
+      <ImageView fx:id="backImageView" fitHeight="439.0" fitWidth="411.0" layoutX="755.0" layoutY="255.0" opacity="0.83" pickOnBounds="true" />
+        <TextField layoutX="824.0" layoutY="352.0" prefHeight="38.0" prefWidth="272.0" promptText="Lobby Name">
+         <font>
+            <Font size="19.0" />
+         </font></TextField>
+        <Label layoutX="824.0" layoutY="268.0" prefHeight="43.0" prefWidth="272.0" text="Lobby Information">
+            <font>
+                <Font size="29.0" />
+            </font>
+        </Label>
+        <Label layoutX="824.0" layoutY="423.0" prefHeight="34.0" prefWidth="81.0" text="Modes:">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Label>
+        <CheckBox layoutX="829.0" layoutY="482.0" mnemonicParsing="false" text="Getting Loot">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="829.0" layoutY="523.0" mnemonicParsing="false" text="CheckBox">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="829.0" layoutY="561.0" mnemonicParsing="false" text="Shuffle Places">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="829.0" layoutY="599.0" mnemonicParsing="false" text="Secret Skills">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="829.0" layoutY="637.0" mnemonicParsing="false" text="Invalid Move Penalty">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </CheckBox>
+        <Button fx:id="cancelButton" layoutX="790.0" layoutY="721.0" mnemonicParsing="false" onAction="#cancel" prefHeight="59.0" prefWidth="150.0" style="-fx-background-color: b38632;" text="Cancel" textFill="WHITE">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Button>
+        <Button fx:id="createButton" layoutX="985.0" layoutY="721.0" mnemonicParsing="false" onAction="#create" prefHeight="59.0" prefWidth="150.0" style="-fx-background-color: b38632;" text="Create" textFill="WHITE">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
