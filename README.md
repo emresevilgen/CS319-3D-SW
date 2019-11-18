@@ -32,8 +32,6 @@ Project Reports
 ---------------
 Iteration 1:
 - [Analysis Report](https://docs.google.com/document/d/16E-hyQsL9nO8TKjeVgOK7OpnrrrmDJXkaV9uoLIrbmc/edit?usp=sharing)
-- [Design Report](https://docs.google.com/document/d/1PtvBTQF9OSMZn2MSbrdcDU0QOC6nmrx5L24tMf8Rhq4/edit)
-- [Final Report](https://docs.google.com/document/d/1u5pSo8_WwyQBi1-MosWC6zjqzdafkRMOgDS1mtgklkQ/edit#)
 
 Meeting Hours and Agenda
 -------------
