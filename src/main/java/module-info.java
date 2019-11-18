@@ -1,6 +1,7 @@
 module uiComponents {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
     requires retrofit2;
     requires gson;
     requires retrofit2.converter.gson;
