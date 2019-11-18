@@ -10,27 +10,27 @@
         <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
         <ImageView fx:id="logoView" fitHeight="260.0" fitWidth="800.0" layoutX="560.0" layoutY="148.0" pickOnBounds="true" />
 
-        <Button fx:id="createLobbyButton" layoutX="767.0" layoutY="458.0" mnemonicParsing="false" onAction="#moveToCreateLobby" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Create a Lobby" textFill="WHITE">
+        <Button fx:id="createLobbyButton" layoutX="767.0" layoutY="458.0" mnemonicParsing="false" onAction="#createLobby" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Create a Lobby" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button fx:id="joinLobbyButton" layoutX="767.0" layoutY="550.0" mnemonicParsing="false" onAction="#moveToJoinLobby" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Join to the Existing Lobby" textFill="WHITE">
+        <Button fx:id="joinLobbyButton" layoutX="767.0" layoutY="550.0" mnemonicParsing="false" onAction="#joinLobby" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Join to the Existing Lobby" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button fx:id="seeRankingsButton" layoutX="767.0" layoutY="643.0" mnemonicParsing="false" onAction="#moveToRankings" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="See the Rankings" textFill="WHITE">
+        <Button fx:id="seeRankingsButton" layoutX="767.0" layoutY="643.0" mnemonicParsing="false" onAction="#rankings" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="See the Rankings" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button fx:id="settingsButton" layoutX="767.0" layoutY="735.0" mnemonicParsing="false" onAction="#moveToSettings" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Settings" textFill="WHITE">
+        <Button fx:id="settingsButton" layoutX="767.0" layoutY="735.0" mnemonicParsing="false" onAction="#settings" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Settings" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button fx:id="creditsButton" layoutX="767.0" layoutY="831.0" mnemonicParsing="false" onAction="#moveToCredits" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Credits" textFill="WHITE">
+        <Button fx:id="creditsButton" layoutX="767.0" layoutY="831.0" mnemonicParsing="false" onAction="#credits" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Credits" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>

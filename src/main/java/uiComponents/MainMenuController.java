@@ -14,6 +14,8 @@ import utils.Constants;
 import java.io.File;
 import java.io.FileInputStream;
 
+import static uiComponents.SceneChanger.*;
+
 public class MainMenuController {
 
      public Button createLobbyButton;
@@ -22,22 +24,12 @@ public class MainMenuController {
      public Button settingsButton;
      public Button creditsButton;
 
-    public void moveToCreateLobby(ActionEvent event) throws Exception {
-        Stage stage;
-        Parent root;
-
-        stage = (Stage) createLobbyButton.getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File(Constants.CREATE_LOBBY_FXML));
-        root = loader.load(fileInputStream);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+    public void createLobby(ActionEvent event) throws Exception {
+        moveToCreateLobby((Stage)createLobbyButton.getScene().getWindow());
 
     }
 
-    public void moveToJoinLobby(ActionEvent event) throws Exception {
+    public void joinLobby(ActionEvent event) throws Exception {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(joinLobbyButton.getScene().getWindow());
@@ -49,45 +41,18 @@ public class MainMenuController {
         dialog.show();
     }
 
-    public void moveToRankings(ActionEvent event) throws Exception {
-        Stage stage;
-        Parent root;
+    public void rankings(ActionEvent event) throws Exception {
+        moveToRankings((Stage)seeRankingsButton.getScene().getWindow());
 
-        stage = (Stage) seeRankingsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File(Constants.RANKINGS_FXML));
-        root = loader.load(fileInputStream);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
-    public void moveToSettings(ActionEvent event) throws Exception {
-        Stage stage;
-        Parent root;
+    public void settings(ActionEvent event) throws Exception {
+        moveToSettings((Stage)settingsButton.getScene().getWindow());
 
-        stage = (Stage) settingsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File(Constants.SETTINGS));
-        root = loader.load(fileInputStream);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
-    public void moveToCredits(ActionEvent event) throws Exception {
-        Stage stage;
-        Parent root;
+    public void credits(ActionEvent event) throws Exception {
+        moveToCredits((Stage)creditsButton.getScene().getWindow());
 
-        stage = (Stage) creditsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File(Constants.CREDITS_FXML));
-        root = loader.load(fileInputStream);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 }

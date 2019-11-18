@@ -110,6 +110,130 @@ public class SceneChanger {
 
     }
 
+    public static void moveToCreateLobby(Stage stage) {
+
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+        FileInputStream logoFile = null;
+        AnchorPane root = null;
+
+        try{
+            fileInputStream = new FileInputStream(new File(Constants.CREATE_LOBBY_FXML));
+            /*backgroundFile = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
+            logoFile = new FileInputStream(Constants.LOGO_IMAGE);*/
+            root = (AnchorPane)loader.load(fileInputStream);
+
+            /*Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+            backgroundView.setImage(backgroundImage);
+
+            Image logoImage = new Image(logoFile);
+            ImageView logoView = (ImageView) root.getChildren().get(1);
+            logoView.setImage(logoImage);*/
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void moveToRankings(Stage stage) {
+
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+        FileInputStream logoFile = null;
+        AnchorPane root = null;
+
+        try{
+            fileInputStream = new FileInputStream(new File(Constants.RANKINGS_FXML));
+            /*backgroundFile = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
+            logoFile = new FileInputStream(Constants.LOGO_IMAGE);*/
+            root = (AnchorPane)loader.load(fileInputStream);
+
+            /*Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+            backgroundView.setImage(backgroundImage);
+
+            Image logoImage = new Image(logoFile);
+            ImageView logoView = (ImageView) root.getChildren().get(1);
+            logoView.setImage(logoImage);*/
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void moveToSettings(Stage stage) {
+
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+        FileInputStream logoFile = null;
+        AnchorPane root = null;
+
+        try{
+            fileInputStream = new FileInputStream(new File(Constants.SETTINGS_FXML));
+            /*backgroundFile = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
+            logoFile = new FileInputStream(Constants.LOGO_IMAGE);*/
+            root = (AnchorPane)loader.load(fileInputStream);
+
+            /*Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+            backgroundView.setImage(backgroundImage);
+
+            Image logoImage = new Image(logoFile);
+            ImageView logoView = (ImageView) root.getChildren().get(1);
+            logoView.setImage(logoImage);*/
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void moveToCredits(Stage stage) {
+
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+        FileInputStream logoFile = null;
+        AnchorPane root = null;
+
+        try{
+            fileInputStream = new FileInputStream(new File(Constants.CREDITS_FXML));
+            /*backgroundFile = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
+            logoFile = new FileInputStream(Constants.LOGO_IMAGE);*/
+            root = (AnchorPane)loader.load(fileInputStream);
+
+            /*Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+            backgroundView.setImage(backgroundImage);
+
+            Image logoImage = new Image(logoFile);
+            ImageView logoView = (ImageView) root.getChildren().get(1);
+            logoView.setImage(logoImage);*/
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void moveToSeeThePlayers(Stage stage, boolean isCreator) {
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
