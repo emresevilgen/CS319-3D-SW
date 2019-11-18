@@ -25,4 +25,10 @@ public class Settings {
     public void setAudioDescription(boolean audioDescription) {
         this.audioDescription = audioDescription;
     }
+
+    public void switchAudioDescription(){ audioDescription = !audioDescription; }
+    public void switchSoundEffects(){ soundEffects = !soundEffects; }
+
+
+
 }

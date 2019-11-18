@@ -23,6 +23,9 @@ public class Constants {
     public static final String BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "bg.png");
     public static final String GAME_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "gameBackground.jpg");
     public static final String RANKINGS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "background_oliympos.jpg");
+    public static final String AUDIO_DESCRIPTION_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "audio_description.png");
+    public static final String SOUND_EFFECTS_ON_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "sound-on.png");
+    public static final String SOUND_EFFECTS_OFF_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "sound-off.png");
 
 
 }

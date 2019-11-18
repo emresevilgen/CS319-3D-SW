@@ -270,22 +270,16 @@ public class SceneChanger {
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
         FileInputStream backgroundFile = null;
-        FileInputStream logoFile = null;
         AnchorPane root = null;
 
         try{
             fileInputStream = new FileInputStream(new File(Constants.GAME_FXML));
             backgroundFile = new FileInputStream(Constants.GAME_BACK_IMAGE);
-            //logoFile = new FileInputStream(Constants.LOGO_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
             Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
-
-          /*  Image logoImage = new Image(logoFile);
-            ImageView logoView = (ImageView) root.getChildren().get(1);
-            logoView.setImage(logoImage);*/
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -296,19 +290,4 @@ public class SceneChanger {
         }
     }
 }
-/*
-            backgroundFile = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
-            backFile = new FileInputStream(Constants.BACK_IMAGE);
-            root = (AnchorPane)loader.load(fileInputStream);
 
-            Image backgroundImage = new Image(backgroundFile);
-            ImageView backgroundView = (ImageView) root.getChildren().get(0);
-            backgroundView.setImage(backgroundImage);
-
-            Image backImage = new Image(backFile);
-            ImageView backImageView = (ImageView) root.getChildren().get(1);
-            backImageView.setImage(backImage);
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();*/

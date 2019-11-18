@@ -33,6 +33,9 @@ public class MainMenuController {
     public void joinLobby(ActionEvent event) throws Exception {
         TextInputDialog dialog = new TextInputDialog("Lobby Code");
         dialog.setTitle("Join to the Existing Lobby");
+        dialog.setHeaderText(null);
+        dialog.setGraphic(null);
+
         dialog.setContentText("Enter the code of the lobby:");
         String lobbyCode = null;
         Optional<String> result = dialog.showAndWait();
