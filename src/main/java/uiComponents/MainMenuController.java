@@ -26,7 +26,6 @@ public class MainMenuController {
 
     public void createLobby(ActionEvent event) throws Exception {
         moveToCreateLobby((Stage)createLobbyButton.getScene().getWindow());
-
     }
 
     public void joinLobby(ActionEvent event) throws Exception {

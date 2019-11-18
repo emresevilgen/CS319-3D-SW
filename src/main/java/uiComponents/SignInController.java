@@ -67,7 +67,7 @@ public class SignInController implements Initializable{
                 if (response.body() != null) {
 
                     GeneralResponse<User> userGeneralResponse = response.body();
-                    System.out.println(userGeneralResponse.toString());
+                    Main.user = userGeneralResponse.payload;
 
                     Platform.runLater(new Runnable() {
                         @Override
