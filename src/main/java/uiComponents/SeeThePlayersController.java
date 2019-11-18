@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import static uiComponents.SceneChanger.moveToGame;
 import static uiComponents.SceneChanger.moveToMainMenu;
 
 public class SeeThePlayersController {
@@ -33,7 +34,7 @@ public class SeeThePlayersController {
 
     public void startGame(ActionEvent event) throws Exception {
        // change to game panel
-        moveToMainMenu((Stage)startGameButton.getScene().getWindow());
+        moveToGame((Stage)startGameButton.getScene().getWindow());
     }
 
     public void dismissThePerson(ActionEvent event) throws Exception {

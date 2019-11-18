@@ -16,12 +16,12 @@ public class Constants {
     public static final String MAIN_MENU_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "MainMenu.fxml");
     public static final String CREDITS_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "Credits.fxml");
     public static final String CREATE_LOBBY_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "CreateLobby.fxml");
-
+    public static final String GAME_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "Game.fxml");
     // Images
     public static final String MAIN_BACKGROUND_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "newbg.png");
     public static final String LOGO_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "logo.png");
     public static final String BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "bg.png");
-
+    public static final String GAME_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "gameBackground.jpg");
 
 
 
