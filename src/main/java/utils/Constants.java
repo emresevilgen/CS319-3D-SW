@@ -4,8 +4,6 @@ import java.io.File;
 
 public class Constants {
     public static final String BASE_URL = "http://sevenwonders.azizutku.com/";
-
-
     // FXML's
     public static final String SIGN_IN_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "SignIn.fxml");
     public static final String SIGN_UP_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "SignUp.fxml");
@@ -26,6 +24,7 @@ public class Constants {
     public static final String AUDIO_DESCRIPTION_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "audio_description.png");
     public static final String SOUND_EFFECTS_ON_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "sound-on.png");
     public static final String SOUND_EFFECTS_OFF_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "sound-off.png");
-
+    public static final String SETTINGS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "background_halikarnas.jpg");
+    public static final String SEE_THE_PLAYERS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "background_pyramid.jpg");
 
 }

@@ -15,10 +15,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //moveToSignIn(primaryStage);
+        moveToSignIn(primaryStage);
         //moveToCreateLobby(primaryStage);
         settings = new Settings();
-        moveToGame(primaryStage);
+       // moveToGame(primaryStage);
 
 
     }
