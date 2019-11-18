@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.CreateLobbyController">
     <children>
         <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
-      <ImageView fx:id="backImageView" fitHeight="454.0" fitWidth="411.0" layoutX="755.0" layoutY="255.0" pickOnBounds="true" />
+      <ImageView fx:id="backImageView" fitHeight="439.0" fitWidth="411.0" layoutX="755.0" layoutY="255.0" opacity="0.83" pickOnBounds="true" />
         <TextField layoutX="824.0" layoutY="352.0" prefHeight="38.0" prefWidth="272.0" promptText="Lobby Name">
          <font>
             <Font size="19.0" />
@@ -51,14 +51,14 @@
                 <Font size="19.0" />
             </font>
         </CheckBox>
-        <Button fx:id="cancelButton" layoutX="824.0" layoutY="721.0" mnemonicParsing="false" onAction="#cancel" prefHeight="59.0" prefWidth="133.0" text="Cancel">
+        <Button fx:id="cancelButton" layoutX="790.0" layoutY="721.0" mnemonicParsing="false" onAction="#cancel" prefHeight="59.0" prefWidth="150.0" style="-fx-background-color: b38632;" text="Cancel" textFill="WHITE">
             <font>
-                <Font size="19.0" />
+                <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="createButton" layoutX="979.0" layoutY="721.0" mnemonicParsing="false" onAction="#create" prefHeight="59.0" prefWidth="133.0" text="Create">
+        <Button fx:id="createButton" layoutX="985.0" layoutY="721.0" mnemonicParsing="false" onAction="#create" prefHeight="59.0" prefWidth="150.0" style="-fx-background-color: b38632;" text="Create" textFill="WHITE">
             <font>
-                <Font size="19.0" />
+                <Font size="30.0" />
             </font>
         </Button>
     </children>

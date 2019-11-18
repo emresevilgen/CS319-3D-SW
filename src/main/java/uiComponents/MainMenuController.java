@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -13,6 +14,7 @@ import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Optional;
 
 import static uiComponents.SceneChanger.*;
 
@@ -29,15 +31,14 @@ public class MainMenuController {
     }
 
     public void joinLobby(ActionEvent event) throws Exception {
-        Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(joinLobbyButton.getScene().getWindow());
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text("This is a Dialog"));
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        dialog.setScene(dialogScene);
-
-        dialog.show();
+        TextInputDialog dialog = new TextInputDialog("Lobby Code");
+        dialog.setTitle("Join to the Existing Lobby");
+        dialog.setContentText("Enter the code of the lobby:");
+        String lobbyCode = null;
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+           lobbyCode = result.get();
+        }
     }
 
     public void rankings(ActionEvent event) throws Exception {
