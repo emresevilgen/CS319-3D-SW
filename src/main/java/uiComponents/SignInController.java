@@ -25,11 +25,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import utils.Constants;
 
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static uiComponents.SceneChanger.moveToMainMenu;
+import static uiComponents.SceneChanger.moveToSignUp;
 
 public class SignInController implements Initializable{
 
@@ -43,48 +48,10 @@ public class SignInController implements Initializable{
     public PasswordField passwordField;
 
 
-    public void moveToSignUp(ActionEvent event) throws Exception {
-        Stage stage;
-
-        stage = (Stage) signUpButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File(Constants.SIGN_UP_FXML));
-        AnchorPane root = (AnchorPane)loader.load(fileInputStream);
-
-        FileInputStream inputStream = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
-        Image backgroundImage = new Image(inputStream);
-        ImageView backgroundView = (ImageView) root.getChildren().get(0);
-        backgroundView.setImage(backgroundImage);
-
-        inputStream = new FileInputStream(Constants.LOGO_IMAGE);
-        Image logoImage = new Image(inputStream);
-        ImageView logoView = (ImageView) root.getChildren().get(1);
-        logoView.setImage(logoImage);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void signUp(ActionEvent event) throws Exception {
+        moveToSignUp((Stage) signUpButton.getScene().getWindow());
     }
 
-    public void moveToMainMenu() {
-        Stage stage;
-        stage = (Stage) signInButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = null;
-        Parent root = null;
-        try {
-            fileInputStream = new FileInputStream(new File(Constants.MAIN_MENU_FXML));
-            root = loader.load(fileInputStream);
-            if (root != null) {
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void signIn(ActionEvent actionEvent) {
         String username = usernameField.getText();
@@ -106,7 +73,7 @@ public class SignInController implements Initializable{
                         @Override
                         public void run() {
                             if (userGeneralResponse.success)
-                                moveToMainMenu();
+                                moveToMainMenu((Stage) signInButton.getScene().getWindow());
                             else
                                 showErrorMessage(userGeneralResponse.message);
                         }

@@ -10,7 +10,7 @@
             fx:controller="uiComponents.CreditsController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dde4e8" height="580.0" layoutX="98.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="580.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="670.0" AnchorPane.rightAnchor="670.0" AnchorPane.topAnchor="250.0" />
-        <Button fx:id="backButton" layoutX="1738.0" layoutY="956.0" mnemonicParsing="false" onAction="#moveToMainMenu" prefHeight="59.0" prefWidth="133.0" text="Back">
+        <Button fx:id="backButton" layoutX="1738.0" layoutY="956.0" mnemonicParsing="false" onAction="#back" prefHeight="59.0" prefWidth="133.0" text="Back">
             <font>
                 <Font size="19.0" />
             </font>

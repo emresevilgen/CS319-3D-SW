@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uiComponents.MainMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.MainMenuController">
     <children>
-        <Label ellipsisString="" layoutX="683.0" layoutY="224.0" prefHeight="158.0" prefWidth="554.0" text="7Wonders" textAlignment="CENTER" textOverrun="CLIP">
-            <font>
-                <Font name="System Bold" size="96.0" />
-            </font>
-        </Label>
-        <Button layoutX="733.0" layoutY="461.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="355.0" text="Create a Lobby" fx:id="createLobbyButton" onAction="#moveToCreateLobby">
+        <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
+        <ImageView fx:id="logoView" fitHeight="260.0" fitWidth="800.0" layoutX="560.0" layoutY="148.0" pickOnBounds="true" />
+
+        <Button fx:id="createLobbyButton" layoutX="767.0" layoutY="458.0" mnemonicParsing="false" onAction="#moveToCreateLobby" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Create a Lobby" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button layoutX="733.0" layoutY="553.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="355.0" text="Join to the Existing Lobby" fx:id="joinLobbyButton" onAction="#moveToJoinLobby">
+        <Button fx:id="joinLobbyButton" layoutX="767.0" layoutY="550.0" mnemonicParsing="false" onAction="#moveToJoinLobby" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Join to the Existing Lobby" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button layoutX="733.0" layoutY="646.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="355.0" text="See the Rankings" fx:id="seeRankingsButton" onAction="#moveToRankings">
+        <Button fx:id="seeRankingsButton" layoutX="767.0" layoutY="643.0" mnemonicParsing="false" onAction="#moveToRankings" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="See the Rankings" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button layoutX="733.0" layoutY="738.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="355.0" text="Settings" fx:id="settingsButton" onAction="#moveToSettings">
+        <Button fx:id="settingsButton" layoutX="767.0" layoutY="735.0" mnemonicParsing="false" onAction="#moveToSettings" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Settings" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button layoutX="733.0" layoutY="834.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="355.0" text="Credits" fx:id="creditsButton" onAction="#moveToCredits">
+        <Button fx:id="creditsButton" layoutX="767.0" layoutY="831.0" mnemonicParsing="false" onAction="#moveToCredits" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Credits" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
     </children>
 </AnchorPane>
-

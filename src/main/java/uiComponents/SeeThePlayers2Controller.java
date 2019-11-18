@@ -6,11 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+
+import static uiComponents.SceneChanger.moveToMainMenu;
 
 public class SeeThePlayers2Controller {
     public Button leaveButton;
@@ -25,22 +31,13 @@ public class SeeThePlayers2Controller {
     public Label fourthNameLabel;
     public Label fourthStateLabel;
 
-    public void moveToMainMenu(ActionEvent event) throws Exception {
-        //servera data
-        Stage stage;
-        Parent root;
-
-        stage = (Stage) leaveButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File(Constants.MAIN_MENU_FXML));
-        root = loader.load(fileInputStream);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void beReady(ActionEvent event) throws Exception {
         // change to game panel
+        moveToMainMenu((Stage)readyButton.getScene().getWindow());
+    }
+
+    public void leave(ActionEvent event) throws Exception {
+        moveToMainMenu((Stage)leaveButton.getScene().getWindow());
     }
 }

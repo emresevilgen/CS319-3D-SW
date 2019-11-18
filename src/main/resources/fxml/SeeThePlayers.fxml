@@ -7,8 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uiComponents.SeeThePlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayersController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dde4e8" height="594.0" layoutX="542.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="865.0" AnchorPane.bottomAnchor="254.0" AnchorPane.leftAnchor="542.0" AnchorPane.rightAnchor="513.0" AnchorPane.topAnchor="232.0" />
         <Label fx:id="seePlayersLabel" layoutX="679.0" layoutY="260.0" prefHeight="43.0" prefWidth="559.0" text="See the players ......">
@@ -16,17 +15,17 @@
                 <Font size="23.0" />
             </font>
         </Label>
-        <Button fx:id="deleteLobbyButton" layoutX="1489.0" layoutY="964.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="181.0" text="Delete the Lobby" onAction="#moveToMainMenu">
+        <Button fx:id="deleteLobbyButton" layoutX="1489.0" layoutY="964.0" mnemonicParsing="false" onAction="#deleteLobby" prefHeight="51.0" prefWidth="181.0" text="Delete the Lobby">
             <font>
                 <Font size="19.0" />
             </font>
         </Button>
-        <Button fx:id="startGameButton" layoutX="1691.0" layoutY="964.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="181.0" text="Start Game" onAction="#moveToGame">
+        <Button fx:id="startGameButton" layoutX="1691.0" layoutY="964.0" mnemonicParsing="false" onAction="#startGame" prefHeight="51.0" prefWidth="181.0" text="Start Game">
             <font>
                 <Font size="19.0" />
             </font>
         </Button>
-        <Button fx:id="dismissPersonButton" layoutX="1131.0" layoutY="734.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="197.0" text="Dismiss the Person" onAction="#dismissThePerson">
+        <Button fx:id="dismissPersonButton" layoutX="1131.0" layoutY="734.0" mnemonicParsing="false" onAction="#dismissThePerson" prefHeight="43.0" prefWidth="197.0" text="Dismiss the Person">
             <font>
                 <Font size="19.0" />
             </font>
@@ -115,4 +114,3 @@
         </Label>
     </children>
 </AnchorPane>
-

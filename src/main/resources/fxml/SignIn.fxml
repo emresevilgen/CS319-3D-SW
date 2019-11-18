@@ -27,7 +27,7 @@
             <Font size="30.0" />
         </font>
     </Button>
-    <Button fx:id="signUpButton" alignment="CENTER" layoutX="591.0" layoutY="788.0" mnemonicParsing="false" onAction="#moveToSignUp" prefHeight="56.0" prefWidth="724.0" style="-fx-background-color: #b38632;" text="If you don't have an account, please sign up." textFill="WHITE">
+    <Button fx:id="signUpButton" alignment="CENTER" layoutX="591.0" layoutY="788.0" mnemonicParsing="false" onAction="#signUp" prefHeight="56.0" prefWidth="724.0" style="-fx-background-color: #b38632;" text="If you don't have an account, please sign up." textFill="WHITE">
         <font>
             <Font size="30.0" />
         </font>

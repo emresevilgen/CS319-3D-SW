@@ -30,31 +30,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static uiComponents.SceneChanger.moveToMainMenu;
+import static uiComponents.SceneChanger.moveToSignIn;
+
 public class SignUpController {
     public Button signUpButton;
+    public Button backButton;
     public TextField nameField;
     public TextField usernameField;
     public PasswordField passwordField;
 
-    public void moveToMainMenu() {
-        Stage stage;
-        stage = (Stage) signUpButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = null;
-        Parent root = null;
-        try {
-            fileInputStream = new FileInputStream(new File(Constants.MAIN_MENU_FXML));
-            root = loader.load(fileInputStream);
-            if (root != null) {
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void signUp(ActionEvent actionEvent) {
         String name = nameField.getText();
@@ -76,7 +61,7 @@ public class SignUpController {
                         @Override
                         public void run() {
                             if (userGeneralResponse.success)
-                                moveToMainMenu();
+                                moveToMainMenu((Stage) signUpButton.getScene().getWindow());
                             else {
                                 showErrorMessage(userGeneralResponse.message);
 
@@ -123,27 +108,8 @@ public class SignUpController {
         alert.showAndWait();
     }
 
-    public void moveToSignIn(ActionEvent actionEvent) throws IOException {
-        Stage stage;
-        stage = (Stage) signUpButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File(Constants.SIGN_IN_FXML));
-        AnchorPane root = (AnchorPane)loader.load(fileInputStream);
-
-        FileInputStream inputStream = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
-        Image backgroundImage = new Image(inputStream);
-        ImageView backgroundView = (ImageView) root.getChildren().get(0);
-        backgroundView.setImage(backgroundImage);
-
-        inputStream = new FileInputStream(Constants.LOGO_IMAGE);
-        Image logoImage = new Image(inputStream);
-        ImageView logoView = (ImageView) root.getChildren().get(1);
-        logoView.setImage(logoImage);
-
-        Scene scene = new Scene(root);
-        stage.setMaximized(true);
-        stage.setScene(scene);
-        stage.show();
+    public void back(ActionEvent actionEvent) throws IOException {
+        moveToSignIn((Stage)backButton.getScene().getWindow() );
     }
 }
 

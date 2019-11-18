@@ -4,13 +4,12 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TextField?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uiComponents.SettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SettingsController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dde4e8" height="384.0" layoutX="98.0" layoutY="447.0" stroke="BLACK" strokeType="INSIDE" width="574.0" AnchorPane.bottomAnchor="348.0" AnchorPane.leftAnchor="673.0" AnchorPane.rightAnchor="673.0" />
         <TextField fx:id="usernameField" layoutX="922.0" layoutY="466.0" prefHeight="31.0" prefWidth="222.0" />
@@ -34,12 +33,12 @@
                 <Font size="19.0" />
             </font>
         </CheckBox>
-        <Button fx:id="cancelButton" layoutX="1571.0" layoutY="956.0" mnemonicParsing="false" onAction="#moveToMainMenu" prefHeight="59.0" prefWidth="133.0" text="Cancel">
+        <Button fx:id="cancelButton" layoutX="1571.0" layoutY="956.0" mnemonicParsing="false" onAction="#cancel" prefHeight="59.0" prefWidth="133.0" text="Cancel">
             <font>
                 <Font size="19.0" />
             </font>
         </Button>
-        <Button fx:id="saveButton" layoutX="1738.0" layoutY="956.0" mnemonicParsing="false" onAction="#moveToMainMenu" prefHeight="59.0" prefWidth="133.0" text="Save">
+        <Button fx:id="saveButton" layoutX="1738.0" layoutY="956.0" mnemonicParsing="false" onAction="#save" prefHeight="59.0" prefWidth="133.0" text="Save">
             <font>
                 <Font size="19.0" />
             </font>

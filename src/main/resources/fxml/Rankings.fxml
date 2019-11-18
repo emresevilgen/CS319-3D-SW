@@ -7,8 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uiComponents.RankingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.RankingsController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dde4e8" height="594.0" layoutX="542.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="865.0" AnchorPane.bottomAnchor="254.0" AnchorPane.leftAnchor="542.0" AnchorPane.rightAnchor="513.0" AnchorPane.topAnchor="232.0" />
         <Label fx:id="seePlayersLabel" layoutX="889.0" layoutY="264.0" prefHeight="50.0" prefWidth="143.0" text="Rankings">
@@ -16,7 +15,7 @@
                 <Font size="34.0" />
             </font>
         </Label>
-        <Button fx:id="backButton" layoutX="1653.0" layoutY="964.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="197.0" text="Back" onAction="#moveToMainMenu">
+        <Button fx:id="backButton" layoutX="1653.0" layoutY="964.0" mnemonicParsing="false" onAction="#back" prefHeight="51.0" prefWidth="197.0" text="Back">
             <font>
                 <Font size="19.0" />
             </font>

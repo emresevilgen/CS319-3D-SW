@@ -31,7 +31,7 @@
                 <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="backButton" layoutX="764.0" layoutY="742.0" mnemonicParsing="false" onAction="#moveToSignIn" prefHeight="62.0" prefWidth="152.0" style="-fx-background-color: #b38632;" text="Back" textFill="WHITE">
+        <Button fx:id="backButton" layoutX="764.0" layoutY="742.0" mnemonicParsing="false" onAction="#back" prefHeight="62.0" prefWidth="152.0" style="-fx-background-color: #b38632;" text="Back" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
