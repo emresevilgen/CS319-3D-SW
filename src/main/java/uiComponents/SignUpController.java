@@ -20,6 +20,7 @@ import rest.models.GeneralResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,7 +41,7 @@ public class SignUpController {
         FileInputStream fileInputStream = null;
         Parent root = null;
         try {
-            fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"MainMenu.fxml"));
+            fileInputStream = new FileInputStream(new File(Constants.MAIN_MENU_FXML));
             root = loader.load(fileInputStream);
             if (root != null) {
                 Scene scene = new Scene(root);

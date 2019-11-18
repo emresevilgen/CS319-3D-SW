@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,7 +29,7 @@ public class MainMenuController {
         stage = (Stage) createLobbyButton.getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"CreateLobby.fxml"));
+        FileInputStream fileInputStream = new FileInputStream(new File(Constants.CREATE_LOBBY_FXML));
         root = loader.load(fileInputStream);
 
         Scene scene = new Scene(root);
@@ -54,7 +55,7 @@ public class MainMenuController {
 
         stage = (Stage) seeRankingsButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"Rankings.fxml"));
+        FileInputStream fileInputStream = new FileInputStream(new File(Constants.RANKINGS_FXML));
         root = loader.load(fileInputStream);
 
         Scene scene = new Scene(root);
@@ -68,7 +69,7 @@ public class MainMenuController {
 
         stage = (Stage) settingsButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"Settings.fxml"));
+        FileInputStream fileInputStream = new FileInputStream(new File(Constants.SETTINGS));
         root = loader.load(fileInputStream);
 
         Scene scene = new Scene(root);
@@ -82,7 +83,7 @@ public class MainMenuController {
 
         stage = (Stage) creditsButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"Credits.fxml"));
+        FileInputStream fileInputStream = new FileInputStream(new File(Constants.CREDITS_FXML));
         root = loader.load(fileInputStream);
 
         Scene scene = new Scene(root);

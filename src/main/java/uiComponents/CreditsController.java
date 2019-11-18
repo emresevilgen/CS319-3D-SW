@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +20,7 @@ public class CreditsController {
 
         stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = new FileInputStream(new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"fxml"+File.separator+"MainMenu.fxml"));
+        FileInputStream fileInputStream = new FileInputStream(new File(Constants.MAIN_MENU_FXML));
         root = loader.load(fileInputStream);
 
         Scene scene = new Scene(root);

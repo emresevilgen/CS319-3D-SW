@@ -16,17 +16,17 @@
             <Font size="30.0" />
         </font>
     </Button>
-    <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="680.0" layoutY="209.0" prefHeight="158.0" prefWidth="554.0" text="7Wonders" textAlignment="CENTER" textOverrun="CLIP">
+    <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="680.0" layoutY="209.0" prefHeight="158.0" prefWidth="554.0" text="7Wonders" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
         <font>
             <Font name="System Bold" size="96.0" />
         </font>
     </Label>
-    <Label contentDisplay="CENTER" layoutX="676.0" layoutY="481.0" prefHeight="36.0" prefWidth="200.0" text="Username:">
+    <Label contentDisplay="CENTER" layoutX="676.0" layoutY="481.0" prefHeight="36.0" prefWidth="200.0" text="Username:" textFill="WHITE">
         <font>
             <Font size="30.0" />
         </font>
     </Label>
-    <Label contentDisplay="CENTER" layoutX="676.0" layoutY="540.0" text="Password:">
+    <Label contentDisplay="CENTER" layoutX="676.0" layoutY="540.0" text="Password:" textFill="WHITE">
         <font>
             <Font size="30.0" />
         </font>
