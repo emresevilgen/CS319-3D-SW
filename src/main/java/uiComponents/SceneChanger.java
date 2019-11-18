@@ -179,15 +179,15 @@ public class SceneChanger {
 
         try{
             fileInputStream = new FileInputStream(new File(Constants.SETTINGS_FXML));
-            /*backgroundFile = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
-            logoFile = new FileInputStream(Constants.LOGO_IMAGE);*/
+            backgroundFile = new FileInputStream(Constants.SETTINGS_BACK_IMAGE);
+            //logoFile = new FileInputStream(Constants.LOGO_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
-            /*Image backgroundImage = new Image(backgroundFile);
+            Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
 
-            Image logoImage = new Image(logoFile);
+           /* Image logoImage = new Image(logoFile);
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);*/
 
@@ -244,15 +244,15 @@ public class SceneChanger {
             else
                 fileInputStream = new FileInputStream(new File(Constants.SEE_PLAYERS_2_FXML));
 
-/*            backgroundFile = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
-            logoFile = new FileInputStream(Constants.LOGO_IMAGE);*/
+          backgroundFile = new FileInputStream(Constants.SEE_THE_PLAYERS_BACK_IMAGE);
+            //logoFile = new FileInputStream(Constants.LOGO_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
-/*            Image backgroundImage = new Image(backgroundFile);
+           Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
 
-            Image logoImage = new Image(logoFile);
+           /* Image logoImage = new Image(logoFile);
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);*/
 
