@@ -22,7 +22,7 @@ public class Constants {
     public static final String LOGO_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "logo.png");
     public static final String BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "bg.png");
     public static final String GAME_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "gameBackground.jpg");
-
+    public static final String RANKINGS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "background_oliympos.jpg");
 
 
 }
