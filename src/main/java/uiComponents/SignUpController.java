@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.User;
 import rest.ApiClient;
@@ -24,6 +25,7 @@ import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -121,5 +123,27 @@ public class SignUpController {
         alert.showAndWait();
     }
 
+    public void moveToSignIn(ActionEvent actionEvent) throws IOException {
+        Stage stage;
+        stage = (Stage) signUpButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = new FileInputStream(new File(Constants.SIGN_IN_FXML));
+        AnchorPane root = (AnchorPane)loader.load(fileInputStream);
+
+        FileInputStream inputStream = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
+        Image backgroundImage = new Image(inputStream);
+        ImageView backgroundView = (ImageView) root.getChildren().get(0);
+        backgroundView.setImage(backgroundImage);
+
+        inputStream = new FileInputStream(Constants.LOGO_IMAGE);
+        Image logoImage = new Image(inputStream);
+        ImageView logoView = (ImageView) root.getChildren().get(1);
+        logoView.setImage(logoImage);
+
+        Scene scene = new Scene(root);
+        stage.setMaximized(true);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
 
