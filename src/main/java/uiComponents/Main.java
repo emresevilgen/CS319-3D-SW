@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 
 import java.io.File;
 
+import static uiComponents.SceneChanger.moveToCreateLobby;
 import static uiComponents.SceneChanger.moveToSignIn;
 
 public class Main extends Application {
@@ -24,6 +25,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         moveToSignIn(primaryStage);
+        //moveToCreateLobby(primaryStage);
 
     }
 

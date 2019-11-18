@@ -9,7 +9,7 @@
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SignInController">
 <children>
-      <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
+      <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
     <ImageView fx:id="logoView" fitHeight="260.0" fitWidth="800.0" layoutX="560.0" layoutY="148.0" pickOnBounds="true" />
       <TextField fx:id="usernameField" layoutX="757.0" layoutY="462.0" prefHeight="56.0" prefWidth="392.0" promptText="Username" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
          <font>

@@ -1,60 +1,35 @@
 package models;
 
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Arrays;
+
 public class Game {
-    int turnNumber;
-    int ageNumber;
-    String gameId;
-    User[] users;
-    Player[] players;
-    int playerCount; //yeni ekledim
-    public Game()
-    {
-        //playerCount= ;
-        turnNumber = 1;
-        ageNumber = 1;
-        //gameId = ;
-        users = new User[playerCount];
-        players = new Player[playerCount];
+    @SerializedName("turnNumber")
+    public int turnNumber;
+
+    @SerializedName("ageNumber")
+    public int ageNumber;
+
+    @SerializedName("gameId")
+    public String gameId;
+
+    @SerializedName("users")
+    public User[] users;
+
+    @SerializedName("players")
+    public Player[] players;
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "turnNumber=" + turnNumber +
+                ", ageNumber=" + ageNumber +
+                ", gameId='" + gameId + '\'' +
+                ", users=" + Arrays.toString(users) +
+                ", players=" + Arrays.toString(players) +
+                '}';
     }
 
-    public int getTurnNumber() {
-        return turnNumber;
-    }
-
-    public void setTurnNumber(int turnNumber) {
-        this.turnNumber = turnNumber;
-    }
-
-    public int getAgeNumber() {
-        return ageNumber;
-    }
-
-    public void setAgeNumber(int ageNumber) {
-        this.ageNumber = ageNumber;
-    }
-
-    public String getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
-
-    public User[] getUsers() {
-        return users;
-    }
-
-    public void setUsers(User[] users) {
-        this.users = users;
-    }
-
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Player[] players) {
-        this.players = players;
-    }
 }

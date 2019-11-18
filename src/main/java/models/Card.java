@@ -1,51 +1,29 @@
 package models;
 
 
-import javafx.scene.paint.Color;
+import com.google.gson.annotations.SerializedName;
 
 public class Card {
-    String cardDescription;
-    Color cardColor;
-    String cardId;
-    String cardName;
+    @SerializedName("cardDescription")
+    public String cardDescription;
 
-    public Card()
-    {
-        //cardDescription = ;
-        //cardColor = ;
-        //cardId = ;
-        //cardName = ;
+    @SerializedName("cardColor")
+    public String cardColor;
+
+    @SerializedName("cardId")
+    public String cardId;
+
+    @SerializedName("cardName")
+    public String cardName;
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "cardDescription='" + cardDescription + '\'' +
+                ", cardColor='" + cardColor + '\'' +
+                ", cardId='" + cardId + '\'' +
+                ", cardName='" + cardName + '\'' +
+                '}';
     }
 
-    public String getCardDescription() {
-        return cardDescription;
-    }
-
-    public void setCardDescription(String cardDescription) {
-        this.cardDescription = cardDescription;
-    }
-
-    public Color getCardColor() {
-        return cardColor;
-    }
-
-    public void setCardColor(Color cardColor) {
-        this.cardColor = cardColor;
-    }
-
-    public String getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
-    }
-
-    public String getCardName() {
-        return cardName;
-    }
-
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
-    }
 }
