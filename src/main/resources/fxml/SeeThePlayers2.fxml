@@ -9,6 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayers2Controller">
     <children>
+      <ImageView fx:id="backgroundView" fitHeight="1087.0" fitWidth="1928.0" pickOnBounds="true" />
         <Button fx:id="leaveButton" layoutX="1073.0" layoutY="675.0" mnemonicParsing="false" onAction="#leave" prefHeight="65.0" prefWidth="263.0" style="-fx-background-color: #b38632;" text="Leave the Lobby" textFill="WHITE">
             <font>
                 <Font size="30.0" />
@@ -108,6 +109,5 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <ImageView fitHeight="1087.0" fitWidth="1928.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
