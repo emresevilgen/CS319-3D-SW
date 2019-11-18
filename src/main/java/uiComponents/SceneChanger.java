@@ -117,7 +117,7 @@ public class SceneChanger {
 
         try{
             fileInputStream = new FileInputStream(new File(Constants.CREATE_LOBBY_FXML));
-            backgroundFile = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
+            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
             backFile = new FileInputStream(Constants.BACK_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 

@@ -27,6 +27,7 @@ public class Constants {
     public static final String SETTINGS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "background_halikarnas.jpg");
     public static final String SEE_THE_PLAYERS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "background_pyramid.jpg");
     public static final String CREDITS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "background_credits.png");
+    public static final String CREATE_LOBBY_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "background_rhodos.jpg");
 
     // Sounds
     public static final String MENU_SOUND = String.join(File.separator, "src", "main", "resources", "sounds", "menu.mp3");

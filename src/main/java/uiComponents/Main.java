@@ -24,6 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        playMusic();
         moveToSignIn(primaryStage);
         //moveToCreateLobby(primaryStage);
         settings = new Settings();
@@ -31,8 +32,11 @@ public class Main extends Application {
 
 
     }
-
-
+    public void playMusic(){
+        Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
 
     public static void main(String[] args) {
         launch(args);
