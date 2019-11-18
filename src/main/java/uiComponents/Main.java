@@ -2,9 +2,8 @@ package uiComponents;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import models.Game;
-import models.Settings;
-import models.User;
+import models.*;
+
 
 import static uiComponents.SceneChanger.*;
 
@@ -20,11 +19,11 @@ public class Main extends Application {
         settings = new Settings();
         moveToGame(primaryStage);
 
-
     }
 
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }
