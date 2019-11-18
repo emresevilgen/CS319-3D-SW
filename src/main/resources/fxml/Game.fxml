@@ -3,9 +3,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameController">
     <children>
-      <ImageView fx:id="backgroundView" fitHeight="1090.0" fitWidth="1929.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="backgroundView" fitHeight="1090.0" fitWidth="1929.0" pickOnBounds="true" />
         <ImageView fx:id="card14" fitHeight="213.0" fitWidth="138.0" layoutX="1185.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="card11" fitHeight="213.0" fitWidth="138.0" layoutX="889.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="card3" fitHeight="213.0" fitWidth="138.0" layoutX="607.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />

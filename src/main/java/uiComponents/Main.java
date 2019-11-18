@@ -36,7 +36,6 @@ public class Main extends Application {
         Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
-
         mediaPlayer.play();
     }
 
