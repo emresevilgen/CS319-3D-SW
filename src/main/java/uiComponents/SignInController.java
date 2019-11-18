@@ -32,9 +32,13 @@ import java.util.ResourceBundle;
 
 public class SignInController implements Initializable{
 
+    @FXML
     public Button signUpButton;
+    @FXML
     public Button signInButton;
+    @FXML
     public TextField usernameField;
+    @FXML
     public PasswordField passwordField;
     @FXML
     private ImageView imageView;

@@ -19,6 +19,10 @@ public class Constants {
 
     // Images
     public static final String MAIN_BACKGROUND_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "newbg.png");
+    public static final String LOGO_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "logo.png");
+    public static final String BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "bg.png");
+
+
 
 
 }

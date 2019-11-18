@@ -26,13 +26,18 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = new FileInputStream(new File(Constants.SIGN_IN_FXML));
         AnchorPane root = (AnchorPane)loader.load(fileInputStream);
+
         FileInputStream inputStream = new FileInputStream(Constants.MAIN_BACKGROUND_IMAGE);
-        Image image = new Image(inputStream);
+        Image backgroundImage = new Image(inputStream);
+        ImageView backgroundView = (ImageView) root.getChildren().get(0);
+        backgroundView.setImage(backgroundImage);
 
-        ImageView imageView = (ImageView) root.getChildren().get(0);
-        imageView.setImage(image);
+        inputStream = new FileInputStream(Constants.LOGO_IMAGE);
+        Image logoImage = new Image(inputStream);
+        ImageView logoView = (ImageView) root.getChildren().get(1);
+        logoView.setImage(logoImage);
+
         Scene scene = new Scene(root);
-
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
