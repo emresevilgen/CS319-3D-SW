@@ -39,7 +39,7 @@ public class SeeThePlayersController {
 
     public void dismissThePerson(ActionEvent event) throws Exception {
         // servera dismiss data gönder
-        moveToMainMenu((Stage)dismissPersonButton.getScene().getWindow());
+        //moveToMainMenu((Stage)dismissPersonButton.getScene().getWindow());
     }
 
     public void deleteLobby(ActionEvent event) throws Exception {

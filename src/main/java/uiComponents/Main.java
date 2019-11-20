@@ -28,7 +28,7 @@ public class Main extends Application {
         moveToSignIn(primaryStage);
         //moveToCreateLobby(primaryStage);
         settings = new Settings();
-       // moveToGame(primaryStage);
+        //moveToGame(primaryStage);
 
 
     }

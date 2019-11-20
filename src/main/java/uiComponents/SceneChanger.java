@@ -270,6 +270,7 @@ public class SceneChanger {
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
         FileInputStream backgroundFile = null;
+
         AnchorPane root = null;
 
         try{
@@ -280,6 +281,7 @@ public class SceneChanger {
             Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
+
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
