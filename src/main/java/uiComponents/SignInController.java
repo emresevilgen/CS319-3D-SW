@@ -45,10 +45,14 @@ public class SignInController implements Initializable{
     @FXML
     public Button signInButton;
     @FXML
+    public Button exitButton;
+    @FXML
     public TextField usernameField;
     @FXML
     public PasswordField passwordField;
 
+    private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
+    private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
 
     public void signUp(ActionEvent event) throws Exception {
         moveToSignUp((Stage) signUpButton.getScene().getWindow());
@@ -122,8 +126,16 @@ public class SignInController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        signInButton.setOnMouseEntered(e -> signInButton.setStyle(HOVERED_BUTTON_STYLE));
+        signInButton.setOnMouseExited(e -> signInButton.setStyle(IDLE_BUTTON_STYLE));
+        signUpButton.setOnMouseEntered(e -> signUpButton.setStyle(HOVERED_BUTTON_STYLE));
+        signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
+        exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
+        exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
     }
 
 
+    public void exit(ActionEvent actionEvent) {
+        SceneChanger.exit((Stage)exitButton.getScene().getWindow());
+    }
 }

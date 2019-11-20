@@ -1,7 +1,9 @@
 package uiComponents;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,17 +18,29 @@ import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import static uiComponents.SceneChanger.*;
 
-public class MainMenuController {
+public class MainMenuController implements Initializable {
 
+    @FXML
      public Button createLobbyButton;
-     public Button joinLobbyButton;
-     public Button seeRankingsButton;
-     public Button settingsButton;
-     public Button creditsButton;
+    @FXML
+    public Button joinLobbyButton;
+    @FXML
+    public Button seeRankingsButton;
+    @FXML
+    public Button settingsButton;
+    @FXML
+    public Button creditsButton;
+    @FXML
+    public Button exitButton;
+
+    private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
+    private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
 
     public void createLobby(ActionEvent event) throws Exception {
         moveToCreateLobby((Stage)createLobbyButton.getScene().getWindow());
@@ -62,7 +76,22 @@ public class MainMenuController {
     }
 
     public void exit(ActionEvent event) throws Exception {
-        System.exit(0);
+        SceneChanger.exit((Stage)exitButton.getScene().getWindow());
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        createLobbyButton.setOnMouseEntered(e -> createLobbyButton.setStyle(HOVERED_BUTTON_STYLE));
+        createLobbyButton.setOnMouseExited(e -> createLobbyButton.setStyle(IDLE_BUTTON_STYLE));
+        joinLobbyButton.setOnMouseEntered(e -> joinLobbyButton.setStyle(HOVERED_BUTTON_STYLE));
+        joinLobbyButton.setOnMouseExited(e -> joinLobbyButton.setStyle(IDLE_BUTTON_STYLE));
+        seeRankingsButton.setOnMouseEntered(e -> seeRankingsButton.setStyle(HOVERED_BUTTON_STYLE));
+        seeRankingsButton.setOnMouseExited(e -> seeRankingsButton.setStyle(IDLE_BUTTON_STYLE));
+        settingsButton.setOnMouseEntered(e -> settingsButton.setStyle(HOVERED_BUTTON_STYLE));
+        settingsButton.setOnMouseExited(e -> settingsButton.setStyle(IDLE_BUTTON_STYLE));
+        creditsButton.setOnMouseEntered(e -> creditsButton.setStyle(HOVERED_BUTTON_STYLE));
+        creditsButton.setOnMouseExited(e -> creditsButton.setStyle(IDLE_BUTTON_STYLE));
+        exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
+        exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
+    }
 }

@@ -280,5 +280,9 @@ public class SceneChanger {
             e.printStackTrace();
         }
     }
+
+    public static void exit(Stage stage){
+        System.exit(0);
+    }
 }
 

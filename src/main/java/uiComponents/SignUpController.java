@@ -33,13 +33,15 @@ import java.util.ResourceBundle;
 import static uiComponents.SceneChanger.moveToMainMenu;
 import static uiComponents.SceneChanger.moveToSignIn;
 
-public class SignUpController {
+public class SignUpController implements Initializable{
     public Button signUpButton;
     public Button backButton;
     public TextField nameField;
     public TextField usernameField;
     public PasswordField passwordField;
 
+    private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
+    private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
 
     public void signUp(ActionEvent actionEvent) {
         String name = nameField.getText();
@@ -110,6 +112,14 @@ public class SignUpController {
 
     public void back(ActionEvent actionEvent) throws IOException {
         moveToSignIn((Stage)backButton.getScene().getWindow() );
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        backButton.setOnMouseEntered(e -> backButton.setStyle(HOVERED_BUTTON_STYLE));
+        backButton.setOnMouseExited(e -> backButton.setStyle(IDLE_BUTTON_STYLE));
+        signUpButton.setOnMouseEntered(e -> signUpButton.setStyle(HOVERED_BUTTON_STYLE));
+        signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
     }
 }
 
