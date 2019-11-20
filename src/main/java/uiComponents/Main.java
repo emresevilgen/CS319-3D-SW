@@ -31,13 +31,17 @@ public class Main extends Application {
         AnchorPane root = new AnchorPane();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.setFullScreenExitHint(null);
-        moveToSignIn(primaryStage);
-        //moveToCreateLobby(primaryStage);
         settings = new Settings();
+
+
+        //moveToSignIn(primaryStage);
+        //moveToCreateLobby(primaryStage);
         //moveToGame(primaryStage);
+        //moveToCredits(primaryStage);
+        moveToSettings(primaryStage);
 
 
     }
