@@ -34,8 +34,7 @@ public class SceneChanger {
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
 
         } catch (IOException e) {
@@ -65,8 +64,7 @@ public class SceneChanger {
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
 
         } catch (IOException e) {
@@ -97,8 +95,7 @@ public class SceneChanger {
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
 
         } catch (IOException e) {
@@ -129,8 +126,7 @@ public class SceneChanger {
             ImageView backImageView = (ImageView) root.getChildren().get(1);
             backImageView.setImage(backImage);
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
 
         } catch (IOException e) {
@@ -160,8 +156,7 @@ public class SceneChanger {
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);*/
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
 
         } catch (IOException e) {
@@ -191,10 +186,8 @@ public class SceneChanger {
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);*/
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -222,8 +215,7 @@ public class SceneChanger {
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);*/
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
 
         } catch (IOException e) {
@@ -256,8 +248,7 @@ public class SceneChanger {
             ImageView logoView = (ImageView) root.getChildren().get(1);
             logoView.setImage(logoImage);*/
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
 
         } catch (IOException e) {
@@ -266,7 +257,6 @@ public class SceneChanger {
 
     }
     public static void moveToGame(Stage stage) {
-
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
         FileInputStream backgroundFile = null;
@@ -283,8 +273,7 @@ public class SceneChanger {
             backgroundView.setImage(backgroundImage);
 
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.getScene().setRoot(root);
             stage.show();
 
         } catch (IOException e) {

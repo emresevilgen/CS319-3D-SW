@@ -61,4 +61,8 @@ public class MainMenuController {
 
     }
 
+    public void exit(ActionEvent event) throws Exception {
+        System.exit(0);
+    }
+
 }

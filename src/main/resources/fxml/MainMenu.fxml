@@ -35,5 +35,10 @@
                 <Font size="27.0" />
             </font>
         </Button>
+      <Button fx:id="exitButton" layoutX="767.0" layoutY="925.0" mnemonicParsing="false" onAction="#exit" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Exit" textFill="WHITE">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

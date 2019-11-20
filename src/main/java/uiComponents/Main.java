@@ -2,6 +2,8 @@ package uiComponents;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -25,6 +27,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         playMusic();
+        AnchorPane root = new AnchorPane();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setFullScreen(true);
         moveToSignIn(primaryStage);
         //moveToCreateLobby(primaryStage);
         settings = new Settings();
