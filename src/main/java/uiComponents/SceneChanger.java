@@ -1,7 +1,6 @@
 package uiComponents;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -114,8 +113,8 @@ public class SceneChanger {
 
         try{
             fileInputStream = new FileInputStream(new File(Constants.CREATE_LOBBY_FXML));
-            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
-            backFile = new FileInputStream(Constants.BACK_IMAGE);
+            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACKGROUND_IMAGE);
+            backFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
             Image backgroundImage = new Image(backgroundFile);
@@ -123,8 +122,8 @@ public class SceneChanger {
             backgroundView.setImage(backgroundImage);
 
             Image backImage = new Image(backFile);
-            ImageView backImageView = (ImageView) root.getChildren().get(1);
-            backImageView.setImage(backImage);
+            ImageView backView = (ImageView) root.getChildren().get(1);
+            backView.setImage(backImage);
 
             stage.getScene().setRoot(root);
             stage.show();
@@ -134,27 +133,28 @@ public class SceneChanger {
         }
     }
 
+
     public static void moveToRankings(Stage stage) {
 
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
         FileInputStream backgroundFile = null;
-        FileInputStream logoFile = null;
+        FileInputStream backFile = null;
         AnchorPane root = null;
 
         try{
             fileInputStream = new FileInputStream(new File(Constants.RANKINGS_FXML));
-            backgroundFile = new FileInputStream(Constants.RANKINGS_BACK_IMAGE);
-            //logoFile = new FileInputStream(Constants.LOGO_IMAGE);
+            backgroundFile = new FileInputStream(Constants.RANKINGS_BACKGROUND_IMAGE);
+            backFile = new FileInputStream(Constants.RANKINGS_BACK_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
             Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
 
-           /* Image logoImage = new Image(logoFile);
-            ImageView logoView = (ImageView) root.getChildren().get(1);
-            logoView.setImage(logoImage);*/
+            Image backImage = new Image(backFile);
+            ImageView backView = (ImageView) root.getChildren().get(1);
+            backView.setImage(backImage);
 
             stage.getScene().setRoot(root);
             stage.show();
@@ -174,17 +174,12 @@ public class SceneChanger {
 
         try{
             fileInputStream = new FileInputStream(new File(Constants.SETTINGS_FXML));
-            backgroundFile = new FileInputStream(Constants.SETTINGS_BACK_IMAGE);
-            //logoFile = new FileInputStream(Constants.LOGO_IMAGE);
+            backgroundFile = new FileInputStream(Constants.SETTINGS_BACKGROUND_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
             Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
-
-           /* Image logoImage = new Image(logoFile);
-            ImageView logoView = (ImageView) root.getChildren().get(1);
-            logoView.setImage(logoImage);*/
 
             stage.getScene().setRoot(root);
             stage.show();
@@ -203,17 +198,12 @@ public class SceneChanger {
 
         try{
             fileInputStream = new FileInputStream(new File(Constants.CREDITS_FXML));
-            backgroundFile = new FileInputStream(Constants.CREDITS_BACK_IMAGE);
-            //logoFile = new FileInputStream(Constants.LOGO_IMAGE);
+            backgroundFile = new FileInputStream(Constants.CREDITS_BACKGROUND_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
             Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
-
-            /*Image logoImage = new Image(logoFile);
-            ImageView logoView = (ImageView) root.getChildren().get(1);
-            logoView.setImage(logoImage);*/
 
             stage.getScene().setRoot(root);
             stage.show();
@@ -227,7 +217,7 @@ public class SceneChanger {
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
         FileInputStream backgroundFile = null;
-        FileInputStream logoFile = null;
+        FileInputStream backFile = null;
         AnchorPane root = null;
 
         try{
@@ -236,17 +226,17 @@ public class SceneChanger {
             else
                 fileInputStream = new FileInputStream(new File(Constants.SEE_PLAYERS_2_FXML));
 
-          backgroundFile = new FileInputStream(Constants.SEE_THE_PLAYERS_BACK_IMAGE);
-            //logoFile = new FileInputStream(Constants.LOGO_IMAGE);
+            backgroundFile = new FileInputStream(Constants.SEE_THE_PLAYERS_BACKGROUND_IMAGE);
+            backFile = new FileInputStream(Constants.SEE_THE_PLAYERS_BACK_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
-           Image backgroundImage = new Image(backgroundFile);
+            Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
 
-           /* Image logoImage = new Image(logoFile);
-            ImageView logoView = (ImageView) root.getChildren().get(1);
-            logoView.setImage(logoImage);*/
+            Image backImage = new Image(backFile);
+            //ImageView backView = (ImageView) root.getChildren().get(1);
+            //backView.setImage(backImage);
 
             stage.getScene().setRoot(root);
             stage.show();
@@ -265,7 +255,7 @@ public class SceneChanger {
 
         try{
             fileInputStream = new FileInputStream(new File(Constants.GAME_FXML));
-            backgroundFile = new FileInputStream(Constants.GAME_BACK_IMAGE);
+            backgroundFile = new FileInputStream(Constants.GAME_BACKGROUND_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
             Image backgroundImage = new Image(backgroundFile);

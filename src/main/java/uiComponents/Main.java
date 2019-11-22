@@ -22,6 +22,7 @@ public class Main extends Application {
     public static User user = null;
     public static Settings settings = null;
     public static Game game = null;
+    public static Lobby lobby = null;
     public static MediaPlayer mediaPlayer = null;
 
 
@@ -37,12 +38,16 @@ public class Main extends Application {
         settings = new Settings();
 
 
-        //moveToSignIn(primaryStage);
         //moveToCreateLobby(primaryStage);
-        //moveToGame(primaryStage);
         //moveToCredits(primaryStage);
-        moveToSettings(primaryStage);
-
+        //moveToGame(primaryStage);
+        //moveToMainMenu(primaryStage);
+        //moveToRankings(primaryStage);
+        moveToSeeThePlayers(primaryStage, false);
+        //moveToSeeThePlayers(primaryStage, false);
+        //moveToSettings(primaryStage);
+        //moveToSignIn(primaryStage);
+        //moveToSignUp(primaryStage);
 
     }
     public void playMusic(){

@@ -30,10 +30,8 @@ import static uiComponents.SceneChanger.moveToMainMenu;
 public class GameController implements Initializable {
     @FXML
     ImageView audioDescriptionView;
-
     @FXML
     ImageView soundEffectsView;
-
     @FXML
     ImageView exitView;
 
@@ -220,8 +218,9 @@ public class GameController implements Initializable {
         alert.setContentText("Do you want to exit the current game?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.YES){
             moveToMainMenu((Stage)exitView.getScene().getWindow());
+            timeLine.stop();
         } else {
             alert.close();
         }

@@ -4,14 +4,12 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static uiComponents.SceneChanger.moveToMainMenu;
@@ -40,7 +38,31 @@ public class SettingsController implements Initializable {
         Main.settings.setAudioDescription(audioDescriptionCheckBox.isSelected());
         String username = usernameField.getText();
         String password = passwordField.getText();
-        moveToMainMenu((Stage)saveButton.getScene().getWindow());
+
+        if (!username.equals("") || !password.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Save Settings");
+            alert.setHeaderText(null);
+            alert.setGraphic(null);
+
+            if (!username.equals("") && !password.equals("")) {
+                alert.setContentText("Do you want to change your username and password?");
+            } else if (username.equals("")) {
+                alert.setContentText("Do you want to change your password?");
+            } else {
+                alert.setContentText("Do you want to change your username?");
+            }
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.YES){
+
+                // Send a request to the server and if get the success update the main.user then return to the main menu
+
+                moveToMainMenu((Stage)saveButton.getScene().getWindow());
+            } else {
+                alert.close();
+            }
+        }
     }
 
     public void cancel(ActionEvent event) throws Exception {
@@ -49,6 +71,7 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        usernameField.setText(Main.user.userName);
         cancelButton.setOnMouseEntered(e -> cancelButton.setStyle(HOVERED_BUTTON_STYLE));
         cancelButton.setOnMouseExited(e -> cancelButton.setStyle(IDLE_BUTTON_STYLE));
         saveButton.setOnMouseEntered(e -> saveButton.setStyle(HOVERED_BUTTON_STYLE));

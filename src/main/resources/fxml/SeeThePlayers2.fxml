@@ -7,107 +7,79 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayers2Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayers2Controller">
     <children>
       <ImageView fx:id="backgroundView" fitHeight="1087.0" fitWidth="1928.0" pickOnBounds="true" />
-        <Button fx:id="leaveButton" layoutX="1073.0" layoutY="675.0" mnemonicParsing="false" onAction="#leave" prefHeight="65.0" prefWidth="263.0" style="-fx-background-color: #b38632;" text="Leave the Lobby" textFill="WHITE">
+        <ImageView fitHeight="387.0" fitWidth="784.0" layoutX="568.0" layoutY="244.0" pickOnBounds="true" />
+
+        <Button fx:id="leaveButton" layoutX="766.0" layoutY="631.0" mnemonicParsing="false" onAction="#leave" prefHeight="65.0" prefWidth="263.0" style="-fx-background-color: #817277;" text="Leave the Lobby" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="readyButton" layoutX="1072.0" layoutY="580.0" mnemonicParsing="false" onAction="#beReady" prefHeight="65.0" prefWidth="263.0" style="-fx-background-color: #b38632;" text="Ready" textFill="WHITE">
+        <Button fx:id="readyButton" layoutX="1045.0" layoutY="631.0" mnemonicParsing="false" onAction="#beReady" prefHeight="65.0" prefWidth="263.0" style="-fx-background-color: #817277;" text="Ready" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Button>
-        <Label layoutX="648.0" layoutY="226.0" prefHeight="45.0" prefWidth="52.0" text="No" textFill="WHITE">
+        <Label layoutX="733.0" layoutY="316.0" prefHeight="30.0" prefWidth="86.0" text="Name" textFill="WHITE">
             <font>
-                <Font size="30.0" />
+                <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="818.0" layoutY="226.0" prefHeight="30.0" prefWidth="86.0" text="Name" textFill="WHITE">
+        <Label layoutX="1033.0" layoutY="316.0" prefHeight="30.0" prefWidth="97.0" text="State" textFill="WHITE">
             <font>
-                <Font size="30.0" />
+                <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="1130.0" layoutY="226.0" prefHeight="30.0" prefWidth="97.0" text="State" textFill="WHITE">
+        <Line endX="609.0" layoutX="703.0" layoutY="356.0" startX="-100.0" stroke="WHITE" />
+        <Line endX="609.0" layoutX="703.0" layoutY="421.0" startX="-100.0" stroke="WHITE" />
+        <Line endX="609.0" layoutX="703.0" layoutY="481.0" startX="-100.0" stroke="WHITE" />
+        <Line endX="609.0" layoutX="703.0" layoutY="541.0" startX="-100.0" stroke="WHITE" />
+        <Label layoutX="733.0" layoutY="376.0" prefHeight="30.0" prefWidth="97.0" text="You" textFill="WHITE">
             <font>
-                <Font size="30.0" />
+                <Font size="25.0" />
             </font>
         </Label>
-        <Line endX="609.0" layoutX="718.0" layoutY="277.0" startX="-100.0" stroke="WHITE" />
-        <Line endX="609.0" layoutX="718.0" layoutY="342.0" startX="-100.0" stroke="WHITE" />
-        <Line endX="609.0" layoutX="718.0" layoutY="410.0" startX="-100.0" stroke="WHITE" />
-        <Line endX="609.0" layoutX="718.0" layoutY="474.0" startX="-100.0" stroke="WHITE" />
-        <Label layoutX="659.0" layoutY="295.0" text="1" textFill="WHITE">
+        <Label layoutX="1033.0" layoutY="375.0" text="Waiting for Others" textFill="WHITE">
             <font>
-                <Font size="30.0" />
+                <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="659.0" layoutY="356.0" text="2" textFill="WHITE">
+        <Label fx:id="secondNameLabel" layoutX="733.0" layoutY="436.0" prefHeight="30.0" prefWidth="143.0" text="Esra" textFill="WHITE">
             <font>
-                <Font size="30.0" />
+                <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="659.0" layoutY="424.0" text="3" textFill="WHITE">
+        <Label fx:id="thirdNameLabel" layoutX="733.0" layoutY="496.0" prefHeight="30.0" prefWidth="143.0" text="Nur" textFill="WHITE">
             <font>
-                <Font size="30.0" />
+                <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="659.0" layoutY="490.0" text="4" textFill="WHITE">
+        <Label fx:id="fourthNameLabel" layoutX="733.0" layoutY="556.0" prefHeight="30.0" prefWidth="143.0" text="Deniz" textFill="WHITE">
             <font>
-                <Font size="30.0" />
+                <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="830.0" layoutY="434.0">
-            <font>
-                <Font size="23.0" />
-            </font>
-        </Label>
-        <Label fx:id="secondNameLabel" layoutX="782.0" layoutY="356.0" prefHeight="45.0" prefWidth="133.0">
+        <Label fx:id="secondStateLabel" layoutX="1033.0" layoutY="436.0" prefHeight="30.0" prefWidth="143.0">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Label fx:id="thirdNameLabel" layoutX="790.0" layoutY="290.0" prefHeight="34.0" prefWidth="143.0">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label fx:id="fourthNameLabel" layoutX="791.0" layoutY="424.0" prefHeight="34.0" prefWidth="143.0">
+        <Label fx:id="thirdStateLabel" layoutX="1033.0" layoutY="496.0" prefHeight="30.0" prefWidth="143.0">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Label fx:id="thirdStateLabel" layoutX="1099.0" layoutY="290.0" prefHeight="34.0" prefWidth="143.0">
+        <Label fx:id="fourthStateLabel" layoutX="1033.0" layoutY="556.0" prefHeight="30.0" prefWidth="143.0">
+            <font>
+                <Font size="23.0" />
+            </font>
+        </Label>
+        <Label layoutX="603.0" layoutY="260.0" prefHeight="36.0" prefWidth="325.0" text="People in the Lobby:" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
-        <Label fx:id="fourthStateLabel" layoutX="1107.0" layoutY="356.0" prefHeight="34.0" prefWidth="143.0">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label fx:id="firstNameLabel" layoutX="772.0" layoutY="424.0" prefHeight="34.0" prefWidth="143.0">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-      <Label fx:id="firstNameLabel1" layoutX="772.0" layoutY="490.0" prefHeight="34.0" prefWidth="143.0">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="fourthStateLabel1" layoutX="1107.0" layoutY="419.0" prefHeight="34.0" prefWidth="143.0">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="fourthStateLabel11" layoutX="1107.0" layoutY="490.0" prefHeight="34.0" prefWidth="143.0">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
     </children>
 </AnchorPane>
