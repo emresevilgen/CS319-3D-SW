@@ -29,6 +29,8 @@ import static uiComponents.SceneChanger.moveToMainMenu;
 
 public class GameController implements Initializable {
     @FXML
+    public ImageView focus;
+    @FXML
     ImageView audioDescriptionView;
     @FXML
     ImageView soundEffectsView;
@@ -216,13 +218,30 @@ public class GameController implements Initializable {
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("Do you want to exit the current game?");
+        ButtonType buttontypeYes = new ButtonType("Yes");
+        ButtonType buttontypeNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(buttontypeNo, buttontypeYes);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.YES){
+        if (result.get() == buttontypeYes){
             moveToMainMenu((Stage)exitView.getScene().getWindow());
             timeLine.stop();
         } else {
             alert.close();
         }
+    }
+
+    public void focusIntoCard(MouseEvent mouseEvent) {
+        ImageView current = (ImageView) mouseEvent.getSource();
+        focus.setX(current.getX());
+        focus.setY(current.getY());
+        focus.setLayoutX(current.getLayoutX());
+        focus.setLayoutY(current.getLayoutY());
+        focus.setImage(current.getImage());
+    }
+
+    public void focusOut(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource().equals(focus))
+            focus.setImage(null);
     }
 }

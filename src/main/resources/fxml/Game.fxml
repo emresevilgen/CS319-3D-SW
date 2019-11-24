@@ -3,7 +3,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameController">
     <children>
       <ImageView fx:id="backgroundView" fitHeight="1090.0" fitWidth="1929.0" pickOnBounds="true" />
         <ImageView fx:id="card14" fitHeight="213.0" fitWidth="138.0" layoutX="1185.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />
@@ -19,25 +19,26 @@
         <ImageView fx:id="deck5" fitHeight="213.0" fitWidth="138.0" layoutX="1070.0" layoutY="317.0" pickOnBounds="true" AnchorPane.topAnchor="317.0" />
         <ImageView fx:id="deck6" fitHeight="213.0" fitWidth="138.0" layoutX="1247.0" layoutY="449.0" pickOnBounds="true" AnchorPane.topAnchor="317.0" />
         <ImageView fx:id="deck7" fitHeight="213.0" fitWidth="138.0" layoutX="1423.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="317.0" />
-        <ImageView fx:id="card2" fitHeight="213.0" fitWidth="138.0" layoutX="643.0" layoutY="681.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card1" fitHeight="213.0" fitWidth="138.0" layoutX="675.0" layoutY="733.0" pickOnBounds="true" />
-        <ImageView fx:id="card10" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="681.0" pickOnBounds="true" />
-        <ImageView fx:id="card9" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="733.0" pickOnBounds="true" />
-        <ImageView fx:id="card13" fitHeight="213.0" fitWidth="138.0" layoutX="1147.0" layoutY="681.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card12" fitHeight="213.0" fitWidth="138.0" layoutX="1109.0" layoutY="734.0" pickOnBounds="true" />
-        <ImageView fx:id="playerBoard" fitHeight="225.0" fitWidth="510.0" layoutX="705.0" layoutY="787.0" pickOnBounds="true" AnchorPane.bottomAnchor="68.0" />
-        <ImageView fx:id="card8" fitHeight="213.0" fitWidth="138.0" layoutX="308.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card7" fitHeight="213.0" fitWidth="138.0" layoutX="346.0" layoutY="683.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card6" fitHeight="213.0" fitWidth="138.0" layoutX="384.0" layoutY="735.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card5" fitHeight="213.0" fitWidth="138.0" layoutX="422.0" layoutY="788.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card4" fitHeight="213.0" fitWidth="138.0" layoutX="460.0" layoutY="841.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card19" fitHeight="213.0" fitWidth="138.0" layoutX="1490.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card18" fitHeight="213.0" fitWidth="138.0" layoutX="1452.0" layoutY="682.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card17" fitHeight="213.0" fitWidth="138.0" layoutX="1414.0" layoutY="735.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card16" fitHeight="213.0" fitWidth="138.0" layoutX="1376.0" layoutY="788.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card15" fitHeight="213.0" fitWidth="138.0" layoutX="1338.0" layoutY="841.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card2" fitHeight="213.0" fitWidth="138.0" layoutX="643.0" layoutY="681.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card1" fitHeight="213.0" fitWidth="138.0" layoutX="675.0" layoutY="733.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" />
+        <ImageView fx:id="card10" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="681.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" />
+        <ImageView fx:id="card9" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="733.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" />
+        <ImageView fx:id="card13" fitHeight="213.0" fitWidth="138.0" layoutX="1147.0" layoutY="681.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card12" fitHeight="213.0" fitWidth="138.0" layoutX="1109.0" layoutY="734.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" />
+        <ImageView fx:id="card8" fitHeight="213.0" fitWidth="138.0" layoutX="308.0" layoutY="631.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card7" fitHeight="213.0" fitWidth="138.0" layoutX="346.0" layoutY="683.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card6" fitHeight="213.0" fitWidth="138.0" layoutX="384.0" layoutY="735.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card5" fitHeight="213.0" fitWidth="138.0" layoutX="422.0" layoutY="788.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card4" fitHeight="213.0" fitWidth="138.0" layoutX="460.0" layoutY="841.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card19" fitHeight="213.0" fitWidth="138.0" layoutX="1490.0" layoutY="629.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card18" fitHeight="213.0" fitWidth="138.0" layoutX="1452.0" layoutY="682.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card17" fitHeight="213.0" fitWidth="138.0" layoutX="1414.0" layoutY="735.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card16" fitHeight="213.0" fitWidth="138.0" layoutX="1376.0" layoutY="788.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="card15" fitHeight="213.0" fitWidth="138.0" layoutX="1338.0" layoutY="841.0" onMouseEntered="#focusIntoCard" onMouseExited="#focusOut" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="soundEffectsView" fitHeight="45.0" fitWidth="45.0" layoutX="1775.0" layoutY="38.0" onMouseClicked="#switchSoundEffects" pickOnBounds="true" />
       <ImageView fx:id="audioDescriptionView" fitHeight="45.0" fitWidth="45.0" layoutX="1842.0" layoutY="38.0" onMouseClicked="#switchAudioDescription" pickOnBounds="true" />
       <ImageView fx:id="exitView" fitHeight="45.0" fitWidth="45.0" layoutX="22.0" layoutY="24.0" onMouseClicked="#exit" pickOnBounds="true" />
+        <ImageView fx:id="playerBoard" fitHeight="225.0" fitWidth="510.0" layoutX="705.0" layoutY="787.0" pickOnBounds="true" AnchorPane.bottomAnchor="68.0" />
+      <ImageView fx:id="focus" fitHeight="213.0" fitWidth="138.0" layoutX="889.0" layoutY="788.0" pickOnBounds="true" />
     </children>
 </AnchorPane>

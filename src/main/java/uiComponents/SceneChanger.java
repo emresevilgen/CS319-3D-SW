@@ -235,8 +235,8 @@ public class SceneChanger {
             backgroundView.setImage(backgroundImage);
 
             Image backImage = new Image(backFile);
-            //ImageView backView = (ImageView) root.getChildren().get(1);
-            //backView.setImage(backImage);
+            ImageView backView = (ImageView) root.getChildren().get(1);
+            backView.setImage(backImage);
 
             stage.getScene().setRoot(root);
             stage.show();

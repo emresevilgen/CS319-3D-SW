@@ -37,7 +37,10 @@ public class MainMenuController implements Initializable {
     @FXML
     public Button creditsButton;
     @FXML
+    public Button signOutButton;
+    @FXML
     public Button exitButton;
+
 
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
@@ -79,6 +82,11 @@ public class MainMenuController implements Initializable {
         SceneChanger.exit((Stage)exitButton.getScene().getWindow());
     }
 
+    public void signOut(ActionEvent actionEvent) {
+        // send a request to the server
+        moveToSignIn((Stage)signOutButton.getScene().getWindow());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createLobbyButton.setOnMouseEntered(e -> createLobbyButton.setStyle(HOVERED_BUTTON_STYLE));
@@ -91,7 +99,10 @@ public class MainMenuController implements Initializable {
         settingsButton.setOnMouseExited(e -> settingsButton.setStyle(IDLE_BUTTON_STYLE));
         creditsButton.setOnMouseEntered(e -> creditsButton.setStyle(HOVERED_BUTTON_STYLE));
         creditsButton.setOnMouseExited(e -> creditsButton.setStyle(IDLE_BUTTON_STYLE));
+        signOutButton.setOnMouseEntered(e -> signOutButton.setStyle(HOVERED_BUTTON_STYLE));
+        signOutButton.setOnMouseExited(e -> signOutButton.setStyle(IDLE_BUTTON_STYLE));
         exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
     }
+
 }

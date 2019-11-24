@@ -63,14 +63,16 @@ public class SeeThePlayersController implements Initializable {
 
         @Override
         public void handle(ActionEvent event) {
+
+            // get the lobby data every seconds and when the game starts move to the game screen
             System.out.println("server request");
         }
     }));
 
     public void startGame(ActionEvent event) throws Exception {
         // send request to server if get success move to game screen move to game screen
-        moveToGame((Stage)startGameButton.getScene().getWindow());
         timeLine.stop();
+        moveToGame((Stage)startGameButton.getScene().getWindow());
     }
 
     public void dismissThePerson(ActionEvent event) throws Exception {
