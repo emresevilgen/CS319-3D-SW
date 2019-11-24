@@ -32,7 +32,7 @@ public class Main extends Application {
         AnchorPane root = new AnchorPane();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
+       // primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.setFullScreenExitHint(null);
         settings = new Settings();
