@@ -17,6 +17,7 @@ public class Constants {
     public static final String CREDITS_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "Credits.fxml");
     public static final String CREATE_LOBBY_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "CreateLobby.fxml");
     public static final String GAME_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "Game.fxml");
+    public static final String OTHER_BOARDS_CARDS_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "OtherBoardsCards.fxml");
 
     // Background images
     public static final String LOGO_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "logo.png");
@@ -41,25 +42,15 @@ public class Constants {
     public static final String EXIT_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "exit.png");
 
     // Wonders
-    public static final String ALEXANDRIA_A_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "wonders", "alexandriaA.png");
-    public static final String BABYLON_A_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "wonders", "babylonA.png");
-    public static final String EPHESOS_A_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "wonders", "ephesosA.png");
-    public static final String GIZAH_A_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "wonders", "gizahA.png");
+    public static final String BOARD_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "wonders");
 
     // Cards
-    public static final String CARD_ALTAR_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "altar.png");
-    public static final String CARD_ARSENAL_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "arsenal.png");
-    public static final String CARD_APOTHECARY_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "apothecary.png");
-    public static final String CARD_AQUEDUCT_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "aqueduct.png");
-    public static final String CARD_ARCHERYRANGE_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "archeryrange.png");
-    public static final String CARD_ARENA_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "arena.png");
-    public static final String CARD_FORUM_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "forum.png");
-    public static final String CARD_TREEFARM_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "treefarm.png");
-    public static final String CARD_LOOM_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "loom.png");
-    public static final String CARD_LIBRARY_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "library.png");
-    public static final String CARD_WALLS_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards", "walls.png");
+    public static final String CARD_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "cards");
 
     // Sounds
     public static final String MENU_SOUND = String.join(File.separator, "src", "main", "resources", "sounds", "menu.wav");
+    public static final String AGE_ONE_SOUND = String.join(File.separator, "src", "main", "resources", "sounds", "age1.wav");
+    public static final String AGE_TWO_SOUND = String.join(File.separator, "src", "main", "resources", "sounds", "age2.wav");
+    public static final String AGE_THREE_SOUND = String.join(File.separator, "src", "main", "resources", "sounds", "age3.wav");
 
 }
