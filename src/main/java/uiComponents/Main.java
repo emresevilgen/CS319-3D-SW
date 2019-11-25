@@ -33,6 +33,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
        // primaryStage.setFullScreen(true);
+        primaryStage.setResizable(false);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.setFullScreenExitHint(null);
         settings = new Settings();
@@ -40,13 +41,13 @@ public class Main extends Application {
 
         //moveToCreateLobby(primaryStage);
         //moveToCredits(primaryStage);
-        moveToGame(primaryStage);
+       // moveToGame(primaryStage);
         //moveToMainMenu(primaryStage);
         //moveToRankings(primaryStage);
         //moveToSeeThePlayers(primaryStage, true);
         //moveToSeeThePlayers(primaryStage, false);
         //moveToSettings(primaryStage);
-        //moveToSignIn(primaryStage);
+        moveToSignIn(primaryStage);
         //moveToSignUp(primaryStage);
 
     }

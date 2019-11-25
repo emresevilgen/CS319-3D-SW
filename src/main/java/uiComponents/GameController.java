@@ -388,6 +388,7 @@ public class GameController implements Initializable {
         ArrayList<Card> yellowCards = new ArrayList<>();
         ArrayList<Card> purpleCards = new ArrayList<>();
         ArrayList<Card> greenCards = new ArrayList<>();
+
         for (int i = 0; i < cards.length; i++){
             if (cards[i] != null){
                 Card card = cards[i];

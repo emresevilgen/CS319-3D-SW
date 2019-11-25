@@ -58,13 +58,13 @@ public class SignUpController implements Initializable{
 
                     GeneralResponse<User> userGeneralResponse = response.body();
 
-                    Main.user = userGeneralResponse.payload;
-
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            if (userGeneralResponse.success)
+                            if (userGeneralResponse.success) {
+                                Main.user = userGeneralResponse.payload;
                                 moveToMainMenu((Stage) signUpButton.getScene().getWindow());
+                            }
                             else {
                                 showErrorMessage(userGeneralResponse.message);
 

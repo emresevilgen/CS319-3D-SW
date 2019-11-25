@@ -41,42 +41,42 @@
         <Line endX="609.0" layoutX="703.0" layoutY="421.0" startX="-100.0" stroke="WHITE" />
         <Line endX="609.0" layoutX="703.0" layoutY="481.0" startX="-100.0" stroke="WHITE" />
         <Line endX="609.0" layoutX="703.0" layoutY="541.0" startX="-100.0" stroke="WHITE" />
-        <Label layoutX="733.0" layoutY="376.0" prefHeight="30.0" prefWidth="97.0" text="You" textFill="WHITE">
+        <Label fx:id="firstNameLabel" layoutX="733.0" layoutY="376.0" prefHeight="30.0" prefWidth="143.0" text="You" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="1033.0" layoutY="375.0" text="Waiting for Others" textFill="WHITE">
+        <Label fx:id="firstStateLabel" layoutX="1033.0" layoutY="375.0" text="Waiting for Others" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="secondNameLabel" layoutX="733.0" layoutY="436.0" prefHeight="30.0" prefWidth="143.0" text="Esra" textFill="WHITE">
+        <Label fx:id="secondNameLabel" layoutX="733.0" layoutY="436.0" prefHeight="30.0" prefWidth="143.0" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="thirdNameLabel" layoutX="733.0" layoutY="496.0" prefHeight="30.0" prefWidth="143.0" text="Nur" textFill="WHITE">
+        <Label fx:id="thirdNameLabel" layoutX="733.0" layoutY="496.0" prefHeight="30.0" prefWidth="143.0" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="fourthNameLabel" layoutX="733.0" layoutY="556.0" prefHeight="30.0" prefWidth="143.0" text="Deniz" textFill="WHITE">
+        <Label fx:id="fourthNameLabel" layoutX="733.0" layoutY="556.0" prefHeight="30.0" prefWidth="143.0" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="secondStateLabel" layoutX="1033.0" layoutY="436.0" prefHeight="30.0" prefWidth="143.0">
+        <Label fx:id="secondStateLabel" layoutX="1033.0" layoutY="436.0" prefHeight="30.0" prefWidth="230.0" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Label fx:id="thirdStateLabel" layoutX="1033.0" layoutY="496.0" prefHeight="30.0" prefWidth="143.0">
+        <Label fx:id="thirdStateLabel" layoutX="1033.0" layoutY="496.0" prefHeight="30.0" prefWidth="230.0" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Label fx:id="fourthStateLabel" layoutX="1033.0" layoutY="556.0" prefHeight="30.0" prefWidth="143.0">
+        <Label fx:id="fourthStateLabel" layoutX="1033.0" layoutY="556.0" prefHeight="30.0" prefWidth="230.0" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>

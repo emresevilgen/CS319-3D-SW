@@ -1,5 +1,7 @@
 package uiComponents;
 
+import com.google.gson.Gson;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +18,19 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Lobby;
+import models.User;
+import rest.ApiClient;
+import rest.ApiInterface;
+import rest.models.GeneralResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -60,9 +71,65 @@ public class MainMenuController implements Initializable {
 
         dialog.setContentText("Enter the code of the lobby:");
         String lobbyCode = null;
+
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
            lobbyCode = result.get();
+
+            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+            Call<GeneralResponse<Lobby>> call = apiService.enterLobby(Main.user.userName, Main.user.token, lobbyCode);
+            call.enqueue(new Callback<GeneralResponse<Lobby>>() {
+                @Override
+                public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
+                    if (response.body() != null) {
+
+                        GeneralResponse<Lobby> userGeneralResponse = response.body();
+
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (userGeneralResponse.success) {
+                                    Main.lobby = userGeneralResponse.payload;
+                                    moveToSeeThePlayers((Stage) joinLobbyButton.getScene().getWindow(), false);
+                                }
+                                else {
+                                    showErrorMessage(userGeneralResponse.message);
+
+                                }
+                            }
+                        });
+
+                    } else {
+                        try {
+                            String errorResponse = response.errorBody().string();
+                            GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showErrorMessage(userGeneralResponse.message);
+
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showErrorMessage("There is something wrong with the connection");
+
+                        }
+                    });
+                }
+            });
+
+
         }
     }
 
@@ -137,6 +204,14 @@ public class MainMenuController implements Initializable {
         signOutButton.setOnMouseExited(e -> signOutButton.setStyle(IDLE_BUTTON_STYLE));
         exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
+    }
+
+    private void showErrorMessage(String errorMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.showAndWait();
     }
 
 }

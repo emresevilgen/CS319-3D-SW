@@ -31,22 +31,17 @@
                 <Font size="19.0" />
             </font>
         </CheckBox>
-        <CheckBox fx:id="bargainCheckBox" layoutX="829.0" layoutY="523.0" mnemonicParsing="false" text="Bargain" textFill="WHITE">
+        <CheckBox fx:id="shufflePlacesCheckBox" layoutX="829.0" layoutY="521.0" mnemonicParsing="false" text="Shuffle Places" textFill="WHITE">
             <font>
                 <Font size="19.0" />
             </font>
         </CheckBox>
-        <CheckBox fx:id="shufflePlacesCheckBox" layoutX="829.0" layoutY="561.0" mnemonicParsing="false" text="Shuffle Places" textFill="WHITE">
+        <CheckBox fx:id="secretSkillsCheckBox" layoutX="829.0" layoutY="559.0" mnemonicParsing="false" text="Secret Skills" textFill="WHITE">
             <font>
                 <Font size="19.0" />
             </font>
         </CheckBox>
-        <CheckBox fx:id="secretSkillsCheckBox" layoutX="829.0" layoutY="599.0" mnemonicParsing="false" text="Secret Skills" textFill="WHITE">
-            <font>
-                <Font size="19.0" />
-            </font>
-        </CheckBox>
-        <CheckBox fx:id="invalidMovePenaltyCheckBox" layoutX="829.0" layoutY="637.0" mnemonicParsing="false" text="Invalid Move Penalty" textFill="WHITE">
+        <CheckBox fx:id="invalidMovePenaltyCheckBox" layoutX="829.0" layoutY="597.0" mnemonicParsing="false" text="Invalid Move Penalty" textFill="WHITE">
             <font>
                 <Font size="19.0" />
             </font>

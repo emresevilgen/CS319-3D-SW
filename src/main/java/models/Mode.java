@@ -7,9 +7,6 @@ public class Mode {
     @SerializedName("shufflePlaces")
     public boolean shufflePlaces;
 
-    @SerializedName("bargain")
-    public boolean bargain;
-
     @SerializedName("secretSkills")
     public boolean secretSkills;
 
@@ -23,7 +20,6 @@ public class Mode {
     public String toString() {
         return "Mode{" +
                 "shufflePlaces=" + shufflePlaces +
-                ", bargain=" + bargain +
                 ", secretSkills=" + secretSkills +
                 ", invalidMovePenalty=" + invalidMovePenalty +
                 ", loot=" + loot +
