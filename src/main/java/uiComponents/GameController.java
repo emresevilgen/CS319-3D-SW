@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -334,6 +336,24 @@ public class GameController implements Initializable {
         focus.setLayoutX(0);
         focus.setLayoutY(0);
         focus.setImage(null);
+    }
+
+    public void effectOn(MouseEvent mouseEvent) {
+        ImageView current = (ImageView) mouseEvent.getSource();
+        if (current.getImage() != null){
+           Glow glow = new Glow();
+           glow.setLevel(0.4);
+           current.setEffect(glow);
+        }
+    }
+
+    public void effectOff(MouseEvent mouseEvent) {
+        ImageView current = (ImageView) mouseEvent.getSource();
+        if (current.getImage() != null){
+            Glow glow = new Glow();
+            glow.setLevel(0.0);
+            current.setEffect(glow);
+        }
     }
 
     public void update(){

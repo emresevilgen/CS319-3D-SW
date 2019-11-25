@@ -29,11 +29,11 @@ public class Constants {
     public static final String CREDITS_BACKGROUND_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "background_credits.png");
     public static final String CREATE_LOBBY_BACKGROUND_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "background_rhodos.jpg");
     public static final String SEE_THE_PLAYERS_BACKGROUND_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "background_pyramid.jpg");
-
-    public static final String BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "bg.png");
     public static final String RANKINGS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "back_Rankings.png");
     public static final String CREATE_LOBBY_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "back_CreateLobby.png");
     public static final String SEE_THE_PLAYERS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "back_SeeThePlayers.png");
+    public static final String BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "bg.png");
+
 
     // Icons images
     public static final String AUDIO_DESCRIPTION_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "audio_description.png");
