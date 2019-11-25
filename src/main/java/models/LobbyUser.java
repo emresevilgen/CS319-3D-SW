@@ -4,13 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class LobbyUser {
 
-    @Override
-    public String toString() {
-        return "LobbyUser{" +
-                "isReady=" + isReady +
-                ", username='" + username + '\'' +
-                '}';
-    }
+    @SerializedName("username")
+    public String username;
 
     @SerializedName("isReady")
     public boolean isReady;
@@ -18,7 +13,15 @@ public class LobbyUser {
     @SerializedName("isActive")
     public boolean isActive;
 
-    @SerializedName("username")
-    public String username;
+    @Override
+    public String toString() {
+        return "LobbyUser{" +
+                "username='" + username + '\'' +
+                ", isReady=" + isReady +
+                ", isActive=" + isActive +
+                '}';
+    }
+
+
 
 }
