@@ -324,11 +324,16 @@ public class GameController implements Initializable {
     public void focusIntoCard(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null){
+            Glow glow = new Glow();
+            glow.setLevel(0.4);
+            focus.setEffect(glow);
             focus.setX(current.getX());
             focus.setY(current.getY());
             focus.setLayoutX(current.getLayoutX());
             focus.setLayoutY(current.getLayoutY());
             focus.setImage(current.getImage());
+            focus.setScaleX(1.30);
+            focus.setScaleY(1.30);
         }
     }
 
@@ -344,6 +349,8 @@ public class GameController implements Initializable {
            Glow glow = new Glow();
            glow.setLevel(0.4);
            current.setEffect(glow);
+           current.setScaleX(1.30);
+           current.setScaleY(1.30);
         }
     }
 
@@ -353,6 +360,8 @@ public class GameController implements Initializable {
             Glow glow = new Glow();
             glow.setLevel(0.0);
             current.setEffect(glow);
+            current.setScaleX(1);
+            current.setScaleY(1);
         }
     }
 
