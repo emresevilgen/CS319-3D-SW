@@ -24,8 +24,8 @@ public class OtherBoardsCards implements Initializable {
             Glow glow = new Glow();
             glow.setLevel(0.4);
             current.setEffect(glow);
-            current.setScaleX(1.50);
-            current.setScaleY(1.50);
+            current.setScaleX(1.60);
+            current.setScaleY(1.60);
         }
     }
 

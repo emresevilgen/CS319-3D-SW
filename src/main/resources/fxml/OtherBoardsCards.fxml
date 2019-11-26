@@ -3,28 +3,28 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="521.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.OtherBoardsCards">
-<ImageView fx:id="backgroundView" fitHeight="528.0" fitWidth="793.0" pickOnBounds="true" />
-<ImageView fx:id="card1" fitHeight="137.5" fitWidth="87.5" layoutX="41.0" layoutY="38.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card2" fitHeight="137.5" fitWidth="87.5" layoutX="145.0" layoutY="38.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card3" fitHeight="137.5" fitWidth="87.5" layoutX="249.0" layoutY="38.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card4" fitHeight="137.5" fitWidth="87.5" layoutX="353.0" layoutY="38.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card5" fitHeight="137.5" fitWidth="87.5" layoutX="457.0" layoutY="38.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card6" fitHeight="137.5" fitWidth="87.5" layoutX="561.0" layoutY="38.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card7" fitHeight="137.5" fitWidth="87.5" layoutX="665.0" layoutY="38.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card8" fitHeight="137.5" fitWidth="87.5" layoutX="41.0" layoutY="196.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card9" fitHeight="137.5" fitWidth="87.5" layoutX="145.0" layoutY="196.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card10" fitHeight="137.5" fitWidth="87.5" layoutX="249.0" layoutY="196.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card11" fitHeight="137.5" fitWidth="87.5" layoutX="353.0" layoutY="196.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card12" fitHeight="137.5" fitWidth="87.5" layoutX="457.0" layoutY="196.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card13" fitHeight="137.5" fitWidth="87.5" layoutX="561.0" layoutY="196.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card14" fitHeight="137.5" fitWidth="87.5" layoutX="665.0" layoutY="196.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card15" fitHeight="137.5" fitWidth="87.5" layoutX="41.0" layoutY="352.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card16" fitHeight="137.5" fitWidth="87.5" layoutX="145.0" layoutY="352.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card17" fitHeight="137.5" fitWidth="87.5" layoutX="249.0" layoutY="352.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card18" fitHeight="137.5" fitWidth="87.5" layoutX="353.0" layoutY="352.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card19" fitHeight="137.5" fitWidth="87.5" layoutX="457.0" layoutY="352.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card20" fitHeight="137.5" fitWidth="87.5" layoutX="561.0" layoutY="352.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
-<ImageView fx:id="card21" fitHeight="137.5" fitWidth="87.5" layoutX="665.0" layoutY="352.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<AnchorPane prefHeight="528.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.OtherBoardsCards">
+<ImageView fx:id="backgroundView" fitHeight="545.0" fitWidth="846.0" pickOnBounds="true" />
+<ImageView fx:id="card1" fitHeight="137.5" fitWidth="87.5" layoutX="37.0" layoutY="42.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card2" fitHeight="137.5" fitWidth="87.5" layoutX="151.0" layoutY="42.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card3" fitHeight="137.5" fitWidth="87.5" layoutX="265.0" layoutY="42.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card4" fitHeight="137.5" fitWidth="87.5" layoutX="379.0" layoutY="42.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card5" fitHeight="137.5" fitWidth="87.5" layoutX="493.0" layoutY="42.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card6" fitHeight="137.5" fitWidth="87.5" layoutX="607.0" layoutY="42.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card7" fitHeight="137.5" fitWidth="87.5" layoutX="721.0" layoutY="42.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card8" fitHeight="137.5" fitWidth="87.5" layoutX="37.0" layoutY="205.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card9" fitHeight="137.5" fitWidth="87.5" layoutX="151.0" layoutY="205.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card10" fitHeight="137.5" fitWidth="87.5" layoutX="265.0" layoutY="205.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card11" fitHeight="137.5" fitWidth="87.5" layoutX="379.0" layoutY="205.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card12" fitHeight="137.5" fitWidth="87.5" layoutX="493.0" layoutY="205.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card13" fitHeight="137.5" fitWidth="87.5" layoutX="607.0" layoutY="205.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card14" fitHeight="137.5" fitWidth="87.5" layoutX="721.0" layoutY="205.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card15" fitHeight="137.5" fitWidth="87.5" layoutX="37.0" layoutY="366.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card16" fitHeight="137.5" fitWidth="87.5" layoutX="151.0" layoutY="366.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card17" fitHeight="137.5" fitWidth="87.5" layoutX="265.0" layoutY="366.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card18" fitHeight="137.5" fitWidth="87.5" layoutX="379.0" layoutY="366.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card19" fitHeight="137.5" fitWidth="87.5" layoutX="493.0" layoutY="366.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card20" fitHeight="137.5" fitWidth="87.5" layoutX="607.0" layoutY="366.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
+<ImageView fx:id="card21" fitHeight="137.5" fitWidth="87.5" layoutX="721.0" layoutY="366.0" onMouseEntered="#setScaleOn" onMouseExited="#setScaleOff" pickOnBounds="true" />
 
 </AnchorPane>
