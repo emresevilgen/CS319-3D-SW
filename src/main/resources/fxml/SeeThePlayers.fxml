@@ -81,7 +81,7 @@
                 <Font size="23.0" />
             </font>
         </Label>
-      <Label layoutX="603.0" layoutY="260.0" prefHeight="36.0" prefWidth="325.0" text="People in the Lobby:" textFill="WHITE">
+      <Label fx:id="lobbyCodeTitle" layoutX="603.0" layoutY="260.0" prefHeight="36.0" prefWidth="710.0" text="People in the Lobby:" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>

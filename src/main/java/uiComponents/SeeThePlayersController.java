@@ -68,9 +68,14 @@ public class SeeThePlayersController implements Initializable {
     public CheckBox thirdPlayerCheckBox;
     @FXML
     public CheckBox fourthPlayerCheckBox;
+    @FXML
+    public Label lobbyCodeTitle;
+
 
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 0.85;";
+    Label [] labelsName = new Label[4];
+    Label [] labelsState = new Label[4];
 
 
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -123,8 +128,9 @@ public class SeeThePlayersController implements Initializable {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            if (userGeneralResponse.success)
+                            if (userGeneralResponse.success) {
                                 Main.lobby = userGeneralResponse.payload;
+                            }
                             else {
                                 showErrorMessage(userGeneralResponse.message);
 
@@ -161,37 +167,27 @@ public class SeeThePlayersController implements Initializable {
             }
         });
 
-        if (Main.lobby.lobbyUsers[0] != null) {
-            firstNameLabel.setText(Main.lobby.lobbyUsers[0].username);
-            if (Main.lobby.lobbyUsers[0].isReady)
-                firstStateLabel.setText("Ready");
-            else
-                firstStateLabel.setText("Not ready");
+        for (int i = 0; i < labelsName.length; i++)
+            labelsName[i].setText("");
+
+        for (int i = 0; i < labelsState.length; i++)
+            labelsState[i].setText("");
+
+
+        for (int i = 0; i < Main.lobby.lobbyUsers.length; i++) {
+            labelsName[i].setText(Main.lobby.lobbyUsers[i].username);
+            if (Main.lobby.lobbyUsers[i].username.equals(Main.lobby.lobbyAdmin)) {
+                labelsState[i].setText("Waiting for others");
+            }
+            else {
+                if (Main.lobby.lobbyUsers[i].isReady)
+                    labelsState[i].setText("Ready");
+                else
+                    labelsState[i].setText("Not ready");
+            }
+
         }
 
-        if (Main.lobby.lobbyUsers[1] != null) {
-            secondNameLabel.setText(Main.lobby.lobbyUsers[1].username);
-            if (Main.lobby.lobbyUsers[1].isReady)
-                secondStateLabel.setText("Ready");
-            else
-                secondStateLabel.setText("Not ready");
-        }
-
-        if (Main.lobby.lobbyUsers[2] != null) {
-            thirdNameLabel.setText(Main.lobby.lobbyUsers[2].username);
-            if (Main.lobby.lobbyUsers[2].isReady)
-                thirdStateLabel.setText("Ready");
-            else
-                thirdStateLabel.setText("Not ready");
-        }
-
-        if (Main.lobby.lobbyUsers[3] != null) {
-            fourthNameLabel.setText(Main.lobby.lobbyUsers[3].username);
-            if (Main.lobby.lobbyUsers[3].isReady)
-                fourthStateLabel.setText("Ready");
-            else
-                fourthStateLabel.setText("Not ready");
-        }
 
         // if game starts then
         //         timeLine.stop();
@@ -209,6 +205,17 @@ public class SeeThePlayersController implements Initializable {
         dismissPersonButton.setOnMouseEntered(e -> dismissPersonButton.setStyle(HOVERED_BUTTON_STYLE));
         dismissPersonButton.setOnMouseExited(e -> dismissPersonButton.setStyle(IDLE_BUTTON_STYLE));
 
+        lobbyCodeTitle.setText("People in the Lobby with the code " + Main.lobby.lobbyCode + ":");
+
+        labelsName[0] = firstNameLabel;
+        labelsName[1] = secondNameLabel;
+        labelsName[2] = thirdNameLabel;
+        labelsName[3] = fourthNameLabel;
+
+        labelsState[0] = firstStateLabel;
+        labelsState[1] = secondStateLabel;
+        labelsState[2] = thirdStateLabel;
+        labelsState[3] = fourthStateLabel;
 
         // get the lobby data and initilize the people in the lobby
         update();

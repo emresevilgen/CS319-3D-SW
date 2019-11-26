@@ -71,7 +71,7 @@ public class CreateLobbyController implements Initializable {
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<GeneralResponse<Lobby>> call = apiService.createLobby(Main.user.userName, Main.user.token, mode);
+        Call<GeneralResponse<Lobby>> call = apiService.createLobby(Main.user.userName, lobbyName, Main.user.token, mode);
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
             @Override
             public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
