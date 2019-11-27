@@ -27,7 +27,7 @@
                 <Font size="30.0" />
             </font>
         </Button>
-        <Label layoutX="733.0" layoutY="316.0" prefHeight="30.0" prefWidth="86.0" text="Name" textFill="WHITE">
+        <Label layoutX="733.0" layoutY="316.0" prefHeight="30.0" prefWidth="143.0" text="Username" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>

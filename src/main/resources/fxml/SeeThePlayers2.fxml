@@ -22,12 +22,12 @@
                 <Font size="30.0" />
             </font>
         </Button>
-        <Label layoutX="692.0" layoutY="370.0" prefHeight="30.0" prefWidth="86.0" text="Username" textFill="WHITE">
+        <Label layoutX="692.0" layoutY="370.0" prefHeight="30.0" prefWidth="143.0" text="Username" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="992.0" layoutY="370.0" prefHeight="30.0" prefWidth="97.0" text="State" textFill="WHITE">
+        <Label layoutX="992.0" layoutY="370.0" prefHeight="30.0" prefWidth="143.0" text="State" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
@@ -41,7 +41,7 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="firstStateLabel" layoutX="992.0" layoutY="429.0" prefHeight="30.0" prefWidth="143.0" textFill="WHITE">
+        <Label fx:id="firstStateLabel" layoutX="992.0" layoutY="429.0" prefHeight="30.0" prefWidth="265.0" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
@@ -61,22 +61,22 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="secondStateLabel" layoutX="992.0" layoutY="490.0" prefHeight="30.0" prefWidth="143.0" textFill="WHITE">
+        <Label fx:id="secondStateLabel" layoutX="992.0" layoutY="490.0" prefHeight="30.0" prefWidth="265.0" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Label fx:id="thirdStateLabel" layoutX="992.0" layoutY="550.0" prefHeight="30.0" prefWidth="143.0" textFill="WHITE">
+        <Label fx:id="thirdStateLabel" layoutX="992.0" layoutY="550.0" prefHeight="30.0" prefWidth="265.0" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Label fx:id="fourthStateLabel" layoutX="992.0" layoutY="610.0" prefHeight="30.0" prefWidth="143.0" textFill="WHITE">
+        <Label fx:id="fourthStateLabel" layoutX="992.0" layoutY="610.0" prefHeight="30.0" prefWidth="265.0" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Label layoutX="658.0" layoutY="316.0" prefHeight="36.0" prefWidth="325.0" text="People in the Lobby:" textFill="WHITE">
+        <Label layoutX="658.0" layoutY="316.0" prefHeight="36.0" prefWidth="601.0" text="People in the Lobby:" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>

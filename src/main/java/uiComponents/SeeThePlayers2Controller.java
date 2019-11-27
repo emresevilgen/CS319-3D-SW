@@ -69,7 +69,6 @@ public class SeeThePlayers2Controller implements Initializable {
 
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("server request");
             update();
          }
     }));

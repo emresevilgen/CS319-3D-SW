@@ -113,6 +113,7 @@ public class GameController implements Initializable {
     ImageView card19;
 
     ImageView[] cardViews;
+
     int ageNumber = 0;
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
