@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -54,6 +51,9 @@ public class SignInController implements Initializable{
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
 
+    private ProgressIndicator progress;
+
+
     public void signUp(ActionEvent event) throws Exception {
         moveToSignUp((Stage) signUpButton.getScene().getWindow());
     }
@@ -62,6 +62,36 @@ public class SignInController implements Initializable{
     public void signIn(ActionEvent actionEvent) {
         String username = usernameField.getText();
         String password = passwordField.getText();
+
+        // For loading indicator
+        progress = new ProgressIndicator();
+        progress.setMaxSize(100, 100);
+        progress.setLayoutX(910);
+        progress.setLayoutY(490);
+
+        ((AnchorPane)signInButton.getScene().getRoot()).getChildren().add(progress);
+
+        Thread progressThread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        System.out.println("done");
+                    }
+                });
+            }
+        });
+
+        progressThread.start();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 

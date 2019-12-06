@@ -41,13 +41,13 @@ public class Main extends Application {
 
         //moveToCreateLobby(primaryStage);
         //moveToCredits(primaryStage);
-        //moveToGame(primaryStage);
+        // moveToGame(primaryStage);
        // moveToMainMenu(primaryStage);
         //moveToRankings(primaryStage);
         //moveToSeeThePlayers(primaryStage, true);
         //moveToSeeThePlayers(primaryStage, false);
         //moveToSettings(primaryStage);
-       moveToSignIn(primaryStage);
+        moveToSignIn(primaryStage);
         //moveToSignUp(primaryStage);
 
     }

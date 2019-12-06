@@ -297,7 +297,6 @@ public class GameController implements Initializable {
     }
 
     public void exit(MouseEvent actionEvent){
-        System.out.println("xxx");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ((Stage)alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.setTitle("Exit Game");
