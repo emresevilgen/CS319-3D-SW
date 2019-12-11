@@ -39,7 +39,7 @@ import static uiComponents.Main.mediaPlayer;
 import static uiComponents.Main.settings;
 import static uiComponents.SceneChanger.moveToMainMenu;
 
-public class GameController implements Initializable {
+public class GameScene implements Initializable {
     @FXML
     public ImageView focus;
 
@@ -112,21 +112,26 @@ public class GameController implements Initializable {
     @FXML
     ImageView card19;
 
+    // Image views for board
     ImageView[] cardViews;
 
     int ageNumber = 0;
+
+    // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent event) {
             // Server request and update the game
             update();
-            System.out.println("server request");
         }
     }));
 
+    // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //-------------------------------------
+        //-------------------------------------
         // To delete
         Main.game = new Game();
         Main.game.ageNumber = 1;
@@ -191,8 +196,10 @@ public class GameController implements Initializable {
         Main.game.players[3].board.wonderName = "Babylon A";
         Main.game.players[3].board.cards = new Card[19];
 
-       //
-        
+        //-------------------------------------
+        //-------------------------------------
+
+        // Initialize the card view array
         cardViews = new ImageView[19];
         cardViews[0] = card1;
         cardViews[1] = card2;
@@ -214,9 +221,11 @@ public class GameController implements Initializable {
         cardViews[17] = card18;
         cardViews[18] = card19;
 
+        // Start sending requests
         timeLine.setCycleCount(Animation.INDEFINITE);
         timeLine.play();
 
+        // Initialize the buttom images and their status
         try {
             FileInputStream inputStream = new FileInputStream(Constants.AUDIO_DESCRIPTION_IMAGE);
             Image audioImage = new Image(inputStream);
@@ -248,6 +257,7 @@ public class GameController implements Initializable {
 
             exitView.setImage(exitImage);
 
+            // Update the data
             update();
 
         } catch (FileNotFoundException e) {
@@ -256,7 +266,9 @@ public class GameController implements Initializable {
 
     }
 
+    // Audio description button listener
     public void switchAudioDescription(MouseEvent actionEvent) {
+        // Change the image size accorsing to its status
         settings.switchAudioDescription();
         if(settings.isAudioDescription()){
             audioDescriptionView.setFitHeight(70);
@@ -274,15 +286,19 @@ public class GameController implements Initializable {
 
     }
 
+    // Sound effects button listener
     public void switchSoundEffects(MouseEvent actionEvent) {
+        // CHange the image according to its status
         settings.switchSoundEffects();
         FileInputStream inputStream = null;
         try {
             if (settings.isSoundEffects()) {
+                // Play music
                 inputStream = new FileInputStream(Constants.SOUND_EFFECTS_ON_IMAGE);
                 mediaPlayer.play();
             }
             else {
+                // Stop music
                 inputStream = new FileInputStream(Constants.SOUND_EFFECTS_OFF_IMAGE);
                 mediaPlayer.stop();
 
@@ -293,34 +309,42 @@ public class GameController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        timeLine.stop(); // To kill timeline
     }
 
+    // Exit button listener
     public void exit(MouseEvent actionEvent){
+        // Show confirmation pop up
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ((Stage)alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.setTitle("Exit Game");
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("Do you want to exit the current game?");
+        // Add options
         ButtonType buttonYes = new ButtonType("Yes");
         ButtonType buttonNo = new ButtonType("No");
         alert.getButtonTypes().setAll(buttonNo, buttonYes);
 
         Optional<ButtonType> result = alert.showAndWait();
+        // Get the result
         if (result.get() == buttonYes){
-            moveToMainMenu((Stage)exitView.getScene().getWindow());
-            timeLine.stop();
-            mediaPlayer.stop();
+            timeLine.stop(); // Stop requests
+            mediaPlayer.stop(); // Stop game music
+
+            // Play menu music
             Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
             mediaPlayer = new MediaPlayer(sound);
             mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
             mediaPlayer.play();
+
+            moveToMainMenu((Stage)exitView.getScene().getWindow());
+
         } else {
             alert.close();
         }
     }
 
+    // Focus into card when mouse entered
     public void focusIntoCard(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null){
@@ -337,12 +361,14 @@ public class GameController implements Initializable {
         }
     }
 
+    // Focus out from card when mouse exited
     public void focusOut(MouseEvent mouseEvent) {
         focus.setLayoutX(0);
         focus.setLayoutY(0);
         focus.setImage(null);
     }
 
+    // Focus on hand card when mouse exited
     public void effectOn(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null){
@@ -354,6 +380,7 @@ public class GameController implements Initializable {
         }
     }
 
+    // Focus out from hand card when mouse exited
     public void effectOff(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null){
@@ -366,7 +393,7 @@ public class GameController implements Initializable {
     }
 
     public void update(){
-
+        // Check the music of the age
         if (ageNumber != Main.game.ageNumber) {
             ageNumber = Main.game.ageNumber;
             Media sound;
@@ -383,13 +410,18 @@ public class GameController implements Initializable {
             mediaPlayer.play();
         }
 
-
+        // --------------------------------------
+        // --------------------------------------
+        // Initialize a al
+        // Set the board images
         Player[] players = Main.game.players;
         playerBoard.setImage(getBoardImage(players[0].board, 0));
         rightBoard.setImage(getBoardImage(players[1].board, 1));
         acrossBoard.setImage(getBoardImage(players[2].board, 2));
         leftBoard.setImage(getBoardImage(players[3].board, 3));
-        
+        // --------------------------------------
+        // --------------------------------------
+
         // To display the cards at the hand of the player
         Card[] playerCards = players[0].playerCards;
         if (playerCards[0] != null)
@@ -408,7 +440,7 @@ public class GameController implements Initializable {
             deck7.setImage(getCardImage(playerCards[6]));
 
 
-        
+        // To classify the cards at the users board
         Card[] cards = players[0].board.cards;
         ArrayList<Card> brownCards = new ArrayList<>();
         ArrayList<Card> grayCards = new ArrayList<>();
@@ -434,6 +466,7 @@ public class GameController implements Initializable {
             }
         }
 
+        // Display the cards in order
         int viewOrder = 0;
 
         for (int i = 0; i < redCards.size(); i++){
@@ -473,8 +506,10 @@ public class GameController implements Initializable {
 
     }
 
+    // Board listeners
     public void showOtherPlayersCards(MouseEvent mouseEvent) {
         Card [] cards;
+        // Get the players cards
         ImageView boardView = (ImageView)mouseEvent.getSource();
         if (boardView.equals(rightBoard))
             cards = Main.game.players[1].board.cards;
@@ -485,7 +520,7 @@ public class GameController implements Initializable {
         else
             return;
 
-
+        // Load FXML and show pop up window
         Stage boardStage;
         Scene boardScene;
         FXMLLoader loader = new FXMLLoader();
@@ -499,6 +534,7 @@ public class GameController implements Initializable {
             backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
             root = (AnchorPane)loader.load(fileInputStream);
 
+            // Set background image
             Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
@@ -509,6 +545,7 @@ public class GameController implements Initializable {
             boardStage.initStyle(StageStyle.UTILITY);
             boardStage.show();
 
+            // Classify the cards
             ArrayList<Card> brownCards = new ArrayList<>();
             ArrayList<Card> grayCards = new ArrayList<>();
             ArrayList<Card> redCards = new ArrayList<>();
@@ -533,6 +570,7 @@ public class GameController implements Initializable {
                 }
             }
 
+            // Display the cards in order
             int viewOrder = 0;
 
             for (int i = 0; i < redCards.size(); i++){
@@ -576,9 +614,16 @@ public class GameController implements Initializable {
         }
     }
 
+
+    /**
+     * Gets the Card object and returns its image
+     * @param card Card object
+     * @return the image of the card
+     */
     public Image getCardImage(Card card){
         if (card != null) {
             String cardName = card.cardName;
+            // Get the path of the image
             String cardPath = Constants.CARD_IMAGE + File.separator + cardName.replaceAll(" ", "").toLowerCase() + ".png";
             try {
                 FileInputStream inputStream = new FileInputStream(cardPath);
@@ -591,9 +636,16 @@ public class GameController implements Initializable {
         return null;
     }
 
+    /**
+     * Gets the Card object and returns its image
+     * @param board Card object
+     * @param index location of the player
+     * @return the image of the card
+     */
     public Image getBoardImage(Board board, int index){
         if (board != null) {
             String boardName = board.wonderName;
+            // Get the path of the image according to the location of the player
             String boardPath;
             if (index == 0)
                 boardPath = Constants.BOARD_IMAGE + File.separator + boardName.replaceAll(" ", "").toLowerCase() + "bottom" + ".png";

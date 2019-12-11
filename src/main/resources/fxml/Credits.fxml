@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.CreditsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.CreditsScene">
     <children>
       <ImageView fx:id="backgroundView" fitHeight="1087.0" fitWidth="1926.0" pickOnBounds="true" />
         <Button fx:id="backButton" layoutX="894.0" layoutY="914.0" mnemonicParsing="false" onAction="#back" prefHeight="59.0" prefWidth="133.0" style="-fx-background-color: #000000;" text="Back" textFill="WHITE">

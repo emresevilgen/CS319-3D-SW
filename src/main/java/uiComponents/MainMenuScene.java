@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Lobby;
+import models.Settings;
 import models.User;
 import rest.ApiClient;
 import rest.ApiInterface;
@@ -37,7 +38,7 @@ import java.util.ResourceBundle;
 
 import static uiComponents.SceneChanger.*;
 
-public class MainMenuController implements Initializable {
+public class MainMenuScene implements Initializable {
 
     @FXML
      public Button createLobbyButton;
@@ -54,45 +55,57 @@ public class MainMenuController implements Initializable {
     @FXML
     public Button exitButton;
 
-
+    // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
 
+    // Create button listener
     public void createLobby(ActionEvent event) throws Exception {
         moveToCreateLobby((Stage)createLobbyButton.getScene().getWindow());
     }
 
+    // Join button listener
     public void joinLobby(ActionEvent event) throws Exception {
+
+        // Show pop up to get the lobby code
         TextInputDialog dialog = new TextInputDialog("Lobby Code");
         dialog.setTitle("Join to the Existing Lobby");
         dialog.setHeaderText(null);
         dialog.setGraphic(null);
-        ((Stage)dialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        ((Stage)dialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true); // always at the top
 
         dialog.setContentText("Enter the code of the lobby:");
         String lobbyCode = null;
 
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-           lobbyCode = result.get();
+        Optional<String> result = dialog.showAndWait(); // Show pop up
 
+        // Get input and check if it is valid then send request
+        if (result.isPresent()){
+            lobbyCode = result.get();
+
+            // Enter Lobby Request
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
             Call<GeneralResponse<Lobby>> call = apiService.enterLobby(Main.user.userName, Main.user.token, lobbyCode);
             call.enqueue(new Callback<GeneralResponse<Lobby>>() {
+
+                // If the connection is valid
                 @Override
                 public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
                     if (response.body() != null) {
 
+                        // Get the response
                         GeneralResponse<Lobby> userGeneralResponse = response.body();
 
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
+                                // If success update lobby and move to see the players
                                 if (userGeneralResponse.success) {
                                     Main.lobby = userGeneralResponse.payload;
                                     moveToSeeThePlayers((Stage) joinLobbyButton.getScene().getWindow(), false);
                                 }
+                                // Otherwise error message
                                 else {
                                     showErrorMessage(userGeneralResponse.message);
 
@@ -100,7 +113,9 @@ public class MainMenuController implements Initializable {
                             }
                         });
 
-                    } else {
+                    }
+                    // When the response's body is null
+                    else {
                         try {
                             String errorResponse = response.errorBody().string();
                             GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
@@ -116,7 +131,7 @@ public class MainMenuController implements Initializable {
                         }
                     }
                 }
-
+                // When connection is lost
                 @Override
                 public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
                     Platform.runLater(new Runnable() {
@@ -133,63 +148,83 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    // Rankings button listener
     public void rankings(ActionEvent event) throws Exception {
         moveToRankings((Stage)seeRankingsButton.getScene().getWindow());
 
     }
 
+    // Settings button listener
     public void settings(ActionEvent event) throws Exception {
         moveToSettings((Stage)settingsButton.getScene().getWindow());
 
     }
 
+    // Credits button listener
     public void credits(ActionEvent event) throws Exception {
         moveToCredits((Stage)creditsButton.getScene().getWindow());
 
     }
 
+    // Exit button listener
     public void exit(ActionEvent event) throws Exception {
+        // Show confirmation pop up
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ((Stage)alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.setTitle("Exit Game");
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("Do you want to exit?");
+        // Add options
         ButtonType buttonYes = new ButtonType("Yes");
         ButtonType buttonNo = new ButtonType("No");
         alert.getButtonTypes().setAll(buttonNo, buttonYes);
 
+        // Get the result
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonYes){
-            SceneChanger.exit((Stage)exitButton.getScene().getWindow());
+            SceneChanger.exit((Stage)exitButton.getScene().getWindow()); // Exit
         } else {
-            alert.close();
+            alert.close(); // Cancel
         }
     }
 
+    // Signout button listener
     public void signOut(ActionEvent actionEvent) {
+        // Show confirmation pop up
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ((Stage)alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.setTitle("Sign Out");
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("Do you want to sign out?");
+        // Add options
         ButtonType buttonYes = new ButtonType("Yes");
         ButtonType buttonNo = new ButtonType("No");
         alert.getButtonTypes().setAll(buttonNo, buttonYes);
 
+        // Get the result
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonYes){
+            // ----------------------
+            //----------------------
             // send a request to the server
-            moveToSignIn((Stage)signOutButton.getScene().getWindow());
+            // ----------------------
+            //----------------------
+            Main.lobby = null;
+            Main.game = null;
+            Main.user = null;
+            moveToSignIn((Stage)signOutButton.getScene().getWindow()); // Move to sign in
         } else {
-            alert.close();
+            alert.close(); // Cancel
         }
 
     }
 
+    // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Setting the mouse entered and exited listeners for hover effect
         createLobbyButton.setOnMouseEntered(e -> createLobbyButton.setStyle(HOVERED_BUTTON_STYLE));
         createLobbyButton.setOnMouseExited(e -> createLobbyButton.setStyle(IDLE_BUTTON_STYLE));
         joinLobbyButton.setOnMouseEntered(e -> joinLobbyButton.setStyle(HOVERED_BUTTON_STYLE));
@@ -206,6 +241,7 @@ public class MainMenuController implements Initializable {
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
     }
 
+    // Error message
     private void showErrorMessage(String errorMsg){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

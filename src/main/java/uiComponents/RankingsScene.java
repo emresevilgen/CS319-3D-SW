@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 import static uiComponents.SceneChanger.moveToMainMenu;
 
-public class RankingsController implements Initializable {
+public class RankingsScene implements Initializable {
     @FXML
     public Button backButton;
     @FXML
@@ -46,18 +46,27 @@ public class RankingsController implements Initializable {
     @FXML
     public Label fifthNoLabel;
 
+    // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #8c8686; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #8c8686; -fx-opacity: 0.85;";
 
+    // Back button listener
     public void back(ActionEvent event) throws Exception {
         moveToMainMenu((Stage)backButton.getScene().getWindow());
     }
 
+    // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Setting the mouse entered and exited listeners for hover effect
         backButton.setOnMouseEntered(e -> backButton.setStyle(HOVERED_BUTTON_STYLE));
         backButton.setOnMouseExited(e -> backButton.setStyle(IDLE_BUTTON_STYLE));
 
+        // ------------------------------------
+        // ------------------------------------
         // Request data from the server and set the rankings labels
+        // ------------------------------------
+        // ------------------------------------
+
     }
 }

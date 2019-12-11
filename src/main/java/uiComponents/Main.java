@@ -19,25 +19,33 @@ import java.nio.file.Paths;
 import static uiComponents.SceneChanger.*;
 
 public class Main extends Application {
+
+    // Data objects
     public static User user = null;
     public static Settings settings = null;
     public static Game game = null;
     public static Lobby lobby = null;
+
+    // For the background music
     public static MediaPlayer mediaPlayer = null;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        playMusic();
+        playMusic(); // Starts the music
+
+        // Initialize scene
         AnchorPane root = new AnchorPane();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.setResizable(false);
-        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        primaryStage.setFullScreenExitHint(null);
-        settings = new Settings();
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // No exit with ESC
+        primaryStage.setFullScreenExitHint(null); // Exit hint pop up disabled
 
+        settings = new Settings(); // Settings initialized
+
+        // Move to functions
 
         //moveToCreateLobby(primaryStage);
         //moveToCredits(primaryStage);
@@ -51,6 +59,8 @@ public class Main extends Application {
         //moveToSignUp(primaryStage);
 
     }
+
+    // To play the background music
     public void playMusic(){
         Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);

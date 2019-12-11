@@ -3,18 +3,19 @@ package uiComponents;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import models.User;
+import okhttp3.ResponseBody;
 import rest.ApiClient;
 import rest.ApiInterface;
 import rest.models.GeneralResponse;
@@ -22,6 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import utils.Constants;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,48 +33,98 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static uiComponents.SceneChanger.moveToMainMenu;
-import static uiComponents.SceneChanger.moveToSignIn;
+import static uiComponents.SceneChanger.moveToSignUp;
 
-public class SignUpController implements Initializable{
+public class SignInScene implements Initializable{
+
+    @FXML
     public Button signUpButton;
-    public Button backButton;
-    public TextField nameField;
+    @FXML
+    public Button signInButton;
+    @FXML
+    public Button exitButton;
+    @FXML
     public TextField usernameField;
+    @FXML
     public PasswordField passwordField;
 
+    // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
 
-    public void signUp(ActionEvent actionEvent) {
-        String name = nameField.getText();
+    // For loading animation
+    private ProgressIndicator progress;
+
+    // Sign up button listener
+    public void signUp(ActionEvent event) throws Exception {
+        moveToSignUp((Stage) signUpButton.getScene().getWindow());
+    }
+
+    // Sign in button listener
+    public void signIn(ActionEvent actionEvent) {
+        // Get the inputs
         String username = usernameField.getText();
         String password = passwordField.getText();
 
+        // For loading indicator
+        progress = new ProgressIndicator();
+        progress.setMaxSize(100, 100);
+        progress.setLayoutX(910);
+        progress.setLayoutY(490);
+
+        ((AnchorPane)signInButton.getScene().getRoot()).getChildren().add(progress);
+
+        Thread progressThread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        System.out.println("done");
+                    }
+                });
+            }
+        });
+        // Start loading animation
+        progressThread.start();
+
+        // Login request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<GeneralResponse<User>> call = apiService.signUp(name, username, password);
+        Call<GeneralResponse<User>> call = apiService.login(username, password);
+
         call.enqueue(new Callback<GeneralResponse<User>>() {
+            // If the connection is valid
             @Override
             public void onResponse(Call<GeneralResponse<User>> call, Response<GeneralResponse<User>> response) {
                 if (response.body() != null) {
-
+                    // Get the response
                     GeneralResponse<User> userGeneralResponse = response.body();
 
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                            // If success update lobby and move to see the players
                             if (userGeneralResponse.success) {
                                 Main.user = userGeneralResponse.payload;
-                                moveToMainMenu((Stage) signUpButton.getScene().getWindow());
+                                moveToMainMenu((Stage) signInButton.getScene().getWindow());
                             }
-                            else {
+                            // Otherwise error message
+                            else
                                 showErrorMessage(userGeneralResponse.message);
-
-                            }
                         }
                     });
-
-                } else {
+                }
+                // When the response's body is null
+                else {
                     try {
                         String errorResponse = response.errorBody().string();
                         GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
@@ -89,6 +141,7 @@ public class SignUpController implements Initializable{
                 }
             }
 
+            // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<User>> call, Throwable t) {
                 Platform.runLater(new Runnable() {
@@ -103,6 +156,7 @@ public class SignUpController implements Initializable{
 
     }
 
+    // Error message
     private void showErrorMessage(String errorMsg){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -111,16 +165,20 @@ public class SignUpController implements Initializable{
         alert.showAndWait();
     }
 
-    public void back(ActionEvent actionEvent) throws IOException {
-        moveToSignIn((Stage)backButton.getScene().getWindow() );
-    }
-
+    // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        backButton.setOnMouseEntered(e -> backButton.setStyle(HOVERED_BUTTON_STYLE));
-        backButton.setOnMouseExited(e -> backButton.setStyle(IDLE_BUTTON_STYLE));
+        // Setting the mouse entered and exited listeners for hover effect
+        signInButton.setOnMouseEntered(e -> signInButton.setStyle(HOVERED_BUTTON_STYLE));
+        signInButton.setOnMouseExited(e -> signInButton.setStyle(IDLE_BUTTON_STYLE));
         signUpButton.setOnMouseEntered(e -> signUpButton.setStyle(HOVERED_BUTTON_STYLE));
         signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
+        exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
+        exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
+    }
+
+    // Exit button listener
+    public void exit(ActionEvent actionEvent) {
+        SceneChanger.exit((Stage)exitButton.getScene().getWindow());
     }
 }
-

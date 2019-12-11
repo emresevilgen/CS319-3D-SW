@@ -34,7 +34,10 @@ import java.util.ResourceBundle;
 
 import static uiComponents.SceneChanger.*;
 
-public class CreateLobbyController implements Initializable {
+/**
+ * Create Lobby Scene
+ */
+public class CreateLobbyScene implements Initializable {
 
 
     boolean isCreator = true;
@@ -54,46 +57,54 @@ public class CreateLobbyController implements Initializable {
     public TextField lobbyNameField;
 
 
-
+    // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #74747c; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #74747c; -fx-opacity: 0.85;";
 
+    // Create button listener
     public void create(ActionEvent event) throws Exception {
 
+        // Create mode with checkbox values and get the lobby name
         Mode mode = new Mode();
         mode.loot = gettingLootCheckBox.isSelected();
         mode.shufflePlaces = shufflePlacesCheckBox.isSelected();
         mode.invalidMovePenalty = invalidMovePenaltyCheckBox.isSelected();
         mode.secretSkills = secretSkillsCheckBox.isSelected();
 
-
         String lobbyName = lobbyNameField.getText();
 
+        // Create lobby request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
         Call<GeneralResponse<Lobby>> call = apiService.createLobby(Main.user.userName, lobbyName, Main.user.token, mode);
+
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
+
+            // If the connection is valid
             @Override
             public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
                 if (response.body() != null) {
 
+                    // Get the response
                     GeneralResponse<Lobby> userGeneralResponse = response.body();
 
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                            // If success update lobby and move to see the players
                             if (userGeneralResponse.success) {
                                 Main.lobby = userGeneralResponse.payload;
                                 moveToSeeThePlayers((Stage) createButton.getScene().getWindow(), true);
                             }
+                            // Otherwise error message
                             else {
                                 showErrorMessage(userGeneralResponse.message);
 
                             }
                         }
                     });
-
-                } else {
+                }
+                // When the response's body is null
+                else {
                     try {
                         String errorResponse = response.errorBody().string();
                         GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
@@ -110,6 +121,7 @@ public class CreateLobbyController implements Initializable {
                 }
             }
 
+            // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
                 Platform.runLater(new Runnable() {
@@ -123,12 +135,15 @@ public class CreateLobbyController implements Initializable {
         });
     }
 
+    // Cancel button listener
     public void cancel(ActionEvent event) throws Exception {
         moveToMainMenu((Stage) cancelButton.getScene().getWindow());
     }
 
+    // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Setting the mouse entered and exited listeners for hover effect
         cancelButton.setOnMouseEntered(e -> cancelButton.setStyle(HOVERED_BUTTON_STYLE));
         cancelButton.setOnMouseExited(e -> cancelButton.setStyle(IDLE_BUTTON_STYLE));
         createButton.setOnMouseEntered(e -> createButton.setStyle(HOVERED_BUTTON_STYLE));
@@ -136,6 +151,7 @@ public class CreateLobbyController implements Initializable {
 
     }
 
+    // Error message
     private void showErrorMessage(String errorMsg){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

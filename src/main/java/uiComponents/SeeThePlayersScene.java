@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
 
 import static uiComponents.SceneChanger.*;
 
-public class SeeThePlayersController implements Initializable {
+public class SeeThePlayersScene implements Initializable {
     @FXML
     public Button deleteLobbyButton;
     @FXML
@@ -71,74 +71,99 @@ public class SeeThePlayersController implements Initializable {
     @FXML
     public Label lobbyCodeTitle;
 
-
+    // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 0.85;";
+
+    // Label array to change the usernames and states of the players
     Label [] labelsName = new Label[4];
     Label [] labelsState = new Label[4];
 
-
+    // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
-
+        // Update the lobby info at every second
         @Override
         public void handle(ActionEvent event) {
 
-            // get the lobby data every seconds and when the game starts move to the game screen
+            // Get the lobby data every seconds and when the game starts move to the game screen
             update();
         }
     }));
 
+    // Start game button listener
     public void startGame(ActionEvent event) throws Exception {
-        // send request to server if get success move to game screen move to game screen
+        // ----------------------------------
+        // ----------------------------------
+        // Send request to server if get success move to game screen move to game screen
+        // ----------------------------------
+        // ----------------------------------
+
+        // To stop requests
         timeLine.stop();
         moveToGame((Stage)startGameButton.getScene().getWindow());
     }
 
+    // Dismiss button listener
     public void dismissThePerson(ActionEvent event) throws Exception {
+        // Get the checkbox inputs
         boolean secondPlayer = secondPlayerCheckBox.isSelected();
         boolean thirdPlayer = thirdPlayerCheckBox.isSelected();
         boolean fourthPlayer = fourthPlayerCheckBox.isSelected();
-
+        // ----------------------------------
+        // ----------------------------------
         // servera dismiss data gönder
         //moveToMainMenu((Stage)dismissPersonButton.getScene().getWindow());
+        // ----------------------------------
+        // ----------------------------------
     }
 
     public void deleteLobby(ActionEvent event) throws Exception {
+        // ----------------------------------
+        // ----------------------------------
         // servera delete data gönder
+        // ----------------------------------
+        // ----------------------------------
 
+        // To stop requests
         timeLine.stop();
         moveToMainMenu((Stage)deleteLobbyButton.getScene().getWindow());
 
-
     }
 
+
+    // Send request and update the lobby object
     public void update() {
 
-        // get the lobby data and when the game starts move to the game screen
+        // Get the lobby data and when the game starts move to the game screen
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         Call<GeneralResponse<Lobby>> call = apiService.getLobby(Main.user.userName, Main.user.token, Main.lobby.lobbyId);
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
+            // If the connection is valid
             @Override
             public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
                 if (response.body() != null) {
 
+                    // Get the response
                     GeneralResponse<Lobby> userGeneralResponse = response.body();
 
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                            // If success update lobby and move to see the players
                             if (userGeneralResponse.success) {
                                 Main.lobby = userGeneralResponse.payload;
                             }
+                            // Otherwise error message
                             else {
                                 showErrorMessage(userGeneralResponse.message);
 
                             }
                         }
                     });
-
-                } else {
+                }
+                // When the response's body is null
+                else {
                     try {
                         String errorResponse = response.errorBody().string();
                         GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
@@ -155,6 +180,7 @@ public class SeeThePlayersController implements Initializable {
                 }
             }
 
+            // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
                 Platform.runLater(new Runnable() {
@@ -167,13 +193,14 @@ public class SeeThePlayersController implements Initializable {
             }
         });
 
+        // Clear the labels
         for (int i = 0; i < labelsName.length; i++)
             labelsName[i].setText("");
 
         for (int i = 0; i < labelsState.length; i++)
             labelsState[i].setText("");
 
-
+        // Update the labels with the response
         for (int i = 0; i < Main.lobby.lobbyUsers.length; i++) {
             labelsName[i].setText(Main.lobby.lobbyUsers[i].username);
             if (Main.lobby.lobbyUsers[i].username.equals(Main.lobby.lobbyAdmin)) {
@@ -189,15 +216,22 @@ public class SeeThePlayersController implements Initializable {
         }
 
 
+        // -------------------
+        // -------------------
         // if game starts then
         //         timeLine.stop();
+        // -------------------
+        // -------------------
     }
 
-
+    // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Start sending requests
         timeLine.setCycleCount(Animation.INDEFINITE);
         timeLine.play();
+
+        // Setting the mouse entered and exited listeners for hover effect
         deleteLobbyButton.setOnMouseEntered(e -> deleteLobbyButton.setStyle(HOVERED_BUTTON_STYLE));
         deleteLobbyButton.setOnMouseExited(e -> deleteLobbyButton.setStyle(IDLE_BUTTON_STYLE));
         startGameButton.setOnMouseEntered(e -> startGameButton.setStyle(HOVERED_BUTTON_STYLE));
@@ -205,8 +239,10 @@ public class SeeThePlayersController implements Initializable {
         dismissPersonButton.setOnMouseEntered(e -> dismissPersonButton.setStyle(HOVERED_BUTTON_STYLE));
         dismissPersonButton.setOnMouseExited(e -> dismissPersonButton.setStyle(IDLE_BUTTON_STYLE));
 
+        // Show the lobby code
         lobbyCodeTitle.setText("People in the Lobby with the code " + Main.lobby.lobbyCode + ":");
 
+        // Initialize the label arrays
         labelsName[0] = firstNameLabel;
         labelsName[1] = secondNameLabel;
         labelsName[2] = thirdNameLabel;
@@ -217,10 +253,11 @@ public class SeeThePlayersController implements Initializable {
         labelsState[2] = thirdStateLabel;
         labelsState[3] = fourthStateLabel;
 
-        // get the lobby data and initilize the people in the lobby
+        // Get the lobby data and initialize the people in the lobby
         update();
     }
 
+    // Error message
     private void showErrorMessage(String errorMsg){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

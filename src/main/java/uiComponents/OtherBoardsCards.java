@@ -13,11 +13,13 @@ public class OtherBoardsCards implements Initializable {
     @FXML
     public ImageView focus;
 
+    // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    // Increase scale of the card mouse entered
     public void setScaleOn(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null){
@@ -29,6 +31,7 @@ public class OtherBoardsCards implements Initializable {
         }
     }
 
+    // Decrease scale of the card mouse exited
     public void setScaleOff(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null){

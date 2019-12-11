@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
 import static uiComponents.SceneChanger.moveToMainMenu;
 import static uiComponents.SceneChanger.moveToSeeThePlayers;
 
-public class SeeThePlayers2Controller implements Initializable {
+public class SeeThePlayers2Scene implements Initializable {
     @FXML
     public Button leaveButton;
     @FXML
@@ -60,55 +60,77 @@ public class SeeThePlayers2Controller implements Initializable {
     @FXML
     public Label fourthStateLabel;
 
+    // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 0.85;";
+
+    // Label array to change the usernames and states of the players
     Label [] labelsName = new Label[4];
     Label [] labelsState = new Label[4];
 
+    // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
-
+        // Update the lobby info at every second
         @Override
         public void handle(ActionEvent event) {
             update();
          }
     }));
 
+    // Be ready button listener
     public void beReady(ActionEvent event) throws Exception {
+        //------------------------
+        //------------------------
         //send request to the server
+        //------------------------
+        //------------------------
     }
 
+    // Leave button listener
     public void leave(ActionEvent event) throws Exception {
+        //------------------------
+        //------------------------
         // send a request to the server and move to the main menu
+        //------------------------
+        //------------------------
+
+        // To stop the requests and move to main menu
         timeLine.stop();
         moveToMainMenu((Stage)leaveButton.getScene().getWindow());
 
     }
 
+    // Send request and update the lobby object
     public void update() {
 
-        // get the lobby data and when the game starts move to the game screen
+        // Get the lobby data and when the game starts move to the game screen
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         Call<GeneralResponse<Lobby>> call = apiService.getLobby(Main.user.userName, Main.user.token, Main.lobby.lobbyId);
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
+            // If the connection is valid
             @Override
             public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
                 if (response.body() != null) {
 
+                    // Get the response
                     GeneralResponse<Lobby> userGeneralResponse = response.body();
 
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                            // If success update lobby and move to see the players
                             if (userGeneralResponse.success)
                                 Main.lobby = userGeneralResponse.payload;
+                            // Otherwise error message
                             else {
                                 showErrorMessage(userGeneralResponse.message);
                             }
                         }
                     });
-
-                } else {
+                }
+                // When the response's body is null
+                else {
                     try {
                         String errorResponse = response.errorBody().string();
                         GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
@@ -125,6 +147,7 @@ public class SeeThePlayers2Controller implements Initializable {
                 }
             }
 
+            // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
                 Platform.runLater(new Runnable() {
@@ -137,13 +160,15 @@ public class SeeThePlayers2Controller implements Initializable {
             }
         });
 
+
+        // Clear the labels
         for (int i = 0; i < labelsName.length; i++)
             labelsName[i].setText("");
 
         for (int i = 0; i < labelsState.length; i++)
             labelsState[i].setText("");
 
-
+        // Update the labels with the response
         for (int i = 0; i < Main.lobby.lobbyUsers.length; i++) {
             labelsName[i].setText(Main.lobby.lobbyUsers[i].username);
             if (Main.lobby.lobbyUsers[i].username.equals(Main.lobby.lobbyAdmin)) {
@@ -158,21 +183,29 @@ public class SeeThePlayers2Controller implements Initializable {
 
         }
 
-
+        // -------------------
+        // -------------------
         // if game starts then
         //         timeLine.stop();
+        // -------------------
+        // -------------------
+
     }
 
-
+    // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Start sending requests
         timeLine.setCycleCount(Animation.INDEFINITE);
         timeLine.play();
+
+        // Setting the mouse entered and exited listeners for hover effect
         leaveButton.setOnMouseEntered(e -> leaveButton.setStyle(HOVERED_BUTTON_STYLE));
         leaveButton.setOnMouseExited(e -> leaveButton.setStyle(IDLE_BUTTON_STYLE));
         readyButton.setOnMouseEntered(e -> readyButton.setStyle(HOVERED_BUTTON_STYLE));
         readyButton.setOnMouseExited(e -> readyButton.setStyle(IDLE_BUTTON_STYLE));
 
+        // Initialize the label arrays
         labelsName[0] = firstNameLabel;
         labelsName[1] = secondNameLabel;
         labelsName[2] = thirdNameLabel;
@@ -183,10 +216,11 @@ public class SeeThePlayers2Controller implements Initializable {
         labelsState[2] = thirdStateLabel;
         labelsState[3] = fourthStateLabel;
 
-        // Get the lobby data and initilize the people,
+        // Get the lobby data and initialize the people,
         update();
     }
 
+    // Error message
     private void showErrorMessage(String errorMsg){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

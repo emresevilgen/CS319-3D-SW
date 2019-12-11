@@ -10,6 +10,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
+/**
+ * This interface is used for specifying the requests
+ */
 public interface ApiInterface {
     @FormUrlEncoded
     @POST("login.php")
