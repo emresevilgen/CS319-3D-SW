@@ -37,6 +37,7 @@ Iteration 1:
 
 Iteration 2:
 - [Analysis Report](https://docs.google.com/document/d/1XJNsbI7gstyb_r8-L1cl4pPRrjysDSdBD5x0qoMIWEo/edit?ts=5ddd4d83#)
+- [Design Report](https://docs.google.com/document/d/1Splm2Ayn__dja-78CtnCScQwhMzLa7AXe_TjYq7cKAY/edit?usp=sharing)
 
 Meeting Hours and Agenda
 -------------
