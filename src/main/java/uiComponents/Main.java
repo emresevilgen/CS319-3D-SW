@@ -1,5 +1,7 @@
 package uiComponents;
 
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -32,7 +34,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        playMusic(); // Starts the music
+        //playMusic(); // Starts the music
 
         // Initialize scene
         AnchorPane root = new AnchorPane();
@@ -57,6 +59,9 @@ public class Main extends Application {
         //moveToSettings(primaryStage);
         moveToSignIn(primaryStage);
         //moveToSignUp(primaryStage);
+
+
+
 
     }
 

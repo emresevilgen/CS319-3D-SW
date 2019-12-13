@@ -8,6 +8,7 @@ module uiComponents {
     requires java.sql;
     requires okhttp3;
     requires okio;
+    requires freetts;
 
     opens uiComponents to javafx.fxml;
     exports uiComponents;
