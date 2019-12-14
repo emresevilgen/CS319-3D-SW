@@ -1,9 +1,13 @@
 package uiComponents;
 
+import audioDescription.TextToSpeech;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -12,10 +16,40 @@ import java.util.ResourceBundle;
 public class OtherBoardsCards implements Initializable {
     @FXML
     public ImageView focus;
-
+    int rightBoardCardsNo = 0;
+    private TextToSpeech tts = new TextToSpeech();
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        GameScene.boardScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                if(keyCode.equals(KeyCode.RIGHT) )
+                {
+                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan Main.game.players[1].board.cardCount,bunu da oyun sırasında arttır
+                    if(rightBoardCardsNo == 3)//değiştir
+                    {
+                        rightBoardCardsNo = -1;
+                    }
+                    rightBoardCardsNo++;
+                    tts.read(Main.game.players[1].board.cards[0].cardName);
+                }
+                else if(keyCode.equals(KeyCode.LEFT))
+                {
+                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan Main.game.players[1].board.cardCount,bunu da oyun sırasında arttır
+                    if(rightBoardCardsNo == 0)
+                    {
+                        rightBoardCardsNo = 4;//değiştir
+                    }
+                    rightBoardCardsNo--;
+                    tts.read(Main.game.players[1].board.cards[0].cardName);
+                }
+            event.consume();
+            }
+        }
+    );
 
     }
 
@@ -43,3 +77,5 @@ public class OtherBoardsCards implements Initializable {
         }
     }
 }
+
+

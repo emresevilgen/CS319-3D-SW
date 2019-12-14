@@ -1,8 +1,10 @@
 package uiComponents;
 
+import audioDescription.TextToSpeech;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +14,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -54,6 +59,8 @@ public class MainMenuScene implements Initializable {
     public Button signOutButton;
     @FXML
     public Button exitButton;
+
+    TextToSpeech tts = new TextToSpeech();
 
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
@@ -221,6 +228,36 @@ public class MainMenuScene implements Initializable {
 
     }
 
+    int index = 2;
+    public void onKeyPress(KeyEvent event)
+    {
+        if(event.getCode().equals(KeyCode.TAB))
+        {
+            if(index == 8)
+                index=1;
+            index++;
+            System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
+            //System.out.println(((Button)event.getSource()).getText());
+           // System.out.println(((Button)event.getTarget()).getText());
+            //tts.read(((Button)event.getTarget()).getText());
+
+            if(index == 2)
+                tts.read("Create a Lobby");
+            else if(index ==3)
+                tts.read("Join to the Existing Lobby");
+            else if(index==4)
+                tts.read("See the Rankings");
+            else if(index==5)
+                tts.read("Settings");
+            else if(index==6)
+                tts.read("Credits");
+            else if(index==7)
+                tts.read("Exit");
+            else if(index==8)
+                tts.read("Sign Out");
+        }
+    }
+
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -239,6 +276,9 @@ public class MainMenuScene implements Initializable {
         signOutButton.setOnMouseExited(e -> signOutButton.setStyle(IDLE_BUTTON_STYLE));
         exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
+
+        TextToSpeech tts = new TextToSpeech();
+        tts.read("Create a Lobby");//fxml i yüklemeden söylüyor
     }
 
     // Error message

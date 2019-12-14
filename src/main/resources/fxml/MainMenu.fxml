@@ -5,42 +5,42 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.MainMenuScene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.MainMenuScene">
     <children>
         <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
         <ImageView fx:id="logoView" fitHeight="260.0" fitWidth="800.0" layoutX="560.0" layoutY="148.0" pickOnBounds="true" />
 
-        <Button fx:id="createLobbyButton" layoutX="764.0" layoutY="440.0" mnemonicParsing="false" onAction="#createLobby" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Create a Lobby" textFill="WHITE">
+        <Button fx:id="createLobbyButton" layoutX="764.0" layoutY="440.0" mnemonicParsing="false" onAction="#createLobby" onKeyPressed="#onKeyPress" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Create a Lobby" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button fx:id="joinLobbyButton" layoutX="764.0" layoutY="520.0" mnemonicParsing="false" onAction="#joinLobby" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Join to the Existing Lobby" textFill="WHITE">
+        <Button fx:id="joinLobbyButton" layoutX="764.0" layoutY="520.0" mnemonicParsing="false" onAction="#joinLobby" onKeyPressed="#onKeyPress" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Join to the Existing Lobby" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button fx:id="seeRankingsButton" layoutX="764.0" layoutY="600.0" mnemonicParsing="false" onAction="#rankings" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="See the Rankings" textFill="WHITE">
+        <Button fx:id="seeRankingsButton" layoutX="764.0" layoutY="600.0" mnemonicParsing="false" onAction="#rankings" onKeyPressed="#onKeyPress" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="See the Rankings" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button fx:id="settingsButton" layoutX="764.0" layoutY="680.0" mnemonicParsing="false" onAction="#settings" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Settings" textFill="WHITE">
+        <Button fx:id="settingsButton" layoutX="764.0" layoutY="680.0" mnemonicParsing="false" onAction="#settings" onKeyPressed="#onKeyPress" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Settings" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-        <Button fx:id="creditsButton" layoutX="764.0" layoutY="760.0" mnemonicParsing="false" onAction="#credits" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Credits" textFill="WHITE">
+        <Button fx:id="creditsButton" layoutX="764.0" layoutY="760.0" mnemonicParsing="false" onAction="#credits" onKeyPressed="#onKeyPress" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Credits" textFill="WHITE">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-      <Button fx:id="exitButton" layoutX="764.0" layoutY="920.0" mnemonicParsing="false" onAction="#exit" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Exit" textFill="WHITE">
+      <Button fx:id="exitButton" layoutX="764.0" layoutY="920.0" mnemonicParsing="false" onAction="#exit" onKeyPressed="#onKeyPress" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Exit" textFill="WHITE">
          <font>
             <Font size="27.0" />
          </font>
       </Button>
-      <Button fx:id="signOutButton" layoutX="764.0" layoutY="840.0" mnemonicParsing="false" onAction="#signOut" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Sign Out" textFill="WHITE">
+      <Button fx:id="signOutButton" layoutX="764.0" layoutY="840.0" mnemonicParsing="false" onAction="#signOut" onKeyPressed="#onKeyPress" prefHeight="57.0" prefWidth="387.0" style="-fx-background-color: #b38632;" text="Sign Out" textFill="WHITE">
          <font>
             <Font size="27.0" />
          </font>

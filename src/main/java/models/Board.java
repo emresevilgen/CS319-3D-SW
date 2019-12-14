@@ -18,6 +18,8 @@ public class Board {
     @SerializedName("wonderName")
     public String wonderName;
 
+    public int cardCount = 0;
+
     @Override
     public String toString() {
         return "Board{" +

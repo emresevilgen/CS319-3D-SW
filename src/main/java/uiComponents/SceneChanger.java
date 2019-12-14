@@ -1,5 +1,6 @@
 package uiComponents;
 
+import audioDescription.TextToSpeech;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,6 +41,9 @@ public class SceneChanger {
             // Show scene
             stage.getScene().setRoot(root);
             stage.show();
+
+            //TextToSpeech tts = new TextToSpeech();
+            //tts.read("Create a Lobby");//fxml i yüklemeden söylüyor
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -292,9 +296,12 @@ public class SceneChanger {
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
 
+
             // Show scene
             stage.getScene().setRoot(root);
             stage.show();
+
+
 
         } catch (IOException e) {
             e.printStackTrace();

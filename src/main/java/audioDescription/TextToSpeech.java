@@ -12,6 +12,7 @@ public class TextToSpeech {
         Voice voice = vm.getVoice("kevin16");
         voice.allocate();
         voice.speak(text);
+        voice.endBatch();
     }
 
 }

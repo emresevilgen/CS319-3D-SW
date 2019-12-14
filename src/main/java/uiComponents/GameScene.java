@@ -129,6 +129,7 @@ public class GameScene implements Initializable {
     private int acrossBoardCardsNo;
     private int rightBoardCardsNo;
     private int boardsNo;
+    private Card[] cardsInColorOrder;
 
     private TextToSpeech tts = new TextToSpeech();
 
@@ -215,7 +216,6 @@ public class GameScene implements Initializable {
        Main.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
            @Override
            public void handle(KeyEvent event) {
-
                KeyCode keyCode = event.getCode();
                switch (keyCode)
                {
@@ -225,18 +225,26 @@ public class GameScene implements Initializable {
                         tts.read("The cards in the deck");
                         tts.read(Main.game.players[0].playerCards[deckNo].cardName);
                         break;
+
                    //Cards in the player's board
                    case S: keyInput = "boardCards";
                         deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
                         tts.read("The cards in the board");
-                        tts.read(Main.game.players[boardsNo].board.wonderName);
+                        tts.read(Main.game.players[0].board.cards[boardCardsNo].cardName);
                         break;
+
                    //Cards in the left player's board
                    case A: keyInput = "leftBoardCards"; deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0; tts.read("The cards in the left board"); break;
+
                    //Cards in the across player's board
                    case W: keyInput = "acrossBoardCards"; deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0; tts.read("The cards in the across board"); break;
+
                    //Cards in the right player's board
-                   case D: keyInput =  "rightBoardCards"; deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0; tts.read("The cards in the right board"); break;
+                   case D: keyInput =  "rightBoardCards";
+                   deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                        tts.read("The cards in the right board");
+                        break;
+
                    //Boards description
                    case B: keyInput = "boards";
                         deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
@@ -245,7 +253,33 @@ public class GameScene implements Initializable {
                        break;
 
                }
-               if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("deck"))
+               if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boardCards"))
+               {
+                   //if in içinde boarddaki  card sayısını compare etmek için bunu kullan Main.game.players[0].board.cardCount,bunu da oyun sırasında arttır
+                   if(boardCardsNo == 3)//değiştir
+                   {
+                       boardCardsNo = -1;
+                   }
+                   boardCardsNo++;
+                   tts.read(cardsInColorOrder[boardCardsNo].cardName);
+               }
+               else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("boardCards"))
+               {
+                   //if in içinde boarddaki  card sayısını compare etmek için bunu kullan Main.game.players[0].board.cardCount,bunu da oyun sırasında arttır
+                   if(boardCardsNo == 0)
+                   {
+                       boardCardsNo = 4;//değiştir
+                   }
+                   boardCardsNo--;
+                   tts.read(cardsInColorOrder[boardCardsNo].cardName);
+               }
+
+               if(keyCode.equals(KeyCode.ENTER) && keyInput.equals("boardCards"))
+               {
+
+               }
+
+               else if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("deck"))
                {
                    if(deckNo == (7-turnNumber) )
                    {
@@ -281,7 +315,6 @@ public class GameScene implements Initializable {
                    boardsNo--;
                    tts.read(Main.game.players[boardsNo].board.wonderName);
                }
-
 
                event.consume();
            }
@@ -531,6 +564,7 @@ public class GameScene implements Initializable {
 
         // To classify the cards at the users board
         Card[] cards = players[0].board.cards;
+
         ArrayList<Card> brownCards = new ArrayList<>();
         ArrayList<Card> grayCards = new ArrayList<>();
         ArrayList<Card> redCards = new ArrayList<>();
@@ -539,29 +573,28 @@ public class GameScene implements Initializable {
         ArrayList<Card> purpleCards = new ArrayList<>();
         ArrayList<Card> greenCards = new ArrayList<>();
 
+        //To use for ordered list in audio description
+        cardsInColorOrder = new Card[19]; // Main.game.players[0].board.cardCount
+
+
         for (int i = 0; i < cards.length; i++){
             if (cards[i] != null){
                 Card card = cards[i];
                 String color = card.cardColor;
                 switch (color){
-                    case "Brown": brownCards.add(card); break;
-                    case "Gray": grayCards.add(card); break;
-                    case "Red": redCards.add(card); break;
-                    case "Blue": blueCards.add(card); break;
-                    case "Yellow": yellowCards.add(card); break;
-                    case "Purple": purpleCards.add(card); break;
-                    case "Green": greenCards.add(card); break;
+                    case "Brown": brownCards.add(card); cardsInColorOrder[i] = card; break;
+                    case "Gray": grayCards.add(card); cardsInColorOrder[i] = card; break;
+                    case "Red": redCards.add(card); cardsInColorOrder[i] = card; break;
+                    case "Blue": blueCards.add(card); cardsInColorOrder[i] = card; break;
+                    case "Yellow": yellowCards.add(card); cardsInColorOrder[i] = card; break;
+                    case "Purple": purpleCards.add(card); cardsInColorOrder[i] = card; break;
+                    case "Green": greenCards.add(card); cardsInColorOrder[i] = card; break;
                 }
             }
         }
 
         // Display the cards in order
         int viewOrder = 0;
-
-        for (int i = 0; i < redCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(redCards.get(i)));
-            viewOrder++;
-        }
 
         for (int i = 0; i < brownCards.size(); i++){
             cardViews[viewOrder].setImage(getCardImage(brownCards.get(i)));
@@ -570,6 +603,16 @@ public class GameScene implements Initializable {
 
         for (int i = 0; i < grayCards.size(); i++){
             cardViews[viewOrder].setImage(getCardImage(grayCards.get(i)));
+            viewOrder++;
+        }
+
+        for (int i = 0; i < greenCards.size(); i++){
+            cardViews[viewOrder].setImage(getCardImage(greenCards.get(i)));
+            viewOrder++;
+        }
+
+        for (int i = 0; i < redCards.size(); i++){
+            cardViews[viewOrder].setImage(getCardImage(redCards.get(i)));
             viewOrder++;
         }
 
@@ -588,13 +631,10 @@ public class GameScene implements Initializable {
             viewOrder++;
         }
 
-        for (int i = 0; i < greenCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(greenCards.get(i)));
-            viewOrder++;
-        }
-
     }
 
+    public static Stage boardStage;
+    public static Scene boardScene;
     // Board listeners
     public void showOtherPlayersCards(MouseEvent mouseEvent) {
         Card [] cards;
@@ -610,8 +650,7 @@ public class GameScene implements Initializable {
             return;
 
         // Load FXML and show pop up window
-        Stage boardStage;
-        Scene boardScene;
+
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
         FileInputStream backgroundFile = null;
