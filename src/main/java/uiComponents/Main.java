@@ -27,6 +27,8 @@ public class Main extends Application {
     public static Settings settings = null;
     public static Game game = null;
     public static Lobby lobby = null;
+    public static AnchorPane root;
+    public static  Scene scene;
 
     // For the background music
     public static MediaPlayer mediaPlayer = null;
@@ -34,11 +36,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //playMusic(); // Starts the music
+        playMusic(); // Starts the music
 
         // Initialize scene
-        AnchorPane root = new AnchorPane();
-        Scene scene = new Scene(root);
+        root = new AnchorPane();
+        scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.setResizable(false);
@@ -51,7 +53,7 @@ public class Main extends Application {
 
         //moveToCreateLobby(primaryStage);
         //moveToCredits(primaryStage);
-        // moveToGame(primaryStage);
+         //moveToGame(primaryStage);
        // moveToMainMenu(primaryStage);
         //moveToRankings(primaryStage);
         //moveToSeeThePlayers(primaryStage, true);

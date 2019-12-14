@@ -1,5 +1,6 @@
 package uiComponents;
 
+import audioDescription.TextToSpeech;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +16,8 @@ import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
@@ -116,6 +119,18 @@ public class GameScene implements Initializable {
     ImageView[] cardViews;
 
     int ageNumber = 0;
+    int turnNumber = 0;
+
+
+    private String keyInput = "";
+    private int deckNo;
+    private int boardCardsNo;
+    private int leftBoardCardsNo;
+    private int acrossBoardCardsNo;
+    private int rightBoardCardsNo;
+    private int boardsNo;
+
+    private TextToSpeech tts = new TextToSpeech();
 
     // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -197,6 +212,80 @@ public class GameScene implements Initializable {
         Main.game.players[3].board.cards = new Card[19];
 
         //-------------------------------------
+       Main.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+           @Override
+           public void handle(KeyEvent event) {
+
+               KeyCode keyCode = event.getCode();
+               switch (keyCode)
+               {
+                   // Cards in the player's deck
+                   case C: keyInput = "deck";
+                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                        tts.read("The cards in the deck");
+                        tts.read(Main.game.players[0].playerCards[deckNo].cardName);
+                        break;
+                   //Cards in the player's board
+                   case S: keyInput = "boardCards";
+                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                        tts.read("The cards in the board");
+                        tts.read(Main.game.players[boardsNo].board.wonderName);
+                        break;
+                   //Cards in the left player's board
+                   case A: keyInput = "leftBoardCards"; deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0; tts.read("The cards in the left board"); break;
+                   //Cards in the across player's board
+                   case W: keyInput = "acrossBoardCards"; deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0; tts.read("The cards in the across board"); break;
+                   //Cards in the right player's board
+                   case D: keyInput =  "rightBoardCards"; deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0; tts.read("The cards in the right board"); break;
+                   //Boards description
+                   case B: keyInput = "boards";
+                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                        tts.read("The boards");
+                       tts.read(Main.game.players[boardsNo].board.wonderName);
+                       break;
+
+               }
+               if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("deck"))
+               {
+                   if(deckNo == (7-turnNumber) )
+                   {
+                       deckNo = -1;
+                   }
+                   deckNo++;
+                   tts.read(Main.game.players[0].playerCards[deckNo].cardName);
+               }
+               else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("deck"))
+               {
+                   if(deckNo == 0)
+                   {
+                       deckNo = 6 - turnNumber;
+                   }
+                   tts.read(Main.game.players[0].playerCards[deckNo].cardName);
+                   deckNo--;
+               }
+               else if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boards"))
+               {
+                   if(boardsNo == 3)  // Player number ı serverdan çektiğin şeyi koy buraya
+                   {
+                       boardsNo = -1;
+                   }
+                   boardsNo++;
+                   tts.read(Main.game.players[boardsNo].board.wonderName);
+               }
+               else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("boards"))
+               {
+                   if(boardsNo == 0)  // Player number ı serverdan çektiğin şeyi koy buraya
+                   {
+                       boardsNo = 4; // player number+1
+                   }
+                   boardsNo--;
+                   tts.read(Main.game.players[boardsNo].board.wonderName);
+               }
+
+
+               event.consume();
+           }
+       });
         //-------------------------------------
 
         // Initialize the card view array
