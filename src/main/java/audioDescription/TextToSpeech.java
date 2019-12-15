@@ -13,6 +13,7 @@ public class TextToSpeech {
         voice.allocate();
         voice.speak(text);
         voice.endBatch();
+        voice.startBatch();
     }
 
 }

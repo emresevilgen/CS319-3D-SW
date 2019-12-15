@@ -1,5 +1,6 @@
 package uiComponents;
 
+import audioDescription.TextToSpeech;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,6 +11,8 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -175,10 +178,38 @@ public class SignInScene implements Initializable{
         signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
         exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
+
+        tts.read("Enter  user name"); // fxml açılmadan okuyor, tekrar bak
     }
 
     // Exit button listener
     public void exit(ActionEvent actionEvent) {
         SceneChanger.exit((Stage)exitButton.getScene().getWindow());
+    }
+
+    TextToSpeech tts = new TextToSpeech();
+    int index = 2;
+    public void onKeyPress(KeyEvent event)
+    {
+        if(event.getCode().equals(KeyCode.TAB))
+        {
+            if(index == 6)
+                index=1;
+            index++;
+            //System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
+
+            //System.out.println(((Button)event.getSource()).getText());
+            // System.out.println(((Button)event.getTarget()).getText());
+            //tts.read(((Button)event.getTarget()).getText());
+
+            switch(index)
+            {
+                case 2: tts.read("Enter  user name"); break;
+                case 3: tts.read("Enter password"); break;
+                case 4: tts.read("Sign in"); break;
+                case 5: tts.read("If you don't have an account, please sign up."); break;
+                case 6: tts.read("Exit"); break;
+            }
+        }
     }
 }

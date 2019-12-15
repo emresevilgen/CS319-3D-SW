@@ -60,8 +60,6 @@ public class MainMenuScene implements Initializable {
     @FXML
     public Button exitButton;
 
-    TextToSpeech tts = new TextToSpeech();
-
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
@@ -228,6 +226,8 @@ public class MainMenuScene implements Initializable {
 
     }
 
+
+    TextToSpeech tts = new TextToSpeech();
     int index = 2;
     public void onKeyPress(KeyEvent event)
     {
@@ -241,20 +241,16 @@ public class MainMenuScene implements Initializable {
            // System.out.println(((Button)event.getTarget()).getText());
             //tts.read(((Button)event.getTarget()).getText());
 
-            if(index == 2)
-                tts.read("Create a Lobby");
-            else if(index ==3)
-                tts.read("Join to the Existing Lobby");
-            else if(index==4)
-                tts.read("See the Rankings");
-            else if(index==5)
-                tts.read("Settings");
-            else if(index==6)
-                tts.read("Credits");
-            else if(index==7)
-                tts.read("Exit");
-            else if(index==8)
-                tts.read("Sign Out");
+            switch(index)
+            {
+                case 2: tts.read("Create a Lobby"); break;
+                case 3: tts.read("Join to the Existing Lobby"); break;
+                case 4: tts.read("See the Rankings"); break;
+                case 5: tts.read("Settings"); break;
+                case 6: tts.read("Credits"); break;
+                case 7: tts.read("Exit"); break;
+                case 8:  tts.read("Sign Out"); break;
+            }
         }
     }
 
