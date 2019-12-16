@@ -1,24 +1,13 @@
 package uiComponents;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import utils.Constants;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static uiComponents.SceneChanger.moveToMainMenu;
 
 public class CreditsScene implements Initializable {
     public Button backButton;
@@ -29,7 +18,7 @@ public class CreditsScene implements Initializable {
 
     // Back button listener
     public void back(ActionEvent actionEvent) {
-        moveToMainMenu((Stage)backButton.getScene().getWindow());
+        SceneHandler.getInstance().moveToMainMenu();
     }
 
     // Initializing function

@@ -6,14 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import models.DataHandler;
 
 
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import static uiComponents.SceneChanger.moveToMainMenu;
-import static uiComponents.SceneChanger.moveToSettings;
 
 public class SettingsScene implements Initializable {
     @FXML
@@ -36,8 +34,8 @@ public class SettingsScene implements Initializable {
     // Save button listener
     public void save(ActionEvent event) throws Exception {
         // Get the inputs
-        Main.settings.setSoundEffects(soundEffectsCheckBox.isSelected());
-        Main.settings.setAudioDescription(audioDescriptionCheckBox.isSelected());
+        DataHandler.getInstance().getSettings().setSoundEffects(soundEffectsCheckBox.isSelected());
+        DataHandler.getInstance().getSettings().setAudioDescription(audioDescriptionCheckBox.isSelected());
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -68,7 +66,7 @@ public class SettingsScene implements Initializable {
                 // ---------------------------------------------------
                 // ---------------------------------------------------
 
-                moveToMainMenu((Stage)saveButton.getScene().getWindow());
+                SceneHandler.getInstance().moveToMainMenu();
             } else {
                 alert.close();
             }
@@ -78,14 +76,14 @@ public class SettingsScene implements Initializable {
     // Cancel button listener
     public void cancel(ActionEvent event) throws Exception {
         // Do nothing and move to main menu
-        moveToMainMenu((Stage)cancelButton.getScene().getWindow());
+        SceneHandler.getInstance().moveToMainMenu();
     }
 
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //usernameField.setText(Main.user.userName); // Show username at the text field
+        usernameField.setText(DataHandler.getInstance().getUser().userName); // Show username at the text field
 
         // Setting the mouse entered and exited listeners for hover effect
         cancelButton.setOnMouseEntered(e -> cancelButton.setStyle(HOVERED_BUTTON_STYLE));
@@ -94,8 +92,8 @@ public class SettingsScene implements Initializable {
         saveButton.setOnMouseExited(e -> saveButton.setStyle(IDLE_BUTTON_STYLE));
 
         // Select the check boxes according to the settings data
-        soundEffectsCheckBox.setSelected(Main.settings.isSoundEffects());
-        audioDescriptionCheckBox.setSelected(Main.settings.isAudioDescription());
+        soundEffectsCheckBox.setSelected(DataHandler.getInstance().getSettings().isSoundEffects());
+        audioDescriptionCheckBox.setSelected(DataHandler.getInstance().getSettings().isAudioDescription());
 
     }
 }

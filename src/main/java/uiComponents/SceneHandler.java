@@ -1,21 +1,82 @@
 package uiComponents;
 
-import audioDescription.TextToSpeech;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import models.*;
 import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class SceneChanger {
+public class SceneHandler extends Application {
+
+    private static SceneHandler sceneHandler = new SceneHandler();
+    private Stage stage;
+
+    // For the background music
+    private MediaPlayer mediaPlayer;
+
+    private SceneHandler(){}
+
+    //Get the only object available
+    public static SceneHandler getInstance(){
+        if (sceneHandler == null)
+            sceneHandler = new SceneHandler();
+        return sceneHandler;
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        playMusic(); // Starts the music
+        stage = primaryStage;
+
+        AnchorPane root;
+        Scene scene;
+
+        // Initialize scene
+        root = new AnchorPane();
+        scene = new Scene(root);
+        primaryStage.setScene(scene);
+        //  primaryStage.setFullScreen(true);
+        primaryStage.setResizable(false);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // No exit with ESC
+        primaryStage.setFullScreenExitHint(null); // Exit hint pop up disabled
+
+        // Move to functions
+
+        //moveToCreateLobby();
+        //moveToCredits();
+        moveToGame();
+        // moveToMainMenu();
+        //moveToRankings();
+        //moveToSeeThePlayers(true);
+        //moveToSeeThePlayers(false);
+        //moveToSettings();
+        //moveToSignIn();
+        //moveToSignUp();
+
+    }
+
+    // To play the background music
+    public void playMusic(){
+        Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
+        mediaPlayer.play();
+    }
 
     // Move main menu scene
-    public static void moveToMainMenu(Stage stage) {
+    public void moveToMainMenu() {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -51,7 +112,7 @@ public class SceneChanger {
     }
 
     // Move sign up scene
-    public static void moveToSignUp(Stage stage) {
+    public void moveToSignUp() {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -85,7 +146,7 @@ public class SceneChanger {
     }
 
     // Move sign in scene
-    public static void moveToSignIn(Stage stage) {
+    public void moveToSignIn() {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -119,7 +180,7 @@ public class SceneChanger {
     }
 
     // Move create lobby scene
-    public static void moveToCreateLobby(Stage stage) {
+    public void moveToCreateLobby() {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -152,7 +213,7 @@ public class SceneChanger {
     }
 
     // Move rankings scene
-    public static void moveToRankings(Stage stage) {
+    public void moveToRankings() {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -185,7 +246,7 @@ public class SceneChanger {
     }
 
     // Move settings scene
-    public static void moveToSettings(Stage stage) {
+    public void moveToSettings() {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -212,7 +273,7 @@ public class SceneChanger {
     }
 
     // Move credits scene
-    public static void moveToCredits(Stage stage) {
+    public void moveToCredits() {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -240,7 +301,7 @@ public class SceneChanger {
     }
 
     // Move see the players scene
-    public static void moveToSeeThePlayers(Stage stage, boolean isCreator) {
+    public void moveToSeeThePlayers(boolean isCreator) {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -278,7 +339,7 @@ public class SceneChanger {
     }
 
     // Move game scene
-    public static void moveToGame(Stage stage) {
+    public void moveToGame() {
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -309,8 +370,21 @@ public class SceneChanger {
     }
 
     // Exit
-    public static void exit(Stage stage){
+    public void exit(){
         System.exit(0);
     }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
+    }
+
+    public Stage getStage() { return stage; }
+
+    public void setStage(Stage stage) { this.stage = stage; }
+
 }
 

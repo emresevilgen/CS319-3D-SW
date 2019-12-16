@@ -24,7 +24,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("updateUser.php")
-    Call<GeneralResponse<User>> updateUser(@Field("name") String name, @Field("password") String password);
+    Call<GeneralResponse<User>> updateUser(@Field("name") String name, @Field("password") String password, @Field("token") String token);
 
     @FormUrlEncoded
     @POST("enterLobby.php")
@@ -39,8 +39,12 @@ public interface ApiInterface {
     Call<GeneralResponse<Lobby>> getLobby(@Field("username") String username, @Field("token") String token, @Field("lobbyId") String lobbyId);
 
     @FormUrlEncoded
+    @POST("exitLobby.php")
+    Call<GeneralResponse<Lobby>> exitLobby(@Field("username") String username, @Field("token") String token, @Field("lobbyId") String lobbyId);
+
+    @FormUrlEncoded
     @POST("getReady.php")
-    Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") boolean ready);
+    Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") boolean ready, @Field("lobbyId") String lobbyId);
 
     @FormUrlEncoded
     @POST("startGame.php")
@@ -48,11 +52,15 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("getGame.php")
-    Call<GeneralResponse<Game>> getGameData(@Field("username") String username, @Field("token") String token, @Field("gameId") String gameId);
+    Call<GeneralResponse<Game>> getGameData(@Field("username") String username, @Field("token") String token, @Field("gameId") String gameId, @Field("playerId") String playerId);
+
+    @FormUrlEncoded
+    @POST("getReadyGame.php")
+    Call<GeneralResponse<Game>> getReadyGame(@Field("username") String username, @Field("token") String token, @Field("gameId") String gameId, @Field("ready") boolean ready);
 
     @FormUrlEncoded
     @POST("commerce.php")
-    Call<GeneralResponse<Game>> bargain(@Field("gameId") String gameId, @Field("username") String username, @Field("token") String token, @Field("sellerPlayerId") String sellerPlayerId, @Field("materialTypes") int[] materialTypes, @Field("materialAmounts") int[] materialAmounts);
+    Call<GeneralResponse<Game>> commerce(@Field("gameId") String gameId, @Field("username") String username, @Field("token") String token, @Field("sellerPlayerId") String sellerPlayerId, @Field("materialTypes") int[] materialTypes, @Field("materialAmounts") int[] materialAmounts);
 
     @FormUrlEncoded
     @POST("pickCard.php")
