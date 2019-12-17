@@ -1,5 +1,6 @@
 package uiComponents;
 
+import audioDescription.TextToSpeech;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -7,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.DataHandler;
@@ -90,16 +93,59 @@ public class SignInScene implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Setting the mouse entered and exited listeners for hover effect
-        signInButton.setOnMouseEntered(e -> signInButton.setStyle(HOVERED_BUTTON_STYLE));
+        signInButton.setOnMouseEntered(e -> {
+            signInButton.setStyle(HOVERED_BUTTON_STYLE);
+            tts.read("Sign in");
+
+        });
+
         signInButton.setOnMouseExited(e -> signInButton.setStyle(IDLE_BUTTON_STYLE));
+
         signUpButton.setOnMouseEntered(e -> signUpButton.setStyle(HOVERED_BUTTON_STYLE));
         signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
         exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
+
+        usernameField.focusedProperty().addListener((ov, oldV, newV) -> {
+            if (newV) { // focus
+                tts.read("Enter user name");
+            }
+        });
+
+        passwordField.focusedProperty().addListener((ov, oldV, newV) -> {
+            if (newV) { // focus
+                tts.read("Enter password");
+            }
+        });
+
+        signInButton.focusedProperty().addListener((ov, oldV, newV) -> {
+            if (newV) { // focus
+                tts.read("Sign in");
+            }
+        });
+
+        exitButton.focusedProperty().addListener((ov, oldV, newV) -> {
+            if (newV) { // focus
+                tts.read("Exit");
+            }
+        });
+
+        signUpButton.focusedProperty().addListener((ov, oldV, newV) -> {
+            if (newV) { // focus
+                tts.read("If you don't have an account, please sign up.");
+            }
+        });
+
+
+
+
     }
 
     // Exit button listener
     public void exit(ActionEvent actionEvent) {
         SceneHandler.getInstance().exit();
     }
+
+    TextToSpeech tts = new TextToSpeech();
+
 }
