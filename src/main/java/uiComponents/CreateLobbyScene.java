@@ -3,6 +3,7 @@ package uiComponents;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import models.Mode;
 import rest.ApiInterface;
 import rest.Requester;
 import rest.ServerConnectionHandler;
+import rest.models.GeneralResponse;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,10 +59,17 @@ public class CreateLobbyScene implements Initializable {
 
         DataHandler dataHandler = DataHandler.getInstance();
         Requester requester = ServerConnectionHandler.getInstance().getRequester();
-        Lobby lobby = requester.createLobby(dataHandler.getUser().userName, lobbyName, dataHandler.getUser().token, mode);
+        GeneralResponse<Lobby> lobby = requester.createLobby(dataHandler.getUser().userName, lobbyName, dataHandler.getUser().token, mode);
         if (lobby != null) {
-            dataHandler.setLobby(lobby);
-            SceneHandler.getInstance().moveToSeeThePlayers(true);
+            if (lobby.success) {
+                dataHandler.setLobby(lobby.payload);
+                SceneHandler.getInstance().moveToSeeThePlayers(true);
+            }
+            else
+                showErrorMessage(lobby.message);
+        }
+        else {
+            showErrorMessage("There is something wrong with the connection");
         }
     }
 
@@ -79,4 +88,14 @@ public class CreateLobbyScene implements Initializable {
         createButton.setOnMouseExited(e -> createButton.setStyle(IDLE_BUTTON_STYLE));
 
     }
+
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.showAndWait();
+    }
+
 }

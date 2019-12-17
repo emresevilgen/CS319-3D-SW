@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.DataHandler;
 import models.Lobby;
+import models.User;
 import rest.ApiClient;
 import rest.ApiInterface;
 import rest.Requester;
@@ -76,12 +77,20 @@ public class MainMenuScene implements Initializable {
         // Get input and check if it is valid then send request
         if (result.isPresent()){
             lobbyCode = result.get();
-            Requester requester = ServerConnectionHandler.getInstance().getRequester();
+
             DataHandler dataHandler = DataHandler.getInstance();
-            Lobby lobby = requester.enterLobby(dataHandler.getUser().userName, dataHandler.getUser().token, lobbyCode);
+            Requester requester = ServerConnectionHandler.getInstance().getRequester();
+            GeneralResponse<Lobby> lobby = requester.enterLobby(dataHandler.getUser().userName, dataHandler.getUser().token, lobbyCode);
             if (lobby != null) {
-                dataHandler.setLobby(lobby);
-                SceneHandler.getInstance().moveToSeeThePlayers(false);
+                if (lobby.success) {
+                    dataHandler.setLobby(lobby.payload);
+                    SceneHandler.getInstance().moveToSeeThePlayers(false);
+                }
+                else
+                    showErrorMessage(lobby.message);
+            }
+            else {
+                showErrorMessage("There is something wrong with the connection");
             }
         }
     }
@@ -164,7 +173,7 @@ public class MainMenuScene implements Initializable {
             if(index == 8)
                 index=1;
             index++;
-            System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
+            //System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
             //System.out.println(((Button)event.getSource()).getText());
            // System.out.println(((Button)event.getTarget()).getText());
             //tts.read(((Button)event.getTarget()).getText());
@@ -207,5 +216,14 @@ public class MainMenuScene implements Initializable {
 
         TextToSpeech tts = new TextToSpeech();
         tts.read("Create a Lobby");//fxml i yüklemeden söylüyor
+    }
+
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.showAndWait();
     }
 }

@@ -94,13 +94,22 @@ public class SeeThePlayers2Scene implements Initializable {
     // Send request and update the lobby object
     public void update() {
 
-        Requester requester = ServerConnectionHandler.getInstance().getRequester();
         DataHandler dataHandler = DataHandler.getInstance();
-        Lobby lobby = requester.getLobby(dataHandler.getUser().userName, dataHandler.getUser().userName, dataHandler.getLobby().lobbyId);
-        if (lobby != null)
-            dataHandler.setLobby(lobby);
-        else
-            lobby = dataHandler.getLobby();
+        Lobby lobby = dataHandler.getLobby();
+
+        Requester requester = ServerConnectionHandler.getInstance().getRequester();
+        GeneralResponse<Lobby> lobbyResponse = requester.getLobby(dataHandler.getUser().userName, dataHandler.getUser().token, dataHandler.getLobby().lobbyId);
+        if (lobbyResponse != null) {
+            if (lobbyResponse.success) {
+                dataHandler.setLobby(lobbyResponse.payload);
+                lobby = lobbyResponse.payload;
+            }
+            else
+                showErrorMessage(lobbyResponse.message);
+        }
+        else {
+            showErrorMessage("There is something wrong with the connection");
+        }
 
 
         // Clear the labels

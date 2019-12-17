@@ -44,13 +44,30 @@ public class SignUpScene implements Initializable{
         String password = passwordField.getText();
 
         Requester requester = ServerConnectionHandler.getInstance().getRequester();
-        User user = requester.signUp(name, username, password);
-        if (user != null){
-            requester.login(username, password);
-            DataHandler.getInstance().setUser(user);
-            SceneHandler.getInstance().moveToMainMenu();
+        GeneralResponse<User> user = requester.signUp(name, username, password);
+        if (user != null) {
+            if (user.success) {
+                user = requester.login(username, password);
+                if (user != null) {
+                    if (user.success) {
+                        DataHandler.getInstance().setUser(user.payload);
+                        SceneHandler.getInstance().moveToMainMenu();
+                    }
+                    else
+                        showErrorMessage(user.message);
+                }
+                else {
+                    showErrorMessage("There is something wrong with the connection");
+                }
+                DataHandler.getInstance().setUser(user.payload);
+                SceneHandler.getInstance().moveToMainMenu();
+            }
+            else
+                showErrorMessage(user.message);
         }
-
+        else {
+            showErrorMessage("There is something wrong with the connection");
+        }
     }
 
     // Back button listener
@@ -67,5 +84,15 @@ public class SignUpScene implements Initializable{
         signUpButton.setOnMouseEntered(e -> signUpButton.setStyle(HOVERED_BUTTON_STYLE));
         signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
     }
+
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.showAndWait();
+    }
+
 }
 
