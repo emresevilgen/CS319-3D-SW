@@ -10,9 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,10 +26,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import models.Board;
-import models.Card;
-import models.Game;
-import models.Player;
+import models.*;
 import utils.Constants;
 
 import java.io.*;
@@ -37,10 +34,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import static uiComponents.Main.mediaPlayer;
-import static uiComponents.Main.settings;
-import static uiComponents.SceneChanger.moveToMainMenu;
 
 public class GameScene implements Initializable {
     @FXML
@@ -149,88 +142,90 @@ public class GameScene implements Initializable {
         //-------------------------------------
         //-------------------------------------
         // To delete
-        Main.game = new Game();
-        Main.game.ageNumber = 1;
-        Main.game.players = new Player[4];
-        Main.game.players[0] = new Player();
-        Main.game.players[0].playerCards = new Card[7];
-        Main.game.players[0].playerCards[0] = new Card();
-        Main.game.players[0].playerCards[0].cardName = "Altar";
-        Main.game.players[0].playerCards[1] = new Card();
-        Main.game.players[0].playerCards[1].cardName = "Apothecary";
-        Main.game.players[0].playerCards[2] = new Card();
-        Main.game.players[0].playerCards[2].cardName = "Aqueduct";
-        Main.game.players[0].playerCards[3] = new Card();
-        Main.game.players[0].playerCards[3].cardName = "Archery Range";
-        Main.game.players[0].playerCards[4] = new Card();
-        Main.game.players[0].playerCards[4].cardName = "Arena";
-        Main.game.players[0].playerCards[5] = new Card();
-        Main.game.players[0].playerCards[5].cardName = "Arsenal";
-        Main.game.players[0].playerCards[6] = new Card();
-        Main.game.players[0].playerCards[6].cardName = "Forum";
+        Game game = new Game();
+        DataHandler.getInstance().setGame(game);
+        game.ageNumber = 1;
+        game.players = new Player[4];
+        game.players[0] = new Player();
+        game.players[0].playerCards = new Card[7];
+        game.players[0].playerCards[0] = new Card();
+        game.players[0].playerCards[0].cardName = "Altar";
+        game.players[0].playerCards[1] = new Card();
+        game.players[0].playerCards[1].cardName = "Apothecary";
+        game.players[0].playerCards[2] = new Card();
+        game.players[0].playerCards[2].cardName = "Aqueduct";
+        game.players[0].playerCards[3] = new Card();
+        game.players[0].playerCards[3].cardName = "Archery Range";
+        game.players[0].playerCards[4] = new Card();
+        game.players[0].playerCards[4].cardName = "Arena";
+        game.players[0].playerCards[5] = new Card();
+        game.players[0].playerCards[5].cardName = "Arsenal";
+        game.players[0].playerCards[6] = new Card();
+        game.players[0].playerCards[6].cardName = "Forum";
 
-        Main.game.players[0].board = new Board();
-        Main.game.players[0].board.wonderName = "Alexandria A";
-        Main.game.players[0].board.cards = new Card[19];
-        Main.game.players[0].board.cards[0] = new Card();
-        Main.game.players[0].board.cards[0].cardName = "Tree Farm";
-        Main.game.players[0].board.cards[0].cardColor = "Brown";
-        Main.game.players[0].board.cards[1] = new Card();
-        Main.game.players[0].board.cards[1].cardName = "Loom";
-        Main.game.players[0].board.cards[1].cardColor = "Gray";
-        Main.game.players[0].board.cards[2] = new Card();
-        Main.game.players[0].board.cards[2].cardName = "Library";
-        Main.game.players[0].board.cards[2].cardColor = "Green";
-        Main.game.players[0].board.cards[3] = new Card();
-        Main.game.players[0].board.cards[3].cardName = "Walls";
-        Main.game.players[0].board.cards[3].cardColor = "Red";
+        game.players[0].board = new Board();
+        game.players[0].board.wonderName = "Alexandria A";
+        game.players[0].board.cards = new Card[19];
+        game.players[0].board.cards[0] = new Card();
+        game.players[0].board.cards[0].cardName = "Tree Farm";
+        game.players[0].board.cards[0].cardColor = "Brown";
+        game.players[0].board.cards[1] = new Card();
+        game.players[0].board.cards[1].cardName = "Loom";
+        game.players[0].board.cards[1].cardColor = "Gray";
+        game.players[0].board.cards[2] = new Card();
+        game.players[0].board.cards[2].cardName = "Library";
+        game.players[0].board.cards[2].cardColor = "Green";
+        game.players[0].board.cards[3] = new Card();
+        game.players[0].board.cards[3].cardName = "Walls";
+        game.players[0].board.cards[3].cardColor = "Red";
 
-        Main.game.players[1] = new Player();
-        Main.game.players[1].board = new Board();
-        Main.game.players[1].board.wonderName = "Ephesos A";
-        Main.game.players[1].board.cards = new Card[19];
-        Main.game.players[1].board.cards[0] = new Card();
-        Main.game.players[1].board.cards[0].cardName = "Tree Farm";
-        Main.game.players[1].board.cards[0].cardColor = "Brown";
-        Main.game.players[1].board.cards[1] = new Card();
-        Main.game.players[1].board.cards[1].cardName = "Loom";
-        Main.game.players[1].board.cards[1].cardColor = "Gray";
-        Main.game.players[1].board.cards[2] = new Card();
-        Main.game.players[1].board.cards[2].cardName = "Library";
-        Main.game.players[1].board.cards[2].cardColor = "Green";
-        Main.game.players[1].board.cards[3] = new Card();
-        Main.game.players[1].board.cards[3].cardName = "Walls";
-        Main.game.players[1].board.cards[3].cardColor = "Red";
+        game.players[1] = new Player();
+        game.players[1].board = new Board();
+        game.players[1].board.wonderName = "Ephesos A";
+        game.players[1].board.cards = new Card[19];
+        game.players[1].board.cards[0] = new Card();
+        game.players[1].board.cards[0].cardName = "Tree Farm";
+        game.players[1].board.cards[0].cardColor = "Brown";
+        game.players[1].board.cards[1] = new Card();
+        game.players[1].board.cards[1].cardName = "Loom";
+        game.players[1].board.cards[1].cardColor = "Gray";
+        game.players[1].board.cards[2] = new Card();
+        game.players[1].board.cards[2].cardName = "Library";
+        game.players[1].board.cards[2].cardColor = "Green";
+        game.players[1].board.cards[3] = new Card();
+        game.players[1].board.cards[3].cardName = "Walls";
+        game.players[1].board.cards[3].cardColor = "Red";
 
-        Main.game.players[2] = new Player();
-        Main.game.players[2].board = new Board();
-        Main.game.players[2].board.wonderName = "Gizah A";
-        Main.game.players[2].board.cards = new Card[19];
+        game.players[2] = new Player();
+        game.players[2].board = new Board();
+        game.players[2].board.wonderName = "Gizah A";
+        game.players[2].board.cards = new Card[19];
 
-        Main.game.players[3] = new Player();
-        Main.game.players[3].board = new Board();
-        Main.game.players[3].board.wonderName = "Babylon A";
-        Main.game.players[3].board.cards = new Card[19];
+        game.players[3] = new Player();
+        game.players[3].board = new Board();
+        game.players[3].board.wonderName = "Babylon A";
+        game.players[3].board.cards = new Card[19];
 
         //-------------------------------------
-       Main.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+       SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
            @Override
            public void handle(KeyEvent event) {
                KeyCode keyCode = event.getCode();
+               Game game = DataHandler.getInstance().getGame();
                switch (keyCode)
                {
                    // Cards in the player's deck
                    case C: keyInput = "deck";
                         deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
                         tts.read("The cards in the deck");
-                        tts.read(Main.game.players[0].playerCards[deckNo].cardName);
+                        tts.read(game.players[0].playerCards[deckNo].cardName);
                         break;
 
                    //Cards in the player's board
                    case S: keyInput = "boardCards";
                         deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
                         tts.read("The cards in the board");
-                        tts.read(Main.game.players[0].board.cards[boardCardsNo].cardName);
+                        tts.read(game.players[0].board.cards[boardCardsNo].cardName);
                         break;
 
                    //Cards in the left player's board
@@ -249,13 +244,13 @@ public class GameScene implements Initializable {
                    case B: keyInput = "boards";
                         deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
                         tts.read("The boards");
-                       tts.read(Main.game.players[boardsNo].board.wonderName);
+                       tts.read(game.players[boardsNo].board.wonderName);
                        break;
 
                }
                if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boardCards"))
                {
-                   //if in içinde boarddaki  card sayısını compare etmek için bunu kullan Main.game.players[0].board.cardCount,bunu da oyun sırasında arttır
+                   //if in içinde boarddaki  card sayısını compare etmek için bunu kullan game.players[0].board.cardCount,bunu da oyun sırasında arttır
                    if(boardCardsNo == 3)//değiştir
                    {
                        boardCardsNo = -1;
@@ -265,7 +260,7 @@ public class GameScene implements Initializable {
                }
                else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("boardCards"))
                {
-                   //if in içinde boarddaki  card sayısını compare etmek için bunu kullan Main.game.players[0].board.cardCount,bunu da oyun sırasında arttır
+                   //if in içinde boarddaki  card sayısını compare etmek için bunu kullan game.players[0].board.cardCount,bunu da oyun sırasında arttır
                    if(boardCardsNo == 0)
                    {
                        boardCardsNo = 4;//değiştir
@@ -286,7 +281,7 @@ public class GameScene implements Initializable {
                        deckNo = -1;
                    }
                    deckNo++;
-                   tts.read(Main.game.players[0].playerCards[deckNo].cardName);
+                   tts.read(game.players[0].playerCards[deckNo].cardName);
                }
                else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("deck"))
                {
@@ -294,7 +289,7 @@ public class GameScene implements Initializable {
                    {
                        deckNo = 6 - turnNumber;
                    }
-                   tts.read(Main.game.players[0].playerCards[deckNo].cardName);
+                   tts.read(game.players[0].playerCards[deckNo].cardName);
                    deckNo--;
                }
                else if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boards"))
@@ -304,7 +299,7 @@ public class GameScene implements Initializable {
                        boardsNo = -1;
                    }
                    boardsNo++;
-                   tts.read(Main.game.players[boardsNo].board.wonderName);
+                   tts.read(game.players[boardsNo].board.wonderName);
                }
                else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("boards"))
                {
@@ -313,7 +308,7 @@ public class GameScene implements Initializable {
                        boardsNo = 4; // player number+1
                    }
                    boardsNo--;
-                   tts.read(Main.game.players[boardsNo].board.wonderName);
+                   tts.read(game.players[boardsNo].board.wonderName);
                }
 
                event.consume();
@@ -352,6 +347,7 @@ public class GameScene implements Initializable {
             FileInputStream inputStream = new FileInputStream(Constants.AUDIO_DESCRIPTION_IMAGE);
             Image audioImage = new Image(inputStream);
             audioDescriptionView.setImage(audioImage);
+            Settings settings = DataHandler.getInstance().getSettings();
             if (settings.isAudioDescription()){
                 audioDescriptionView.setFitHeight(70);
                 audioDescriptionView.setFitWidth(70);
@@ -390,7 +386,8 @@ public class GameScene implements Initializable {
 
     // Audio description button listener
     public void switchAudioDescription(MouseEvent actionEvent) {
-        // Change the image size accorsing to its status
+        // Change the image size according to its status
+        Settings settings = DataHandler.getInstance().getSettings();
         settings.switchAudioDescription();
         if(settings.isAudioDescription()){
             audioDescriptionView.setFitHeight(70);
@@ -410,7 +407,9 @@ public class GameScene implements Initializable {
 
     // Sound effects button listener
     public void switchSoundEffects(MouseEvent actionEvent) {
-        // CHange the image according to its status
+        // Change the image according to its status
+        Settings settings = DataHandler.getInstance().getSettings();
+        MediaPlayer mediaPlayer = SceneHandler.getInstance().getMediaPlayer();
         settings.switchSoundEffects();
         FileInputStream inputStream = null;
         try {
@@ -451,15 +450,16 @@ public class GameScene implements Initializable {
         // Get the result
         if (result.get() == buttonYes){
             timeLine.stop(); // Stop requests
-            mediaPlayer.stop(); // Stop game music
-
             // Play menu music
+            SceneHandler.getInstance().getMediaPlayer().stop();
+
             Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
-            mediaPlayer = new MediaPlayer(sound);
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
             mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
             mediaPlayer.play();
 
-            moveToMainMenu((Stage)exitView.getScene().getWindow());
+            SceneHandler.getInstance().moveToMainMenu();
 
         } else {
             alert.close();
@@ -516,8 +516,8 @@ public class GameScene implements Initializable {
 
     public void update(){
         // Check the music of the age
-        if (ageNumber != Main.game.ageNumber) {
-            ageNumber = Main.game.ageNumber;
+        if (ageNumber != DataHandler.getInstance().getGame().ageNumber) {
+            ageNumber = DataHandler.getInstance().getGame().ageNumber;
             Media sound;
             if (ageNumber == 1)
                 sound = new Media(new File(Constants.AGE_ONE_SOUND).toURI().toString());
@@ -526,8 +526,9 @@ public class GameScene implements Initializable {
             else
                 sound = new Media(new File(Constants.AGE_THREE_SOUND).toURI().toString());
 
-            mediaPlayer.stop();
-            mediaPlayer = new MediaPlayer(sound);
+            SceneHandler.getInstance().getMediaPlayer().stop();
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
             mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
             mediaPlayer.play();
         }
@@ -536,7 +537,7 @@ public class GameScene implements Initializable {
         // --------------------------------------
         // Initialize a al
         // Set the board images
-        Player[] players = Main.game.players;
+        Player[] players = DataHandler.getInstance().getGame().players;
         playerBoard.setImage(getBoardImage(players[0].board, 0));
         rightBoard.setImage(getBoardImage(players[1].board, 1));
         acrossBoard.setImage(getBoardImage(players[2].board, 2));
@@ -640,12 +641,13 @@ public class GameScene implements Initializable {
         Card [] cards;
         // Get the players cards
         ImageView boardView = (ImageView)mouseEvent.getSource();
+        Game game = DataHandler.getInstance().getGame();
         if (boardView.equals(rightBoard))
-            cards = Main.game.players[1].board.cards;
+            cards = game.players[1].board.cards;
         else if (boardView.equals(acrossBoard))
-            cards = Main.game.players[2].board.cards;
+            cards = game.players[2].board.cards;
         else if (boardView.equals(leftBoard))
-            cards = Main.game.players[3].board.cards;
+            cards = game.players[3].board.cards;
         else
             return;
 

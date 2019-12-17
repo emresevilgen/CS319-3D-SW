@@ -8,35 +8,27 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.DataHandler;
 import models.Lobby;
 import rest.ApiClient;
 import rest.ApiInterface;
+import rest.Requester;
+import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import utils.Constants;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static uiComponents.SceneChanger.*;
 
 public class SeeThePlayersScene implements Initializable {
     @FXML
@@ -100,7 +92,7 @@ public class SeeThePlayersScene implements Initializable {
 
         // To stop requests
         timeLine.stop();
-        moveToGame((Stage)startGameButton.getScene().getWindow());
+        SceneHandler.getInstance().moveToGame();
     }
 
     // Dismiss button listener
@@ -126,7 +118,7 @@ public class SeeThePlayersScene implements Initializable {
 
         // To stop requests
         timeLine.stop();
-        moveToMainMenu((Stage)deleteLobbyButton.getScene().getWindow());
+        SceneHandler.getInstance().moveToMainMenu();
 
     }
 
@@ -134,64 +126,13 @@ public class SeeThePlayersScene implements Initializable {
     // Send request and update the lobby object
     public void update() {
 
-        // Get the lobby data and when the game starts move to the game screen
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<GeneralResponse<Lobby>> call = apiService.getLobby(Main.user.userName, Main.user.token, Main.lobby.lobbyId);
-        call.enqueue(new Callback<GeneralResponse<Lobby>>() {
-            // If the connection is valid
-            @Override
-            public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
-                if (response.body() != null) {
-
-                    // Get the response
-                    GeneralResponse<Lobby> userGeneralResponse = response.body();
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            // If success update lobby and move to see the players
-                            if (userGeneralResponse.success) {
-                                Main.lobby = userGeneralResponse.payload;
-                            }
-                            // Otherwise error message
-                            else {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        }
-                    });
-                }
-                // When the response's body is null
-                else {
-                    try {
-                        String errorResponse = response.errorBody().string();
-                        GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            // When connection is lost
-            @Override
-            public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorMessage("There is something wrong with the connection");
-
-                    }
-                });
-            }
-        });
+        Requester requester = ServerConnectionHandler.getInstance().getRequester();
+        DataHandler dataHandler = DataHandler.getInstance();
+        Lobby lobby = requester.getLobby(dataHandler.getUser().userName, dataHandler.getUser().userName, dataHandler.getLobby().lobbyId);
+        if (lobby != null)
+            dataHandler.setLobby(lobby);
+        else
+            lobby = dataHandler.getLobby();
 
         // Clear the labels
         for (int i = 0; i < labelsName.length; i++)
@@ -201,13 +142,13 @@ public class SeeThePlayersScene implements Initializable {
             labelsState[i].setText("");
 
         // Update the labels with the response
-        for (int i = 0; i < Main.lobby.lobbyUsers.length; i++) {
-            labelsName[i].setText(Main.lobby.lobbyUsers[i].username);
-            if (Main.lobby.lobbyUsers[i].username.equals(Main.lobby.lobbyAdmin)) {
+        for (int i = 0; i < lobby.lobbyUsers.length; i++) {
+            labelsName[i].setText(lobby.lobbyUsers[i].username);
+            if (lobby.lobbyUsers[i].username.equals(lobby.lobbyAdmin)) {
                 labelsState[i].setText("Waiting for others");
             }
             else {
-                if (Main.lobby.lobbyUsers[i].isReady)
+                if (lobby.lobbyUsers[i].isReady)
                     labelsState[i].setText("Ready");
                 else
                     labelsState[i].setText("Not ready");
@@ -240,7 +181,7 @@ public class SeeThePlayersScene implements Initializable {
         dismissPersonButton.setOnMouseExited(e -> dismissPersonButton.setStyle(IDLE_BUTTON_STYLE));
 
         // Show the lobby code
-        lobbyCodeTitle.setText("People in the Lobby with the code " + Main.lobby.lobbyCode + ":");
+        lobbyCodeTitle.setText("People in the Lobby with the code " + DataHandler.getInstance().getLobby().lobbyCode + ":");
 
         // Initialize the label arrays
         labelsName[0] = firstNameLabel;

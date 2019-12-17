@@ -9,19 +9,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import models.DataHandler;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class OtherBoardsCards implements Initializable {
     @FXML
-    public ImageView focus;
-    int rightBoardCardsNo = 0;
+    private ImageView focus;
+    private int rightBoardCardsNo = 0;
     private TextToSpeech tts = new TextToSpeech();
+
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         GameScene.boardScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -34,7 +35,7 @@ public class OtherBoardsCards implements Initializable {
                         rightBoardCardsNo = -1;
                     }
                     rightBoardCardsNo++;
-                    tts.read(Main.game.players[1].board.cards[0].cardName);
+                    tts.read(DataHandler.getInstance().getGame().players[1].board.cards[0].cardName);
                 }
                 else if(keyCode.equals(KeyCode.LEFT))
                 {
@@ -44,7 +45,7 @@ public class OtherBoardsCards implements Initializable {
                         rightBoardCardsNo = 4;//değiştir
                     }
                     rightBoardCardsNo--;
-                    tts.read(Main.game.players[1].board.cards[0].cardName);
+                    tts.read(DataHandler.getInstance().getGame().players[1].board.cards[0].cardName);
                 }
             event.consume();
             }

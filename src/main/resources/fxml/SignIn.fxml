@@ -8,35 +8,35 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SignInScene">
-<children>
-      <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
-    <ImageView fx:id="logoView" fitHeight="260.0" fitWidth="800.0" layoutX="560.0" layoutY="148.0" pickOnBounds="true" />
-      <TextField fx:id="usernameField" layoutX="764.0" layoutY="440.0" onKeyPressed="#onKeyPress" promptText="Username" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </TextField>
-    
-    <PasswordField fx:id="passwordField" layoutX="764.0" layoutY="540.0" onKeyPressed="#onKeyPress" prefHeight="65.0" prefWidth="392.0" promptText="Password" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
-        <font>
-            <Font size="30.0" />
-        </font>
-    </PasswordField>
-    <Button fx:id="signInButton" alignment="CENTER" layoutX="988.0" layoutY="640.0" mnemonicParsing="false" onAction="#signIn" onKeyPressed="#onKeyPress" opacity="0.98" prefHeight="62.0" prefWidth="168.0" style="-fx-background-color: #b38632;" text="Sign In" textFill="WHITE">
-        <font>
-            <Font size="30.0" />
-        </font>
-    </Button>
-    <Button fx:id="signUpButton" alignment="CENTER" layoutX="598.0" layoutY="740.0" mnemonicParsing="false" onAction="#signUp" onKeyPressed="#onKeyPress" prefHeight="56.0" prefWidth="724.0" style="-fx-background-color: #b38632;" text="If you don't have an account, please sign up." textFill="WHITE">
-        <font>
-            <Font size="30.0" />
-        </font>
-    </Button>
-      <Button fx:id="exitButton" alignment="CENTER" layoutX="764.0" layoutY="640.0" mnemonicParsing="false" onAction="#exit" onKeyPressed="#onKeyPress" prefHeight="62.0" prefWidth="168.0" style="-fx-background-color: #b38632;" text="Exit" textFill="WHITE">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Button>
+    <children>
+        <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
+        <ImageView fx:id="logoView" fitHeight="260.0" fitWidth="800.0" layoutX="560.0" layoutY="148.0" pickOnBounds="true" />
+        <TextField fx:id="usernameField" layoutX="764.0" layoutY="440.0" promptText="Username" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </TextField>
 
-</children>
+        <PasswordField fx:id="passwordField" layoutX="764.0" layoutY="540.0" prefHeight="65.0" prefWidth="392.0" promptText="Password" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </PasswordField>
+        <Button fx:id="signInButton" alignment="CENTER" layoutX="988.0" layoutY="640.0" mnemonicParsing="false" onAction="#signIn" opacity="0.98" prefHeight="62.0" prefWidth="168.0" style="-fx-background-color: #b38632;" text="Sign In" textFill="WHITE">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Button>
+        <Button fx:id="signUpButton" alignment="CENTER" layoutX="598.0" layoutY="740.0" mnemonicParsing="false" onAction="#signUp" prefHeight="56.0" prefWidth="724.0" style="-fx-background-color: #b38632;" text="If you don't have an account, please sign up." textFill="WHITE">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Button>
+        <Button fx:id="exitButton" alignment="CENTER" layoutX="764.0" layoutY="640.0" mnemonicParsing="false" onAction="#exit"  prefHeight="62.0" prefWidth="168.0" style="-fx-background-color: #b38632;" text="Exit" textFill="WHITE">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Button>
+
+    </children>
 </AnchorPane>
