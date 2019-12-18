@@ -1,34 +1,25 @@
 package uiComponents;
 
-import audioDescription.TextToSpeech;
-import com.google.gson.Gson;
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.DescriptionReader;
+import audioDescription.Reader;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import models.DataHandler;
 import models.Settings;
 import models.User;
-import rest.ApiClient;
-import rest.ApiInterface;
 import rest.Requester;
 import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -51,7 +42,6 @@ public class SignInScene implements Initializable{
 
     // For loading animation
     private ProgressIndicator progress;
-    TextToSpeech tts = new TextToSpeech();
 
     // Sign up button listener
     public void signUp(ActionEvent event) throws Exception {
@@ -64,60 +54,101 @@ public class SignInScene implements Initializable{
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // For loading indicator
-        progress = new ProgressIndicator();
-        progress.setMaxSize(100, 100);
-        progress.setLayoutX(910);
-        progress.setLayoutY(490);
+        showProgress();
 
-        ((AnchorPane)signInButton.getScene().getRoot()).getChildren().add(progress);
-
-        Thread progressThread = new Thread(new Runnable() {
+        Thread requestThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<User> user = requester.login(username, password);
+                if (user != null) {
+                    if (user.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setUser(user.payload);
+                                SceneHandler.getInstance().moveToMainMenu();
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                endProgress();
+                                showErrorMessage(user.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            endProgress();
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
                 }
             }
         });
+        requestThread.start();
 
-        // Start loading animation
-        progressThread.start();
 
-        Requester requester = ServerConnectionHandler.getInstance().getRequester();
-        GeneralResponse<User> user = requester.login(username, password);
-        if (user != null) {
-            if (user.success) {
-                DataHandler.getInstance().setUser(user.payload);
-                SceneHandler.getInstance().moveToMainMenu();
-            }
-            else
-                showErrorMessage(user.message);
-        }
-        else {
-            showErrorMessage("There is something wrong with the connection");
-        }
     }
 
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Settings settings = DataHandler.getInstance().getSettings();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
         // Setting the mouse entered and exited listeners for hover effect
         signInButton.setOnMouseEntered(e -> { signInButton.setStyle(HOVERED_BUTTON_STYLE); });
-
         signInButton.setOnMouseExited(e -> signInButton.setStyle(IDLE_BUTTON_STYLE));
-
         signUpButton.setOnMouseEntered(e -> { signUpButton.setStyle(HOVERED_BUTTON_STYLE); });
-
         signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
-
         exitButton.setOnMouseEntered(e -> { exitButton.setStyle(HOVERED_BUTTON_STYLE); });
-
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
+
+        usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Enter  user name");
+            }
+        });
+
+        passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Enter password");
+            }
+        });
+
+        signInButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Sign in");
+                signInButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                signInButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        signUpButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("If you don't have an account, please sign up");
+                signUpButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                signUpButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        exitButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Exit");
+                exitButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                exitButton.setStyle(IDLE_BUTTON_STYLE);
+        });
     }
 
     // Exit button listener
@@ -125,9 +156,11 @@ public class SignInScene implements Initializable{
         SceneHandler.getInstance().exit();
     }
 
-    int index = 2;
+    /*int index = 2;
     public void onKeyPress(KeyEvent event)
     {
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
         if(event.getCode().equals(KeyCode.TAB))
         {
             if(index == 6)
@@ -148,9 +181,32 @@ public class SignInScene implements Initializable{
                 case 6: tts.read("Exit"); break;
             }
         }
+    }*/
+
+    private void showProgress(){
+        // For loading indicator
+        progress = new ProgressIndicator();
+        progress.setMaxSize(100, 100);
+        progress.setLayoutX(910);
+        progress.setLayoutY(490);
+
+        ((AnchorPane)signInButton.getScene().getRoot()).getChildren().add(progress);
+
+        signInButton.setDisable(true);
+        signUpButton.setDisable(true);
+        exitButton.setDisable(true);
+        usernameField.setDisable(true);
+        passwordField.setDisable(true);
     }
 
-
+    private void endProgress(){
+        ((AnchorPane)signInButton.getScene().getRoot()).getChildren().remove(progress);
+        signInButton.setDisable(false);
+        signUpButton.setDisable(false);
+        exitButton.setDisable(false);
+        usernameField.setDisable(false);
+        passwordField.setDisable(false);
+    }
 
     // Error message
     private void showErrorMessage(String errorMsg){

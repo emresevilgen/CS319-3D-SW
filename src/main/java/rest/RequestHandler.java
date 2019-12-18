@@ -111,7 +111,7 @@ public class RequestHandler implements Requester {
     }
 
     @Override
-    public User updateUser(String name, String password, String token) {
+    public GeneralResponse<User> updateUser(String name, String password, String token) {
         return null;
     }
 
@@ -261,37 +261,37 @@ public class RequestHandler implements Requester {
     }
 
     @Override
-    public Lobby exitLobby(String username, String token, String lobbyId) {
+    public GeneralResponse<Lobby> exitLobby(String username, String token, String lobbyId) {
         return null;
     }
 
     @Override
-    public Lobby getReady(String username, String token, boolean ready, String lobbyId) {
+    public GeneralResponse<Lobby> getReady(String username, String token, boolean ready, String lobbyId) {
         return null;
     }
 
     @Override
-    public Game startGame(String username, String token, String lobbyCode) {
+    public GeneralResponse<Game> startGame(String username, String token, String lobbyCode) {
         return null;
     }
 
     @Override
-    public Game getGameData(String username, String token, String gameId, String playerId) {
+    public GeneralResponse<Game> getGameData(String username, String token, String gameId, String playerId) {
         return null;
     }
 
     @Override
-    public Game getReadyGame(String username, String token, String gameId, boolean ready) {
+    public GeneralResponse<Game> getReadyGame(String username, String token, String gameId, boolean ready) {
         return null;
     }
 
     @Override
-    public Game commerce(String gameId, String username, String token, String sellerPlayerId, int[] materialTypes, int[] materialAmounts) {
+    public GeneralResponse<Game> commerce(String gameId, String username, String token, String sellerPlayerId, int[] materialTypes, int[] materialAmounts) {
         return null;
     }
 
     @Override
-    public Game pickCard(String gameId, String username, String token, String selectedCardId) {
+    public GeneralResponse<Game> pickCard(String gameId, String username, String token, String selectedCardId) {
         return null;
     }
 }

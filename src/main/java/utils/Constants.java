@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Constants {
     // Server URL
-    public static final String BASE_URL = "http://sevenwonders.azizutku.com/";
+    public static final String BASE_URL = "http://sevenwonders.azizutku.com/api/v1/";
 
     // FXML's
     public static final String SIGN_IN_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "SignIn.fxml");

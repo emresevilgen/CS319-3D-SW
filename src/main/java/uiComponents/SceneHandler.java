@@ -1,9 +1,8 @@
 package uiComponents;
 
-import audioDescription.TextToSpeech;
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.Reader;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -14,8 +13,6 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import models.*;
 import utils.Constants;
 
 import java.io.File;
@@ -56,19 +53,20 @@ public class SceneHandler extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // No exit with ESC
         primaryStage.setFullScreenExitHint(null); // Exit hint pop up disabled
 
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        tts.read("Welcome to the Seven Wonders Game");
 
-
-        // Move to functions
+        //Move to functions
 
         //moveToCreateLobby();
         //moveToCredits();
-        moveToGame();
+        //moveToGame();
         // moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
         //moveToSettings();
-        //moveToSignIn();
+        moveToSignIn();
         //moveToSignUp();
 
     }

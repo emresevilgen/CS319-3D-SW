@@ -1,12 +1,11 @@
 package uiComponents;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import models.DataHandler;
 import models.Lobby;
 import models.Mode;
@@ -45,6 +44,9 @@ public class CreateLobbyScene implements Initializable {
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #74747c; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #74747c; -fx-opacity: 0.85;";
 
+    // For loading animation
+    private ProgressIndicator progress;
+
     // Create button listener
     public void create(ActionEvent event) throws Exception {
 
@@ -58,19 +60,47 @@ public class CreateLobbyScene implements Initializable {
         String lobbyName = lobbyNameField.getText();
 
         DataHandler dataHandler = DataHandler.getInstance();
-        Requester requester = ServerConnectionHandler.getInstance().getRequester();
-        GeneralResponse<Lobby> lobby = requester.createLobby(dataHandler.getUser().userName, lobbyName, dataHandler.getUser().token, mode);
-        if (lobby != null) {
-            if (lobby.success) {
-                dataHandler.setLobby(lobby.payload);
-                SceneHandler.getInstance().moveToSeeThePlayers(true);
+
+        showProgress();
+
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<Lobby> lobby = requester.createLobby(dataHandler.getUser().userName, lobbyName, dataHandler.getUser().token, mode);
+                if (lobby != null) {
+                    if (lobby.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setLobby(lobby.payload);
+                                SceneHandler.getInstance().moveToSeeThePlayers(true);
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                endProgress();
+                                showErrorMessage(lobby.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            endProgress();
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
             }
-            else
-                showErrorMessage(lobby.message);
-        }
-        else {
-            showErrorMessage("There is something wrong with the connection");
-        }
+        });
+        requestThread.start();
+
     }
 
     // Cancel button listener
@@ -87,6 +117,37 @@ public class CreateLobbyScene implements Initializable {
         createButton.setOnMouseEntered(e -> createButton.setStyle(HOVERED_BUTTON_STYLE));
         createButton.setOnMouseExited(e -> createButton.setStyle(IDLE_BUTTON_STYLE));
 
+    }
+
+    private void showProgress(){
+        // For loading indicator
+        progress = new ProgressIndicator();
+        progress.setMaxSize(100, 100);
+        progress.setLayoutX(910);
+        progress.setLayoutY(490);
+
+        ((AnchorPane)createButton.getScene().getRoot()).getChildren().add(progress);
+
+        createButton.setDisable(true);
+        cancelButton.setDisable(true);
+        lobbyNameField.setDisable(true);
+        gettingLootCheckBox.setDisable(true);
+        shufflePlacesCheckBox.setDisable(true);
+        secretSkillsCheckBox.setDisable(true);
+        invalidMovePenaltyCheckBox.setDisable(true);
+
+    }
+
+    private void endProgress(){
+        ((AnchorPane)createButton.getScene().getRoot()).getChildren().remove(progress);
+
+        createButton.setDisable(false);
+        cancelButton.setDisable(false);
+        lobbyNameField.setDisable(false);
+        gettingLootCheckBox.setDisable(false);
+        shufflePlacesCheckBox.setDisable(false);
+        secretSkillsCheckBox.setDisable(false);
+        invalidMovePenaltyCheckBox.setDisable(false);
     }
 
     // Error message

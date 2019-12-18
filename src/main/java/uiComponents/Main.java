@@ -1,11 +1,8 @@
 package uiComponents;
-import audioDescription.TextToSpeech;
 
+import audioDescription.AudioDescriptionHandler;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import models.*;
 import rest.ServerConnectionHandler;
 
@@ -17,7 +14,7 @@ public class Main extends Application {
         sceneHandler.start(primaryStage);
         DataHandler dataHandler = DataHandler.getInstance();
         ServerConnectionHandler serverConnectionHandler = ServerConnectionHandler.getInstance();
-
+        AudioDescriptionHandler audioDescriptionHandler = AudioDescriptionHandler.getInstance();
 
     }
 

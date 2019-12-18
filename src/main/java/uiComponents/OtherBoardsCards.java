@@ -1,6 +1,6 @@
 package uiComponents;
 
-import audioDescription.TextToSpeech;
+import audioDescription.DescriptionReader;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,40 +18,11 @@ public class OtherBoardsCards implements Initializable {
     @FXML
     private ImageView focus;
     private int rightBoardCardsNo = 0;
-    private TextToSpeech tts = new TextToSpeech();
+    private DescriptionReader tts = new DescriptionReader();
 
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        GameScene.boardScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                KeyCode keyCode = event.getCode();
-                if(keyCode.equals(KeyCode.RIGHT) )
-                {
-                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan Main.game.players[1].board.cardCount,bunu da oyun sırasında arttır
-                    if(rightBoardCardsNo == 3)//değiştir
-                    {
-                        rightBoardCardsNo = -1;
-                    }
-                    rightBoardCardsNo++;
-                    tts.read(DataHandler.getInstance().getGame().players[1].board.cards[0].cardName);
-                }
-                else if(keyCode.equals(KeyCode.LEFT))
-                {
-                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan Main.game.players[1].board.cardCount,bunu da oyun sırasında arttır
-                    if(rightBoardCardsNo == 0)
-                    {
-                        rightBoardCardsNo = 4;//değiştir
-                    }
-                    rightBoardCardsNo--;
-                    tts.read(DataHandler.getInstance().getGame().players[1].board.cards[0].cardName);
-                }
-            event.consume();
-            }
-        }
-    );
-
     }
 
     // Increase scale of the card mouse entered
