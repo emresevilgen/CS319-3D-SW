@@ -5,6 +5,7 @@ import audioDescription.Reader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
@@ -13,6 +14,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import models.DataHandler;
 import utils.Constants;
 
 import java.io.File;
@@ -38,7 +40,9 @@ public class SceneHandler extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        playMusic(); // Starts the music
+        DataHandler dataHandler = DataHandler.getInstance();
+        if (dataHandler.getSettings().isSoundEffects())
+            playMusic(); // Starts the music
         stage = primaryStage;
 
         AnchorPane root;
@@ -48,7 +52,7 @@ public class SceneHandler extends Application {
         root = new AnchorPane();
         scene = new Scene(root);
         primaryStage.setScene(scene);
-        //  primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(true);
         primaryStage.setResizable(false);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // No exit with ESC
         primaryStage.setFullScreenExitHint(null); // Exit hint pop up disabled

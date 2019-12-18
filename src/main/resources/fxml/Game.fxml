@@ -5,7 +5,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameScene">
     <children>
-
       <ImageView fx:id="backgroundView" fitHeight="1090.0" fitWidth="1929.0" pickOnBounds="true" />
         <ImageView fx:id="deck1" fitHeight="213.0" fitWidth="138.0" layoutX="355.0" layoutY="317.0" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.topAnchor="317.0" />
         <ImageView fx:id="deck2" fitHeight="213.0" fitWidth="138.0" layoutX="537.0" layoutY="317.0" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.topAnchor="317.0" />

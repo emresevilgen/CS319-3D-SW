@@ -43,6 +43,8 @@ public class SignInScene implements Initializable{
     // For loading animation
     private ProgressIndicator progress;
 
+    private boolean readCheck = true;
+
     // Sign up button listener
     public void signUp(ActionEvent event) throws Exception {
         SceneHandler.getInstance().moveToSignUp();

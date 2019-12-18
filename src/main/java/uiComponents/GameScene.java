@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.effect.Glow;
@@ -536,11 +537,15 @@ public class GameScene implements Initializable {
             else
                 sound = new Media(new File(Constants.AGE_THREE_SOUND).toURI().toString());
 
-            SceneHandler.getInstance().getMediaPlayer().stop();
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
-            mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
-            mediaPlayer.play();
+            DataHandler dataHandler = DataHandler.getInstance();
+
+            if (dataHandler.getSettings().isSoundEffects()) {
+                SceneHandler.getInstance().getMediaPlayer().stop();
+                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
+                mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
+                mediaPlayer.play();
+            }
         }
 
         // --------------------------------------
@@ -683,6 +688,7 @@ public class GameScene implements Initializable {
             boardStage = new Stage();
             boardStage.setScene(boardScene);
             boardStage.initStyle(StageStyle.UTILITY);
+            boardStage.setAlwaysOnTop(true);
             boardStage.show();
 
             // Classify the cards
