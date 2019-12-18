@@ -5,6 +5,8 @@ import audioDescription.Reader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
@@ -18,6 +20,7 @@ import utils.Constants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 public class SceneHandler extends Application {
 
@@ -48,7 +51,7 @@ public class SceneHandler extends Application {
         root = new AnchorPane();
         scene = new Scene(root);
         primaryStage.setScene(scene);
-        //  primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(true);
         primaryStage.setResizable(false);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // No exit with ESC
         primaryStage.setFullScreenExitHint(null); // Exit hint pop up disabled
@@ -375,7 +378,26 @@ public class SceneHandler extends Application {
 
     // Exit
     public void exit(){
-        System.exit(0);
+        // Show confirmation pop up
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        ((Stage)alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        alert.setTitle("Exit Game");
+        alert.setHeaderText(null);
+        alert.setGraphic(null);
+        alert.initOwner(stage);
+        alert.setContentText("Do you want to exit?");
+        // Add options
+        ButtonType buttonYes = new ButtonType("Yes");
+        ButtonType buttonNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(buttonNo, buttonYes);
+
+        // Get the result
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonYes){
+            System.exit(0); // Exit
+        } else {
+            alert.close(); // Cancel
+        }
     }
 
     public MediaPlayer getMediaPlayer() {

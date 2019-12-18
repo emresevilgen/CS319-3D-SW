@@ -61,6 +61,7 @@ public class MainMenuScene implements Initializable {
         dialog.setTitle("Join to the Existing Lobby");
         dialog.setHeaderText(null);
         dialog.setGraphic(null);
+        dialog.initOwner(joinLobbyButton.getScene().getWindow());
         ((Stage)dialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true); // always at the top
 
         dialog.setContentText("Enter the code of the lobby:");
@@ -132,25 +133,7 @@ public class MainMenuScene implements Initializable {
 
     // Exit button listener
     public void exit(ActionEvent event) throws Exception {
-        // Show confirmation pop up
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ((Stage)alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
-        alert.setTitle("Exit Game");
-        alert.setHeaderText(null);
-        alert.setGraphic(null);
-        alert.setContentText("Do you want to exit?");
-        // Add options
-        ButtonType buttonYes = new ButtonType("Yes");
-        ButtonType buttonNo = new ButtonType("No");
-        alert.getButtonTypes().setAll(buttonNo, buttonYes);
-
-        // Get the result
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonYes){
-            SceneHandler.getInstance().exit(); // Exit
-        } else {
-            alert.close(); // Cancel
-        }
+        SceneHandler.getInstance().exit();
     }
 
     // Signout button listener
@@ -161,6 +144,7 @@ public class MainMenuScene implements Initializable {
         alert.setTitle("Sign Out");
         alert.setHeaderText(null);
         alert.setGraphic(null);
+        alert.initOwner(signOutButton.getScene().getWindow());
         alert.setContentText("Do you want to sign out?");
         // Add options
         ButtonType buttonYes = new ButtonType("Yes");

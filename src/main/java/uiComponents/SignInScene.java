@@ -156,32 +156,7 @@ public class SignInScene implements Initializable{
         SceneHandler.getInstance().exit();
     }
 
-    /*int index = 2;
-    public void onKeyPress(KeyEvent event)
-    {
-        Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
-        if(event.getCode().equals(KeyCode.TAB))
-        {
-            if(index == 6)
-                index=1;
-            index++;
-            //System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
-
-            //System.out.println(((Button)event.getSource()).getText());
-            // System.out.println(((Button)event.getTarget()).getText());
-            //tts.read(((Button)event.getTarget()).getText());
-
-            switch(index)
-            {
-                case 2: tts.read("Enter  user name"); break;
-                case 3: tts.read("Enter password"); break;
-                case 4: tts.read("Sign in"); break;
-                case 5: tts.read("If you don't have an account, please sign up."); break;
-                case 6: tts.read("Exit"); break;
-            }
-        }
-    }*/
 
     private void showProgress(){
         // For loading indicator
@@ -214,6 +189,7 @@ public class SignInScene implements Initializable{
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(errorMsg);
+        alert.initOwner(signInButton.getScene().getWindow());
         alert.showAndWait();
     }
 
