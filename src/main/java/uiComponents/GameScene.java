@@ -462,14 +462,18 @@ public class GameScene implements Initializable {
         // Get the result
         if (result.get() == buttonYes){
             timeLine.stop(); // Stop requests
-            // Play menu music
-            SceneHandler.getInstance().getMediaPlayer().stop();
+            DataHandler dataHandler = DataHandler.getInstance();
 
-            Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
-            mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
-            mediaPlayer.play();
+            if (dataHandler.getSettings().isSoundEffects()) {
+                // Play menu music
+                SceneHandler.getInstance().getMediaPlayer().stop();
+
+                Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
+                mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
+                mediaPlayer.play();
+            }
 
             SceneHandler.getInstance().moveToMainMenu();
 
@@ -530,17 +534,17 @@ public class GameScene implements Initializable {
         // Check the music of the age
         if (ageNumber != DataHandler.getInstance().getGame().ageNumber) {
             ageNumber = DataHandler.getInstance().getGame().ageNumber;
-            Media sound;
-            if (ageNumber == 1)
-                sound = new Media(new File(Constants.AGE_ONE_SOUND).toURI().toString());
-            else if (ageNumber == 2)
-                sound = new Media(new File(Constants.AGE_TWO_SOUND).toURI().toString());
-            else
-                sound = new Media(new File(Constants.AGE_THREE_SOUND).toURI().toString());
-
             DataHandler dataHandler = DataHandler.getInstance();
 
             if (dataHandler.getSettings().isSoundEffects()) {
+                Media sound;
+                if (ageNumber == 1)
+                    sound = new Media(new File(Constants.AGE_ONE_SOUND).toURI().toString());
+                else if (ageNumber == 2)
+                    sound = new Media(new File(Constants.AGE_TWO_SOUND).toURI().toString());
+                else
+                    sound = new Media(new File(Constants.AGE_THREE_SOUND).toURI().toString());
+
                 SceneHandler.getInstance().getMediaPlayer().stop();
                 MediaPlayer mediaPlayer = new MediaPlayer(sound);
                 SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
