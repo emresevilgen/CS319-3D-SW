@@ -1,5 +1,6 @@
 package uiComponents;
 
+import audioDescription.AudioDescriptionHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import models.*;
@@ -13,6 +14,8 @@ public class Main extends Application {
         sceneHandler.start(primaryStage);
         DataHandler dataHandler = DataHandler.getInstance();
         ServerConnectionHandler serverConnectionHandler = ServerConnectionHandler.getInstance();
+        AudioDescriptionHandler audioDescriptionHandler = AudioDescriptionHandler.getInstance();
+
     }
 
 

@@ -1,30 +1,25 @@
 package uiComponents;
 
-import audioDescription.TextToSpeech;
-import com.google.gson.Gson;
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.DescriptionReader;
+import audioDescription.Reader;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import models.DataHandler;
+import models.Settings;
 import models.User;
-import rest.ApiClient;
-import rest.ApiInterface;
 import rest.Requester;
 import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,11 +49,141 @@ public class SignInScene implements Initializable{
     }
 
     // Sign in button listener
-    public void signIn(ActionEvent actionEvent) throws InterruptedException {
+    public void signIn(ActionEvent actionEvent) {
         // Get the inputs
         String username = usernameField.getText();
         String password = passwordField.getText();
 
+        showProgress();
+
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<User> user = requester.login(username, password);
+                if (user != null) {
+                    if (user.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setUser(user.payload);
+                                SceneHandler.getInstance().moveToMainMenu();
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                endProgress();
+                                showErrorMessage(user.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            endProgress();
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
+            }
+        });
+        requestThread.start();
+
+
+    }
+
+    // Initializing function
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Settings settings = DataHandler.getInstance().getSettings();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
+        // Setting the mouse entered and exited listeners for hover effect
+        signInButton.setOnMouseEntered(e -> { signInButton.setStyle(HOVERED_BUTTON_STYLE); });
+        signInButton.setOnMouseExited(e -> signInButton.setStyle(IDLE_BUTTON_STYLE));
+        signUpButton.setOnMouseEntered(e -> { signUpButton.setStyle(HOVERED_BUTTON_STYLE); });
+        signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
+        exitButton.setOnMouseEntered(e -> { exitButton.setStyle(HOVERED_BUTTON_STYLE); });
+        exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
+
+        usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Enter  user name");
+            }
+        });
+
+        passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Enter password");
+            }
+        });
+
+        signInButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Sign in");
+                signInButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                signInButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        signUpButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("If you don't have an account, please sign up");
+                signUpButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                signUpButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        exitButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Exit");
+                exitButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                exitButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+    }
+
+    // Exit button listener
+    public void exit(ActionEvent actionEvent) {
+        SceneHandler.getInstance().exit();
+    }
+
+    /*int index = 2;
+    public void onKeyPress(KeyEvent event)
+    {
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
+        if(event.getCode().equals(KeyCode.TAB))
+        {
+            if(index == 6)
+                index=1;
+            index++;
+            //System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
+
+            //System.out.println(((Button)event.getSource()).getText());
+            // System.out.println(((Button)event.getTarget()).getText());
+            //tts.read(((Button)event.getTarget()).getText());
+
+            switch(index)
+            {
+                case 2: tts.read("Enter  user name"); break;
+                case 3: tts.read("Enter password"); break;
+                case 4: tts.read("Sign in"); break;
+                case 5: tts.read("If you don't have an account, please sign up."); break;
+                case 6: tts.read("Exit"); break;
+            }
+        }
+    }*/
+
+    private void showProgress(){
         // For loading indicator
         progress = new ProgressIndicator();
         progress.setMaxSize(100, 100);
@@ -67,85 +192,29 @@ public class SignInScene implements Initializable{
 
         ((AnchorPane)signInButton.getScene().getRoot()).getChildren().add(progress);
 
-        // Thread progressThread = new Thread(new Runnable() {
-        //     @Override
-        //     public void run() {
-        //         try {
-        //           Thread.sleep(1000);
-        //       } catch (InterruptedException e) {
-        //           e.printStackTrace();
-        //       }
-        //   }
-        // });
-
-        // Start loading animation
-        // progressThread.start();
-
-        Requester requester = ServerConnectionHandler.getInstance().getRequester();
-        User user = requester.login(username, password);
-        if (user != null) {
-            DataHandler.getInstance().setUser(user);
-            SceneHandler.getInstance().moveToMainMenu();
-        }
+        signInButton.setDisable(true);
+        signUpButton.setDisable(true);
+        exitButton.setDisable(true);
+        usernameField.setDisable(true);
+        passwordField.setDisable(true);
     }
 
-    // Initializing function
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Setting the mouse entered and exited listeners for hover effect
-        signInButton.setOnMouseEntered(e -> {
-            signInButton.setStyle(HOVERED_BUTTON_STYLE);
-            tts.read("Sign in");
-
-        });
-
-        signInButton.setOnMouseExited(e -> signInButton.setStyle(IDLE_BUTTON_STYLE));
-
-        signUpButton.setOnMouseEntered(e -> signUpButton.setStyle(HOVERED_BUTTON_STYLE));
-        signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
-        exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
-        exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
-
-        usernameField.focusedProperty().addListener((ov, oldV, newV) -> {
-            if (newV) { // focus
-                tts.read("Enter user name");
-            }
-        });
-
-        passwordField.focusedProperty().addListener((ov, oldV, newV) -> {
-            if (newV) { // focus
-                tts.read("Enter password");
-            }
-        });
-
-        signInButton.focusedProperty().addListener((ov, oldV, newV) -> {
-            if (newV) { // focus
-                tts.read("Sign in");
-            }
-        });
-
-        exitButton.focusedProperty().addListener((ov, oldV, newV) -> {
-            if (newV) { // focus
-                tts.read("Exit");
-            }
-        });
-
-        signUpButton.focusedProperty().addListener((ov, oldV, newV) -> {
-            if (newV) { // focus
-                tts.read("If you don't have an account, please sign up.");
-            }
-        });
-
-
-
-
+    private void endProgress(){
+        ((AnchorPane)signInButton.getScene().getRoot()).getChildren().remove(progress);
+        signInButton.setDisable(false);
+        signUpButton.setDisable(false);
+        exitButton.setDisable(false);
+        usernameField.setDisable(false);
+        passwordField.setDisable(false);
     }
 
-    // Exit button listener
-    public void exit(ActionEvent actionEvent) {
-        SceneHandler.getInstance().exit();
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.showAndWait();
     }
-
-    TextToSpeech tts = new TextToSpeech();
 
 }

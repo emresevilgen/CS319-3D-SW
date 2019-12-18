@@ -125,14 +125,45 @@ public class SeeThePlayersScene implements Initializable {
 
     // Send request and update the lobby object
     public void update() {
-
-        Requester requester = ServerConnectionHandler.getInstance().getRequester();
         DataHandler dataHandler = DataHandler.getInstance();
-        Lobby lobby = requester.getLobby(dataHandler.getUser().userName, dataHandler.getUser().userName, dataHandler.getLobby().lobbyId);
-        if (lobby != null)
-            dataHandler.setLobby(lobby);
-        else
-            lobby = dataHandler.getLobby();
+
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<Lobby> lobbyResponse = requester.getLobby(dataHandler.getUser().userName, dataHandler.getUser().token, dataHandler.getLobby().lobbyId);
+                if (lobbyResponse != null) {
+                    if (lobbyResponse.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setLobby(lobbyResponse.payload);
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(lobbyResponse.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
+            }
+        });
+        requestThread.start();
+
+        Lobby lobby = dataHandler.getLobby();
+
 
         // Clear the labels
         for (int i = 0; i < labelsName.length; i++)

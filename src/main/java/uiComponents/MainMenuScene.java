@@ -1,31 +1,25 @@
 package uiComponents;
 
-import audioDescription.TextToSpeech;
-import com.google.gson.Gson;
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.DescriptionReader;
+import audioDescription.Reader;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.DataHandler;
 import models.Lobby;
-import rest.ApiClient;
-import rest.ApiInterface;
+import models.User;
 import rest.Requester;
 import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -51,6 +45,9 @@ public class MainMenuScene implements Initializable {
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
 
+    // For loading animation
+    private ProgressIndicator progress;
+
     // Create button listener
     public void createLobby(ActionEvent event) throws Exception {
         SceneHandler.getInstance().moveToCreateLobby();
@@ -67,20 +64,54 @@ public class MainMenuScene implements Initializable {
         ((Stage)dialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true); // always at the top
 
         dialog.setContentText("Enter the code of the lobby:");
-        String lobbyCode = null;
 
         Optional<String> result = dialog.showAndWait(); // Show pop up
 
+        DataHandler dataHandler = DataHandler.getInstance();
+
         // Get input and check if it is valid then send request
         if (result.isPresent()){
-            lobbyCode = result.get();
-            Requester requester = ServerConnectionHandler.getInstance().getRequester();
-            DataHandler dataHandler = DataHandler.getInstance();
-            Lobby lobby = requester.enterLobby(dataHandler.getUser().userName, dataHandler.getUser().token, lobbyCode);
-            if (lobby != null) {
-                dataHandler.setLobby(lobby);
-                SceneHandler.getInstance().moveToSeeThePlayers(false);
-            }
+            String lobbyCode = result.get();
+
+            showProgress();
+
+            Thread requestThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                    GeneralResponse<Lobby> lobby = requester.enterLobby(dataHandler.getUser().userName, dataHandler.getUser().token, lobbyCode);
+                    if (lobby != null) {
+                        if (lobby.success) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DataHandler.getInstance().setLobby(lobby.payload);
+                                    SceneHandler.getInstance().moveToSeeThePlayers(false);
+                                }
+                            });
+                        }
+                        else {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    endProgress();
+                                    showErrorMessage(lobby.message);
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                endProgress();
+                                showErrorMessage("There is something wrong with the connection");
+                            }
+                        });
+                    }
+                }
+            });
+            requestThread.start();
         }
     }
 
@@ -154,33 +185,37 @@ public class MainMenuScene implements Initializable {
 
     }
 
-
-    TextToSpeech tts = new TextToSpeech();
-    int index = 2;
+    /*int index = 2;
     public void onKeyPress(KeyEvent event)
     {
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
         if(event.getCode().equals(KeyCode.TAB))
         {
             if(index == 8)
                 index=1;
             index++;
-            System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
+            //System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
             //System.out.println(((Button)event.getSource()).getText());
            // System.out.println(((Button)event.getTarget()).getText());
             //tts.read(((Button)event.getTarget()).getText());
 
-            switch(index)
-            {
-                case 2: tts.read("Create a Lobby"); break;
-                case 3: tts.read("Join to the Existing Lobby"); break;
-                case 4: tts.read("See the Rankings"); break;
-                case 5: tts.read("Settings"); break;
-                case 6: tts.read("Credits"); break;
-                case 7: tts.read("Exit"); break;
-                case 8:  tts.read("Sign Out"); break;
-            }
+            if(index == 2)
+                tts.read("Create a Lobby");
+            else if(index ==3)
+                tts.read("Join to the Existing Lobby");
+            else if(index==4)
+                tts.read("See the Rankings");
+            else if(index==5)
+                tts.read("Settings");
+            else if(index==6)
+                tts.read("Credits");
+            else if(index==7)
+                tts.read("Exit");
+            else if(index==8)
+                tts.read("Sign Out");
         }
-    }
+    }*/
 
     // Initializing function
     @Override
@@ -201,7 +236,110 @@ public class MainMenuScene implements Initializable {
         exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
 
-        TextToSpeech tts = new TextToSpeech();
-        tts.read("Create a Lobby");//fxml i yüklemeden söylüyor
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
+        createLobbyButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Create a Lobby");
+                createLobbyButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                createLobbyButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        joinLobbyButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Join to the Existing Lobby");
+                joinLobbyButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                joinLobbyButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        seeRankingsButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("See the Rankings");
+                seeRankingsButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                seeRankingsButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        settingsButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Settings");
+                settingsButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                settingsButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        creditsButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Credits");
+                creditsButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                creditsButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        exitButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Exit");
+                exitButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                exitButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+        signOutButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                tts.read("Sign Out");
+                signOutButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                signOutButton.setStyle(IDLE_BUTTON_STYLE);
+        });
     }
+
+    private void showProgress(){
+        // For loading indicator
+        progress = new ProgressIndicator();
+        progress.setMaxSize(100, 100);
+        progress.setLayoutX(910);
+        progress.setLayoutY(490);
+
+        ((AnchorPane)joinLobbyButton.getScene().getRoot()).getChildren().add(progress);
+
+        createLobbyButton.setDisable(true);
+        joinLobbyButton.setDisable(true);
+        seeRankingsButton.setDisable(true);
+        settingsButton.setDisable(true);
+        creditsButton.setDisable(true);
+        signOutButton.setDisable(true);
+        exitButton.setDisable(true);
+
+    }
+
+    private void endProgress(){
+        ((AnchorPane)joinLobbyButton.getScene().getRoot()).getChildren().remove(progress);
+
+        createLobbyButton.setDisable(false);
+        joinLobbyButton.setDisable(false);
+        seeRankingsButton.setDisable(false);
+        settingsButton.setDisable(false);
+        creditsButton.setDisable(false);
+        signOutButton.setDisable(false);
+        exitButton.setDisable(false);
+    }
+
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.showAndWait();
+    }
+
+
 }

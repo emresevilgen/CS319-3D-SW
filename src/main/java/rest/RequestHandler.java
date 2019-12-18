@@ -1,9 +1,6 @@
 package rest;
 
 import com.google.gson.Gson;
-import javafx.application.Platform;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
 import models.*;
 import rest.models.GeneralResponse;
 import retrofit2.Call;
@@ -15,7 +12,10 @@ import java.io.IOException;
 public class RequestHandler implements Requester {
 
     @Override
-    public User login(String username, String password){
+    public GeneralResponse<User> login(String username, String password){
+        final GeneralResponse<User>[] user = new GeneralResponse[1];
+        final boolean[] finished = {false};
+
         // Login request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
@@ -27,52 +27,43 @@ public class RequestHandler implements Requester {
             public void onResponse(Call<GeneralResponse<User>> call, Response<GeneralResponse<User>> response) {
                 if (response.body() != null) {
                     // Get the response
-                    GeneralResponse<User> userGeneralResponse = response.body();
-
-                    // If success update lobby and move to see the players
-                    if (userGeneralResponse.success) {
-                        DataHandler.getInstance().setUser(userGeneralResponse.payload);
-                    }
-                    // Otherwise error message
-                    else
-                        showErrorMessage(userGeneralResponse.message);
+                    user[0] = response.body();
                 }
-                // When the response's body is null
                 else {
                     try {
                         String errorResponse = response.errorBody().string();
-                        GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        });
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        user[0] = new GeneralResponse<User>();
+                        user[0].message = userGeneralResponse.message;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+                finished[0] = true;
             }
 
             // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<User>> call, Throwable t) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorMessage("There is something wrong with the connection");
-
-                    }
-                });
+                finished[0] = true;
             }
         });
-        return null;
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return user[0];
     }
 
     @Override
-    public User signUp(String name, String username, String password) {
-        final User[] user = new User[1];
+    public GeneralResponse<User> signUp(String name, String username, String password) {
+        final GeneralResponse<User>[] user = new GeneralResponse[1];
+        final boolean[] finished = {false};
 
         // Sign up request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -84,65 +75,53 @@ public class RequestHandler implements Requester {
             public void onResponse(Call<GeneralResponse<User>> call, Response<GeneralResponse<User>> response) {
                 if (response.body() != null) {
                     // Get the response
-                    GeneralResponse<User> userGeneralResponse = response.body();
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            // If success update lobby and move to see the players
-                            if (userGeneralResponse.success) {
-                                user[0] = userGeneralResponse.payload;
-                            }
-                            // Otherwise error message
-                            else {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        }
-                    });
+                    user[0] = response.body();
                 }
-                // When the response's body is null
                 else {
                     try {
                         String errorResponse = response.errorBody().string();
-                        GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                showErrorMessage(userGeneralResponse.message);
-                            }
-                        });
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        user[0] = new GeneralResponse<User>();
+                        user[0].message = userGeneralResponse.message;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+                finished[0] = true;
             }
+
 
             // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<User>> call, Throwable t) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorMessage("There is something wrong with the connection");
-
-                    }
-                });
+                finished[0] = true;
             }
+
         });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         return user[0];
     }
 
     @Override
-    public User updateUser(String name, String password, String token) {
+    public GeneralResponse<User> updateUser(String name, String password, String token) {
         return null;
     }
 
     @Override
-    public Lobby enterLobby(String username, String token, String lobbyCode) {
+    public GeneralResponse<Lobby> enterLobby(String username, String token, String lobbyCode) {
+        final GeneralResponse<Lobby>[] lobby = new GeneralResponse[1];
+        final boolean[] finished = {false};
+
         // Enter Lobby Request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        final Lobby[] lobby = new Lobby[1];
         Call<GeneralResponse<Lobby>> call = apiService.enterLobby(username, token, lobbyCode);
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
 
@@ -150,64 +129,48 @@ public class RequestHandler implements Requester {
             @Override
             public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
                 if (response.body() != null) {
-
                     // Get the response
-                    GeneralResponse<Lobby> userGeneralResponse = response.body();
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            // If success update lobby and move to see the players
-                            if (userGeneralResponse.success) {
-                                lobby[0] = userGeneralResponse.payload;
-                            }
-                            // Otherwise error message
-                            else {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        }
-                    });
-
+                    lobby[0] = response.body();
                 }
-                // When the response's body is null
                 else {
                     try {
                         String errorResponse = response.errorBody().string();
-                        GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        });
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        lobby[0] = new GeneralResponse<Lobby>();
+                        lobby[0].message = userGeneralResponse.message;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+                finished[0] = true;
             }
+
             // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorMessage("There is something wrong with the connection");
-
-                    }
-                });
+                finished[0] = true;
             }
+
         });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         return lobby[0];
     }
 
     @Override
-    public Lobby createLobby(String username, String lobbyName, String token, Mode mode) {
+    public GeneralResponse<Lobby> createLobby(String username, String lobbyName, String token, Mode mode) {
+        final GeneralResponse<Lobby>[] lobby = new GeneralResponse[1];
+        final boolean[] finished = {false};
 
         // Create lobby request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        final Lobby[] lobby = new Lobby[1];
         Call<GeneralResponse<Lobby>> call = apiService.createLobby(username, lobbyName, token, mode);
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
 
@@ -215,61 +178,44 @@ public class RequestHandler implements Requester {
             @Override
             public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
                 if (response.body() != null) {
-
                     // Get the response
-                    GeneralResponse<Lobby> userGeneralResponse = response.body();
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            // If success update lobby and move to see the players
-                            if (userGeneralResponse.success) {
-                                lobby[0] = userGeneralResponse.payload;
-                            }
-                            // Otherwise error message
-                            else {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        }
-                    });
+                    lobby[0] = response.body();
                 }
-                // When the response's body is null
                 else {
                     try {
                         String errorResponse = response.errorBody().string();
-                        GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        });
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        lobby[0] = new GeneralResponse<Lobby>();
+                        lobby[0].message = userGeneralResponse.message;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+                finished[0] = true;
             }
 
             // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorMessage("There is something wrong with the connection");
-
-                    }
-                });
+                finished[0] = true;
             }
         });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return lobby[0];
     }
 
     @Override
-    public Lobby getLobby(String username, String token, String lobbyId) {
-        final Lobby[] lobby = new Lobby[1];
+    public GeneralResponse<Lobby> getLobby(String username, String token, String lobbyId) {
+        final GeneralResponse<Lobby>[] lobby = new GeneralResponse[1];
+        final boolean[] finished = {false};
+
         // Get the lobby data and when the game starts move to the game screen
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
@@ -279,100 +225,73 @@ public class RequestHandler implements Requester {
             @Override
             public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
                 if (response.body() != null) {
-
                     // Get the response
-                    GeneralResponse<Lobby> userGeneralResponse = response.body();
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            // If success update lobby and move to see the players
-                            if (userGeneralResponse.success) {
-                                lobby[0] = userGeneralResponse.payload;
-                            }
-                            // Otherwise error message
-                            else {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        }
-                    });
+                    lobby[0] = response.body();
                 }
-                // When the response's body is null
                 else {
+
                     try {
                         String errorResponse = response.errorBody().string();
-                        GeneralResponse userGeneralResponse =  new Gson().fromJson(errorResponse, GeneralResponse.class);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                showErrorMessage(userGeneralResponse.message);
-
-                            }
-                        });
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        lobby[0] = new GeneralResponse<Lobby>();
+                        lobby[0].message = userGeneralResponse.message;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+                finished[0] = true;
             }
 
             // When connection is lost
             @Override
             public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorMessage("There is something wrong with the connection");
-
-                    }
-                });
+                finished[0] = true;
             }
         });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         return lobby[0];
     }
 
     @Override
-    public Lobby exitLobby(String username, String token, String lobbyId) {
+    public GeneralResponse<Lobby> exitLobby(String username, String token, String lobbyId) {
         return null;
     }
 
     @Override
-    public Lobby getReady(String username, String token, boolean ready, String lobbyId) {
+    public GeneralResponse<Lobby> getReady(String username, String token, boolean ready, String lobbyId) {
         return null;
     }
 
     @Override
-    public Game startGame(String username, String token, String lobbyCode) {
+    public GeneralResponse<Game> startGame(String username, String token, String lobbyCode) {
         return null;
     }
 
     @Override
-    public Game getGameData(String username, String token, String gameId, String playerId) {
+    public GeneralResponse<Game> getGameData(String username, String token, String gameId, String playerId) {
         return null;
     }
 
     @Override
-    public Game getReadyGame(String username, String token, String gameId, boolean ready) {
+    public GeneralResponse<Game> getReadyGame(String username, String token, String gameId, boolean ready) {
         return null;
     }
 
     @Override
-    public Game commerce(String gameId, String username, String token, String sellerPlayerId, int[] materialTypes, int[] materialAmounts) {
+    public GeneralResponse<Game> commerce(String gameId, String username, String token, String sellerPlayerId, int[] materialTypes, int[] materialAmounts) {
         return null;
     }
 
     @Override
-    public Game pickCard(String gameId, String username, String token, String selectedCardId) {
+    public GeneralResponse<Game> pickCard(String gameId, String username, String token, String selectedCardId) {
         return null;
-    }
-
-
-    // Error message
-    private void showErrorMessage(String errorMsg){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMsg);
-        alert.showAndWait();
     }
 }

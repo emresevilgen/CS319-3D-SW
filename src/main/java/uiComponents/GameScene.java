@@ -1,6 +1,8 @@
 package uiComponents;
 
-import audioDescription.TextToSpeech;
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.DescriptionReader;
+import audioDescription.Reader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.effect.Glow;
@@ -124,7 +125,6 @@ public class GameScene implements Initializable {
     private int boardsNo;
     private Card[] cardsInColorOrder;
 
-    private TextToSpeech tts = new TextToSpeech();
 
     // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -145,6 +145,7 @@ public class GameScene implements Initializable {
         Game game = new Game();
         DataHandler.getInstance().setGame(game);
         game.ageNumber = 1;
+        game.turnNumber = 1;
         game.players = new Player[4];
         game.players[0] = new Player();
         game.players[0].playerCards = new Card[7];
@@ -210,42 +211,51 @@ public class GameScene implements Initializable {
        SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
            @Override
            public void handle(KeyEvent event) {
+               Reader tts = AudioDescriptionHandler.getInstance().getReader();
                KeyCode keyCode = event.getCode();
                Game game = DataHandler.getInstance().getGame();
                switch (keyCode)
                {
                    // Cards in the player's deck
-                   case C: keyInput = "deck";
+                   case C:
+                       keyInput = "deck";
                         deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                        tts.read("The cards in the deck");
-                        tts.read(game.players[0].playerCards[deckNo].cardName);
+                        tts.read("The cards in the deck." + game.players[0].playerCards[deckNo].cardName);
                         break;
 
                    //Cards in the player's board
-                   case S: keyInput = "boardCards";
-                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                        tts.read("The cards in the board");
-                        tts.read(game.players[0].board.cards[boardCardsNo].cardName);
-                        break;
+                   case S:
+                       keyInput = "boardCards";
+                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       tts.read("The cards in the board." + game.players[0].board.cards[boardCardsNo].cardName);
+                       break;
 
                    //Cards in the left player's board
-                   case A: keyInput = "leftBoardCards"; deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0; tts.read("The cards in the left board"); break;
+                   case A:
+                       keyInput = "leftBoardCards";
+                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       tts.read("The cards in the left board.");
+                       break;
 
                    //Cards in the across player's board
-                   case W: keyInput = "acrossBoardCards"; deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0; tts.read("The cards in the across board"); break;
+                   case W:
+                       keyInput = "acrossBoardCards";
+                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       tts.read("The cards in the across board.");
+                       break;
 
                    //Cards in the right player's board
-                   case D: keyInput =  "rightBoardCards";
-                   deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                        tts.read("The cards in the right board");
+                   case D:
+                       keyInput =  "rightBoardCards";
+                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                        tts.read("The cards in the right board.");
                         break;
 
                    //Boards description
                    case B: keyInput = "boards";
                         deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                        tts.read("The boards");
-                       tts.read(game.players[boardsNo].board.wonderName);
-                       break;
+                        tts.read("The boards." + game.players[boardsNo].board.wonderName);
+                        break;
 
                }
                if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boardCards"))
@@ -276,7 +286,7 @@ public class GameScene implements Initializable {
 
                else if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("deck"))
                {
-                   if(deckNo == (7-turnNumber) )
+                   if(deckNo == (6-turnNumber) )
                    {
                        deckNo = -1;
                    }

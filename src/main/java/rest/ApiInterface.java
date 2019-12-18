@@ -15,11 +15,11 @@ import retrofit2.http.POST;
  */
 public interface ApiInterface {
     @FormUrlEncoded
-    @POST("login.php")
+    @POST("user/login/")
     Call<GeneralResponse<User>> login(@Field("username") String username, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("signup.php")
+    @POST("user/signup/")
     Call<GeneralResponse<User>> signUp(@Field("name") String name, @Field("username") String username, @Field("password") String password);
 
     @FormUrlEncoded

@@ -32,7 +32,7 @@
                 <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="exitButton" alignment="CENTER" layoutX="764.0" layoutY="640.0" mnemonicParsing="false" onAction="#exit"  prefHeight="62.0" prefWidth="168.0" style="-fx-background-color: #b38632;" text="Exit" textFill="WHITE">
+        <Button fx:id="exitButton" alignment="CENTER" layoutX="764.0" layoutY="640.0" mnemonicParsing="false" onAction="#exit" prefHeight="62.0" prefWidth="168.0" style="-fx-background-color: #b38632;" text="Exit" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
