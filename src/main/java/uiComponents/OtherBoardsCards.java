@@ -23,7 +23,7 @@ public class OtherBoardsCards implements Initializable {
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        GameScene.boardScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        /*GameScene.boardScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();
@@ -50,7 +50,7 @@ public class OtherBoardsCards implements Initializable {
                 event.consume();
             }
         }
-        );
+        );*/
     }
 
     // Increase scale of the card mouse entered

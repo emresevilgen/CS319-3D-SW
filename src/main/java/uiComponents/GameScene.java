@@ -462,14 +462,19 @@ public class GameScene implements Initializable {
         // Get the result
         if (result.get() == buttonYes){
             timeLine.stop(); // Stop requests
-            // Play menu music
-            SceneHandler.getInstance().getMediaPlayer().stop();
+            DataHandler dataHandler = DataHandler.getInstance();
+            if(dataHandler.getSettings().isSoundEffects())
+            {
+                // Play menu music
+                SceneHandler.getInstance().getMediaPlayer().stop();
 
-            Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
-            mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
-            mediaPlayer.play();
+                Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
+                mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
+                mediaPlayer.play();
+            }
+
 
             SceneHandler.getInstance().moveToMainMenu();
 
