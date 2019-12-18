@@ -119,6 +119,7 @@ public class SignUpScene implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        Settings settings = DataHandler.getInstance().getSettings();
 
         // Setting the mouse entered and exited listeners for hover effect
         backButton.setOnMouseEntered(e -> backButton.setStyle(HOVERED_BUTTON_STYLE));
@@ -127,25 +128,25 @@ public class SignUpScene implements Initializable{
         signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
 
         nameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Enter name");
             }
         });
 
         usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Enter user name");
             }
         });
 
         passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Enter password");
             }
         });
 
         signUpButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Sign up");
                 signUpButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -154,7 +155,7 @@ public class SignUpScene implements Initializable{
         });
 
         backButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Back");
                 backButton.setStyle(HOVERED_BUTTON_STYLE);
             }

@@ -1,7 +1,6 @@
 package uiComponents;
 
 import audioDescription.AudioDescriptionHandler;
-import audioDescription.DescriptionReader;
 import audioDescription.Reader;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -9,13 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.DataHandler;
 import models.Lobby;
-import models.User;
+import models.Settings;
 import rest.Requester;
 import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
@@ -45,6 +42,9 @@ public class MainMenuScene implements Initializable {
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b38632; -fx-opacity: 0.85;";
 
+    Reader tts = AudioDescriptionHandler.getInstance().getReader();
+    Settings settings = DataHandler.getInstance().getSettings();
+
     // For loading animation
     private ProgressIndicator progress;
 
@@ -63,6 +63,11 @@ public class MainMenuScene implements Initializable {
         dialog.setGraphic(null);
         dialog.initOwner(joinLobbyButton.getScene().getWindow());
         ((Stage)dialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true); // always at the top
+
+        if(settings.isAudioDescription())
+        {
+            tts.read("Enter the code of the lobby");
+        }
 
         dialog.setContentText("Enter the code of the lobby:");
 
@@ -146,6 +151,10 @@ public class MainMenuScene implements Initializable {
         alert.setGraphic(null);
         alert.initOwner(signOutButton.getScene().getWindow());
         alert.setContentText("Do you want to sign out?");
+        if(settings.isAudioDescription())
+        {
+            tts.read("Do you want to sign out?");
+        }
         // Add options
         ButtonType buttonYes = new ButtonType("Yes");
         ButtonType buttonNo = new ButtonType("No");
@@ -169,37 +178,6 @@ public class MainMenuScene implements Initializable {
 
     }
 
-    /*int index = 2;
-    public void onKeyPress(KeyEvent event)
-    {
-        Reader tts = AudioDescriptionHandler.getInstance().getReader();
-
-        if(event.getCode().equals(KeyCode.TAB))
-        {
-            if(index == 8)
-                index=1;
-            index++;
-            //System.out.println((((Button)event.getSource()).getParent().getChildrenUnmodifiable().get(index)));
-            //System.out.println(((Button)event.getSource()).getText());
-           // System.out.println(((Button)event.getTarget()).getText());
-            //tts.read(((Button)event.getTarget()).getText());
-
-            if(index == 2)
-                tts.read("Create a Lobby");
-            else if(index ==3)
-                tts.read("Join to the Existing Lobby");
-            else if(index==4)
-                tts.read("See the Rankings");
-            else if(index==5)
-                tts.read("Settings");
-            else if(index==6)
-                tts.read("Credits");
-            else if(index==7)
-                tts.read("Exit");
-            else if(index==8)
-                tts.read("Sign Out");
-        }
-    }*/
 
     // Initializing function
     @Override
@@ -220,10 +198,9 @@ public class MainMenuScene implements Initializable {
         exitButton.setOnMouseEntered(e -> exitButton.setStyle(HOVERED_BUTTON_STYLE));
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
 
-        Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
         createLobbyButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Create a Lobby");
                 createLobbyButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -232,7 +209,7 @@ public class MainMenuScene implements Initializable {
         });
 
         joinLobbyButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Join to the Existing Lobby");
                 joinLobbyButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -241,7 +218,7 @@ public class MainMenuScene implements Initializable {
         });
 
         seeRankingsButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("See the Rankings");
                 seeRankingsButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -250,7 +227,7 @@ public class MainMenuScene implements Initializable {
         });
 
         settingsButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Settings");
                 settingsButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -259,7 +236,7 @@ public class MainMenuScene implements Initializable {
         });
 
         creditsButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Credits");
                 creditsButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -268,7 +245,7 @@ public class MainMenuScene implements Initializable {
         });
 
         exitButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Exit");
                 exitButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -276,7 +253,7 @@ public class MainMenuScene implements Initializable {
                 exitButton.setStyle(IDLE_BUTTON_STYLE);
         });
         signOutButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Sign Out");
                 signOutButton.setStyle(HOVERED_BUTTON_STYLE);
             }

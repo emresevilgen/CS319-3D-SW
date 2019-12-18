@@ -39,6 +39,8 @@ public class SettingsScene implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
+        //System.out.println("username:::::" +username);
+
         // If there is an input at username of password then confirmation pop up
         if (!username.equals("") || !password.equals("")) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -83,7 +85,7 @@ public class SettingsScene implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        usernameField.setText(DataHandler.getInstance().getUser().userName); // Show username at the text field
+        //usernameField.setText(DataHandler.getInstance().getUser().userName); // Show username at the text field
 
         // Setting the mouse entered and exited listeners for hover effect
         cancelButton.setOnMouseEntered(e -> cancelButton.setStyle(HOVERED_BUTTON_STYLE));

@@ -694,6 +694,7 @@ public class GameScene implements Initializable {
             boardStage.setScene(boardScene);
             boardStage.initStyle(StageStyle.UTILITY);
             boardStage.setAlwaysOnTop(true);
+            boardStage.initOwner(focus.getScene().getWindow());
             boardStage.show();
 
             // Classify the cards

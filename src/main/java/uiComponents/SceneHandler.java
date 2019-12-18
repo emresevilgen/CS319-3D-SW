@@ -3,6 +3,7 @@ package uiComponents;
 import audioDescription.AudioDescriptionHandler;
 import audioDescription.Reader;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,6 +17,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import models.DataHandler;
+import models.Settings;
 import utils.Constants;
 
 import java.io.File;
@@ -60,14 +62,17 @@ public class SceneHandler extends Application {
         primaryStage.setFullScreenExitHint(null); // Exit hint pop up disabled
 
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
-        tts.read("Welcome to the Seven Wonders Game");
+        if(dataHandler.getSettings().isAudioDescription())
+        {
+            tts.read("Welcome to the Seven Wonders Game");
+        }
 
         //Move to functions
 
         //moveToCreateLobby();
         //moveToCredits();
-        moveToGame();
-        // moveToMainMenu();
+       // moveToGame();
+         moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
@@ -382,12 +387,20 @@ public class SceneHandler extends Application {
     // Exit
     public void exit(){
         // Show confirmation pop up
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        Settings settings = DataHandler.getInstance().getSettings();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ((Stage)alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.setTitle("Exit Game");
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.initOwner(stage);
+
+        if(settings.isAudioDescription())
+        {
+            tts.read("Do you want to exit?");
+        }
+        
         alert.setContentText("Do you want to exit?");
         // Add options
         ButtonType buttonYes = new ButtonType("Yes");

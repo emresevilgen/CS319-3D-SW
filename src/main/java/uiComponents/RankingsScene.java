@@ -1,11 +1,16 @@
 package uiComponents;
 
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.Reader;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import models.DataHandler;
+import models.Settings;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +54,23 @@ public class RankingsScene implements Initializable {
         // Setting the mouse entered and exited listeners for hover effect
         backButton.setOnMouseEntered(e -> backButton.setStyle(HOVERED_BUTTON_STYLE));
         backButton.setOnMouseExited(e -> backButton.setStyle(IDLE_BUTTON_STYLE));
+
+        Settings settings = DataHandler.getInstance().getSettings();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
+        if(settings.isAudioDescription())
+        {
+            tts.read( "The first player is " + firstNameLabel.getText()+ " the second player is " + secondNameLabel.getText()+ " the third player is " + thirdNameLabel.getText()+ " the fourth player is " + fourthNameLabel.getText()+ " the fifth player is " + fifthNameLabel.getText());
+        }
+
+        backButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription()){
+                tts.read("Back");
+                backButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                backButton.setStyle(IDLE_BUTTON_STYLE);
+        });
 
         // ------------------------------------
         // ------------------------------------

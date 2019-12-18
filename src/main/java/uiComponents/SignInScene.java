@@ -114,19 +114,19 @@ public class SignInScene implements Initializable{
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
 
         usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Enter  user name");
             }
         });
 
         passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Enter password");
             }
         });
 
         signInButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Sign in");
                 signInButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -135,7 +135,7 @@ public class SignInScene implements Initializable{
         });
 
         signUpButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("If you don't have an account, please sign up");
                 signUpButton.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -144,7 +144,7 @@ public class SignInScene implements Initializable{
         });
 
         exitButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("Exit");
                 exitButton.setStyle(HOVERED_BUTTON_STYLE);
             }
