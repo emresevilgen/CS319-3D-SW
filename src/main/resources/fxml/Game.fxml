@@ -44,22 +44,22 @@
       <ImageView fx:id="soundEffectsView" fitHeight="45.0" fitWidth="45.0" layoutX="1775.0" layoutY="38.0" onMouseClicked="#switchSoundEffects" pickOnBounds="true" />
       <ImageView fx:id="audioDescriptionView" fitHeight="45.0" fitWidth="45.0" layoutX="1842.0" layoutY="38.0" onMouseClicked="#switchAudioDescription" pickOnBounds="true" />
       <ImageView fx:id="exitView" fitHeight="45.0" fitWidth="45.0" layoutX="22.0" layoutY="24.0" onMouseClicked="#exit" pickOnBounds="true" />
-      <Button layoutX="1729.0" layoutY="990.0" mnemonicParsing="false" onAction="#nextTurnAction" prefHeight="55.0" prefWidth="138.0" style="-fx-background-color: #61ee61;" text="Next Turn" textFill="WHITE">
+      <Button fx:id="nextTurnButton" layoutX="1729.0" layoutY="990.0" mnemonicParsing="false" onAction="#nextTurnAction" prefHeight="55.0" prefWidth="138.0" style="-fx-background-color: #61ee61;" text="Next Turn" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button layoutX="652.0" layoutY="555.0" mnemonicParsing="false" onAction="#discardAction" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #a73535;" text="Discard the Card" textFill="WHITE">
+      <Button fx:id="discardButton" layoutX="652.0" layoutY="555.0" mnemonicParsing="false" onAction="#discardAction" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #a73535;" text="Discard the Card" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="879.0" layoutY="555.0" mnemonicParsing="false" onAction="#structureAction" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #a73535;" text="Build a Structure" textFill="WHITE">
+      <Button fx:id="structureButton" layoutX="879.0" layoutY="555.0" mnemonicParsing="false" onAction="#structureAction" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #a73535;" text="Build a Structure" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="1097.0" layoutY="555.0" mnemonicParsing="false" onAction="#wonderAction" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #a73535;" text="Build a Wonder Stage" textFill="WHITE">
+      <Button fx:id="wonderButton" layoutX="1097.0" layoutY="555.0" mnemonicParsing="false" onAction="#wonderAction" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #a73535;" text="Build a Wonder Stage" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

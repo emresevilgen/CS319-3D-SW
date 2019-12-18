@@ -1,5 +1,8 @@
 package uiComponents;
 
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.Reader;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -92,6 +95,52 @@ public class SettingsScene implements Initializable {
         cancelButton.setOnMouseExited(e -> cancelButton.setStyle(IDLE_BUTTON_STYLE));
         saveButton.setOnMouseEntered(e -> saveButton.setStyle(HOVERED_BUTTON_STYLE));
         saveButton.setOnMouseExited(e -> saveButton.setStyle(IDLE_BUTTON_STYLE));
+
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
+        saveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
+                tts.read("Save");
+                saveButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                saveButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+        cancelButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
+                tts.read("Cancel");
+                cancelButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                cancelButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+        soundEffectsCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
+                tts.read("Do you want sound effects"); //????
+                soundEffectsCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                soundEffectsCheckBox.setStyle(IDLE_BUTTON_STYLE);
+        });
+        audioDescriptionCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
+                tts.read("do you want audio description "); //????
+                audioDescriptionCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                audioDescriptionCheckBox.setStyle(IDLE_BUTTON_STYLE);
+        });
+        usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
+                tts.read("change the user name");
+            }
+        });
+        passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
+                tts.read("change the password");
+            }
+        });
+
 
         // Select the check boxes according to the settings data
         soundEffectsCheckBox.setSelected(DataHandler.getInstance().getSettings().isSoundEffects());

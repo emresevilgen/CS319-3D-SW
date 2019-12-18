@@ -71,8 +71,8 @@ public class SceneHandler extends Application {
 
         //moveToCreateLobby();
         //moveToCredits();
-       // moveToGame();
-         moveToMainMenu();
+       moveToGame();
+         //moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
@@ -400,7 +400,7 @@ public class SceneHandler extends Application {
         {
             tts.read("Do you want to exit?");
         }
-        
+
         alert.setContentText("Do you want to exit?");
         // Add options
         ButtonType buttonYes = new ButtonType("Yes");

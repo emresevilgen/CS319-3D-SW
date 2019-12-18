@@ -6,6 +6,7 @@ import audioDescription.Reader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -40,6 +42,15 @@ import java.util.ResourceBundle;
 public class GameScene implements Initializable {
     @FXML
     public ImageView focus;
+
+    @FXML
+    Button nextTurnButton;
+    @FXML
+    Button structureButton;
+    @FXML
+    Button wonderButton;
+    @FXML
+    Button discardButton;
 
     @FXML
     ImageView audioDescriptionView;
@@ -110,12 +121,20 @@ public class GameScene implements Initializable {
     @FXML
     ImageView card19;
 
+    // Button colors for hovered and not
+    private final String IDLE_BUTTON_STYLE = "-fx-background-color: #a73535; -fx-opacity: 1;";
+    private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #a73535; -fx-opacity: 0.85;";
+    private final String IDLE_BUTTON_STYLE2 = "-fx-background-color: #61ee61; -fx-opacity: 1;";
+    private final String HOVERED_BUTTON_STYLE2 = "-fx-background-color: #61ee61; -fx-opacity: 0.85;";
+
+
     // Image views for board
     ImageView[] cardViews;
 
     int ageNumber = 0;
     int turnNumber = 0;
-
+    Settings settings = DataHandler.getInstance().getSettings();
+    Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
     private String keyInput = "";
     private int deckNo;
@@ -208,55 +227,107 @@ public class GameScene implements Initializable {
         game.players[3].board.wonderName = "Babylon A";
         game.players[3].board.cards = new Card[19];
 
+        // Setting the mouse entered and exited listeners for hover effect
+        nextTurnButton.setOnMouseEntered(e -> { nextTurnButton.setStyle(HOVERED_BUTTON_STYLE2); });
+        nextTurnButton.setOnMouseExited(e -> nextTurnButton.setStyle(IDLE_BUTTON_STYLE2));
+        discardButton.setOnMouseEntered(e -> { discardButton.setStyle(HOVERED_BUTTON_STYLE); });
+        discardButton.setOnMouseExited(e -> discardButton.setStyle(IDLE_BUTTON_STYLE));
+        structureButton.setOnMouseEntered(e -> { structureButton.setStyle(HOVERED_BUTTON_STYLE); });
+        structureButton.setOnMouseExited(e -> structureButton.setStyle(IDLE_BUTTON_STYLE));
+        wonderButton.setOnMouseEntered(e -> { wonderButton.setStyle(HOVERED_BUTTON_STYLE); });
+        wonderButton.setOnMouseExited(e -> wonderButton.setStyle(IDLE_BUTTON_STYLE));
+
+
+        nextTurnButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription()){
+                tts.read("Next turn");
+                nextTurnButton.setStyle(HOVERED_BUTTON_STYLE2);
+            }
+            else
+                nextTurnButton.setStyle(IDLE_BUTTON_STYLE2);
+        });
+
+        discardButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription()){
+                tts.read("Discard the card");
+                discardButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                discardButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        structureButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription()){
+                tts.read("Build a structure");
+                structureButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                structureButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        wonderButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription()){
+                tts.read("Build a wonder stage");
+                wonderButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                wonderButton.setStyle(IDLE_BUTTON_STYLE);
+        });
         //-------------------------------------
        SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
            @Override
            public void handle(KeyEvent event) {
-               Reader tts = AudioDescriptionHandler.getInstance().getReader();
                KeyCode keyCode = event.getCode();
                Game game = DataHandler.getInstance().getGame();
+
                switch (keyCode)
                {
                    // Cards in the player's deck
                    case C:
                        keyInput = "deck";
-                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                        tts.read("The cards in the deck." + game.players[0].playerCards[deckNo].cardName);
-                        break;
+                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       if(settings.isAudioDescription())
+                           tts.read("The cards in the deck." + game.players[0].playerCards[deckNo].cardName);
+                       break;
 
                    //Cards in the player's board
                    case S:
                        keyInput = "boardCards";
                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                       tts.read("The cards in the board." + game.players[0].board.cards[boardCardsNo].cardName);
+                       if(settings.isAudioDescription())
+                           tts.read("The cards in the board." + game.players[0].board.cards[boardCardsNo].cardName);
                        break;
 
                    //Cards in the left player's board
                    case A:
                        keyInput = "leftBoardCards";
                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                       tts.read("The cards in the left board.");
+                       if(settings.isAudioDescription())
+                           tts.read("The cards in the left board.");
                        break;
 
                    //Cards in the across player's board
                    case W:
                        keyInput = "acrossBoardCards";
                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                       tts.read("The cards in the across board.");
+                       if(settings.isAudioDescription())
+                           tts.read("The cards in the across board.");
                        break;
 
                    //Cards in the right player's board
                    case D:
                        keyInput =  "rightBoardCards";
                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                        tts.read("The cards in the right board.");
-                        break;
+                       if(settings.isAudioDescription())
+                           tts.read("The cards in the right board.");
+                       break;
 
                    //Boards description
                    case B: keyInput = "boards";
-                        deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                        tts.read("The boards." + game.players[boardsNo].board.wonderName);
-                        break;
+                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       if(settings.isAudioDescription())
+                           tts.read("The boards." + game.players[boardsNo].board.wonderName);
+                       break;
 
                }
                if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boardCards"))
@@ -267,7 +338,8 @@ public class GameScene implements Initializable {
                        boardCardsNo = -1;
                    }
                    boardCardsNo++;
-                   tts.read(cardsInColorOrder[boardCardsNo].cardName);
+                   if(settings.isAudioDescription())
+                       tts.read(cardsInColorOrder[boardCardsNo].cardName);
                }
                else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("boardCards"))
                {
@@ -277,7 +349,8 @@ public class GameScene implements Initializable {
                        boardCardsNo = 4;//değiştir
                    }
                    boardCardsNo--;
-                   tts.read(cardsInColorOrder[boardCardsNo].cardName);
+                   if(settings.isAudioDescription())
+                       tts.read(cardsInColorOrder[boardCardsNo].cardName);
                }
 
                if(keyCode.equals(KeyCode.ENTER) && keyInput.equals("boardCards"))
@@ -292,7 +365,8 @@ public class GameScene implements Initializable {
                        deckNo = -1;
                    }
                    deckNo++;
-                   tts.read(game.players[0].playerCards[deckNo].cardName);
+                   if(settings.isAudioDescription())
+                       tts.read(game.players[0].playerCards[deckNo].cardName);
                }
                else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("deck"))
                {
@@ -300,7 +374,8 @@ public class GameScene implements Initializable {
                    {
                        deckNo = 6 - turnNumber;
                    }
-                   tts.read(game.players[0].playerCards[deckNo].cardName);
+                   if(settings.isAudioDescription())
+                       tts.read(game.players[0].playerCards[deckNo].cardName);
                    deckNo--;
                }
                else if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boards"))
@@ -310,7 +385,8 @@ public class GameScene implements Initializable {
                        boardsNo = -1;
                    }
                    boardsNo++;
-                   tts.read(game.players[boardsNo].board.wonderName);
+                   if(settings.isAudioDescription())
+                       tts.read(game.players[boardsNo].board.wonderName);
                }
                else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("boards"))
                {
@@ -319,7 +395,8 @@ public class GameScene implements Initializable {
                        boardsNo = 4; // player number+1
                    }
                    boardsNo--;
-                   tts.read(game.players[boardsNo].board.wonderName);
+                   if(settings.isAudioDescription())
+                       tts.read(game.players[boardsNo].board.wonderName);
                }
 
                event.consume();
@@ -419,7 +496,6 @@ public class GameScene implements Initializable {
     // Sound effects button listener
     public void switchSoundEffects(MouseEvent actionEvent) {
         // Change the image according to its status
-        Settings settings = DataHandler.getInstance().getSettings();
         MediaPlayer mediaPlayer = SceneHandler.getInstance().getMediaPlayer();
         settings.switchSoundEffects();
         FileInputStream inputStream = null;
