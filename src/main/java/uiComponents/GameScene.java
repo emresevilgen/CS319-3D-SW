@@ -451,6 +451,7 @@ public class GameScene implements Initializable {
         alert.setTitle("Exit Game");
         alert.setHeaderText(null);
         alert.setGraphic(null);
+        alert.initOwner(exitView.getScene().getWindow());
         alert.setContentText("Do you want to exit the current game?");
         // Add options
         ButtonType buttonYes = new ButtonType("Yes");
@@ -812,6 +813,26 @@ public class GameScene implements Initializable {
             }
         }
         return null;
+    }
+
+    public void nextTurnAction(ActionEvent event)
+    {
+
+    }
+
+    public void wonderAction(ActionEvent event)
+    {
+
+    }
+
+    public void structureAction(ActionEvent event)
+    {
+
+    }
+
+    public void discardAction(ActionEvent event)
+    {
+
     }
 
 }
