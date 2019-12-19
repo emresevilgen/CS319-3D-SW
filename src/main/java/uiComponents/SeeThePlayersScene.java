@@ -124,9 +124,49 @@ public class SeeThePlayersScene implements Initializable {
         // ----------------------------------
         // ----------------------------------
 
+        DataHandler dataHandler = DataHandler.getInstance();
+
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<Lobby> lobbyResponse = requester.exitLobby(dataHandler.getUser().userName, dataHandler.getUser().token);
+                if (lobbyResponse != null) {
+                    if (lobbyResponse.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setLobby(lobbyResponse.payload);
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(lobbyResponse.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
+            }
+        });
+        requestThread.start();
+
+
+
         // To stop requests
         timeLine.stop();
         SceneHandler.getInstance().moveToMainMenu();
+
 
     }
 
@@ -177,26 +217,13 @@ public class SeeThePlayersScene implements Initializable {
         for (int i = 0; i < labelsName.length; i++)
             labelsName[i].setText("");
 
-       /* for (int i = 0; i < labelsState.length; i++)
+/*        for (int i = 0; i < labelsState.length; i++)
             labelsState[i].setText("");*/
 
         // Update the labels with the response
-       /* for (int i = 0; i < lobby.lobbyUsers.length; i++) {
+        for (int i = 0; i < lobby.lobbyUsers.length; i++) {
             labelsName[i].setText(lobby.lobbyUsers[i].username);
-            if (lobby.lobbyUsers[i].username.equals(lobby.lobbyAdmin)) {
-                labelsState[i].setText("Waiting for others");
-            }
-            else {
-                if (lobby.lobbyUsers[i].isReady)
-                    labelsState[i].setText("Ready");
-                else
-                    labelsState[i].setText("Not ready");
-            }
-
-        }*/
-       if( lobby.lobbyUsers[0].username.equals(lobby.lobbyAdmin))
-            labelsState[0].setText("Waiting for others");
-
+        }
 
         // -------------------
         // -------------------

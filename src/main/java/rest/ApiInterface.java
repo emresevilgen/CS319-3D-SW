@@ -40,11 +40,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("exitLobby.php")
-    Call<GeneralResponse<Lobby>> exitLobby(@Field("username") String username, @Field("token") String token, @Field("lobbyId") String lobbyId);
+    Call<GeneralResponse<Lobby>> exitLobby(@Field("username") String username, @Field("token") String token);
 
     @FormUrlEncoded
     @POST("getReady.php")
-    Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") boolean ready, @Field("lobbyId") String lobbyId);
+    Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") boolean ready);
 
     @FormUrlEncoded
     @POST("startGame.php")

@@ -75,6 +75,44 @@ public class SeeThePlayers2Scene implements Initializable {
         //send request to the server
         //------------------------
         //------------------------
+        DataHandler dataHandler = DataHandler.getInstance();
+
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<Lobby> lobbyResponse = requester.getReady(dataHandler.getUser().userName, dataHandler.getUser().token, true);
+                if (lobbyResponse != null) {
+                    if (lobbyResponse.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setLobby(lobbyResponse.payload);
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(lobbyResponse.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
+            }
+        });
+        requestThread.start();
+
+
     }
 
     // Leave button listener
@@ -84,6 +122,43 @@ public class SeeThePlayers2Scene implements Initializable {
         // send a request to the server and move to the main menu
         //------------------------
         //------------------------
+
+        DataHandler dataHandler = DataHandler.getInstance();
+
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<Lobby> lobbyResponse = requester.exitLobby(dataHandler.getUser().userName, dataHandler.getUser().token);
+                if (lobbyResponse != null) {
+                    if (lobbyResponse.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setLobby(lobbyResponse.payload);
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(lobbyResponse.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
+            }
+        });
+        requestThread.start();
 
         // To stop the requests and move to main menu
         timeLine.stop();
