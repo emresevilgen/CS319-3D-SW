@@ -39,11 +39,11 @@ public interface ApiInterface {
     Call<GeneralResponse<Lobby>> getLobby(@Field("username") String username, @Field("token") String token);
 
     @FormUrlEncoded
-    @POST("exitLobby.php")
+    @POST("lobby/exit/")
     Call<GeneralResponse<Lobby>> exitLobby(@Field("username") String username, @Field("token") String token);
 
     @FormUrlEncoded
-    @POST("getReady.php")
+    @POST("lobby/ready/")
     Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") boolean ready);
 
     @FormUrlEncoded
