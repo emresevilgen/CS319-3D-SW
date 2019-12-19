@@ -61,23 +61,18 @@ public class SceneHandler extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // No exit with ESC
         primaryStage.setFullScreenExitHint(null); // Exit hint pop up disabled
 
-        Reader tts = AudioDescriptionHandler.getInstance().getReader();
-        if(dataHandler.getSettings().isAudioDescription())
-        {
-            tts.read("Welcome to the Seven Wonders Game");
-        }
 
         //Move to functions
 
         //moveToCreateLobby();
         //moveToCredits();
-       moveToGame();
-         //moveToMainMenu();
+        // moveToGame();
+        //moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
         //moveToSettings();
-        //moveToSignIn();
+        moveToSignIn();
         //moveToSignUp();
 
     }
@@ -118,8 +113,6 @@ public class SceneHandler extends Application {
             stage.getScene().setRoot(root);
             stage.show();
 
-            //TextToSpeech tts = new TextToSpeech();
-            //tts.read("Create a Lobby");//fxml i yüklemeden söylüyor
 
         } catch (IOException e) {
             e.printStackTrace();

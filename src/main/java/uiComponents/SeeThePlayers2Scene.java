@@ -197,6 +197,7 @@ public class SeeThePlayers2Scene implements Initializable {
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(errorMsg);
+        alert.initOwner(readyButton.getScene().getWindow());
         alert.showAndWait();
     }
 }

@@ -19,12 +19,24 @@ public class DescriptionReader implements Reader {
 
     public void read(String text){
         if (thread != null && thread.isAlive()){
-            thread.interrupt();
+            try {
+                thread.interrupt();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                try {
+                    voice.getAudioPlayer().cancel();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 try {
                     voice.speak(text);
                 }

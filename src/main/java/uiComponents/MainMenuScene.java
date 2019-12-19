@@ -299,6 +299,7 @@ public class MainMenuScene implements Initializable {
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(errorMsg);
+        alert.initOwner(joinLobbyButton.getScene().getWindow());
         alert.showAndWait();
     }
 

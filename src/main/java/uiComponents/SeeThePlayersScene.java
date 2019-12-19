@@ -235,6 +235,7 @@ public class SeeThePlayersScene implements Initializable {
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(errorMsg);
+        alert.initOwner(startGameButton.getScene().getWindow());
         alert.showAndWait();
     }
 }

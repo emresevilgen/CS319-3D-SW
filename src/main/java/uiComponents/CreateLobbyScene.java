@@ -156,6 +156,7 @@ public class CreateLobbyScene implements Initializable {
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(errorMsg);
+        alert.initOwner(createButton.getScene().getWindow());
         alert.showAndWait();
     }
 

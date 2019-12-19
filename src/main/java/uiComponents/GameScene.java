@@ -144,6 +144,8 @@ public class GameScene implements Initializable {
     private int rightBoardCardsNo;
     private int boardsNo;
     private Card[] cardsInColorOrder;
+    public Stage boardStage;
+    public Scene boardScene;
 
 
     // To send a request at every second
@@ -330,7 +332,8 @@ public class GameScene implements Initializable {
                        break;
 
                }
-               if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boardCards"))
+
+               if(keyCode.equals(KeyCode.R) && keyInput.equals("boardCards"))
                {
                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan game.players[0].board.cardCount,bunu da oyun sırasında arttır
                    if(boardCardsNo == 3)//değiştir
@@ -341,7 +344,7 @@ public class GameScene implements Initializable {
                    if(settings.isAudioDescription())
                        tts.read(cardsInColorOrder[boardCardsNo].cardName);
                }
-               else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("boardCards"))
+               else if(keyCode.equals(KeyCode.E) && keyInput.equals("boardCards"))
                {
                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan game.players[0].board.cardCount,bunu da oyun sırasında arttır
                    if(boardCardsNo == 0)
@@ -358,7 +361,7 @@ public class GameScene implements Initializable {
 
                }
 
-               else if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("deck"))
+               else if(keyCode.equals(KeyCode.R) && keyInput.equals("deck"))
                {
                    if(deckNo == (6-turnNumber) )
                    {
@@ -368,17 +371,17 @@ public class GameScene implements Initializable {
                    if(settings.isAudioDescription())
                        tts.read(game.players[0].playerCards[deckNo].cardName);
                }
-               else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("deck"))
+               else if(keyCode.equals(KeyCode.E) && keyInput.equals("deck"))
                {
                    if(deckNo == 0)
                    {
                        deckNo = 6 - turnNumber;
                    }
+                   deckNo--;
                    if(settings.isAudioDescription())
                        tts.read(game.players[0].playerCards[deckNo].cardName);
-                   deckNo--;
                }
-               else if(keyCode.equals(KeyCode.RIGHT) && keyInput.equals("boards"))
+               else if(keyCode.equals(KeyCode.R) && keyInput.equals("boards"))
                {
                    if(boardsNo == 3)  // Player number ı serverdan çektiğin şeyi koy buraya
                    {
@@ -388,7 +391,7 @@ public class GameScene implements Initializable {
                    if(settings.isAudioDescription())
                        tts.read(game.players[boardsNo].board.wonderName);
                }
-               else if(keyCode.equals(KeyCode.LEFT) && keyInput.equals("boards"))
+               else if(keyCode.equals(KeyCode.E) && keyInput.equals("boards"))
                {
                    if(boardsNo == 0)  // Player number ı serverdan çektiğin şeyi koy buraya
                    {
@@ -730,8 +733,6 @@ public class GameScene implements Initializable {
 
     }
 
-    public static Stage boardStage;
-    public static Scene boardScene;
     // Board listeners
     public void showOtherPlayersCards(MouseEvent mouseEvent) {
         Card [] cards;
