@@ -168,12 +168,13 @@ public class RequestHandler implements Requester {
     public GeneralResponse<Lobby> createLobby(String username, String lobbyName, String token, Mode mode) {
         final GeneralResponse<Lobby>[] lobby = new GeneralResponse[1];
         final boolean[] finished = {false};
-        Gson gson = new Gson();
-        String modeJson = gson.toJson(mode);
-        System.out.println(modeJson);
+
+/*        Gson gson = new Gson();
+        String modeJson = gson.toJson(mode);*/
+
         // Create lobby request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<GeneralResponse<Lobby>> call = apiService.createLobby(username, lobbyName, token, modeJson);
+        Call<GeneralResponse<Lobby>> call = apiService.createLobby(username, lobbyName, token, mode);
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
             // If the connection is valid
             @Override
@@ -187,7 +188,8 @@ public class RequestHandler implements Requester {
                         String errorResponse = response.errorBody().string();
                         GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
                         lobby[0] = new GeneralResponse<Lobby>();
-                        lobby[0].message = userGeneralResponse.message;
+                        if (userGeneralResponse != null)
+                            lobby[0].message = userGeneralResponse.message;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
