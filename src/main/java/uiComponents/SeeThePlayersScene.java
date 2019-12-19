@@ -13,10 +13,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.DataHandler;
 import models.Lobby;
+import models.LobbyUser;
 import rest.ApiClient;
 import rest.ApiInterface;
 import rest.Requester;
@@ -25,7 +28,10 @@ import rest.models.GeneralResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utils.Constants;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,15 +51,15 @@ public class SeeThePlayersScene implements Initializable {
     @FXML
     public Label secondNameLabel;
     @FXML
-    public Label secondStateLabel;
+    public ImageView secondPlayerStatus;
     @FXML
     public Label thirdNameLabel;
     @FXML
-    public Label thirdStateLabel;
+    public ImageView thirdPlayerStatus;
     @FXML
     public Label fourthNameLabel;
     @FXML
-    public Label fourthStateLabel;
+    public ImageView fourthPlayerStatus;
     @FXML
     public CheckBox secondPlayerCheckBox;
     @FXML
@@ -62,6 +68,8 @@ public class SeeThePlayersScene implements Initializable {
     public CheckBox fourthPlayerCheckBox;
     @FXML
     public Label lobbyCodeTitle;
+    @FXML
+    public Label lobbyCode;
 
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 1;";
@@ -212,7 +220,8 @@ public class SeeThePlayersScene implements Initializable {
         dismissPersonButton.setOnMouseExited(e -> dismissPersonButton.setStyle(IDLE_BUTTON_STYLE));
 
         // Show the lobby code
-        lobbyCodeTitle.setText("People in the Lobby with the code " + DataHandler.getInstance().getLobby().lobbyCode + ":");
+        lobbyCode.setText("The lobby code: "+ DataHandler.getInstance().getLobby().lobbyCode );
+        lobbyCodeTitle.setText("People in the Lobby: " );
 
         // Initialize the label arrays
         labelsName[0] = firstNameLabel;
@@ -221,9 +230,46 @@ public class SeeThePlayersScene implements Initializable {
         labelsName[3] = fourthNameLabel;
 
         labelsState[0] = firstStateLabel;
-        labelsState[1] = secondStateLabel;
-        labelsState[2] = thirdStateLabel;
-        labelsState[3] = fourthStateLabel;
+
+        DataHandler dataHandler = DataHandler.getInstance();
+
+
+        try {
+            FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
+            FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
+
+            //Change status of the users
+            if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                Image crossImage = new Image(inputStream);
+                secondPlayerStatus.setImage(crossImage);
+            }
+            else{
+                Image checkImage = new Image(inputStream);
+                secondPlayerStatus.setImage(checkImage);
+            }
+            if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
+                Image crossImage = new Image(inputStream);
+                thirdPlayerStatus.setImage(crossImage);
+            }
+            else{
+                Image checkImage = new Image(inputStream);
+                thirdPlayerStatus.setImage(checkImage);
+            }
+            if(dataHandler.getLobby().lobbyUsers.length == 4)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
+                    Image crossImage = new Image(inputStream);
+                    fourthPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream);
+                    fourthPlayerStatus.setImage(checkImage);
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // Get the lobby data and initialize the people in the lobby
         update();

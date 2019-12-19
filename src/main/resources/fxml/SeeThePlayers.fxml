@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayersScene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayersScene">
     <children>
       <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
       <ImageView fitHeight="387.0" fitWidth="784.0" layoutX="568.0" layoutY="244.0" pickOnBounds="true" />
@@ -66,21 +66,6 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="secondStateLabel" layoutX="1033.0" layoutY="436.0" prefHeight="30.0" prefWidth="230.0" textFill="WHITE">
-            <font>
-                <Font size="23.0" />
-            </font>
-        </Label>
-        <Label fx:id="thirdStateLabel" layoutX="1033.0" layoutY="496.0" prefHeight="30.0" prefWidth="230.0" textFill="WHITE">
-            <font>
-                <Font size="23.0" />
-            </font>
-        </Label>
-        <Label fx:id="fourthStateLabel" layoutX="1033.0" layoutY="556.0" prefHeight="30.0" prefWidth="230.0" textFill="WHITE">
-            <font>
-                <Font size="23.0" />
-            </font>
-        </Label>
       <Label fx:id="lobbyCodeTitle" layoutX="603.0" layoutY="260.0" prefHeight="36.0" prefWidth="710.0" text="People in the Lobby:" textFill="WHITE">
          <font>
             <Font size="30.0" />
@@ -89,5 +74,13 @@
       <CheckBox fx:id="secondPlayerCheckBox" layoutX="635.0" layoutY="436.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
       <CheckBox fx:id="thirdPlayerCheckBox" layoutX="635.0" layoutY="496.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
       <CheckBox fx:id="fourthPlayerCheckBox" layoutX="635.0" layoutY="556.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+      <Label fx:id="lobbyCode" layoutX="795.0" layoutY="180.0" prefHeight="45.0" prefWidth="326.0" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="secondPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1118.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="thirdPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1118.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fourthPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1118.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

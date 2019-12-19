@@ -40,6 +40,9 @@ public class Constants {
     public static final String SOUND_EFFECTS_ON_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "sound-on.png");
     public static final String SOUND_EFFECTS_OFF_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "sound-off.png");
     public static final String EXIT_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "exit.png");
+    public static final String CHECK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "check.png");
+    public static final String CROSS_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "cross.png");
+
 
     // Wonders
     public static final String BOARD_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "wonders");
