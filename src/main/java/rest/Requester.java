@@ -14,8 +14,8 @@ public interface Requester {
     GeneralResponse<Lobby> enterLobby(String username, String token, String lobbyCode);
     GeneralResponse<Lobby> createLobby(String username, String lobbyName, String token, Mode mode);
     GeneralResponse<Lobby> getLobby(String username, String token);
-    GeneralResponse<Lobby> exitLobby(String username, String token, String lobbyId);
-    GeneralResponse<Lobby> getReady(String username, String token, boolean ready, String lobbyId);
+    GeneralResponse<Lobby> exitLobby(String username, String token);
+    GeneralResponse<Lobby> getReady(String username, String token, boolean ready);
     GeneralResponse<Game> startGame(String username, String token, String lobbyCode);
     GeneralResponse<Game>  getGameData(String username, String token, String gameId, String playerId);
     GeneralResponse<Game>  getReadyGame(String username, String token, String gameId, boolean ready);

@@ -264,14 +264,98 @@ public class RequestHandler implements Requester {
     }
 
     @Override
-    public GeneralResponse<Lobby> exitLobby(String username, String token, String lobbyId) {
-        return null;
+    public GeneralResponse<Lobby> exitLobby(String username, String token) {
+
+        final GeneralResponse<Lobby>[] lobby = new GeneralResponse[1];
+        final boolean[] finished = {false};
+
+        // Exit lobby request
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<GeneralResponse<Lobby>> call = apiService.exitLobby(username, token);
+        call.enqueue(new Callback<GeneralResponse<Lobby>>() {
+            // If the connection is valid
+            @Override
+            public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
+                if (response.body() != null) {
+                    // Get the response
+                    lobby[0] = response.body();
+                }
+                else {
+                    try {
+                        String errorResponse = response.errorBody().string();
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        lobby[0] = new GeneralResponse<Lobby>();
+                        if (userGeneralResponse != null)
+                            lobby[0].message = userGeneralResponse.message;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                finished[0] = true;
+            }
+
+            // When connection is lost
+            @Override
+            public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
+                finished[0] = true;
+            }
+        });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return lobby[0];
     }
 
     @Override
-    public GeneralResponse<Lobby> getReady(String username, String token, boolean ready, String lobbyId) {
-        return null;
-    }
+    public GeneralResponse<Lobby> getReady(String username, String token, boolean ready) {
+        final GeneralResponse<Lobby>[] lobby = new GeneralResponse[1];
+        final boolean[] finished = {false};
+
+        // Get Ready lobby request
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<GeneralResponse<Lobby>> call = apiService.getReady(username, token, ready);
+        call.enqueue(new Callback<GeneralResponse<Lobby>>() {
+            // If the connection is valid
+            @Override
+            public void onResponse(Call<GeneralResponse<Lobby>> call, Response<GeneralResponse<Lobby>> response) {
+                if (response.body() != null) {
+                    // Get the response
+                    lobby[0] = response.body();
+                }
+                else {
+                    try {
+                        String errorResponse = response.errorBody().string();
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        lobby[0] = new GeneralResponse<Lobby>();
+                        if (userGeneralResponse != null)
+                            lobby[0].message = userGeneralResponse.message;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                finished[0] = true;
+            }
+
+            // When connection is lost
+            @Override
+            public void onFailure(Call<GeneralResponse<Lobby>> call, Throwable t) {
+                finished[0] = true;
+            }
+        });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return lobby[0];       }
 
     @Override
     public GeneralResponse<Game> startGame(String username, String token, String lobbyCode) {
