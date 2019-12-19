@@ -177,11 +177,11 @@ public class SeeThePlayersScene implements Initializable {
         for (int i = 0; i < labelsName.length; i++)
             labelsName[i].setText("");
 
-        for (int i = 0; i < labelsState.length; i++)
-            labelsState[i].setText("");
+       /* for (int i = 0; i < labelsState.length; i++)
+            labelsState[i].setText("");*/
 
         // Update the labels with the response
-        for (int i = 0; i < lobby.lobbyUsers.length; i++) {
+       /* for (int i = 0; i < lobby.lobbyUsers.length; i++) {
             labelsName[i].setText(lobby.lobbyUsers[i].username);
             if (lobby.lobbyUsers[i].username.equals(lobby.lobbyAdmin)) {
                 labelsState[i].setText("Waiting for others");
@@ -193,7 +193,9 @@ public class SeeThePlayersScene implements Initializable {
                     labelsState[i].setText("Not ready");
             }
 
-        }
+        }*/
+       if( lobby.lobbyUsers[0].username.equals(lobby.lobbyAdmin))
+            labelsState[0].setText("Waiting for others");
 
 
         // -------------------
@@ -244,7 +246,7 @@ public class SeeThePlayersScene implements Initializable {
                 secondPlayerStatus.setImage(crossImage);
             }
             else{
-                Image checkImage = new Image(inputStream);
+                Image checkImage = new Image(inputStream2);
                 secondPlayerStatus.setImage(checkImage);
             }
             if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
@@ -252,7 +254,7 @@ public class SeeThePlayersScene implements Initializable {
                 thirdPlayerStatus.setImage(crossImage);
             }
             else{
-                Image checkImage = new Image(inputStream);
+                Image checkImage = new Image(inputStream2);
                 thirdPlayerStatus.setImage(checkImage);
             }
             if(dataHandler.getLobby().lobbyUsers.length == 4)
@@ -262,7 +264,7 @@ public class SeeThePlayersScene implements Initializable {
                     fourthPlayerStatus.setImage(crossImage);
                 }
                 else{
-                    Image checkImage = new Image(inputStream);
+                    Image checkImage = new Image(inputStream2);
                     fourthPlayerStatus.setImage(checkImage);
                 }
             }
