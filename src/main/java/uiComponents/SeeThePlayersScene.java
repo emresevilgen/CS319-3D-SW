@@ -210,6 +210,52 @@ public class SeeThePlayersScene implements Initializable {
         });
         requestThread.start();
 
+
+        try {
+            FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
+            FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
+
+            //Change status of the users
+            if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                    Image crossImage = new Image(inputStream);
+                    secondPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    secondPlayerStatus.setImage(checkImage);
+                }
+            }
+
+            if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
+                    Image crossImage = new Image(inputStream);
+                    thirdPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    thirdPlayerStatus.setImage(checkImage);
+                }
+            }
+
+            if(dataHandler.getLobby().lobbyUsers.length == 4 &&  dataHandler.getLobby().lobbyUsers[3] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
+                    Image crossImage = new Image(inputStream);
+                    fourthPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    fourthPlayerStatus.setImage(checkImage);
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Lobby lobby = dataHandler.getLobby();
 
 
@@ -259,54 +305,6 @@ public class SeeThePlayersScene implements Initializable {
         labelsName[3] = fourthNameLabel;
 
         labelsState[0] = firstStateLabel;
-
-        DataHandler dataHandler = DataHandler.getInstance();
-
-
-        try {
-            FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
-            FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-
-            //Change status of the users
-            if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
-            {
-                if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
-                    Image crossImage = new Image(inputStream);
-                    secondPlayerStatus.setImage(crossImage);
-                }
-                else{
-                    Image checkImage = new Image(inputStream2);
-                    secondPlayerStatus.setImage(checkImage);
-                }
-            }
-
-            if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
-            {
-                if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
-                    Image crossImage = new Image(inputStream);
-                    thirdPlayerStatus.setImage(crossImage);
-                }
-                else{
-                    Image checkImage = new Image(inputStream2);
-                    thirdPlayerStatus.setImage(checkImage);
-                }
-            }
-
-            if(dataHandler.getLobby().lobbyUsers.length == 4 &&  dataHandler.getLobby().lobbyUsers[3] !=  null)
-            {
-                if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
-                    Image crossImage = new Image(inputStream);
-                    fourthPlayerStatus.setImage(crossImage);
-                }
-                else{
-                    Image checkImage = new Image(inputStream2);
-                    fourthPlayerStatus.setImage(checkImage);
-                }
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
         // Get the lobby data and initialize the people in the lobby
         update();
