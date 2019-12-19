@@ -1,7 +1,6 @@
 package uiComponents;
 
 import audioDescription.AudioDescriptionHandler;
-import audioDescription.DescriptionReader;
 import audioDescription.Reader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -13,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -127,22 +125,28 @@ public class GameScene implements Initializable {
     private final String IDLE_BUTTON_STYLE2 = "-fx-background-color: #61ee61; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE2 = "-fx-background-color: #61ee61; -fx-opacity: 0.85;";
 
+    private Card selectedCard;
+    private ImageView selectedCardView;
+    private int selectedCardIndex;
+    private Card focusedCardInBoard;
+    private ImageView focusedCardInBoardView;
+    private int focusedCardInBoardIndex;
+
+
+    private int boardIndex;
 
     // Image views for board
-    ImageView[] cardViews;
+    private ImageView[] cardViews;
+    private ImageView[] deckCardViews;
 
     int ageNumber = 0;
     int turnNumber = 0;
-    Settings settings = DataHandler.getInstance().getSettings();
-    Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
 
     private String keyInput = "";
-    private int deckNo;
-    private int boardCardsNo;
     private int leftBoardCardsNo;
     private int acrossBoardCardsNo;
     private int rightBoardCardsNo;
-    private int boardsNo;
     private Card[] cardsInColorOrder;
     public Stage boardStage;
     public Scene boardScene;
@@ -154,7 +158,9 @@ public class GameScene implements Initializable {
         @Override
         public void handle(ActionEvent event) {
             // Server request and update the game
-            update();
+
+            // update();
+
         }
     }));
 
@@ -229,6 +235,8 @@ public class GameScene implements Initializable {
         game.players[3].board.wonderName = "Babylon A";
         game.players[3].board.cards = new Card[19];
 
+        //-----------------------------------------------
+
         // Setting the mouse entered and exited listeners for hover effect
         nextTurnButton.setOnMouseEntered(e -> { nextTurnButton.setStyle(HOVERED_BUTTON_STYLE2); });
         nextTurnButton.setOnMouseExited(e -> nextTurnButton.setStyle(IDLE_BUTTON_STYLE2));
@@ -239,6 +247,8 @@ public class GameScene implements Initializable {
         wonderButton.setOnMouseEntered(e -> { wonderButton.setStyle(HOVERED_BUTTON_STYLE); });
         wonderButton.setOnMouseExited(e -> wonderButton.setStyle(IDLE_BUTTON_STYLE));
 
+        Settings settings = DataHandler.getInstance().getSettings();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
         nextTurnButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue && settings.isAudioDescription()){
@@ -275,8 +285,13 @@ public class GameScene implements Initializable {
             else
                 wonderButton.setStyle(IDLE_BUTTON_STYLE);
         });
+
+
         //-------------------------------------
-       SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+        selectedCardIndex = 0;
+        focusedCardInBoardIndex = 0;
+
+        SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
            @Override
            public void handle(KeyEvent event) {
                KeyCode keyCode = event.getCode();
@@ -287,23 +302,25 @@ public class GameScene implements Initializable {
                    // Cards in the player's deck
                    case C:
                        keyInput = "deck";
-                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
-                       if(settings.isAudioDescription())
-                           tts.read("The cards in the deck." + game.players[0].playerCards[deckNo].cardName);
+                       leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardIndex = 0;
+                       if(settings.isAudioDescription()) {
+                           tts.read("The cards in the deck." + game.players[0].playerCards[selectedCardIndex].cardName);
+                           selectTheCard(selectedCardIndex);
+                       }
                        break;
 
                    //Cards in the player's board
                    case S:
                        keyInput = "boardCards";
-                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardIndex = 0;
                        if(settings.isAudioDescription())
-                           tts.read("The cards in the board." + game.players[0].board.cards[boardCardsNo].cardName);
+                           tts.read("The cards in the board." + cardsInColorOrder[focusedCardInBoardIndex].cardName);
                        break;
 
                    //Cards in the left player's board
                    case A:
                        keyInput = "leftBoardCards";
-                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardIndex = 0;
                        if(settings.isAudioDescription())
                            tts.read("The cards in the left board.");
                        break;
@@ -311,7 +328,7 @@ public class GameScene implements Initializable {
                    //Cards in the across player's board
                    case W:
                        keyInput = "acrossBoardCards";
-                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardIndex = 0;
                        if(settings.isAudioDescription())
                            tts.read("The cards in the across board.");
                        break;
@@ -319,16 +336,16 @@ public class GameScene implements Initializable {
                    //Cards in the right player's board
                    case D:
                        keyInput =  "rightBoardCards";
-                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardIndex = 0;
                        if(settings.isAudioDescription())
                            tts.read("The cards in the right board.");
                        break;
 
                    //Boards description
                    case B: keyInput = "boards";
-                       deckNo = 0; boardCardsNo = 0; leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardsNo = 0;
+                       leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardIndex = 0;
                        if(settings.isAudioDescription())
-                           tts.read("The boards." + game.players[boardsNo].board.wonderName);
+                           tts.read("The boards." + game.players[boardIndex].board.wonderName);
                        break;
 
                }
@@ -336,24 +353,24 @@ public class GameScene implements Initializable {
                if(keyCode.equals(KeyCode.R) && keyInput.equals("boardCards"))
                {
                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan game.players[0].board.cardCount,bunu da oyun sırasında arttır
-                   if(boardCardsNo == 3)//değiştir
+                   if(focusedCardInBoardIndex == 3)//değiştir
                    {
-                       boardCardsNo = -1;
+                       focusedCardInBoardIndex = -1;
                    }
-                   boardCardsNo++;
+                   focusedCardInBoardIndex++;
                    if(settings.isAudioDescription())
-                       tts.read(cardsInColorOrder[boardCardsNo].cardName);
+                       tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
                }
                else if(keyCode.equals(KeyCode.E) && keyInput.equals("boardCards"))
                {
                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan game.players[0].board.cardCount,bunu da oyun sırasında arttır
-                   if(boardCardsNo == 0)
+                   if(focusedCardInBoardIndex == 0)
                    {
-                       boardCardsNo = 4;//değiştir
+                       focusedCardInBoardIndex = 4;//değiştir
                    }
-                   boardCardsNo--;
+                   focusedCardInBoardIndex--;
                    if(settings.isAudioDescription())
-                       tts.read(cardsInColorOrder[boardCardsNo].cardName);
+                       tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
                }
 
                if(keyCode.equals(KeyCode.ENTER) && keyInput.equals("boardCards"))
@@ -363,48 +380,52 @@ public class GameScene implements Initializable {
 
                else if(keyCode.equals(KeyCode.R) && keyInput.equals("deck"))
                {
-                   if(deckNo == (6-turnNumber) )
+                   if(selectedCardIndex == (6-turnNumber) )
                    {
-                       deckNo = -1;
+                       selectedCardIndex = -1;
                    }
-                   deckNo++;
-                   if(settings.isAudioDescription())
-                       tts.read(game.players[0].playerCards[deckNo].cardName);
+                   selectedCardIndex++;
+                   if(settings.isAudioDescription()) {
+                       tts.read(game.players[0].playerCards[selectedCardIndex].cardName);
+                       selectTheCard(selectedCardIndex);
+                   }
                }
                else if(keyCode.equals(KeyCode.E) && keyInput.equals("deck"))
                {
-                   if(deckNo == 0)
+                   if(selectedCardIndex == 0)
                    {
-                       deckNo = 6 - turnNumber;
+                       selectedCardIndex = 6 - turnNumber;
                    }
-                   deckNo--;
-                   if(settings.isAudioDescription())
-                       tts.read(game.players[0].playerCards[deckNo].cardName);
+                   selectedCardIndex--;
+                   if(settings.isAudioDescription()) {
+                       tts.read(game.players[0].playerCards[selectedCardIndex].cardName);
+                       selectTheCard(selectedCardIndex);
+                   }
                }
                else if(keyCode.equals(KeyCode.R) && keyInput.equals("boards"))
                {
-                   if(boardsNo == 3)  // Player number ı serverdan çektiğin şeyi koy buraya
+                   if(boardIndex == 3)  // Player number ı serverdan çektiğin şeyi koy buraya
                    {
-                       boardsNo = -1;
+                       boardIndex = -1;
                    }
-                   boardsNo++;
+                   boardIndex++;
                    if(settings.isAudioDescription())
-                       tts.read(game.players[boardsNo].board.wonderName);
+                       tts.read(game.players[boardIndex].board.wonderName);
                }
                else if(keyCode.equals(KeyCode.E) && keyInput.equals("boards"))
                {
-                   if(boardsNo == 0)  // Player number ı serverdan çektiğin şeyi koy buraya
+                   if(boardIndex == 0)  // Player number ı serverdan çektiğin şeyi koy buraya
                    {
-                       boardsNo = 4; // player number+1
+                       boardIndex = 4; // player number+1
                    }
-                   boardsNo--;
+                   boardIndex--;
                    if(settings.isAudioDescription())
-                       tts.read(game.players[boardsNo].board.wonderName);
+                       tts.read(game.players[boardIndex].board.wonderName);
                }
 
                event.consume();
            }
-       });
+        });
         //-------------------------------------
 
         // Initialize the card view array
@@ -429,6 +450,15 @@ public class GameScene implements Initializable {
         cardViews[17] = card18;
         cardViews[18] = card19;
 
+        deckCardViews = new ImageView[7];
+        deckCardViews[0] = deck1;
+        deckCardViews[1] = deck2;
+        deckCardViews[2] = deck3;
+        deckCardViews[3] = deck4;
+        deckCardViews[4] = deck5;
+        deckCardViews[5] = deck6;
+        deckCardViews[6] = deck7;
+
         // Start sending requests
         timeLine.setCycleCount(Animation.INDEFINITE);
         timeLine.play();
@@ -438,7 +468,6 @@ public class GameScene implements Initializable {
             FileInputStream inputStream = new FileInputStream(Constants.AUDIO_DESCRIPTION_IMAGE);
             Image audioImage = new Image(inputStream);
             audioDescriptionView.setImage(audioImage);
-            Settings settings = DataHandler.getInstance().getSettings();
             if (settings.isAudioDescription()){
                 audioDescriptionView.setFitHeight(70);
                 audioDescriptionView.setFitWidth(70);
@@ -498,6 +527,8 @@ public class GameScene implements Initializable {
 
     // Sound effects button listener
     public void switchSoundEffects(MouseEvent actionEvent) {
+        Settings settings = DataHandler.getInstance().getSettings();
+
         // Change the image according to its status
         MediaPlayer mediaPlayer = SceneHandler.getInstance().getMediaPlayer();
         settings.switchSoundEffects();
@@ -562,7 +593,7 @@ public class GameScene implements Initializable {
     }
 
     // Focus into card when mouse entered
-    public void focusIntoCard(MouseEvent mouseEvent) {
+    public void focusIntoBoardCard(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null){
             Glow glow = new Glow();
@@ -579,7 +610,7 @@ public class GameScene implements Initializable {
     }
 
     // Focus out from card when mouse exited
-    public void focusOut(MouseEvent mouseEvent) {
+    public void focusOutBoardCard(MouseEvent mouseEvent) {
         focus.setLayoutX(0);
         focus.setLayoutY(0);
         focus.setImage(null);
@@ -600,7 +631,7 @@ public class GameScene implements Initializable {
     // Focus out from hand card when mouse exited
     public void effectOff(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
-        if (current.getImage() != null){
+        if (current.getImage() != null && !current.equals(selectedCardView)){
             Glow glow = new Glow();
             glow.setLevel(0.0);
             current.setEffect(glow);
@@ -634,7 +665,6 @@ public class GameScene implements Initializable {
 
         // --------------------------------------
         // --------------------------------------
-        // Initialize a al
         // Set the board images
         Player[] players = DataHandler.getInstance().getGame().players;
         playerBoard.setImage(getBoardImage(players[0].board, 0));
@@ -646,21 +676,9 @@ public class GameScene implements Initializable {
 
         // To display the cards at the hand of the player
         Card[] playerCards = players[0].playerCards;
-        if (playerCards[0] != null)
-            deck1.setImage(getCardImage(playerCards[0]));
-        if (playerCards[1] != null)
-            deck2.setImage(getCardImage(playerCards[1]));
-        if (playerCards[2] != null)
-            deck3.setImage(getCardImage(playerCards[2]));
-        if (playerCards[3] != null)
-            deck4.setImage(getCardImage(playerCards[3]));
-        if (playerCards[4] != null)
-            deck5.setImage(getCardImage(playerCards[4]));
-        if (playerCards[5] != null)
-            deck6.setImage(getCardImage(playerCards[5]));
-        if (playerCards[6] != null)
-            deck7.setImage(getCardImage(playerCards[6]));
-
+        for (int i = 0; i < playerCards.length; i++){
+            deckCardViews[i].setImage(getCardImage(playerCards[i]));
+        }
 
         // To classify the cards at the users board
         Card[] cards = players[0].board.cards;
@@ -674,21 +692,21 @@ public class GameScene implements Initializable {
         ArrayList<Card> greenCards = new ArrayList<>();
 
         //To use for ordered list in audio description
-        cardsInColorOrder = new Card[19]; // Main.game.players[0].board.cardCount
-
+        int length = cards.length;
+        cardsInColorOrder = new Card[length]; // Main.game.players[0].board.cardCount
 
         for (int i = 0; i < cards.length; i++){
             if (cards[i] != null){
                 Card card = cards[i];
                 String color = card.cardColor;
                 switch (color){
-                    case "Brown": brownCards.add(card); cardsInColorOrder[i] = card; break;
-                    case "Gray": grayCards.add(card); cardsInColorOrder[i] = card; break;
-                    case "Red": redCards.add(card); cardsInColorOrder[i] = card; break;
-                    case "Blue": blueCards.add(card); cardsInColorOrder[i] = card; break;
-                    case "Yellow": yellowCards.add(card); cardsInColorOrder[i] = card; break;
-                    case "Purple": purpleCards.add(card); cardsInColorOrder[i] = card; break;
-                    case "Green": greenCards.add(card); cardsInColorOrder[i] = card; break;
+                    case "Brown": brownCards.add(card); break;
+                    case "Gray": grayCards.add(card); break;
+                    case "Red": redCards.add(card); break;
+                    case "Blue": blueCards.add(card); break;
+                    case "Yellow": yellowCards.add(card); break;
+                    case "Purple": purpleCards.add(card); break;
+                    case "Green": greenCards.add(card); break;
                 }
             }
         }
@@ -697,37 +715,51 @@ public class GameScene implements Initializable {
         int viewOrder = 0;
 
         for (int i = 0; i < brownCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(brownCards.get(i)));
+            Card card = brownCards.get(i);
+            cardViews[viewOrder].setImage(getCardImage(card));
+            cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
 
         for (int i = 0; i < grayCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(grayCards.get(i)));
+            Card card = grayCards.get(i);
+            cardViews[viewOrder].setImage(getCardImage(card));
+            cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
 
         for (int i = 0; i < greenCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(greenCards.get(i)));
+            Card card = greenCards.get(i);
+            cardViews[viewOrder].setImage(getCardImage(card));
+            cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
 
         for (int i = 0; i < redCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(redCards.get(i)));
+            Card card = redCards.get(i);
+            cardViews[viewOrder].setImage(getCardImage(card));
+            cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
 
         for (int i = 0; i < blueCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(blueCards.get(i)));
+            Card card = blueCards.get(i);
+            cardViews[viewOrder].setImage(getCardImage(card));
+            cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
 
         for (int i = 0; i < yellowCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(yellowCards.get(i)));
+            Card card = yellowCards.get(i);
+            cardViews[viewOrder].setImage(getCardImage(card));
+            cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
 
         for (int i = 0; i < purpleCards.size(); i++){
-            cardViews[viewOrder].setImage(getCardImage(purpleCards.get(i)));
+            Card card = purpleCards.get(i);
+            cardViews[viewOrder].setImage(getCardImage(card));
+            cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
 
@@ -899,22 +931,71 @@ public class GameScene implements Initializable {
 
     public void nextTurnAction(ActionEvent event)
     {
-
+        update();
     }
 
     public void wonderAction(ActionEvent event)
     {
-
+        update();
     }
 
     public void structureAction(ActionEvent event)
     {
-
+        update();
     }
 
     public void discardAction(ActionEvent event)
     {
-
+        update();
     }
 
+    public void clickToCard(MouseEvent mouseEvent) {
+        ImageView currentView = (ImageView) mouseEvent.getSource();
+        int cardIndex = 0;
+        Card[] deckCards = DataHandler.getInstance().getGame().players[0].playerCards;
+        for (; cardIndex < deckCards.length; cardIndex++){
+            if (deckCards[cardIndex] != null && currentView.equals(deckCardViews[cardIndex])){
+                break;
+            }
+        }
+        selectTheCard(cardIndex);
+
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        tts.read(deckCards[cardIndex].cardName);
+    }
+
+    private void selectTheCard(int cardIndex){
+        if (selectedCardView != null && selectedCardView.getImage() != null) {
+            Glow glow = new Glow();
+            glow.setLevel(0.0);
+            selectedCardView.setEffect(glow);
+            selectedCardView.setScaleX(1);
+            selectedCardView.setScaleY(1);
+        }
+        Card[] deckCards = DataHandler.getInstance().getGame().players[0].playerCards;
+        selectedCardView = deckCardViews[cardIndex];
+        Glow glow = new Glow();
+        glow.setLevel(0.4);
+        selectedCardView.setEffect(glow);
+        selectedCardView.setScaleX(1.30);
+        selectedCardView.setScaleY(1.30);
+        selectedCard = deckCards[cardIndex];
+        selectedCardIndex = cardIndex;
+    }
+
+    public void clickBoardCard(MouseEvent mouseEvent) {
+        int cardIndex = 0;
+        Image currentImage = ((ImageView)mouseEvent.getSource()).getImage();
+
+        for (; cardIndex < cardsInColorOrder.length; cardIndex++){
+            Image image = cardViews[cardIndex].getImage();
+            if (image != null && image.equals(currentImage))
+                break;
+        }
+
+        if (cardIndex != cardsInColorOrder.length) {
+            Reader tts = AudioDescriptionHandler.getInstance().getReader();
+            tts.read(cardsInColorOrder[cardIndex].cardName);
+        }
+    }
 }

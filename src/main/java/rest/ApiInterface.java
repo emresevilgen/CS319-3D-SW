@@ -32,7 +32,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("lobby/create")
-    Call<GeneralResponse<Lobby>> createLobby(@Field("username") String username, @Field("name") String lobbyName, @Field("token") String token, @Field("mode") Mode mode);
+    Call<GeneralResponse<Lobby>> createLobby(@Field("username") String username, @Field("name") String lobbyName, @Field("token") String token, @Field("mode") String mode);
 
     @FormUrlEncoded
     @POST("getLobby.php")
