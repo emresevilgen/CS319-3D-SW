@@ -268,23 +268,31 @@ public class SeeThePlayersScene implements Initializable {
             FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
 
             //Change status of the users
-            if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
-                Image crossImage = new Image(inputStream);
-                secondPlayerStatus.setImage(crossImage);
+            if(dataHandler.getLobby().lobbyUsers.length >= 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                    Image crossImage = new Image(inputStream);
+                    secondPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    secondPlayerStatus.setImage(checkImage);
+                }
             }
-            else{
-                Image checkImage = new Image(inputStream2);
-                secondPlayerStatus.setImage(checkImage);
+
+            if(dataHandler.getLobby().lobbyUsers.length >= 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
+                    Image crossImage = new Image(inputStream);
+                    thirdPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    thirdPlayerStatus.setImage(checkImage);
+                }
             }
-            if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
-                Image crossImage = new Image(inputStream);
-                thirdPlayerStatus.setImage(crossImage);
-            }
-            else{
-                Image checkImage = new Image(inputStream2);
-                thirdPlayerStatus.setImage(checkImage);
-            }
-            if(dataHandler.getLobby().lobbyUsers.length == 4)
+
+            if(dataHandler.getLobby().lobbyUsers.length == 4 &&  dataHandler.getLobby().lobbyUsers[3] !=  null)
             {
                 if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
                     Image crossImage = new Image(inputStream);
