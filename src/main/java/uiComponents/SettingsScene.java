@@ -49,6 +49,7 @@ public class SettingsScene implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Save Settings");
             alert.setHeaderText(null);
+            alert.initOwner(saveButton.getScene().getWindow());
             alert.setGraphic(null);
 
             // Change the text according to the input
@@ -60,10 +61,13 @@ public class SettingsScene implements Initializable {
                 alert.setContentText("Do you want to change your username?");
             }
 
+
+
+
             Optional<ButtonType> result = alert.showAndWait();
 
             // Get the result
-            if (result.get() == ButtonType.YES){
+            if (result.get() == ButtonType.OK){
 
                 // ---------------------------------------------------
                 // ---------------------------------------------------
@@ -76,6 +80,14 @@ public class SettingsScene implements Initializable {
                 alert.close();
             }
         }
+        else {
+            if (DataHandler.getInstance().getSettings().isSoundEffects())
+                SceneHandler.getInstance().playMusic();
+            else
+                SceneHandler.getInstance().getMediaPlayer().stop();
+            SceneHandler.getInstance().moveToMainMenu();
+        }
+
     }
 
     // Cancel button listener
