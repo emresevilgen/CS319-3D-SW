@@ -27,16 +27,16 @@ public interface ApiInterface {
     Call<GeneralResponse<User>> updateUser(@Field("name") String name, @Field("password") String password, @Field("token") String token);
 
     @FormUrlEncoded
-    @POST("enterLobby.php")
-    Call<GeneralResponse<Lobby>> enterLobby(@Field("username") String username, @Field("token") String token, @Field("lobbyCode") String lobbyCode);
+    @POST("lobby/join/")
+    Call<GeneralResponse<Lobby>> enterLobby(@Field("username") String username, @Field("token") String token, @Field("code") String lobbyCode);
 
     @FormUrlEncoded
     @POST("lobby/create/")
-    Call<GeneralResponse<Lobby>> createLobby(@Field("username") String username, @Field("name") String lobbyName, @Field("token") String token, @Field("mode") Mode mode);
+    Call<GeneralResponse<Lobby>> createLobby(@Field("username") String username, @Field("name") String lobbyName, @Field("token") String token, @Field("mode") String mode);
 
     @FormUrlEncoded
-    @POST("getLobby.php")
-    Call<GeneralResponse<Lobby>> getLobby(@Field("username") String username, @Field("token") String token, @Field("lobbyId") String lobbyId);
+    @POST("lobby/")
+    Call<GeneralResponse<Lobby>> getLobby(@Field("username") String username, @Field("token") String token);
 
     @FormUrlEncoded
     @POST("exitLobby.php")

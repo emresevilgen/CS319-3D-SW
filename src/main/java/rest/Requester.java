@@ -13,7 +13,7 @@ public interface Requester {
     GeneralResponse<User>  updateUser(String name, String password, String token);
     GeneralResponse<Lobby> enterLobby(String username, String token, String lobbyCode);
     GeneralResponse<Lobby> createLobby(String username, String lobbyName, String token, Mode mode);
-    GeneralResponse<Lobby> getLobby(String username, String token, String lobbyId);
+    GeneralResponse<Lobby> getLobby(String username, String token);
     GeneralResponse<Lobby> exitLobby(String username, String token, String lobbyId);
     GeneralResponse<Lobby> getReady(String username, String token, boolean ready, String lobbyId);
     GeneralResponse<Game> startGame(String username, String token, String lobbyCode);

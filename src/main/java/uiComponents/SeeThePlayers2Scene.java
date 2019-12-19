@@ -99,7 +99,7 @@ public class SeeThePlayers2Scene implements Initializable {
             @Override
             public void run() {
                 Requester requester = ServerConnectionHandler.getInstance().getRequester();
-                GeneralResponse<Lobby> lobbyResponse = requester.getLobby(dataHandler.getUser().userName, dataHandler.getUser().token, dataHandler.getLobby().lobbyId);
+                GeneralResponse<Lobby> lobbyResponse = requester.getLobby(dataHandler.getUser().userName, dataHandler.getUser().token);
                 if (lobbyResponse != null) {
                     if (lobbyResponse.success) {
                         Platform.runLater(new Runnable() {
