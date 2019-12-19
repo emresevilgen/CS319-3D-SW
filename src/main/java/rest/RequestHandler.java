@@ -169,12 +169,12 @@ public class RequestHandler implements Requester {
         final GeneralResponse<Lobby>[] lobby = new GeneralResponse[1];
         final boolean[] finished = {false};
 
-/*        Gson gson = new Gson();
-        String modeJson = gson.toJson(mode);*/
+        Gson gson = new Gson();
+        String modeJson = gson.toJson(mode);
 
         // Create lobby request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<GeneralResponse<Lobby>> call = apiService.createLobby(username, lobbyName, token, mode);
+        Call<GeneralResponse<Lobby>> call = apiService.createLobby(username, lobbyName, token, modeJson);
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
             // If the connection is valid
             @Override
@@ -215,14 +215,14 @@ public class RequestHandler implements Requester {
     }
 
     @Override
-    public GeneralResponse<Lobby> getLobby(String username, String token, String lobbyId) {
+    public GeneralResponse<Lobby> getLobby(String username, String token) {
         final GeneralResponse<Lobby>[] lobby = new GeneralResponse[1];
         final boolean[] finished = {false};
 
         // Get the lobby data and when the game starts move to the game screen
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<GeneralResponse<Lobby>> call = apiService.getLobby(username, token, lobbyId);
+        Call<GeneralResponse<Lobby>> call = apiService.getLobby(username, token);
         call.enqueue(new Callback<GeneralResponse<Lobby>>() {
             // If the connection is valid
             @Override
