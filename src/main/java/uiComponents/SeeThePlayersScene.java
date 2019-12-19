@@ -268,7 +268,7 @@ public class SeeThePlayersScene implements Initializable {
             FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
 
             //Change status of the users
-            if(dataHandler.getLobby().lobbyUsers.length >= 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
+            if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
             {
                 if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
                     Image crossImage = new Image(inputStream);
@@ -280,7 +280,7 @@ public class SeeThePlayersScene implements Initializable {
                 }
             }
 
-            if(dataHandler.getLobby().lobbyUsers.length >= 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
+            if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
             {
                 if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
                     Image crossImage = new Image(inputStream);
