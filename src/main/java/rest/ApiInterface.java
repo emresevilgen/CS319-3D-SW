@@ -31,7 +31,7 @@ public interface ApiInterface {
     Call<GeneralResponse<Lobby>> enterLobby(@Field("username") String username, @Field("token") String token, @Field("lobbyCode") String lobbyCode);
 
     @FormUrlEncoded
-    @POST("lobby/create")
+    @POST("lobby/create/")
     Call<GeneralResponse<Lobby>> createLobby(@Field("username") String username, @Field("name") String lobbyName, @Field("token") String token, @Field("mode") Mode mode);
 
     @FormUrlEncoded

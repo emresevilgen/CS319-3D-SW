@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 
 public class Lobby {
-    @SerializedName("lobbyId")
+    @SerializedName("id")
     public String lobbyId;
 
-    @SerializedName("lobbyAdmin")
+    @SerializedName("admin")
     public String lobbyAdmin;
 
-    @SerializedName("lobbyName")
+    @SerializedName("name")
     public String lobbyName;
 
-    @SerializedName("lobbyCode")
+    @SerializedName("code")
     public String lobbyCode;
 
-    @SerializedName("lobbyUsers")
+    @SerializedName("users")
     public LobbyUser[] lobbyUsers;
 
     @SerializedName("mode")
