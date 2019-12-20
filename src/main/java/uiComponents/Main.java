@@ -17,8 +17,6 @@ public class Main extends Application {
         ServerConnectionHandler serverConnectionHandler = ServerConnectionHandler.getInstance();
         AudioDescriptionHandler audioDescriptionHandler = AudioDescriptionHandler.getInstance();
     }
-
-
     public static void main(String[] args) {
         launch(args);
     }

@@ -46,12 +46,12 @@
                 <Font size="19.0" />
             </font>
         </CheckBox>
-        <Button fx:id="cancelButton" layoutX="790.0" layoutY="721.0" mnemonicParsing="false" onAction="#cancel" prefHeight="59.0" prefWidth="150.0" style="-fx-background-color: #74747c;" text="Cancel" textFill="WHITE">
+        <Button fx:id="createButton" layoutX="985.0" layoutY="721.0" mnemonicParsing="false" onAction="#create" prefHeight="59.0" prefWidth="150.0" style="-fx-background-color: #74747c;" text="Create" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="createButton" layoutX="985.0" layoutY="721.0" mnemonicParsing="false" onAction="#create" prefHeight="59.0" prefWidth="150.0" style="-fx-background-color: #74747c;" text="Create" textFill="WHITE">
+        <Button fx:id="cancelButton" layoutX="790.0" layoutY="721.0" mnemonicParsing="false" onAction="#cancel" prefHeight="59.0" prefWidth="150.0" style="-fx-background-color: #74747c;" text="Cancel" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>

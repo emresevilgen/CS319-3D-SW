@@ -64,7 +64,7 @@ public class SceneHandler extends Application {
 
         //Move to functions
 
-       //moveToCreateLobby();
+       moveToCreateLobby();
         //moveToCredits();
         //moveToGame();
         //moveToMainMenu();
@@ -72,7 +72,7 @@ public class SceneHandler extends Application {
        // moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
         //moveToSettings();
-        moveToSignIn();
+        //moveToSignIn();
         //moveToSignUp();
 
     }

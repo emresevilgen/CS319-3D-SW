@@ -1,6 +1,9 @@
 package uiComponents;
 
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.Reader;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import models.DataHandler;
 import models.Lobby;
 import models.Mode;
+import models.Settings;
 import rest.ApiInterface;
 import rest.Requester;
 import rest.ServerConnectionHandler;
@@ -111,11 +115,94 @@ public class CreateLobbyScene implements Initializable {
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        Settings settings = DataHandler.getInstance().getSettings();
+
         // Setting the mouse entered and exited listeners for hover effect
         cancelButton.setOnMouseEntered(e -> cancelButton.setStyle(HOVERED_BUTTON_STYLE));
         cancelButton.setOnMouseExited(e -> cancelButton.setStyle(IDLE_BUTTON_STYLE));
         createButton.setOnMouseEntered(e -> createButton.setStyle(HOVERED_BUTTON_STYLE));
         createButton.setOnMouseExited(e -> createButton.setStyle(IDLE_BUTTON_STYLE));
+
+
+        lobbyNameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription()){
+                tts.read("Enter the lobby name:");
+            }
+        });
+        cancelButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription()){
+                tts.read("Cancel");
+                cancelButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                cancelButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+        createButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription()){
+                tts.read("Create");
+                createButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                createButton.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        gettingLootCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription() && !gettingLootCheckBox.isSelected()){
+                tts.read("Enable getting loot ");
+                gettingLootCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else if(newValue && settings.isAudioDescription() && gettingLootCheckBox.isSelected())
+            {
+                tts.read("Disable getting loot ");
+                gettingLootCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                gettingLootCheckBox.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        shufflePlacesCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription() && !shufflePlacesCheckBox.isSelected()){
+                tts.read("Enable shuffle places ");
+                shufflePlacesCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else if(newValue && settings.isAudioDescription() && shufflePlacesCheckBox.isSelected())
+            {
+                tts.read("Disable shuffle places ");
+                shufflePlacesCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                shufflePlacesCheckBox.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+        secretSkillsCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription() && !secretSkillsCheckBox.isSelected()){
+                tts.read("Enable secret skills ");
+                secretSkillsCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else if(newValue && settings.isAudioDescription() && secretSkillsCheckBox.isSelected())
+            {
+                tts.read("Disable secret skills ");
+                secretSkillsCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                secretSkillsCheckBox.setStyle(IDLE_BUTTON_STYLE);
+        });
+
+
+        invalidMovePenaltyCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue && settings.isAudioDescription() && !invalidMovePenaltyCheckBox.isSelected()){
+                tts.read("Enable invalid move penalty ");
+                invalidMovePenaltyCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else if(newValue && settings.isAudioDescription() && invalidMovePenaltyCheckBox.isSelected())
+            {
+                tts.read("Disable invalid move penalty ");
+                invalidMovePenaltyCheckBox.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                invalidMovePenaltyCheckBox.setStyle(IDLE_BUTTON_STYLE);
+        });
 
     }
 
