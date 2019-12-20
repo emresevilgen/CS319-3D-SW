@@ -122,8 +122,6 @@ public class GameScene implements Initializable {
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #a73535; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #a73535; -fx-opacity: 0.85;";
-    private final String IDLE_BUTTON_STYLE2 = "-fx-background-color: #61ee61; -fx-opacity: 1;";
-    private final String HOVERED_BUTTON_STYLE2 = "-fx-background-color: #61ee61; -fx-opacity: 0.85;";
 
     private Card selectedCard;
     private ImageView selectedCardView;
@@ -150,6 +148,7 @@ public class GameScene implements Initializable {
     private Card[] cardsInColorOrder;
     public Stage boardStage;
     public Scene boardScene;
+    public boolean firstTime;
 
 
     // To send a request at every second
@@ -238,8 +237,8 @@ public class GameScene implements Initializable {
         //-----------------------------------------------
 
         // Setting the mouse entered and exited listeners for hover effect
-        nextTurnButton.setOnMouseEntered(e -> { nextTurnButton.setStyle(HOVERED_BUTTON_STYLE2); });
-        nextTurnButton.setOnMouseExited(e -> nextTurnButton.setStyle(IDLE_BUTTON_STYLE2));
+        nextTurnButton.setOnMouseEntered(e -> { nextTurnButton.setStyle(HOVERED_BUTTON_STYLE); });
+        nextTurnButton.setOnMouseExited(e -> nextTurnButton.setStyle(IDLE_BUTTON_STYLE));
         discardButton.setOnMouseEntered(e -> { discardButton.setStyle(HOVERED_BUTTON_STYLE); });
         discardButton.setOnMouseExited(e -> discardButton.setStyle(IDLE_BUTTON_STYLE));
         structureButton.setOnMouseEntered(e -> { structureButton.setStyle(HOVERED_BUTTON_STYLE); });
@@ -250,13 +249,15 @@ public class GameScene implements Initializable {
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
+        firstTime = true;
         nextTurnButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
+            if (!firstTime && newValue && settings.isAudioDescription()){
                 tts.read("Next turn");
-                nextTurnButton.setStyle(HOVERED_BUTTON_STYLE2);
+                nextTurnButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
-                nextTurnButton.setStyle(IDLE_BUTTON_STYLE2);
+                nextTurnButton.setStyle(IDLE_BUTTON_STYLE);
+            firstTime = false;
         });
 
         discardButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
@@ -537,12 +538,28 @@ public class GameScene implements Initializable {
             if (settings.isSoundEffects()) {
                 // Play music
                 inputStream = new FileInputStream(Constants.SOUND_EFFECTS_ON_IMAGE);
+                DataHandler dataHandler = DataHandler.getInstance();
+                int ageNumber = dataHandler.getGame().ageNumber;
+
+                Media sound;
+                if (ageNumber == 1)
+                    sound = new Media(new File(Constants.AGE_ONE_SOUND).toURI().toString());
+                else if (ageNumber == 2)
+                    sound = new Media(new File(Constants.AGE_TWO_SOUND).toURI().toString());
+                else
+                    sound = new Media(new File(Constants.AGE_THREE_SOUND).toURI().toString());
+
+                mediaPlayer = new MediaPlayer(sound);
+                SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
+                mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
                 mediaPlayer.play();
+
             }
             else {
                 // Stop music
                 inputStream = new FileInputStream(Constants.SOUND_EFFECTS_OFF_IMAGE);
-                mediaPlayer.stop();
+                if (mediaPlayer != null)
+                    mediaPlayer.stop();
 
             }
 
