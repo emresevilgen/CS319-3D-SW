@@ -1,6 +1,5 @@
 package uiComponents;
 
-import com.google.gson.Gson;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,36 +8,26 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.DataHandler;
 import models.Lobby;
-import models.LobbyUser;
-import rest.ApiClient;
-import rest.ApiInterface;
 import rest.Requester;
 import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import utils.Constants;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SeeThePlayersScene implements Initializable {
     @FXML
-    public Button deleteLobbyButton;
+    public Button leaveButton;
     @FXML
     public Button startGameButton;
     @FXML
@@ -90,6 +79,8 @@ public class SeeThePlayersScene implements Initializable {
         }
     }));
 
+    private boolean showError = true;
+
     // Start game button listener
     public void startGame(ActionEvent event) throws Exception {
         // ----------------------------------
@@ -98,7 +89,7 @@ public class SeeThePlayersScene implements Initializable {
         // ----------------------------------
         // ----------------------------------
 
-        // To stop requests
+        // To stop requests if the response is okey
         timeLine.stop();
         SceneHandler.getInstance().moveToGame();
     }
@@ -117,12 +108,9 @@ public class SeeThePlayersScene implements Initializable {
         // ----------------------------------
     }
 
-    public void deleteLobby(ActionEvent event) throws Exception {
-        // ----------------------------------
-        // ----------------------------------
-        // servera delete data gönder
-        // ----------------------------------
-        // ----------------------------------
+    // Exit lobby request
+
+    public void leave(ActionEvent event) throws Exception {
 
         DataHandler dataHandler = DataHandler.getInstance();
 
@@ -136,7 +124,11 @@ public class SeeThePlayersScene implements Initializable {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                DataHandler.getInstance().setLobby(lobbyResponse.payload);
+                                dataHandler.setLobby(lobbyResponse.payload);
+                                // To stop requests
+                                timeLine.stop();
+                                dataHandler.setLobby(null);
+                                SceneHandler.getInstance().moveToMainMenu();;
                             }
                         });
                     }
@@ -160,14 +152,6 @@ public class SeeThePlayersScene implements Initializable {
             }
         });
         requestThread.start();
-
-
-
-        // To stop requests
-        timeLine.stop();
-        SceneHandler.getInstance().moveToMainMenu();
-
-
     }
 
 
@@ -287,8 +271,8 @@ public class SeeThePlayersScene implements Initializable {
         timeLine.play();
 
         // Setting the mouse entered and exited listeners for hover effect
-        deleteLobbyButton.setOnMouseEntered(e -> deleteLobbyButton.setStyle(HOVERED_BUTTON_STYLE));
-        deleteLobbyButton.setOnMouseExited(e -> deleteLobbyButton.setStyle(IDLE_BUTTON_STYLE));
+        leaveButton.setOnMouseEntered(e -> leaveButton.setStyle(HOVERED_BUTTON_STYLE));
+        leaveButton.setOnMouseExited(e -> leaveButton.setStyle(IDLE_BUTTON_STYLE));
         startGameButton.setOnMouseEntered(e -> startGameButton.setStyle(HOVERED_BUTTON_STYLE));
         startGameButton.setOnMouseExited(e -> startGameButton.setStyle(IDLE_BUTTON_STYLE));
         dismissPersonButton.setOnMouseEntered(e -> dismissPersonButton.setStyle(HOVERED_BUTTON_STYLE));
@@ -312,11 +296,17 @@ public class SeeThePlayersScene implements Initializable {
 
     // Error message
     private void showErrorMessage(String errorMsg){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMsg);
-        alert.initOwner(startGameButton.getScene().getWindow());
-        alert.showAndWait();
+        if (showError) {
+            showError = false;
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(errorMsg);
+            alert.initOwner(startGameButton.getScene().getWindow());
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK || result.get() == ButtonType.CLOSE)
+                showError = true;
+        }
     }
 }

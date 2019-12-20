@@ -12,12 +12,12 @@
     <children>
       <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
       <ImageView fitHeight="387.0" fitWidth="784.0" layoutX="568.0" layoutY="244.0" pickOnBounds="true" />
-        <Button fx:id="deleteLobbyButton" layoutX="748.0" layoutY="771.0" mnemonicParsing="false" onAction="#deleteLobby" prefHeight="65.0" prefWidth="334.0" style="-fx-background-color: #817277;" text="Delete the Lobby" textFill="WHITE">
+        <Button fx:id="leaveButton" layoutX="939.0" layoutY="771.0" mnemonicParsing="false" onAction="#leave" prefHeight="65.0" prefWidth="143.0" style="-fx-background-color: #817277;" text="Leave" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="startGameButton" layoutX="1116.0" layoutY="771.0" mnemonicParsing="false" onAction="#startGame" prefHeight="65.0" prefWidth="236.0" style="-fx-background-color: #817277;" text="Start Game" textFill="WHITE">
+        <Button fx:id="startGameButton" layoutX="1122.0" layoutY="771.0" mnemonicParsing="false" onAction="#startGame" prefHeight="65.0" prefWidth="230.0" style="-fx-background-color: #817277;" text="Start Game" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>

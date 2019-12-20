@@ -150,6 +150,7 @@ public class GameScene implements Initializable {
     public Scene boardScene;
     public boolean firstTime;
 
+    public boolean showError;
 
     // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -601,7 +602,8 @@ public class GameScene implements Initializable {
                 mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
                 mediaPlayer.play();
             }
-
+            dataHandler.setLobby(null);
+            dataHandler.setGame(null);
             SceneHandler.getInstance().moveToMainMenu();
 
         } else {
@@ -1013,6 +1015,22 @@ public class GameScene implements Initializable {
         if (cardIndex != cardsInColorOrder.length) {
             Reader tts = AudioDescriptionHandler.getInstance().getReader();
             tts.read(cardsInColorOrder[cardIndex].cardName);
+        }
+    }
+
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        if (showError) {
+            showError = false;
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(errorMsg);
+            alert.initOwner(nextTurnButton.getScene().getWindow());
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK || result.get() == ButtonType.CLOSE)
+                showError = true;
         }
     }
 }

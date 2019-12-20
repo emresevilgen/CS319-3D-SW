@@ -168,8 +168,6 @@ public class MainMenuScene implements Initializable {
             // send a request to the server
             // ----------------------
             //----------------------
-            DataHandler.getInstance().setLobby(null);
-            DataHandler.getInstance().setGame(null);
             DataHandler.getInstance().setUser(null);
             SceneHandler.getInstance().moveToSignIn(); // Move to sign in
         } else {
@@ -301,6 +299,7 @@ public class MainMenuScene implements Initializable {
         alert.setContentText(errorMsg);
         alert.initOwner(joinLobbyButton.getScene().getWindow());
         alert.showAndWait();
+
     }
 
 

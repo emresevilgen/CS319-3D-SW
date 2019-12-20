@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,6 +28,7 @@ import retrofit2.Response;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SeeThePlayers2Scene implements Initializable {
@@ -67,6 +69,8 @@ public class SeeThePlayers2Scene implements Initializable {
             update();
          }
     }));
+
+    private boolean showError = true;
 
     // Be ready button listener
     public void beReady(ActionEvent event) throws Exception {
@@ -135,7 +139,12 @@ public class SeeThePlayers2Scene implements Initializable {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                DataHandler.getInstance().setLobby(lobbyResponse.payload);
+                                dataHandler.setLobby(lobbyResponse.payload);
+                                // To stop the requests and move to main menu
+                                timeLine.stop();
+
+                                dataHandler.setLobby(null);
+                                SceneHandler.getInstance().moveToMainMenu();
                             }
                         });
                     }
@@ -159,16 +168,18 @@ public class SeeThePlayers2Scene implements Initializable {
             }
         });
         requestThread.start();
-
-        // To stop the requests and move to main menu
-        timeLine.stop();
-        SceneHandler.getInstance().moveToMainMenu();
-
     }
 
     // Send request and update the lobby object
     public void update() {
+
         DataHandler dataHandler = DataHandler.getInstance();
+
+        if (dataHandler.getLobby().lobbyAdmin.equals(dataHandler.getUser().userName)){
+            timeLine.stop();
+            SceneHandler.getInstance().moveToSeeThePlayers(true);
+            return;
+        }
 
         Thread requestThread = new Thread(new Runnable() {
             @Override
@@ -268,11 +279,17 @@ public class SeeThePlayers2Scene implements Initializable {
 
     // Error message
     private void showErrorMessage(String errorMsg){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMsg);
-        alert.initOwner(readyButton.getScene().getWindow());
-        alert.showAndWait();
+        if (showError) {
+            showError = false;
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(errorMsg);
+            alert.initOwner(readyButton.getScene().getWindow());
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK || result.get() == ButtonType.CLOSE)
+                showError = true;
+        }
     }
 }
