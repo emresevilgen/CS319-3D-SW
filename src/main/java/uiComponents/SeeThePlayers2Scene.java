@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.DataHandler;
@@ -25,7 +27,10 @@ import rest.models.GeneralResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utils.Constants;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -39,19 +44,21 @@ public class SeeThePlayers2Scene implements Initializable {
     @FXML
     public Label firstNameLabel;
     @FXML
-    public Label firstStateLabel;
+    public ImageView firstPlayerStatus;
     @FXML
     public Label secondNameLabel;
     @FXML
-    public Label secondStateLabel;
+    public ImageView secondPlayerStatus;
     @FXML
     public Label thirdNameLabel;
     @FXML
-    public Label thirdStateLabel;
+    public ImageView thirdPlayerStatus;
     @FXML
     public Label fourthNameLabel;
     @FXML
-    public Label fourthStateLabel;
+    public ImageView fourthPlayerStatus;
+    @FXML
+    public Label lobbyCode;
 
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 1;";
@@ -67,7 +74,7 @@ public class SeeThePlayers2Scene implements Initializable {
         @Override
         public void handle(ActionEvent event) {
             update();
-         }
+        }
     }));
 
     private boolean showError = true;
@@ -216,28 +223,72 @@ public class SeeThePlayers2Scene implements Initializable {
         });
         requestThread.start();
 
+        try {
+            FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
+            FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
+            //Change status of the users
+            firstPlayerStatus.setImage(null);
+            if(dataHandler.getLobby().lobbyUsers.length > 0 &&  dataHandler.getLobby().lobbyUsers[0] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[0].isReady || !dataHandler.getLobby().lobbyUsers[0].isActive){
+                    Image crossImage = new Image(inputStream);
+                    firstPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    firstPlayerStatus.setImage(checkImage);
+                }
+            }
+            secondPlayerStatus.setImage(null);
+            if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                    Image crossImage = new Image(inputStream);
+                    secondPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    secondPlayerStatus.setImage(checkImage);
+                }
+            }
+            thirdPlayerStatus.setImage(null);
+            if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
+                    Image crossImage = new Image(inputStream);
+                    thirdPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    thirdPlayerStatus.setImage(checkImage);
+                }
+            }
+            fourthPlayerStatus.setImage(null);
+            if(dataHandler.getLobby().lobbyUsers.length == 4 &&  dataHandler.getLobby().lobbyUsers[3] !=  null)
+            {
+                if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
+                    Image crossImage = new Image(inputStream);
+                    fourthPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    fourthPlayerStatus.setImage(checkImage);
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Lobby lobby = dataHandler.getLobby();
 
         // Clear the labels
         for (int i = 0; i < labelsName.length; i++)
             labelsName[i].setText("");
 
-        for (int i = 0; i < labelsState.length; i++)
-            labelsState[i].setText("");
-
         // Update the labels with the response
         for (int i = 0; i < lobby.lobbyUsers.length; i++) {
             labelsName[i].setText(lobby.lobbyUsers[i].username);
-            if (lobby.lobbyUsers[i].username.equals(lobby.lobbyAdmin)) {
-                labelsState[i].setText("Waiting for others");
-            }
-            else {
-                if (lobby.lobbyUsers[i].isReady)
-                    labelsState[i].setText("Ready");
-                else
-                    labelsState[i].setText("Not ready");
-            }
-
         }
 
         // -------------------
@@ -262,16 +313,14 @@ public class SeeThePlayers2Scene implements Initializable {
         readyButton.setOnMouseEntered(e -> readyButton.setStyle(HOVERED_BUTTON_STYLE));
         readyButton.setOnMouseExited(e -> readyButton.setStyle(IDLE_BUTTON_STYLE));
 
+        //Write the lobby code
+        lobbyCode.setText("The lobby code: "+ DataHandler.getInstance().getLobby().lobbyCode );
+
         // Initialize the label arrays
         labelsName[0] = firstNameLabel;
         labelsName[1] = secondNameLabel;
         labelsName[2] = thirdNameLabel;
         labelsName[3] = fourthNameLabel;
-
-        labelsState[0] = firstStateLabel;
-        labelsState[1] = secondStateLabel;
-        labelsState[2] = thirdStateLabel;
-        labelsState[3] = fourthStateLabel;
 
         // Get the lobby data and initialize the people,
         update();
