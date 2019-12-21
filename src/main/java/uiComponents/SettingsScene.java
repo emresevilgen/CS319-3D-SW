@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.DataHandler;
@@ -85,7 +86,8 @@ public class SettingsScene implements Initializable {
             if (DataHandler.getInstance().getSettings().isSoundEffects())
                 SceneHandler.getInstance().playMusic();
             else
-                SceneHandler.getInstance().getMediaPlayer().stop();
+                if (SceneHandler.getInstance().getMediaPlayer() != null)
+                    SceneHandler.getInstance().getMediaPlayer().stop();
             SceneHandler.getInstance().moveToMainMenu();
         }
 
