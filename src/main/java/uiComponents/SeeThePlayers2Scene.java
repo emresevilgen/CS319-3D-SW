@@ -72,6 +72,8 @@ public class SeeThePlayers2Scene implements Initializable {
     Label [] labelsName = new Label[4];
     Label [] labelsState = new Label[4];
 
+    boolean leaved = false;
+
     // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
         // Update the lobby info at every second
@@ -153,7 +155,7 @@ public class SeeThePlayers2Scene implements Initializable {
                                 dataHandler.setLobby(lobbyResponse.payload);
                                 // To stop the requests and move to main menu
                                 timeLine.stop();
-
+                                leaved = true;
                                 dataHandler.setLobby(null);
                                 SceneHandler.getInstance().moveToMainMenu();
                             }
@@ -210,7 +212,8 @@ public class SeeThePlayers2Scene implements Initializable {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                showErrorMessage(lobbyResponse.message);
+                                if (!leaved)
+                                    showErrorMessage(lobbyResponse.message);
                             }
                         });
                     }
@@ -219,7 +222,8 @@ public class SeeThePlayers2Scene implements Initializable {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            showErrorMessage("There is something wrong with the connection");
+                            if (!leaved)
+                                showErrorMessage("There is something wrong with the connection");
                         }
                     });
                 }
