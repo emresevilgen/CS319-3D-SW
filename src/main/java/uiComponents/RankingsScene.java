@@ -69,7 +69,7 @@ public class RankingsScene implements Initializable {
         {
             tts.read( "The first player is " + firstNameLabel.getText()+ ". the second player is " + secondNameLabel.getText()
                     + ". the third player is " + thirdNameLabel.getText()+ ". the fourth player is " + fourthNameLabel.getText()
-                    + ". the fifth player is " + fifthNameLabel.getText() + ". \n Back");
+                    + ". 500th is  " + fifthNameLabel.getText() + ". \n Back");
         }
 
         final boolean[] first = {true};

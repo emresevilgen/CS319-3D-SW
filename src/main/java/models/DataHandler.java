@@ -21,7 +21,7 @@ public class DataHandler {
         //-------------------------------------
         // To delete
         Game game = new Game();
-        game.ageNumber = 1;
+        game.ageNumber = 3;
         game.turnNumber = 1;
         game.players = new Player[4];
         game.players[0] = new Player();
@@ -50,6 +50,7 @@ public class DataHandler {
         game.players[0].playerCards[6] = new Card();
         game.players[0].playerCards[6].cardName = "Forum";
 
+
         game.players[0].board = new Board();
         // System.out.println(DataHandler.getInstance().getGame().users.length);
         game.players[0].board.wonderName = "Alexandria A";
@@ -66,6 +67,42 @@ public class DataHandler {
         game.players[0].board.cards[3] = new Card();
         game.players[0].board.cards[3].cardName = "Walls";
         game.players[0].board.cards[3].cardColor = "Red";
+        game.players[0].board.cards[4] = new Card();
+        game.players[0].board.cards[4].cardName = "Tree Farm";
+        game.players[0].board.cards[4].cardColor = "Brown";
+        game.players[0].board.cards[5] = new Card();
+        game.players[0].board.cards[5].cardName = "Loom";
+        game.players[0].board.cards[5].cardColor = "Gray";
+        game.players[0].board.cards[6] = new Card();
+        game.players[0].board.cards[6].cardName = "Library";
+        game.players[0].board.cards[6].cardColor = "Green";
+        game.players[0].board.cards[7] = new Card();
+        game.players[0].board.cards[7].cardName = "Walls";
+        game.players[0].board.cards[7].cardColor = "Red";
+        game.players[0].board.cards[8] = new Card();
+        game.players[0].board.cards[8].cardName = "Tree Farm";
+        game.players[0].board.cards[8].cardColor = "Brown";
+        game.players[0].board.cards[9] = new Card();
+        game.players[0].board.cards[9].cardName = "Loom";
+        game.players[0].board.cards[9].cardColor = "Gray";
+        game.players[0].board.cards[10] = new Card();
+        game.players[0].board.cards[10].cardName = "Library";
+        game.players[0].board.cards[10].cardColor = "Green";
+        game.players[0].board.cards[11] = new Card();
+        game.players[0].board.cards[11].cardName = "Walls";
+        game.players[0].board.cards[11].cardColor = "Red";
+        game.players[0].board.cards[12] = new Card();
+        game.players[0].board.cards[12].cardName = "Tree Farm";
+        game.players[0].board.cards[12].cardColor = "Brown";
+        game.players[0].board.cards[13] = new Card();
+        game.players[0].board.cards[13].cardName = "Loom";
+        game.players[0].board.cards[13].cardColor = "Gray";
+        game.players[0].board.cards[14] = new Card();
+        game.players[0].board.cards[14].cardName = "Library";
+        game.players[0].board.cards[14].cardColor = "Green";
+        game.players[0].board.cards[15] = new Card();
+        game.players[0].board.cards[15].cardName = "Walls";
+        game.players[0].board.cards[15].cardColor = "Red";
 
         game.players[1] = new Player();
         game.players[1].board = new Board();
