@@ -140,7 +140,7 @@ public class CreateLobbyScene implements Initializable {
                 cancelButton.setStyle(IDLE_BUTTON_STYLE);
         });
         createButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
+            if (newValue){
                 if (settings.isAudioDescription())
                     tts.read("Create");
                 createButton.setStyle(HOVERED_BUTTON_STYLE);

@@ -71,6 +71,9 @@ public class SeeThePlayersScene implements Initializable {
     // Label array to change the usernames and states of the players
     Label [] labelsName = new Label[4];
     Label [] labelsState = new Label[4];
+    CheckBox [] checkBoxes = new CheckBox[3];
+
+    boolean leaved = false;
 
     // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -132,6 +135,7 @@ public class SeeThePlayersScene implements Initializable {
                                 // To stop requests
                                 timeLine.stop();
                                 dataHandler.setLobby(null);
+                                leaved = true;
                                 SceneHandler.getInstance().moveToMainMenu();;
                             }
                         });
@@ -176,27 +180,41 @@ public class SeeThePlayersScene implements Initializable {
                                 DataHandler.getInstance().setLobby(lobbyResponse.payload);
                             }
                         });
-                    }
-                    else {
+                    } else {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                showErrorMessage(lobbyResponse.message);
+                                if (!leaved)
+                                    showErrorMessage(lobbyResponse.message);
                             }
                         });
                     }
-                }
-                else {
+                } else {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            showErrorMessage("There is something wrong with the connection");
+                            if (!leaved)
+                                showErrorMessage("There is something wrong with the connection");
                         }
                     });
                 }
             }
+
         });
         requestThread.start();
+
+        checkBoxes[0] = secondPlayerCheckBox;
+        checkBoxes[1] = thirdPlayerCheckBox;
+        checkBoxes[2] = fourthPlayerCheckBox;
+
+        Lobby lobby = dataHandler.getLobby();
+        for(int i = 1; i < lobby.lobbyUsers.length; i++){
+            if (lobby.lobbyUsers[i] != null && lobby.lobbyUsers[i].username != null)
+                checkBoxes[i-1].setDisable(false);
+            else
+                checkBoxes[i-1].setDisable(true);
+
+        }
 
 
         try {
@@ -243,9 +261,6 @@ public class SeeThePlayersScene implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        Lobby lobby = dataHandler.getLobby();
-
 
         // Clear the labels
         for (int i = 0; i < labelsName.length; i++)
