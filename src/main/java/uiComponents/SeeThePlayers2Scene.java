@@ -18,9 +18,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.DataHandler;
+import models.Game;
 import models.Lobby;
 import models.Settings;
 import rest.ApiClient;
@@ -350,6 +353,60 @@ public class SeeThePlayers2Scene implements Initializable {
         labelsName[1] = secondNameLabel;
         labelsName[2] = thirdNameLabel;
         labelsName[3] = fourthNameLabel;
+
+        SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                Game game = DataHandler.getInstance().getGame();
+                DataHandler dataHandler = DataHandler.getInstance();
+
+                if(keyCode.equals(KeyCode.C))
+                {
+                    tts.read("The code is " + dataHandler.getLobby().lobbyCode);
+                }
+                if(keyCode.equals(KeyCode.P) && settings.isAudioDescription())
+                {
+                    if(dataHandler.getLobby().lobbyUsers.length > 0 &&  dataHandler.getLobby().lobbyUsers[0] !=  null && !dataHandler.getLobby().lobbyUsers[0].username.equals(dataHandler.getUser().userName))
+                    {
+                        if (!dataHandler.getLobby().lobbyUsers[0].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                            tts.read(dataHandler.getLobby().lobbyUsers[0].username + " is not active");
+                        }
+                        else{
+                            tts.read(dataHandler.getLobby().lobbyUsers[0].username + " is active");
+                        }
+                    }
+                    if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null && !dataHandler.getLobby().lobbyUsers[1].username.equals(dataHandler.getUser().userName))
+                    {
+                        if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + " is not active");
+                        }
+                        else{
+                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + " is active");
+                        }
+                    }
+                    if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null && !dataHandler.getLobby().lobbyUsers[2].username.equals(dataHandler.getUser().userName))
+                    {
+                        if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + " is not active");
+                        }
+                        else{
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + " is active");
+                        }
+                    }
+                    if(dataHandler.getLobby().lobbyUsers.length > 3 &&  dataHandler.getLobby().lobbyUsers[3] !=  null && !dataHandler.getLobby().lobbyUsers[3].username.equals(dataHandler.getUser().userName))
+                    {
+                        if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
+                            tts.read(dataHandler.getLobby().lobbyUsers[3].username + " is not active");
+                        }
+                        else{
+                            tts.read(dataHandler.getLobby().lobbyUsers[3].username + " is active");
+                        }
+                    }
+                }
+                event.consume();
+            }
+        });
 
         // Get the lobby data and initialize the people,
         update();
