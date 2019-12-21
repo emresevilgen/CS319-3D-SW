@@ -135,9 +135,9 @@ public class SettingsScene implements Initializable {
             if (newValue){
                 if (settings.isAudioDescription())
                     if (soundEffectsCheckBox.isSelected())
-                        tts.read("Do you want stop the sound effects");
+                        tts.read("Do you want to stop the sound effects");
                     else
-                        tts.read("Do you want the sound effects");
+                        tts.read("Do you want to enable the sound effects");
 
                 soundEffectsCheckBox.setStyle(HOVERED_BUTTON_STYLE);
             }
@@ -148,9 +148,9 @@ public class SettingsScene implements Initializable {
             if (newValue){
                 if (settings.isAudioDescription())
                     if (audioDescriptionCheckBox.isSelected())
-                        tts.read("Do you want stop the audio description");
+                        tts.read("Do you want to stop the audio description");
                     else
-                        tts.read("Do you want the audio description");
+                        tts.read("Do you want to enable the audio description");
 
                 audioDescriptionCheckBox.setStyle(HOVERED_BUTTON_STYLE);
             }
