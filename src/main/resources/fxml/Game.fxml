@@ -81,7 +81,7 @@
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="username4" layoutX="58.0" layoutY="185.0" prefHeight="24.0" prefWidth="120.0" text="seven" textFill="WHITE">
+      <Label fx:id="username4" layoutX="58.0" layoutY="185.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
@@ -100,7 +100,7 @@
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="coin4" layoutX="230.0" layoutY="185.0" prefHeight="24.0" prefWidth="50.0" text="7" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="coin4" layoutX="230.0" layoutY="185.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
@@ -116,7 +116,7 @@
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="token4" layoutX="320.0" layoutY="185.0" prefHeight="24.0" prefWidth="50.0" text="-3" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="token4" layoutX="320.0" layoutY="185.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
