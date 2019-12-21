@@ -1,11 +1,13 @@
 package uiComponents;
 
 import audioDescription.AudioDescriptionHandler;
+import audioDescription.Reader;
 import com.google.gson.Gson;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.DataHandler;
 import models.Lobby;
+import models.Settings;
 import rest.ApiClient;
 import rest.ApiInterface;
 import rest.Requester;
@@ -313,6 +316,31 @@ public class SeeThePlayers2Scene implements Initializable {
         leaveButton.setOnMouseExited(e -> leaveButton.setStyle(IDLE_BUTTON_STYLE));
         readyButton.setOnMouseEntered(e -> readyButton.setStyle(HOVERED_BUTTON_STYLE));
         readyButton.setOnMouseExited(e -> readyButton.setStyle(IDLE_BUTTON_STYLE));
+
+        Settings settings = DataHandler.getInstance().getSettings();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        final boolean[] first = {true};
+
+        leaveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first[0])
+                    tts.read("Leave the Lobby");
+                leaveButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                leaveButton.setStyle(IDLE_BUTTON_STYLE);
+            first[0] = false;
+        });
+        readyButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first[0])
+                    tts.read("Start Game");
+                readyButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                readyButton.setStyle(IDLE_BUTTON_STYLE);
+            first[0] = false;
+        });
 
         //Write the lobby code
         lobbyCode.setText("The lobby code: "+ DataHandler.getInstance().getLobby().lobbyCode );

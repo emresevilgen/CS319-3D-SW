@@ -131,8 +131,9 @@ public class CreateLobbyScene implements Initializable {
             }
         });
         cancelButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Cancel");
+            if (newValue){
+                if (settings.isAudioDescription())
+                    tts.read("Cancel");
                 cancelButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -140,7 +141,8 @@ public class CreateLobbyScene implements Initializable {
         });
         createButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue && settings.isAudioDescription()){
-                tts.read("Create");
+                if (settings.isAudioDescription())
+                    tts.read("Create");
                 createButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -148,13 +150,13 @@ public class CreateLobbyScene implements Initializable {
         });
 
         gettingLootCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription() && !gettingLootCheckBox.isSelected()){
-                tts.read("Enable getting loot ");
-                gettingLootCheckBox.setStyle(HOVERED_BUTTON_STYLE);
-            }
-            else if(newValue && settings.isAudioDescription() && gettingLootCheckBox.isSelected())
-            {
-                tts.read("Disable getting loot ");
+            if (newValue){
+                if (settings.isAudioDescription()) {
+                    if (!gettingLootCheckBox.isSelected())
+                        tts.read("Enable getting loot ");
+                    else
+                        tts.read("Disable getting loot ");
+                }
                 gettingLootCheckBox.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -162,13 +164,13 @@ public class CreateLobbyScene implements Initializable {
         });
 
         shufflePlacesCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription() && !shufflePlacesCheckBox.isSelected()){
-                tts.read("Enable shuffle places ");
-                shufflePlacesCheckBox.setStyle(HOVERED_BUTTON_STYLE);
-            }
-            else if(newValue && settings.isAudioDescription() && shufflePlacesCheckBox.isSelected())
-            {
-                tts.read("Disable shuffle places ");
+            if (newValue){
+                if (settings.isAudioDescription()) {
+                    if (!shufflePlacesCheckBox.isSelected())
+                        tts.read("Enable shuffle places ");
+                    else
+                        tts.read("Disable shuffle places ");
+                }
                 shufflePlacesCheckBox.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -176,13 +178,14 @@ public class CreateLobbyScene implements Initializable {
         });
 
         secretSkillsCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription() && !secretSkillsCheckBox.isSelected()){
-                tts.read("Enable secret skills ");
-                secretSkillsCheckBox.setStyle(HOVERED_BUTTON_STYLE);
-            }
-            else if(newValue && settings.isAudioDescription() && secretSkillsCheckBox.isSelected())
-            {
-                tts.read("Disable secret skills ");
+            if (newValue){
+                if (settings.isAudioDescription()) {
+                    if (!secretSkillsCheckBox.isSelected())
+                        tts.read("Enable secret skills ");
+                    else
+                        tts.read("Disable secret skills ");
+
+                }
                 secretSkillsCheckBox.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -191,13 +194,13 @@ public class CreateLobbyScene implements Initializable {
 
 
         invalidMovePenaltyCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription() && !invalidMovePenaltyCheckBox.isSelected()){
-                tts.read("Enable invalid move penalty ");
-                invalidMovePenaltyCheckBox.setStyle(HOVERED_BUTTON_STYLE);
-            }
-            else if(newValue && settings.isAudioDescription() && invalidMovePenaltyCheckBox.isSelected())
-            {
-                tts.read("Disable invalid move penalty ");
+            if (newValue) {
+                if (settings.isAudioDescription()) {
+                    if (!invalidMovePenaltyCheckBox.isSelected())
+                        tts.read("Enable invalid move penalty ");
+                    else
+                        tts.read("Disable invalid move penalty ");
+                }
                 invalidMovePenaltyCheckBox.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -214,7 +217,44 @@ public class CreateLobbyScene implements Initializable {
         progress.setLayoutY(490);
 
         ((AnchorPane)createButton.getScene().getRoot()).getChildren().add(progress);
+        disableItems();
 
+    }
+
+    private void endProgress(){
+        ((AnchorPane)createButton.getScene().getRoot()).getChildren().remove(progress);
+        enableItems();
+    }
+
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        disableItems();
+
+        final boolean[] first = {true};
+        DataHandler dataHandler = DataHandler.getInstance();
+
+        if (dataHandler.getSettings().isAudioDescription()) {
+            AudioDescriptionHandler.getInstance().getReader().read("Error. " + errorMsg + " Press enter to say OK");
+        }
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.initOwner(createButton.getScene().getWindow());
+        alert.getButtonTypes().forEach(buttonType -> {
+            alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue && dataHandler.getSettings().isAudioDescription() && !first[0])
+                    AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                first[0] = false;
+            });
+        });
+        alert.showAndWait();
+
+        enableItems();
+    }
+
+    private void disableItems(){
         createButton.setDisable(true);
         cancelButton.setDisable(true);
         lobbyNameField.setDisable(true);
@@ -222,12 +262,9 @@ public class CreateLobbyScene implements Initializable {
         shufflePlacesCheckBox.setDisable(true);
         secretSkillsCheckBox.setDisable(true);
         invalidMovePenaltyCheckBox.setDisable(true);
-
     }
 
-    private void endProgress(){
-        ((AnchorPane)createButton.getScene().getRoot()).getChildren().remove(progress);
-
+    private void enableItems(){
         createButton.setDisable(false);
         cancelButton.setDisable(false);
         lobbyNameField.setDisable(false);
@@ -236,15 +273,4 @@ public class CreateLobbyScene implements Initializable {
         secretSkillsCheckBox.setDisable(false);
         invalidMovePenaltyCheckBox.setDisable(false);
     }
-
-    // Error message
-    private void showErrorMessage(String errorMsg){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMsg);
-        alert.initOwner(createButton.getScene().getWindow());
-        alert.showAndWait();
-    }
-
 }

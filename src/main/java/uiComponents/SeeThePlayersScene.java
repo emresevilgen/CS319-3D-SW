@@ -1,20 +1,24 @@
 package uiComponents;
 
 import audioDescription.AudioDescriptionHandler;
+import audioDescription.Reader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import models.DataHandler;
 import models.Lobby;
+import models.Settings;
 import rest.Requester;
 import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
@@ -278,6 +282,41 @@ public class SeeThePlayersScene implements Initializable {
         startGameButton.setOnMouseExited(e -> startGameButton.setStyle(IDLE_BUTTON_STYLE));
         dismissPersonButton.setOnMouseEntered(e -> dismissPersonButton.setStyle(HOVERED_BUTTON_STYLE));
         dismissPersonButton.setOnMouseExited(e -> dismissPersonButton.setStyle(IDLE_BUTTON_STYLE));
+
+        Settings settings = DataHandler.getInstance().getSettings();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
+        final boolean[] first = {true};
+        leaveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first[0])
+                    tts.read("Leave the Lobby");
+                leaveButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                leaveButton.setStyle(IDLE_BUTTON_STYLE);
+            first[0] = false;
+        });
+        startGameButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first[0])
+                    tts.read("Start Game");
+                startGameButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                startGameButton.setStyle(IDLE_BUTTON_STYLE);
+            first[0] = false;
+        });
+        dismissPersonButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first[0])
+                    tts.read("Dismiss the person");
+                dismissPersonButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                dismissPersonButton.setStyle(IDLE_BUTTON_STYLE);
+            first[0] = false;
+        });
 
         // Show the lobby code
         lobbyCode.setText("The lobby code: "+ DataHandler.getInstance().getLobby().lobbyCode );
