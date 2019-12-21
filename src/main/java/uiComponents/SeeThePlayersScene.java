@@ -334,7 +334,7 @@ public class SeeThePlayersScene implements Initializable {
         secondPlayerCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (secondPlayerCheckBox.isSelected() && !first[0] && !secondNameLabel.getText().equals(""))
-                    tts.read("Do not " + secondNameLabel.getText());
+                    tts.read("Do not dismiss" + secondNameLabel.getText());
                 else if(!secondNameLabel.getText().equals(""))
                     tts.read("Dismiss " + secondNameLabel.getText());
             }
@@ -343,7 +343,7 @@ public class SeeThePlayersScene implements Initializable {
         thirdPlayerCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (thirdPlayerCheckBox.isSelected() && !first[0] && !thirdNameLabel.getText().equals(""))
-                    tts.read("Do not " + thirdNameLabel.getText());
+                    tts.read("Do not dismiss " + thirdNameLabel.getText());
                 else if(!thirdNameLabel.getText().equals(""))
                     tts.read("Dismiss" + thirdNameLabel.getText());
             }
@@ -352,7 +352,7 @@ public class SeeThePlayersScene implements Initializable {
         fourthPlayerCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (fourthPlayerCheckBox.isSelected() && !first[0] && !fourthNameLabel.getText().equals(""))
-                    tts.read("Do not " + fourthNameLabel.getText());
+                    tts.read("Do not dismiss" + fourthNameLabel.getText());
                 else if(!fourthNameLabel.getText().equals(""))
                     tts.read("Dismiss " + fourthNameLabel.getText());
             }
@@ -366,33 +366,37 @@ public class SeeThePlayersScene implements Initializable {
                 Game game = DataHandler.getInstance().getGame();
                 DataHandler dataHandler = DataHandler.getInstance();
 
-                if(keyCode.equals(KeyCode.R) && settings.isAudioDescription())
+                if(keyCode.equals(KeyCode.C))
+                {
+                    tts.read("The code is " + dataHandler.getLobby().lobbyCode);
+                }
+                if(keyCode.equals(KeyCode.P) && settings.isAudioDescription())
                 {
                     if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
                     {
                         if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
-                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + "is not active");
+                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + " is not active");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + "is active");
+                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + " is active");
                         }
                     }
                     if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
                     {
                         if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
-                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + "is not active");
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + " is not active");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + "is active");
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + " is active");
                         }
                     }
                     if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
                     {
                         if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
-                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + "is not active");
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + " is not active");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + "is active");
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + " is active");
                         }
                     }
                 }
@@ -420,7 +424,7 @@ public class SeeThePlayersScene implements Initializable {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(errorMsg);
-            alert.initOwner(startGameButton.getScene().getWindow());
+            //alert.initOwner(startGameButton.getScene().getWindow());
             alert.getButtonTypes().forEach(buttonType -> {
                 alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
                     if(newValue && dataHandler.getSettings().isAudioDescription() && !first[0])
