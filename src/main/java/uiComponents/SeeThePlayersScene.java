@@ -209,10 +209,10 @@ public class SeeThePlayersScene implements Initializable {
 
         Lobby lobby = dataHandler.getLobby();
         for(int i = 1; i < lobby.lobbyUsers.length; i++){
-            if (lobby.lobbyUsers[i] == null && lobby.lobbyUsers[i].username != null)
-                checkBoxes[i-1].setDisable(true);
-            else
+            if (lobby.lobbyUsers[i] != null && lobby.lobbyUsers[i].username != null)
                 checkBoxes[i-1].setDisable(false);
+            else
+                checkBoxes[i-1].setDisable(true);
 
         }
 
