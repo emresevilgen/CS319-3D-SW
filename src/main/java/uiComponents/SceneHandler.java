@@ -56,7 +56,7 @@ public class SceneHandler extends Application {
         root = new AnchorPane();
         scene = new Scene(root);
         primaryStage.setScene(scene);
-        //primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(true);
         primaryStage.setResizable(false);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // No exit with ESC
         primaryStage.setFullScreenExitHint(null); // Exit hint pop up disabled
@@ -66,13 +66,13 @@ public class SceneHandler extends Application {
 
        //moveToCreateLobby();
         //moveToCredits();
-        //moveToGame();
+        moveToGame();
         //moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
         //moveToSettings();
-        moveToSignIn();
+        //moveToSignIn();
         //moveToSignUp();
 
     }

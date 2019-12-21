@@ -678,11 +678,13 @@ public class GameScene implements Initializable {
             focus.setEffect(glow);
             focus.setX(current.getX());
             focus.setY(current.getY());
+            focus.setFitHeight(current.getFitHeight());
+            focus.setFitWidth(current.getFitWidth());
             focus.setLayoutX(current.getLayoutX());
             focus.setLayoutY(current.getLayoutY());
             focus.setImage(current.getImage());
-            focus.setScaleX(1.30);
-            focus.setScaleY(1.30);
+            focus.setScaleX(1.20);
+            focus.setScaleY(1.20);
         }
     }
 
@@ -690,6 +692,8 @@ public class GameScene implements Initializable {
     public void focusOutBoardCard(MouseEvent mouseEvent) {
         focus.setLayoutX(0);
         focus.setLayoutY(0);
+        focus.setFitWidth(0);
+        focus.setFitHeight(0);
         focus.setImage(null);
     }
 
@@ -871,15 +875,22 @@ public class GameScene implements Initializable {
     // Board listeners
     public void showOtherPlayersCards(MouseEvent mouseEvent) {
         Card [] cards;
+        String username;
         // Get the players cards
         ImageView boardView = (ImageView)mouseEvent.getSource();
         Game game = DataHandler.getInstance().getGame();
-        if (boardView.equals(rightBoard))
+        if (boardView.equals(rightBoard)) {
             cards = game.players[1].board.cards;
-        else if (boardView.equals(acrossBoard))
+            username = game.users[1].userName;
+        }
+        else if (boardView.equals(acrossBoard)) {
             cards = game.players[2].board.cards;
-        else if (boardView.equals(leftBoard))
+            username = game.users[2].userName;
+        }
+        else if (boardView.equals(leftBoard)) {
             cards = game.players[3].board.cards;
+            username = game.users[3].userName;
+        }
         else
             return;
 
@@ -899,6 +910,9 @@ public class GameScene implements Initializable {
             // Set background image
             Image backgroundImage = new Image(backgroundFile);
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
+            Label usernameLabel = (Label) root.getChildren().get(1);
+
+            usernameLabel.setText(username);
             backgroundView.setImage(backgroundImage);
 
             boardScene = new Scene(root);
@@ -938,37 +952,37 @@ public class GameScene implements Initializable {
             int viewOrder = 0;
 
             for (int i = 0; i < redCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+1)).setImage(getCardImage(redCards.get(i)));
+                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(redCards.get(i)));
                 viewOrder++;
             }
 
             for (int i = 0; i < brownCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+1)).setImage(getCardImage(brownCards.get(i)));
+                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(brownCards.get(i)));
                 viewOrder++;
             }
 
             for (int i = 0; i < grayCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+1)).setImage(getCardImage(grayCards.get(i)));
+                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(grayCards.get(i)));
                 viewOrder++;
             }
 
             for (int i = 0; i < blueCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+1)).setImage(getCardImage(blueCards.get(i)));
+                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(blueCards.get(i)));
                 viewOrder++;
             }
 
             for (int i = 0; i < yellowCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+1)).setImage(getCardImage(yellowCards.get(i)));
+                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(yellowCards.get(i)));
                 viewOrder++;
             }
 
             for (int i = 0; i < purpleCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+1)).setImage(getCardImage(purpleCards.get(i)));
+                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(purpleCards.get(i)));
                 viewOrder++;
             }
 
             for (int i = 0; i < greenCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+1)).setImage(getCardImage(greenCards.get(i)));
+                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(greenCards.get(i)));
                 viewOrder++;
             }
 
