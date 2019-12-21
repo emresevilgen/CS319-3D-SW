@@ -156,8 +156,8 @@ public class GameScene implements Initializable {
 
 
     // Button colors for hovered and not
-    private final String IDLE_BUTTON_STYLE = "-fx-background-color: #a73535; -fx-opacity: 1;";
-    private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #a73535; -fx-opacity: 0.85;";
+    private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 1;";
+    private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 0.85;";
 
     private Card selectedCard;
     private ImageView selectedCardView;

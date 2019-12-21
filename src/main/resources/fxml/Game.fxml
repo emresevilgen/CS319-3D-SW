@@ -45,27 +45,27 @@
       <ImageView fx:id="soundEffectsView" fitHeight="45.0" fitWidth="45.0" layoutX="1701.0" layoutY="38.0" onMouseClicked="#switchSoundEffects" pickOnBounds="true" />
       <ImageView fx:id="audioDescriptionView" fitHeight="45.0" fitWidth="45.0" layoutX="1768.0" layoutY="38.0" onMouseClicked="#switchAudioDescription" pickOnBounds="true" />
       <ImageView fx:id="exitView" fitHeight="45.0" fitWidth="45.0" layoutX="1833.0" layoutY="38.0" onMouseClicked="#exit" pickOnBounds="true" />
-      <Button fx:id="nextTurnButton" layoutX="1729.0" layoutY="1007.0" mnemonicParsing="false" onAction="#nextTurnAction" prefHeight="45.0" prefWidth="138.0" style="-fx-background-color: #a73535;" text="Next Turn" textFill="WHITE">
+      <Button fx:id="nextTurnButton" layoutX="1729.0" layoutY="1007.0" mnemonicParsing="false" onAction="#nextTurnAction" prefHeight="45.0" prefWidth="138.0" style="-fx-background-color: #b80028;" text="Next Turn" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="discardButton" layoutX="654.0" layoutY="551.0" mnemonicParsing="false" onAction="#discardAction" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #a73535;" text="Discard the Card" textFill="WHITE">
+      <Button fx:id="discardButton" layoutX="654.0" layoutY="551.0" mnemonicParsing="false" onAction="#discardAction" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #b80028;" text="Discard the Card" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="structureButton" layoutX="921.0" layoutY="551.0" mnemonicParsing="false" onAction="#structureAction" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #a73535;" text="Build a Structure" textFill="WHITE">
+      <Button fx:id="structureButton" layoutX="921.0" layoutY="551.0" mnemonicParsing="false" onAction="#structureAction" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #b80028;" text="Build a Structure" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="wonderButton" layoutX="1188.0" layoutY="551.0" mnemonicParsing="false" onAction="#wonderAction" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #a73535;" text="Build a Wonder Stage" textFill="WHITE">
+      <Button fx:id="wonderButton" layoutX="1188.0" layoutY="551.0" mnemonicParsing="false" onAction="#wonderAction" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #b80028;" text="Build a Wonder Stage" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <ImageView fx:id="table" fitHeight="213.0" fitWidth="386.0" layoutX="21.0" layoutY="23.0" opacity="0.8" pickOnBounds="true" />
+      <ImageView fx:id="table" fitHeight="213.0" fitWidth="386.0" layoutX="21.0" layoutY="23.0" opacity="0.9" pickOnBounds="true" />
       <Label fx:id="username1" layoutX="58.0" layoutY="95.0" prefHeight="24.0" prefWidth="120.0" text="esra" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
