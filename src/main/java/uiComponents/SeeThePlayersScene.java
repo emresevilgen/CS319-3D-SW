@@ -218,12 +218,12 @@ public class SeeThePlayersScene implements Initializable {
 
 
         try {
-            FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
-            FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
             secondPlayerStatus.setImage(null);
             //Change status of the users
             if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
             {
+                FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
                 if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
                     Image crossImage = new Image(inputStream);
                     secondPlayerStatus.setImage(crossImage);
@@ -236,6 +236,8 @@ public class SeeThePlayersScene implements Initializable {
             thirdPlayerStatus.setImage(null);
             if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
             {
+                FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
                 if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
                     Image crossImage = new Image(inputStream);
                     thirdPlayerStatus.setImage(crossImage);
@@ -248,6 +250,8 @@ public class SeeThePlayersScene implements Initializable {
             fourthPlayerStatus.setImage(null);
             if(dataHandler.getLobby().lobbyUsers.length == 4 &&  dataHandler.getLobby().lobbyUsers[3] !=  null)
             {
+                FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
                 if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
                     Image crossImage = new Image(inputStream);
                     fourthPlayerStatus.setImage(crossImage);
