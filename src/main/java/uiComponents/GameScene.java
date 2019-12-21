@@ -195,7 +195,6 @@ public class GameScene implements Initializable {
         public void handle(ActionEvent event) {
             // Server request and update the game
 
-            //update();
 
         }
     }));

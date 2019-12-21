@@ -37,7 +37,6 @@ public class SeeThePlayersScene implements Initializable {
     public Button startGameButton;
     @FXML
     public Button dismissPersonButton;
-
     @FXML
     public Label firstNameLabel;
     @FXML
