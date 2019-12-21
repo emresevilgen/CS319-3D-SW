@@ -195,7 +195,7 @@ public class GameScene implements Initializable {
         public void handle(ActionEvent event) {
             // Server request and update the game
 
-            // update();
+            //update();
 
         }
     }));
@@ -203,76 +203,6 @@ public class GameScene implements Initializable {
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //-------------------------------------
-        //-------------------------------------
-        // To delete
-        Game game = new Game();
-        DataHandler.getInstance().setGame(game);
-        game.ageNumber = 1;
-        game.turnNumber = 1;
-        game.players = new Player[4];
-        game.players[0] = new Player();
-        game.players[0].playerCards = new Card[7];
-        game.players[0].playerCards[0] = new Card();
-        game.players[0].playerCards[0].cardName = "Altar";
-        game.players[0].playerCards[1] = new Card();
-        game.players[0].playerCards[1].cardName = "Apothecary";
-        game.players[0].playerCards[2] = new Card();
-        game.players[0].playerCards[2].cardName = "Aqueduct";
-        game.players[0].playerCards[3] = new Card();
-        game.players[0].playerCards[3].cardName = "Archery Range";
-        game.players[0].playerCards[4] = new Card();
-        game.players[0].playerCards[4].cardName = "Arena";
-        game.players[0].playerCards[5] = new Card();
-        game.players[0].playerCards[5].cardName = "Arsenal";
-        game.players[0].playerCards[6] = new Card();
-        game.players[0].playerCards[6].cardName = "Forum";
-
-        game.players[0].board = new Board();
-       // System.out.println(DataHandler.getInstance().getGame().users.length);
-        game.players[0].board.wonderName = "Alexandria A";
-        game.players[0].board.cards = new Card[19];
-        game.players[0].board.cards[0] = new Card();
-        game.players[0].board.cards[0].cardName = "Tree Farm";
-        game.players[0].board.cards[0].cardColor = "Brown";
-        game.players[0].board.cards[1] = new Card();
-        game.players[0].board.cards[1].cardName = "Loom";
-        game.players[0].board.cards[1].cardColor = "Gray";
-        game.players[0].board.cards[2] = new Card();
-        game.players[0].board.cards[2].cardName = "Library";
-        game.players[0].board.cards[2].cardColor = "Green";
-        game.players[0].board.cards[3] = new Card();
-        game.players[0].board.cards[3].cardName = "Walls";
-        game.players[0].board.cards[3].cardColor = "Red";
-
-        game.players[1] = new Player();
-        game.players[1].board = new Board();
-        game.players[1].board.wonderName = "Ephesos A";
-        game.players[1].board.cards = new Card[19];
-        game.players[1].board.cards[0] = new Card();
-        game.players[1].board.cards[0].cardName = "Tree Farm";
-        game.players[1].board.cards[0].cardColor = "Brown";
-        game.players[1].board.cards[1] = new Card();
-        game.players[1].board.cards[1].cardName = "Loom";
-        game.players[1].board.cards[1].cardColor = "Gray";
-        game.players[1].board.cards[2] = new Card();
-        game.players[1].board.cards[2].cardName = "Library";
-        game.players[1].board.cards[2].cardColor = "Green";
-        game.players[1].board.cards[3] = new Card();
-        game.players[1].board.cards[3].cardName = "Walls";
-        game.players[1].board.cards[3].cardColor = "Red";
-
-        game.players[2] = new Player();
-        game.players[2].board = new Board();
-        game.players[2].board.wonderName = "Gizah A";
-        game.players[2].board.cards = new Card[19];
-
-        game.players[3] = new Player();
-        game.players[3].board = new Board();
-        game.players[3].board.wonderName = "Babylon A";
-        game.players[3].board.cards = new Card[19];
-
-        //-----------------------------------------------
 
         try {
             FileInputStream inputStream = new FileInputStream(Constants.COIN_IMAGE);
@@ -290,9 +220,6 @@ public class GameScene implements Initializable {
         }
 
 
-
-
-
         // Setting the mouse entered and exited listeners for hover effect
         nextTurnButton.setOnMouseEntered(e -> { nextTurnButton.setStyle(HOVERED_BUTTON_STYLE); });
         nextTurnButton.setOnMouseExited(e -> nextTurnButton.setStyle(IDLE_BUTTON_STYLE));
@@ -308,8 +235,9 @@ public class GameScene implements Initializable {
 
         firstTime = true;
         nextTurnButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (!firstTime && newValue && settings.isAudioDescription()){
-                tts.read("Next turn");
+            if (newValue){
+                if(settings.isAudioDescription() && !firstTime)
+                    tts.read("Next turn");
                 nextTurnButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -318,8 +246,9 @@ public class GameScene implements Initializable {
         });
 
         discardButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Discard the card");
+            if (newValue){
+                if(settings.isAudioDescription())
+                    tts.read("Discard the card");
                 discardButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -327,8 +256,9 @@ public class GameScene implements Initializable {
         });
 
         structureButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Build a structure");
+            if (newValue){
+                if(settings.isAudioDescription())
+                    tts.read("Build a structure");
                 structureButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -336,8 +266,9 @@ public class GameScene implements Initializable {
         });
 
         wonderButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Build a wonder stage");
+            if (newValue) {
+                if(settings.isAudioDescription())
+                    tts.read("Build a wonder stage");
                 wonderButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -479,6 +410,30 @@ public class GameScene implements Initializable {
                    boardIndex--;
                    if(settings.isAudioDescription())
                        tts.read(game.players[boardIndex].board.wonderName);
+               }
+
+               if(keyCode.equals(KeyCode.I)){
+                    if (settings.isAudioDescription()){
+                        String text = "";
+                        for (int i = 0; i < game.users.length; i++) {
+                            if (game.users[i] != null) {
+                                text = text + game.users[i].userName + " has ";
+                                Player player = game.players[i];
+                                if (player.coin > 1)
+                                    text = text + player.coin + " coins ";
+                                else
+                                    text = text + player.coin + " coin ";
+
+                                text = text + " and ";
+
+                                if (player.victoryPoints > 1)
+                                    text = text + player.victoryPoints + " victory tokens. \n";
+                                else
+                                    text = text + player.victoryPoints + " victory token. \n";
+                            }
+                        }
+                        tts.read(text);
+                    }
                }
 
                event.consume();
@@ -839,30 +794,30 @@ public class GameScene implements Initializable {
         }
 
         //Update coins and tokens on the table
-
-        if((DataHandler.getInstance().getGame().users != null) && (DataHandler.getInstance().getGame().users[0]!= null))
+        Game game = DataHandler.getInstance().getGame();
+        if((game.users != null) && (game.users[0]!= null))
         {
-            username1.setText(DataHandler.getInstance().getGame().users[0].userName);
-            coin1.setText(Integer.toString(DataHandler.getInstance().getGame().players[0].coin));
-            token1.setText(Integer.toString(DataHandler.getInstance().getGame().players[0].militaryPoints));
+            username1.setText(game.users[0].userName);
+            coin1.setText(Integer.toString(game.players[0].coin));
+            token1.setText(Integer.toString(game.players[0].victoryPoints));
         }
-        if((DataHandler.getInstance().getGame().users != null) && (DataHandler.getInstance().getGame().users.length > 1 )&& (DataHandler.getInstance().getGame().users[1]!= null))
+        if((game.users != null) && (game.users.length > 1 )&& (game.users[1]!= null))
         {
-            username2.setText(DataHandler.getInstance().getGame().users[1].userName);
-            coin2.setText(Integer.toString(DataHandler.getInstance().getGame().players[1].coin));
-            token2.setText(Integer.toString(DataHandler.getInstance().getGame().players[1].militaryPoints));
+            username2.setText(game.users[1].userName);
+            coin2.setText(Integer.toString(game.players[1].coin));
+            token2.setText(Integer.toString(game.players[1].victoryPoints));
         }
-        if((DataHandler.getInstance().getGame().users != null) &&  (DataHandler.getInstance().getGame().users.length > 2) &&(DataHandler.getInstance().getGame().users[2]!= null))
+        if((game.users != null) &&  (game.users.length > 2) &&(game.users[2]!= null))
         {
-            username3.setText(DataHandler.getInstance().getGame().users[2].userName);
-            coin3.setText(Integer.toString(DataHandler.getInstance().getGame().players[2].coin));
-            token3.setText(Integer.toString(DataHandler.getInstance().getGame().players[2].militaryPoints));
+            username3.setText(game.users[2].userName);
+            coin3.setText(Integer.toString(game.players[2].coin));
+            token3.setText(Integer.toString(game.players[2].victoryPoints));
         }
-        if((DataHandler.getInstance().getGame().users != null) && (DataHandler.getInstance().getGame().users.length > 3) && (DataHandler.getInstance().getGame().users[3]!= null))
+        if((game.users != null) && (game.users.length > 3) && (game.users[3]!= null))
         {
-            username4.setText(DataHandler.getInstance().getGame().users[3].userName);
-            coin4.setText(Integer.toString(DataHandler.getInstance().getGame().players[3].coin));
-            token4.setText(Integer.toString(DataHandler.getInstance().getGame().players[3].militaryPoints));
+            username4.setText(game.users[3].userName);
+            coin4.setText(Integer.toString(game.players[3].coin));
+            token4.setText(Integer.toString(game.players[3].victoryPoints));
         }
     }
 
@@ -1103,16 +1058,49 @@ public class GameScene implements Initializable {
     // Error message
     private void showErrorMessage(String errorMsg){
         if (showError) {
+            disableItems();
+
+            final boolean[] first = {true};
+            DataHandler dataHandler = DataHandler.getInstance();
+
+            if (dataHandler.getSettings().isAudioDescription()) {
+                AudioDescriptionHandler.getInstance().getReader().read("Error. " + errorMsg + " Press enter to say OK");
+            }
+
             showError = false;
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(errorMsg);
             alert.initOwner(nextTurnButton.getScene().getWindow());
-            Optional<ButtonType> result = alert.showAndWait();
+            alert.getButtonTypes().forEach(buttonType -> {
+                alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue && dataHandler.getSettings().isAudioDescription() && !first[0])
+                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                    first[0] = false;
+                });
+            });
 
-            if (result.get() == ButtonType.OK || result.get() == ButtonType.CLOSE)
-                showError = true;
+            Optional<ButtonType> result = alert.showAndWait();
+            showError = true;
+            enableItems();
         }
     }
+
+    private void disableItems(){
+        nextTurnButton.setDisable(true);
+        discardButton.setDisable(true);
+        structureButton.setDisable(true);
+        wonderButton.setDisable(true);
+    }
+
+    private void enableItems(){
+        nextTurnButton.setDisable(false);
+        discardButton.setDisable(false);
+        structureButton.setDisable(false);
+        wonderButton.setDisable(false);
+    }
+
+
+
 }
