@@ -66,9 +66,9 @@ public class SceneHandler extends Application {
 
        //moveToCreateLobby();
         //moveToCredits();
-        moveToGame();
+        //moveToGame();
         //moveToMainMenu();
-        //moveToRankings();
+        moveToRankings();
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
         //moveToSettings();
@@ -240,9 +240,7 @@ public class SceneHandler extends Application {
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
 
-            Image backImage = new Image(backFile);
-            ImageView backView = (ImageView) root.getChildren().get(1);
-            backView.setImage(backImage);
+
 
             // Show scene
             stage.getScene().setRoot(root);

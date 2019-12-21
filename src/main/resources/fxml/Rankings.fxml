@@ -6,76 +6,65 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.RankingsScene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.RankingsScene">
     <children>
       <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
-      <ImageView fitHeight="506.0" fitWidth="585.0" layoutX="668.0" layoutY="259.0" pickOnBounds="true" />
-        <Label fx:id="seePlayersLabel" alignment="CENTER" layoutX="847.0" layoutY="274.0" prefHeight="50.0" prefWidth="213.0" text="Rankings" textFill="WHITE">
+        <Label fx:id="seePlayersLabel" alignment="CENTER" layoutX="854.0" layoutY="183.0" prefHeight="50.0" prefWidth="213.0" text="Rankings" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>
         </Label>
-        <Button fx:id="backButton" layoutX="869.0" layoutY="786.0" mnemonicParsing="false" onAction="#back" prefHeight="51.0" prefWidth="197.0" style="-fx-background-color: #8c8686;" text="Back" textFill="WHITE">
+        <Button fx:id="backButton" layoutX="870.0" layoutY="663.0" mnemonicParsing="false" onAction="#back" prefHeight="51.0" prefWidth="197.0" style="-fx-background-color: #8c8686;" text="Back" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Button>
-        <Label layoutX="726.0" layoutY="360.0" prefHeight="50.0" prefWidth="54.0" text="No" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="23.0" />
-            </font>
-        </Label>
-        <Label layoutX="812.0" layoutY="360.0" prefHeight="50.0" prefWidth="104.0" text="Name" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="23.0" />
-            </font>
-        </Label>
-        <Label fx:id="firstNoLabel" layoutX="726.0" layoutY="430.0" prefHeight="50.0" prefWidth="46.0" text="1." textFill="WHITE">
+        <Label fx:id="firstNoLabel" layoutX="770.0" layoutY="273.0" prefHeight="50.0" prefWidth="46.0" text="1." textFill="WHITE">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
         </Label>
-        <Label fx:id="secondNameLabel" layoutX="812.0" layoutY="490.0" prefHeight="50.0" prefWidth="383.0" text="Esra Nur Deniz" textAlignment="CENTER" textFill="WHITE">
+        <Label fx:id="secondNameLabel" layoutX="856.0" layoutY="333.0" prefHeight="50.0" prefWidth="383.0" text="Esra Nur Deniz" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
         </Label>
-        <Label fx:id="thirdNameLabel" layoutX="812.0" layoutY="550.0" prefHeight="50.0" prefWidth="383.0" text="Munib Emre Sevilgen" textAlignment="CENTER" textFill="WHITE">
+        <Label fx:id="thirdNameLabel" layoutX="856.0" layoutY="393.0" prefHeight="50.0" prefWidth="383.0" text="Munib Emre Sevilgen" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
         </Label>
-        <Label fx:id="secondNoLabel" layoutX="726.0" layoutY="490.0" prefHeight="50.0" prefWidth="46.0" text="2." textFill="WHITE">
+        <Label fx:id="secondNoLabel" layoutX="770.0" layoutY="333.0" prefHeight="50.0" prefWidth="46.0" text="2." textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
         </Label>
-        <Label fx:id="thirdNoLabel" layoutX="726.0" layoutY="550.0" prefHeight="50.0" prefWidth="46.0" text="3." textFill="WHITE">
+        <Label fx:id="thirdNoLabel" layoutX="770.0" layoutY="393.0" prefHeight="50.0" prefWidth="46.0" text="3." textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
         </Label>
-        <Label fx:id="fourthNoLabel" layoutX="726.0" layoutY="610.0" prefHeight="50.0" prefWidth="46.0" text="4." textFill="WHITE">
+        <Label fx:id="fourthNoLabel" layoutX="770.0" layoutY="453.0" prefHeight="50.0" prefWidth="46.0" text="4." textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
         </Label>
-        <Label fx:id="fifthNoLabel" layoutX="726.0" layoutY="670.0" prefHeight="50.0" prefWidth="46.0" text="5." textFill="WHITE">
+        <Label fx:id="fifthNoLabel" layoutX="770.0" layoutY="513.0" prefHeight="50.0" prefWidth="46.0" text="5." textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
         </Label>
-        <Label fx:id="firstNameLabel" layoutX="812.0" layoutY="430.0" prefHeight="50.0" prefWidth="383.0" text="Meryem Banu Cavlak" textFill="WHITE">
+        <Label fx:id="firstNameLabel" layoutX="856.0" layoutY="273.0" prefHeight="50.0" prefWidth="383.0" text="Meryem Banu Cavlak" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
         </Label>
-        <Label fx:id="fourthNameLabel" layoutX="812.0" layoutY="610.0" prefHeight="50.0" prefWidth="383.0" text="Nogay Evirgen" textAlignment="CENTER" textFill="WHITE">
+        <Label fx:id="fourthNameLabel" layoutX="856.0" layoutY="453.0" prefHeight="50.0" prefWidth="383.0" text="Nogay Evirgen" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
         </Label>
-        <Label fx:id="fifthNameLabel" layoutX="812.0" layoutY="670.0" prefHeight="50.0" prefWidth="383.0" text="Aziz Utku Kağıtcı" textAlignment="CENTER" textFill="WHITE">
+        <Label fx:id="fifthNameLabel" layoutX="856.0" layoutY="513.0" prefHeight="50.0" prefWidth="383.0" text="Aziz Utku Kağıtcı" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="23.0" />
             </font>
