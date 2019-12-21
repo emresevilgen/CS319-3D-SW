@@ -37,16 +37,19 @@ public class CreditsScene implements Initializable {
         Settings settings = DataHandler.getInstance().getSettings();
         if(settings.isAudioDescription())
         {
-            tts.read("group 3d sw demo  ");
+            tts.read("group 3d sw demo.\n Back");
         }
-
+        final boolean[] first = {true};
         backButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue  && settings.isAudioDescription()){
-                tts.read("Back");
+            if (newValue){
+                if (settings.isAudioDescription() && !first[0]) {
+                    tts.read("Back");
+                }
                 backButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
                 backButton.setStyle(IDLE_BUTTON_STYLE);
+            first[0] = false;
         });
     }
 }

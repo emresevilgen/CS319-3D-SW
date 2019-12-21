@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -21,6 +22,8 @@ import rest.models.GeneralResponse;
 
 
 import java.net.URL;
+import java.util.EventListener;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SignInScene implements Initializable{
@@ -126,8 +129,9 @@ public class SignInScene implements Initializable{
         });
 
         signInButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Sign in");
+            if (newValue){
+                if (settings.isAudioDescription())
+                    tts.read("Sign in");
                 signInButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -135,8 +139,9 @@ public class SignInScene implements Initializable{
         });
 
         signUpButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("If you don't have an account, please sign up");
+            if (newValue){
+                if (settings.isAudioDescription())
+                    tts.read("If you don't have an account, please sign up");
                 signUpButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -144,8 +149,9 @@ public class SignInScene implements Initializable{
         });
 
         exitButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Exit");
+            if (newValue){
+                if (settings.isAudioDescription())
+                    tts.read("Exit");
                 exitButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -169,6 +175,44 @@ public class SignInScene implements Initializable{
 
         ((AnchorPane)signInButton.getScene().getRoot()).getChildren().add(progress);
 
+        disableItems();
+    }
+
+    private void endProgress(){
+        ((AnchorPane)signInButton.getScene().getRoot()).getChildren().remove(progress);
+        enableItems();
+    }
+
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        disableItems();
+
+        final boolean[] first = {true};
+        DataHandler dataHandler = DataHandler.getInstance();
+
+        if (dataHandler.getSettings().isAudioDescription()) {
+            AudioDescriptionHandler.getInstance().getReader().read("Error. " + errorMsg + " Press enter to say OK");
+        }
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMsg);
+        alert.initOwner(signInButton.getScene().getWindow());
+        alert.getButtonTypes().forEach(buttonType -> {
+            alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue && dataHandler.getSettings().isAudioDescription() && !first[0])
+                    AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                first[0] = false;
+            });
+        });
+        alert.showAndWait();
+
+        enableItems();
+
+    }
+
+    private void disableItems(){
         signInButton.setDisable(true);
         signUpButton.setDisable(true);
         exitButton.setDisable(true);
@@ -176,23 +220,12 @@ public class SignInScene implements Initializable{
         passwordField.setDisable(true);
     }
 
-    private void endProgress(){
-        ((AnchorPane)signInButton.getScene().getRoot()).getChildren().remove(progress);
+    private void enableItems(){
         signInButton.setDisable(false);
         signUpButton.setDisable(false);
         exitButton.setDisable(false);
         usernameField.setDisable(false);
         passwordField.setDisable(false);
-    }
-
-    // Error message
-    private void showErrorMessage(String errorMsg){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMsg);
-        alert.initOwner(signInButton.getScene().getWindow());
-        alert.showAndWait();
     }
 
 }

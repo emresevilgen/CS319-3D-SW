@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.DataHandler;
+import models.Settings;
 
 
 import java.net.URL;
@@ -109,50 +110,61 @@ public class SettingsScene implements Initializable {
         saveButton.setOnMouseExited(e -> saveButton.setStyle(IDLE_BUTTON_STYLE));
 
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
-
+        Settings settings = DataHandler.getInstance().getSettings();
         saveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
-                tts.read("Save");
+            if (newValue){
+                if (settings.isAudioDescription())
+                    tts.read("Save");
                 saveButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
                 saveButton.setStyle(IDLE_BUTTON_STYLE);
         });
         cancelButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
-                tts.read("Cancel");
+            if (newValue){
+                if (settings.isAudioDescription())
+                    tts.read("Cancel");
                 cancelButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
                 cancelButton.setStyle(IDLE_BUTTON_STYLE);
         });
         soundEffectsCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
-                tts.read("Do you want sound effects"); //????
+            if (newValue){
+                if (settings.isAudioDescription())
+                    if (soundEffectsCheckBox.isSelected())
+                        tts.read("Do you want stop the sound effects");
+                    else
+                        tts.read("Do you want the sound effects");
+
                 soundEffectsCheckBox.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
                 soundEffectsCheckBox.setStyle(IDLE_BUTTON_STYLE);
         });
         audioDescriptionCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
-                tts.read("do you want audio description "); //????
+            if (newValue){
+                if (settings.isAudioDescription())
+                    if (audioDescriptionCheckBox.isSelected())
+                        tts.read("Do you want stop the audio description");
+                    else
+                        tts.read("Do you want the audio description");
+
                 audioDescriptionCheckBox.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
                 audioDescriptionCheckBox.setStyle(IDLE_BUTTON_STYLE);
         });
         usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("change the user name");
             }
         });
         passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && DataHandler.getInstance().getSettings().isAudioDescription()){
+            if (newValue && settings.isAudioDescription()){
                 tts.read("change the password");
             }
         });
-
 
         // Select the check boxes according to the settings data
         soundEffectsCheckBox.setSelected(DataHandler.getInstance().getSettings().isSoundEffects());

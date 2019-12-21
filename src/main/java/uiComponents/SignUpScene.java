@@ -146,8 +146,9 @@ public class SignUpScene implements Initializable{
         });
 
         signUpButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Sign up");
+            if (newValue){
+                if (settings.isAudioDescription())
+                    tts.read("Sign up");
                 signUpButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -155,8 +156,9 @@ public class SignUpScene implements Initializable{
         });
 
         backButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Back");
+            if (newValue){
+                if (settings.isAudioDescription())
+                    tts.read("Back");
                 backButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -175,31 +177,58 @@ public class SignUpScene implements Initializable{
 
         ((AnchorPane)signUpButton.getScene().getRoot()).getChildren().add(progress);
 
-        signUpButton.setDisable(true);
-        backButton.setDisable(true);
-        usernameField.setDisable(true);
-        passwordField.setDisable(true);
-        nameField.setDisable(true);
+        disableItems();
 
     }
 
     private void endProgress(){
         ((AnchorPane)signUpButton.getScene().getRoot()).getChildren().remove(progress);
-        signUpButton.setDisable(false);
-        backButton.setDisable(false);
-        usernameField.setDisable(false);
-        passwordField.setDisable(false);
-        nameField.setDisable(false);
+        enableItems();
     }
 
     // Error message
     private void showErrorMessage(String errorMsg){
+        disableItems();
+
+        final boolean[] first = {true};
+        DataHandler dataHandler = DataHandler.getInstance();
+
+        if (dataHandler.getSettings().isAudioDescription()) {
+            AudioDescriptionHandler.getInstance().getReader().read("Error. " + errorMsg + " Press enter to say OK");
+        }
+
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(errorMsg);
         alert.initOwner(signUpButton.getScene().getWindow());
+        alert.getButtonTypes().forEach(buttonType -> {
+            alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue && dataHandler.getSettings().isAudioDescription() && !first[0])
+                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                first[0] = false;
+            });
+        });
         alert.showAndWait();
+
+        enableItems();
+    }
+
+
+    private void disableItems(){
+        signUpButton.setDisable(true);
+        backButton.setDisable(true);
+        usernameField.setDisable(true);
+        passwordField.setDisable(true);
+        nameField.setDisable(true);
+    }
+
+    private void enableItems(){
+        signUpButton.setDisable(false);
+        backButton.setDisable(false);
+        usernameField.setDisable(false);
+        passwordField.setDisable(false);
+        nameField.setDisable(false);
     }
 
 }

@@ -1,5 +1,6 @@
 package uiComponents;
 
+import audioDescription.AudioDescriptionHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -297,16 +298,44 @@ public class SeeThePlayersScene implements Initializable {
     // Error message
     private void showErrorMessage(String errorMsg){
         if (showError) {
+            disableItems();
+
+            final boolean[] first = {true};
+            DataHandler dataHandler = DataHandler.getInstance();
+
+            if (dataHandler.getSettings().isAudioDescription()) {
+                AudioDescriptionHandler.getInstance().getReader().read("Error. " + errorMsg + " Press enter to say OK");
+            }
+
             showError = false;
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(errorMsg);
             alert.initOwner(startGameButton.getScene().getWindow());
-            Optional<ButtonType> result = alert.showAndWait();
+            alert.getButtonTypes().forEach(buttonType -> {
+                alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue && dataHandler.getSettings().isAudioDescription() && !first[0])
+                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                    first[0] = false;
+                });
+            });
 
-            if (result.get() == ButtonType.OK || result.get() == ButtonType.CLOSE)
-                showError = true;
+            Optional<ButtonType> result = alert.showAndWait();
+            showError = true;
+            enableItems();
         }
+    }
+
+    private void disableItems(){
+        leaveButton.setDisable(true);
+        startGameButton.setDisable(true);
+        dismissPersonButton.setDisable(true);
+    }
+
+    private void enableItems(){
+        leaveButton.setDisable(false);
+        startGameButton.setDisable(false);
+        dismissPersonButton.setDisable(false);
     }
 }

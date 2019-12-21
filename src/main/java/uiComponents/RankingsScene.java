@@ -58,25 +58,31 @@ public class RankingsScene implements Initializable {
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
-        if(settings.isAudioDescription())
-        {
-            tts.read( "The first player is " + firstNameLabel.getText()+ " the second player is " + secondNameLabel.getText()+ " the third player is " + thirdNameLabel.getText()+ " the fourth player is " + fourthNameLabel.getText()+ " the fifth player is " + fifthNameLabel.getText());
-        }
-
-        backButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
-                tts.read("Back");
-                backButton.setStyle(HOVERED_BUTTON_STYLE);
-            }
-            else
-                backButton.setStyle(IDLE_BUTTON_STYLE);
-        });
 
         // ------------------------------------
         // ------------------------------------
         // Request data from the server and set the rankings labels
         // ------------------------------------
         // ------------------------------------
+
+        if(settings.isAudioDescription())
+        {
+            tts.read( "The first player is " + firstNameLabel.getText()+ ". the second player is " + secondNameLabel.getText()
+                    + ". the third player is " + thirdNameLabel.getText()+ ". the fourth player is " + fourthNameLabel.getText()
+                    + ". the fifth player is " + fifthNameLabel.getText() + ". \n Back");
+        }
+
+        final boolean[] first = {true};
+        backButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first[0])
+                    tts.read("Back");
+                backButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                backButton.setStyle(IDLE_BUTTON_STYLE);
+            first[0] = false;
+        });
 
     }
 }
