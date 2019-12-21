@@ -229,6 +229,7 @@ public class GameScene implements Initializable {
         game.players[0].playerCards[6].cardName = "Forum";
 
         game.players[0].board = new Board();
+       // System.out.println(DataHandler.getInstance().getGame().users.length);
         game.players[0].board.wonderName = "Alexandria A";
         game.players[0].board.cards = new Card[19];
         game.players[0].board.cards[0] = new Card();
@@ -836,34 +837,33 @@ public class GameScene implements Initializable {
             cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
-        
+
         //Update coins and tokens on the table
-        /*
-        if((DataHandler.getInstance().getGame().users.length > 0) && (DataHandler.getInstance().getGame().users[0]!= null))
+
+        if((DataHandler.getInstance().getGame().users != null) && (DataHandler.getInstance().getGame().users[0]!= null))
         {
             username1.setText(DataHandler.getInstance().getGame().users[0].userName);
             coin1.setText(Integer.toString(DataHandler.getInstance().getGame().players[0].coin));
             token1.setText(Integer.toString(DataHandler.getInstance().getGame().players[0].militaryPoints));
         }
-        if((DataHandler.getInstance().getGame().users.length > 1) && (DataHandler.getInstance().getGame().users[1]!= null))
+        if((DataHandler.getInstance().getGame().users != null) && (DataHandler.getInstance().getGame().users.length > 1 )&& (DataHandler.getInstance().getGame().users[1]!= null))
         {
             username2.setText(DataHandler.getInstance().getGame().users[1].userName);
             coin2.setText(Integer.toString(DataHandler.getInstance().getGame().players[1].coin));
             token2.setText(Integer.toString(DataHandler.getInstance().getGame().players[1].militaryPoints));
         }
-        if((DataHandler.getInstance().getGame().users.length > 2) && (DataHandler.getInstance().getGame().users[2]!= null))
+        if((DataHandler.getInstance().getGame().users != null) &&  (DataHandler.getInstance().getGame().users.length > 2) &&(DataHandler.getInstance().getGame().users[2]!= null))
         {
             username3.setText(DataHandler.getInstance().getGame().users[2].userName);
             coin3.setText(Integer.toString(DataHandler.getInstance().getGame().players[2].coin));
             token3.setText(Integer.toString(DataHandler.getInstance().getGame().players[2].militaryPoints));
         }
-        if((DataHandler.getInstance().getGame().users.length > 3) && (DataHandler.getInstance().getGame().users[3]!= null))
+        if((DataHandler.getInstance().getGame().users != null) && (DataHandler.getInstance().getGame().users.length > 3) && (DataHandler.getInstance().getGame().users[3]!= null))
         {
             username4.setText(DataHandler.getInstance().getGame().users[3].userName);
             coin4.setText(Integer.toString(DataHandler.getInstance().getGame().players[3].coin));
             token4.setText(Integer.toString(DataHandler.getInstance().getGame().players[3].militaryPoints));
-        }*/
-
+        }
     }
 
     // Board listeners
