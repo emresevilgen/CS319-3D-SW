@@ -60,6 +60,7 @@ public class Constants {
     //Tokens
     public static final String COIN_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "coin.png");
     public static final String TOKEN_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "fight1.png");
+    public static final String WONDER_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "stage.png");
 
 
 }

@@ -215,11 +215,22 @@ public class SeeThePlayersScene implements Initializable {
                 checkBoxes[i-1].setDisable(true);
 
         }
-
-
         try {
             secondPlayerStatus.setImage(null);
             //Change status of the users
+            if(dataHandler.getLobby().lobbyUsers.length > 0 &&  dataHandler.getLobby().lobbyUsers[0] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
+                if (!dataHandler.getLobby().lobbyUsers[0].isReady || !dataHandler.getLobby().lobbyUsers[0].isActive){
+                    Image crossImage = new Image(inputStream);
+                    secondPlayerStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream2);
+                    secondPlayerStatus.setImage(checkImage);
+                }
+            }
             if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
