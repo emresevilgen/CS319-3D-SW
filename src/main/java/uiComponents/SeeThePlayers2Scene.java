@@ -376,7 +376,7 @@ public class SeeThePlayers2Scene implements Initializable {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(errorMsg);
-            alert.initOwner(readyButton.getScene().getWindow());
+            //alert.initOwner(readyButton.getScene().getWindow());
             alert.getButtonTypes().forEach(buttonType -> {
                 alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
                     if(newValue && dataHandler.getSettings().isAudioDescription() && !first[0])
