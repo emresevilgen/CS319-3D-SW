@@ -153,6 +153,16 @@ public class GameScene implements Initializable {
     Label token3;
     @FXML
     Label token4;
+    @FXML
+    ImageView wonderStage;
+    @FXML
+    Label stage1;
+    @FXML
+    Label stage2;
+    @FXML
+    Label stage3;
+    @FXML
+    Label stage4;
 
 
     // Button colors for hovered and not
@@ -213,6 +223,9 @@ public class GameScene implements Initializable {
             FileInputStream inputStream3 = new FileInputStream(Constants.TABLE_IMAGE);
             Image tableImage = new Image(inputStream3);
             table.setImage(tableImage);
+            FileInputStream inputStream4 = new FileInputStream(Constants.WONDER_IMAGE);
+            Image wonderImage = new Image(inputStream4);
+            wonderStage.setImage(wonderImage);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -847,24 +860,28 @@ public class GameScene implements Initializable {
             username1.setText(game.users[0].userName);
             coin1.setText(Integer.toString(game.players[0].coin));
             token1.setText(Integer.toString(game.players[0].victoryPoints));
+            stage1.setText(Integer.toString(game.players[0].board.wonderStage));
         }
         if((game.users != null) && (game.users.length > 1 )&& (game.users[1]!= null))
         {
             username2.setText(game.users[1].userName);
             coin2.setText(Integer.toString(game.players[1].coin));
             token2.setText(Integer.toString(game.players[1].victoryPoints));
+            stage2.setText(Integer.toString(game.players[1].board.wonderStage));
         }
         if((game.users != null) &&  (game.users.length > 2) &&(game.users[2]!= null))
         {
             username3.setText(game.users[2].userName);
             coin3.setText(Integer.toString(game.players[2].coin));
             token3.setText(Integer.toString(game.players[2].victoryPoints));
+            stage3.setText(Integer.toString(game.players[2].board.wonderStage));
         }
         if((game.users != null) && (game.users.length > 3) && (game.users[3]!= null))
         {
             username4.setText(game.users[3].userName);
             coin4.setText(Integer.toString(game.players[3].coin));
             token4.setText(Integer.toString(game.players[3].victoryPoints));
+            stage4.setText(Integer.toString(game.players[3].board.wonderStage));
         }
     }
 

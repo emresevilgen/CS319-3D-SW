@@ -215,8 +215,6 @@ public class SeeThePlayersScene implements Initializable {
                 checkBoxes[i-1].setDisable(true);
 
         }
-
-
         try {
             secondPlayerStatus.setImage(null);
             //Change status of the users
