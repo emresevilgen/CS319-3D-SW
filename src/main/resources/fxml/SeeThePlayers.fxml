@@ -22,11 +22,6 @@
                 <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="dismissPersonButton" layoutX="1003.0" layoutY="670.0" mnemonicParsing="false" onAction="#dismissThePerson" prefHeight="65.0" prefWidth="347.0" style="-fx-background-color: #817277;" text="Dismiss the Person" textFill="WHITE">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Button>
         <Label layoutX="733.0" layoutY="316.0" prefHeight="30.0" prefWidth="143.0" text="Username" textFill="WHITE">
             <font>
                 <Font size="25.0" />
@@ -74,6 +69,11 @@
       <CheckBox fx:id="secondPlayerCheckBox" layoutX="635.0" layoutY="436.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
       <CheckBox fx:id="thirdPlayerCheckBox" layoutX="635.0" layoutY="496.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
       <CheckBox fx:id="fourthPlayerCheckBox" layoutX="635.0" layoutY="556.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+        <Button fx:id="dismissPersonButton" layoutX="1003.0" layoutY="670.0" mnemonicParsing="false" onAction="#dismissThePerson" prefHeight="65.0" prefWidth="347.0" style="-fx-background-color: #817277;" text="Dismiss the Person" textFill="WHITE">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Button>
       <Label fx:id="lobbyCode" layoutX="603.0" layoutY="180.0" prefHeight="45.0" prefWidth="710.0" textFill="WHITE">
          <font>
             <Font size="30.0" />

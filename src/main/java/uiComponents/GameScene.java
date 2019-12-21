@@ -436,6 +436,20 @@ public class GameScene implements Initializable {
                     }
                }
 
+               if(keyCode.equals(KeyCode.N))
+               {
+                   switchAudioDescriptionHelper();
+               }
+
+               if(keyCode.equals(keyCode.M))
+               {
+                   switchSoundEffectsHelper();
+               }
+               if(keyCode.equals(KeyCode.ESCAPE))
+               {
+                   exitHelper();
+               }
+
                event.consume();
            }
         });
@@ -519,36 +533,48 @@ public class GameScene implements Initializable {
 
     // Audio description button listener
     public void switchAudioDescription(MouseEvent actionEvent) {
+        switchAudioDescriptionHelper();
+    }
+
+    public void switchAudioDescriptionHelper()
+    {
         // Change the image size according to its status
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
         settings.switchAudioDescription();
         if(settings.isAudioDescription()){
+            tts.read("Enable audio description");
             audioDescriptionView.setFitHeight(70);
             audioDescriptionView.setFitWidth(70);
             audioDescriptionView.setY(-13);
             audioDescriptionView.setX(-10);
         }
         else {
+            tts.read("Disable audio description");
             audioDescriptionView.setFitWidth(45);
             audioDescriptionView.setFitHeight(45);
             audioDescriptionView.setY(0);
             audioDescriptionView.setX(0);
         }
-
-
     }
-
     // Sound effects button listener
     public void switchSoundEffects(MouseEvent actionEvent) {
+        switchSoundEffectsHelper();
+    }
+
+    public void switchSoundEffectsHelper()
+    {
         Settings settings = DataHandler.getInstance().getSettings();
 
         // Change the image according to its status
         MediaPlayer mediaPlayer = SceneHandler.getInstance().getMediaPlayer();
-        settings.switchSoundEffects();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
         FileInputStream inputStream = null;
+        settings.switchSoundEffects();
         try {
             if (settings.isSoundEffects()) {
                 // Play music
+                tts.read("Enable the sound effect");
                 inputStream = new FileInputStream(Constants.SOUND_EFFECTS_ON_IMAGE);
                 DataHandler dataHandler = DataHandler.getInstance();
                 int ageNumber = dataHandler.getGame().ageNumber;
@@ -569,21 +595,25 @@ public class GameScene implements Initializable {
             }
             else {
                 // Stop music
+                tts.read("Disable the sound effect");
                 inputStream = new FileInputStream(Constants.SOUND_EFFECTS_OFF_IMAGE);
                 if (mediaPlayer != null)
                     mediaPlayer.stop();
 
             }
-
             Image soundImage = new Image(inputStream);
             soundEffectsView.setImage(soundImage);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
-
     // Exit button listener
     public void exit(MouseEvent actionEvent){
+        exitHelper();
+    }
+
+    public void exitHelper()
+    {
         disableItems();
         final boolean[] first = {true};
         Settings settings = DataHandler.getInstance().getSettings();
@@ -640,7 +670,6 @@ public class GameScene implements Initializable {
             alert.close();
         }
     }
-
     // Focus into card when mouse entered
     public void focusIntoBoardCard(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();

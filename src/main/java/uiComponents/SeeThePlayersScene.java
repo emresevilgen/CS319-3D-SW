@@ -15,10 +15,10 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
-import models.DataHandler;
-import models.Lobby;
-import models.Settings;
+import models.*;
 import rest.Requester;
 import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
@@ -285,6 +285,8 @@ public class SeeThePlayersScene implements Initializable {
 
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        tts.read("The lobby code: "+ DataHandler.getInstance().getLobby().lobbyCode );
+
 
         final boolean[] first = {true};
         leaveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
@@ -330,6 +332,74 @@ public class SeeThePlayersScene implements Initializable {
 
         labelsState[0] = firstStateLabel;
 
+        secondPlayerCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (secondPlayerCheckBox.isSelected() && !first[0] && !secondNameLabel.getText().equals(""))
+                    tts.read("Do not " + secondNameLabel.getText());
+                else if(!secondNameLabel.getText().equals(""))
+                    tts.read("Dismiss " + secondNameLabel.getText());
+            }
+            first[0] = false;
+        });
+        thirdPlayerCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (thirdPlayerCheckBox.isSelected() && !first[0] && !thirdNameLabel.getText().equals(""))
+                    tts.read("Do not " + thirdNameLabel.getText());
+                else if(!thirdNameLabel.getText().equals(""))
+                    tts.read("Dismiss" + thirdNameLabel.getText());
+            }
+            first[0] = false;
+        });
+        fourthPlayerCheckBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (fourthPlayerCheckBox.isSelected() && !first[0] && !fourthNameLabel.getText().equals(""))
+                    tts.read("Do not " + fourthNameLabel.getText());
+                else if(!fourthNameLabel.getText().equals(""))
+                    tts.read("Dismiss " + fourthNameLabel.getText());
+            }
+            first[0] = false;
+        });
+
+        SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                Game game = DataHandler.getInstance().getGame();
+                DataHandler dataHandler = DataHandler.getInstance();
+
+                if(keyCode.equals(KeyCode.R) && settings.isAudioDescription())
+                {
+                    if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
+                    {
+                        if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + "is not active");
+                        }
+                        else{
+                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + "is active");
+                        }
+                    }
+                    if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
+                    {
+                        if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + "is not active");
+                        }
+                        else{
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + "is active");
+                        }
+                    }
+                    if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
+                    {
+                        if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + "is not active");
+                        }
+                        else{
+                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + "is active");
+                        }
+                    }
+                }
+                event.consume();
+            }
+        });
         // Get the lobby data and initialize the people in the lobby
         update();
     }
