@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -120,10 +121,39 @@ public class GameScene implements Initializable {
     ImageView card18;
     @FXML
     ImageView card19;
+
+    //Table elements
     @FXML
     ImageView coins;
     @FXML
     ImageView militaryTokens;
+    @FXML
+    ImageView table;
+    @FXML
+    Label username1;
+    @FXML
+    Label username2;
+    @FXML
+    Label username3;
+    @FXML
+    Label username4;
+    @FXML
+    Label coin1;
+    @FXML
+    Label coin2;
+    @FXML
+    Label coin3;
+    @FXML
+    Label coin4;
+    @FXML
+    Label token1;
+    @FXML
+    Label token2;
+    @FXML
+    Label token3;
+    @FXML
+    Label token4;
+
 
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #a73535; -fx-opacity: 1;";
@@ -250,7 +280,9 @@ public class GameScene implements Initializable {
             FileInputStream inputStream2 = new FileInputStream(Constants.TOKEN_IMAGE);
             Image tokenImage = new Image(inputStream2);
             militaryTokens.setImage(tokenImage);
-
+            FileInputStream inputStream3 = new FileInputStream(Constants.TABLE_IMAGE);
+            Image tableImage = new Image(inputStream3);
+            table.setImage(tableImage);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -804,6 +836,33 @@ public class GameScene implements Initializable {
             cardsInColorOrder[viewOrder] = card;
             viewOrder++;
         }
+        
+        //Update coins and tokens on the table
+        /*
+        if((DataHandler.getInstance().getGame().users.length > 0) && (DataHandler.getInstance().getGame().users[0]!= null))
+        {
+            username1.setText(DataHandler.getInstance().getGame().users[0].userName);
+            coin1.setText(Integer.toString(DataHandler.getInstance().getGame().players[0].coin));
+            token1.setText(Integer.toString(DataHandler.getInstance().getGame().players[0].militaryPoints));
+        }
+        if((DataHandler.getInstance().getGame().users.length > 1) && (DataHandler.getInstance().getGame().users[1]!= null))
+        {
+            username2.setText(DataHandler.getInstance().getGame().users[1].userName);
+            coin2.setText(Integer.toString(DataHandler.getInstance().getGame().players[1].coin));
+            token2.setText(Integer.toString(DataHandler.getInstance().getGame().players[1].militaryPoints));
+        }
+        if((DataHandler.getInstance().getGame().users.length > 2) && (DataHandler.getInstance().getGame().users[2]!= null))
+        {
+            username3.setText(DataHandler.getInstance().getGame().users[2].userName);
+            coin3.setText(Integer.toString(DataHandler.getInstance().getGame().players[2].coin));
+            token3.setText(Integer.toString(DataHandler.getInstance().getGame().players[2].militaryPoints));
+        }
+        if((DataHandler.getInstance().getGame().users.length > 3) && (DataHandler.getInstance().getGame().users[3]!= null))
+        {
+            username4.setText(DataHandler.getInstance().getGame().users[3].userName);
+            coin4.setText(Integer.toString(DataHandler.getInstance().getGame().players[3].coin));
+            token4.setText(Integer.toString(DataHandler.getInstance().getGame().players[3].militaryPoints));
+        }*/
 
     }
 

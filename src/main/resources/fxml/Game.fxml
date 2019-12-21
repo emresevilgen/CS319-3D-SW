@@ -65,57 +65,58 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Label layoutX="58.0" layoutY="95.0" prefHeight="24.0" prefWidth="120.0" text="esra">
+      <ImageView fx:id="table" fitHeight="213.0" fitWidth="386.0" layoutX="21.0" layoutY="23.0" opacity="0.8" pickOnBounds="true" />
+      <Label fx:id="username1" layoutX="58.0" layoutY="95.0" prefHeight="24.0" prefWidth="120.0" text="esra" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="58.0" layoutY="125.0" prefHeight="24.0" prefWidth="120.0" text="nur">
+      <Label fx:id="username2" layoutX="58.0" layoutY="125.0" prefHeight="24.0" prefWidth="120.0" text="nur" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="58.0" layoutY="155.0" prefHeight="24.0" prefWidth="120.0" text="deniz">
+      <Label fx:id="username3" layoutX="58.0" layoutY="155.0" prefHeight="24.0" prefWidth="120.0" text="deniz" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="58.0" layoutY="185.0" prefHeight="24.0" prefWidth="120.0" text="seven">
+      <Label fx:id="username4" layoutX="58.0" layoutY="185.0" prefHeight="24.0" prefWidth="120.0" text="seven" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
       <ImageView fx:id="coins" fitHeight="45.0" fitWidth="45.0" layoutX="220.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="militaryTokens" fitHeight="45.0" fitWidth="45.0" layoutX="308.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="230.0" layoutY="95.0" prefHeight="24.0" prefWidth="50.0" text="1" textAlignment="CENTER">
+      <Label fx:id="coin1" layoutX="230.0" layoutY="95.0" prefHeight="24.0" prefWidth="50.0" text="1" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label layoutX="230.0" layoutY="125.0" prefHeight="24.0" prefWidth="50.0" text="5" textAlignment="CENTER">
+      <Label fx:id="coin2" layoutX="230.0" layoutY="125.0" prefHeight="24.0" prefWidth="50.0" text="5" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label layoutX="230.0" layoutY="155.0" prefHeight="24.0" prefWidth="50.0" text="3" textAlignment="CENTER">
+      <Label fx:id="coin3" layoutX="230.0" layoutY="155.0" prefHeight="24.0" prefWidth="50.0" text="3" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label layoutX="230.0" layoutY="185.0" prefHeight="24.0" prefWidth="50.0" text="7" textAlignment="CENTER">
+      <Label fx:id="coin4" layoutX="230.0" layoutY="185.0" prefHeight="24.0" prefWidth="50.0" text="7" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label layoutX="320.0" layoutY="95.0" prefHeight="24.0" prefWidth="50.0" text="-1" wrapText="true">
+      <Label fx:id="token1" layoutX="320.0" layoutY="95.0" prefHeight="24.0" prefWidth="50.0" text="-1" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label layoutX="320.0" layoutY="125.0" prefHeight="24.0" prefWidth="50.0" text="8" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="token2" layoutX="320.0" layoutY="125.0" prefHeight="24.0" prefWidth="50.0" text="8" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label layoutX="320.0" layoutY="155.0" prefHeight="24.0" prefWidth="50.0" text="3" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="token3" layoutX="320.0" layoutY="155.0" prefHeight="24.0" prefWidth="50.0" text="3" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label layoutX="320.0" layoutY="185.0" prefHeight="24.0" prefWidth="50.0" text="-3" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="token4" layoutX="320.0" layoutY="185.0" prefHeight="24.0" prefWidth="50.0" text="-3" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>

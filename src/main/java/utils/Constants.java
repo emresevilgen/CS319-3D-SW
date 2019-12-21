@@ -33,6 +33,7 @@ public class Constants {
     public static final String CREATE_LOBBY_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "back_CreateLobby.png");
     public static final String SEE_THE_PLAYERS_BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "back_SeeThePlayers.png");
     public static final String BACK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "bg.png");
+    public static final String TABLE_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "table.jpg");
 
 
     // Icons images
