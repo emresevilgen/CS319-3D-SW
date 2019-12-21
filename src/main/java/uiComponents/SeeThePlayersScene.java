@@ -67,6 +67,7 @@ public class SeeThePlayersScene implements Initializable {
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 0.85;";
+    public ImageView firstPlayerStatus;
 
     // Label array to change the usernames and states of the players
     Label [] labelsName = new Label[4];
@@ -224,11 +225,11 @@ public class SeeThePlayersScene implements Initializable {
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
                 if (!dataHandler.getLobby().lobbyUsers[0].isReady || !dataHandler.getLobby().lobbyUsers[0].isActive){
                     Image crossImage = new Image(inputStream);
-                    secondPlayerStatus.setImage(crossImage);
+                    firstPlayerStatus.setImage(crossImage);
                 }
                 else{
                     Image checkImage = new Image(inputStream2);
-                    secondPlayerStatus.setImage(checkImage);
+                    firstPlayerStatus.setImage(checkImage);
                 }
             }
             if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)

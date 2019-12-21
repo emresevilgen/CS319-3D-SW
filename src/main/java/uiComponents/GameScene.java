@@ -586,7 +586,8 @@ public class GameScene implements Initializable {
         try {
             if (settings.isSoundEffects()) {
                 // Play music
-                tts.read("Enable the sound effect");
+                if(settings.isAudioDescription())
+                    tts.read("Enable the sound effect");
                 inputStream = new FileInputStream(Constants.SOUND_EFFECTS_ON_IMAGE);
                 DataHandler dataHandler = DataHandler.getInstance();
                 int ageNumber = dataHandler.getGame().ageNumber;
@@ -607,7 +608,8 @@ public class GameScene implements Initializable {
             }
             else {
                 // Stop music
-                tts.read("Disable the sound effect");
+                if(settings.isAudioDescription())
+                    tts.read("Disable the sound effect");
                 inputStream = new FileInputStream(Constants.SOUND_EFFECTS_OFF_IMAGE);
                 if (mediaPlayer != null)
                     mediaPlayer.stop();
@@ -1070,16 +1072,22 @@ public class GameScene implements Initializable {
 
     public void wonderAction(ActionEvent event)
     {
+        DataHandler.getInstance().getGame().ageNumber = 3;
+
         update();
     }
 
     public void structureAction(ActionEvent event)
     {
+        DataHandler.getInstance().getGame().ageNumber = 2;
+
         update();
     }
 
     public void discardAction(ActionEvent event)
     {
+        DataHandler.getInstance().getGame().ageNumber = 1;
+
         update();
     }
 
