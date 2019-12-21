@@ -56,4 +56,9 @@ public class Constants {
     public static final String AGE_TWO_SOUND = String.join(File.separator, "src", "main", "resources", "sounds", "age2.wav");
     public static final String AGE_THREE_SOUND = String.join(File.separator, "src", "main", "resources", "sounds", "age3.wav");
 
+    //Tokens
+    public static final String COIN_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "coin.png");
+    public static final String TOKEN_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "fight1.png");
+
+
 }

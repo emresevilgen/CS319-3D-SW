@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -118,6 +120,10 @@ public class GameScene implements Initializable {
     ImageView card18;
     @FXML
     ImageView card19;
+    @FXML
+    ImageView coins;
+    @FXML
+    ImageView militaryTokens;
 
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #a73535; -fx-opacity: 1;";
@@ -236,6 +242,23 @@ public class GameScene implements Initializable {
         game.players[3].board.cards = new Card[19];
 
         //-----------------------------------------------
+
+        try {
+            FileInputStream inputStream = new FileInputStream(Constants.COIN_IMAGE);
+            Image coinImage = new Image(inputStream);
+            coins.setImage(coinImage);
+            FileInputStream inputStream2 = new FileInputStream(Constants.TOKEN_IMAGE);
+            Image tokenImage = new Image(inputStream2);
+            militaryTokens.setImage(tokenImage);
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+
 
         // Setting the mouse entered and exited listeners for hover effect
         nextTurnButton.setOnMouseEntered(e -> { nextTurnButton.setStyle(HOVERED_BUTTON_STYLE); });
@@ -396,7 +419,7 @@ public class GameScene implements Initializable {
                {
                    if(selectedCardIndex == 0)
                    {
-                       selectedCardIndex = 6 - turnNumber;
+                       selectedCardIndex = 7 - turnNumber;
                    }
                    selectedCardIndex--;
                    if(settings.isAudioDescription()) {
