@@ -53,7 +53,7 @@ public class MainMenuScene implements Initializable {
 
     // Join button listener
     public void joinLobby(ActionEvent event) throws Exception {
-
+        disableItems();
         // Show pop up to get the lobby code
         TextInputDialog dialog = new TextInputDialog("Lobby Code");
         dialog.setTitle("Join to the Existing Lobby");
@@ -81,6 +81,7 @@ public class MainMenuScene implements Initializable {
         });
 
         Optional<String> result = dialog.showAndWait(); // Show pop up
+        enableItems();
 
         DataHandler dataHandler = DataHandler.getInstance();
 
@@ -147,7 +148,9 @@ public class MainMenuScene implements Initializable {
 
     // Exit button listener
     public void exit(ActionEvent event) throws Exception {
+        disableItems();
         SceneHandler.getInstance().exit();
+        enableItems();
     }
 
     // Signout button listener
@@ -179,13 +182,15 @@ public class MainMenuScene implements Initializable {
             alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue && settings.isAudioDescription() && !first[0])
                     AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
-                System.out.println(buttonType.getText());
                 first[0] = false;
             });
         });
 
         // Get the result
         Optional<ButtonType> result = alert.showAndWait();
+        enableItems();
+
+
         if (result.get() == buttonYes){
             DataHandler.getInstance().setUser(null);
             SceneHandler.getInstance().moveToSignIn(); // Move to sign in
@@ -193,7 +198,6 @@ public class MainMenuScene implements Initializable {
             alert.close(); // Cancel
         }
 
-        enableItems();
 
     }
 

@@ -378,6 +378,7 @@ public class SceneHandler extends Application {
     // Exit
     public void exit(){
         // Show confirmation pop up
+        final boolean[] first = {true};
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -397,6 +398,13 @@ public class SceneHandler extends Application {
         ButtonType buttonYes = new ButtonType("Yes");
         ButtonType buttonNo = new ButtonType("No");
         alert.getButtonTypes().setAll(buttonNo, buttonYes);
+        alert.getButtonTypes().forEach(buttonType -> {
+            alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue && settings.isAudioDescription() && !first[0])
+                    AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                first[0] = false;
+            });
+        });
 
         // Get the result
         Optional<ButtonType> result = alert.showAndWait();

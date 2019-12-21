@@ -584,6 +584,11 @@ public class GameScene implements Initializable {
 
     // Exit button listener
     public void exit(MouseEvent actionEvent){
+        disableItems();
+        final boolean[] first = {true};
+        Settings settings = DataHandler.getInstance().getSettings();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
         // Show confirmation pop up
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ((Stage)alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
@@ -592,12 +597,26 @@ public class GameScene implements Initializable {
         alert.setGraphic(null);
         alert.initOwner(exitView.getScene().getWindow());
         alert.setContentText("Do you want to exit the current game?");
+
+        if(settings.isAudioDescription())
+        {
+            tts.read("Do you want to exit the current game? Press enter to say yes or no. No");
+        }
         // Add options
         ButtonType buttonYes = new ButtonType("Yes");
         ButtonType buttonNo = new ButtonType("No");
         alert.getButtonTypes().setAll(buttonNo, buttonYes);
+        alert.getButtonTypes().forEach(buttonType -> {
+            alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue && settings.isAudioDescription() && !first[0])
+                    AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                first[0] = false;
+            });
+        });
 
         Optional<ButtonType> result = alert.showAndWait();
+        enableItems();
+
         // Get the result
         if (result.get() == buttonYes){
             timeLine.stop(); // Stop requests
