@@ -1,12 +1,15 @@
 package uiComponents;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import utils.Constants;
 
 import java.io.FileInputStream;
@@ -90,6 +93,19 @@ public class CommerceScene implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                if (keyCode.equals(keyCode.ESCAPE))
+                    SceneHandler.getInstance().getStagePopup().close();
+                event.consume();
+            }
+        });
+
+
+
     }
 
     public void makeCommerce(ActionEvent actionEvent){

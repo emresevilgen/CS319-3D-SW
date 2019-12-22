@@ -177,6 +177,8 @@ public class GameScene implements Initializable {
     private Card focusedCardInBoard;
     private ImageView focusedCardInBoardView;
     private int focusedCardInBoardIndex;
+    int playerNumberOfCards;
+
 
 
     private int boardIndex;
@@ -374,7 +376,7 @@ public class GameScene implements Initializable {
                if(keyCode.equals(KeyCode.R) && keyInput.equals("boardCards"))
                {
                    //if in içinde boarddaki  card sayısını compare etmek için bunu kullan game.players[0].board.cardCount,bunu da oyun sırasında arttır
-                   if(focusedCardInBoardIndex == 3)//değiştir
+                   if(focusedCardInBoardIndex == playerNumberOfCards)//değiştir
                    {
                        focusedCardInBoardIndex = -1;
                    }
@@ -491,7 +493,7 @@ public class GameScene implements Initializable {
 
                if(keyCode.equals(keyCode.H))
                {
-                    SceneHandler.getInstance().showHowToPlayScene();
+                   SceneHandler.getInstance().showHowToPlayScene();
                }
                event.consume();
            }
@@ -1037,6 +1039,7 @@ public class GameScene implements Initializable {
                 ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(greenCards.get(i)));
                 viewOrder++;
             }
+
         }
         catch (Exception e){
             e.printStackTrace();

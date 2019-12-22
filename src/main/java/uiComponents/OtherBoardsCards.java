@@ -1,6 +1,9 @@
 package uiComponents;
 
 import audioDescription.DescriptionReader;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,12 +21,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import models.Card;
 import models.DataHandler;
+import models.Settings;
+import models.User;
 import utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -79,11 +86,24 @@ public class OtherBoardsCards implements Initializable {
     @FXML
     private ImageView focus;
 
-    public Stage commerceStage;
-    public Scene commerceScene;
+    // To send a request at every second
+    Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+            // Server request and update the game
+            update();
+
+        }
+    }));
 
     private ImageView[] cardViews;
     private DescriptionReader tts = new DescriptionReader();
+    private Card[] cards;
+    private Card[] cardsInColorOrder;
+
+    private int focusedCardInBoardIndex;
+
 
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 1;";
@@ -119,14 +139,50 @@ public class OtherBoardsCards implements Initializable {
         commerceButton.setOnMouseEntered(e -> { commerceButton.setStyle(HOVERED_BUTTON_STYLE); });
         commerceButton.setOnMouseExited(e -> commerceButton.setStyle(IDLE_BUTTON_STYLE));
 
+        // Start sending requests
+        timeLine.setCycleCount(Animation.INDEFINITE);
+        timeLine.play();
+
+        SceneHandler.getInstance().getStagePopup().setOnCloseRequest(e -> {
+            timeLine.stop();
+        });
+
+        focusedCardInBoardIndex = 0;
+
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();
-                if (keyCode.equals(keyCode.ESCAPE))
+                if (keyCode.equals(KeyCode.ESCAPE))
                     SceneHandler.getInstance().getStagePopup().close();
+
+                DataHandler dataHandler = DataHandler.getInstance();
+                Settings settings = dataHandler.getSettings();
+                if (dataHandler.getSettings().isAudioDescription()) {
+                    if(keyCode.equals(KeyCode.R))
+                    {
+                        if(focusedCardInBoardIndex == 3)//değiştir
+                        {
+                            focusedCardInBoardIndex = -1;
+                        }
+                        focusedCardInBoardIndex++;
+                        if(settings.isAudioDescription())
+                            tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
+                    }
+                    else if(keyCode.equals(KeyCode.E))
+                    {
+                        if(focusedCardInBoardIndex == 0)
+                        {
+                            focusedCardInBoardIndex = 4;//değiştir
+                        }
+                        focusedCardInBoardIndex--;
+                        if(settings.isAudioDescription())
+                            tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
+                    }
+                }
                 event.consume();
             }
+
         });
     }
 
@@ -148,6 +204,7 @@ public class OtherBoardsCards implements Initializable {
     }
 
     public void commerce(ActionEvent actionEvent) {
+        timeLine.stop();
         SceneHandler.getInstance().showCommerceScene();
     }
 
@@ -157,6 +214,131 @@ public class OtherBoardsCards implements Initializable {
         focus.setFitWidth(0);
         focus.setFitHeight(0);
         focus.setImage(null);
+    }
+
+    private void update() {
+        DataHandler dataHandler = DataHandler.getInstance();
+        String username = usernameLabel.getText();
+        User[] users = DataHandler.getInstance().getGame().users;
+        int userIndex = -1;
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] != null && users[i].userName.equals(username)) {
+                userIndex = i;
+            }
+        }
+        if (userIndex != -1) {
+            cards = dataHandler.getGame().players[userIndex].board.cards;
+            // Classify the cards
+            ArrayList<Card> brownCards = new ArrayList<>();
+            ArrayList<Card> grayCards = new ArrayList<>();
+            ArrayList<Card> redCards = new ArrayList<>();
+            ArrayList<Card> blueCards = new ArrayList<>();
+            ArrayList<Card> yellowCards = new ArrayList<>();
+            ArrayList<Card> purpleCards = new ArrayList<>();
+            ArrayList<Card> greenCards = new ArrayList<>();
+
+            for (int i = 0; i < cards.length; i++) {
+                if (cards[i] != null) {
+                    Card card = cards[i];
+                    String color = card.cardColor;
+                    switch (color) {
+                        case "Brown":
+                            brownCards.add(card);
+                            break;
+                        case "Gray":
+                            grayCards.add(card);
+                            break;
+                        case "Red":
+                            redCards.add(card);
+                            break;
+                        case "Blue":
+                            blueCards.add(card);
+                            break;
+                        case "Yellow":
+                            yellowCards.add(card);
+                            break;
+                        case "Purple":
+                            purpleCards.add(card);
+                            break;
+                        case "Green":
+                            greenCards.add(card);
+                            break;
+                    }
+                }
+            }
+
+            try {
+                // Display the cards in order(ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(
+                int viewOrder = 0;
+                int length = cards.length;
+                cardsInColorOrder = new Card[length];
+
+                for (int i = 0; i < redCards.size(); i++) {
+                    cardViews[viewOrder].setImage(getCardImage(redCards.get(i)));
+                    cardsInColorOrder[viewOrder] = redCards.get(i);
+                    viewOrder++;
+                }
+
+                for (int i = 0; i < brownCards.size(); i++) {
+                    cardViews[viewOrder].setImage(getCardImage(brownCards.get(i)));
+                    cardsInColorOrder[viewOrder] = brownCards.get(i);
+                    viewOrder++;
+                }
+
+                for (int i = 0; i < grayCards.size(); i++) {
+                    cardViews[viewOrder].setImage(getCardImage(grayCards.get(i)));
+                    cardsInColorOrder[viewOrder] = grayCards.get(i);
+                    viewOrder++;
+                }
+
+                for (int i = 0; i < blueCards.size(); i++) {
+                    cardViews[viewOrder].setImage(getCardImage(blueCards.get(i)));
+                    cardsInColorOrder[viewOrder] = blueCards.get(i);
+                    viewOrder++;
+                }
+
+                for (int i = 0; i < yellowCards.size(); i++) {
+                    cardViews[viewOrder].setImage(getCardImage(yellowCards.get(i)));
+                    cardsInColorOrder[viewOrder] = yellowCards.get(i);
+                    viewOrder++;
+                }
+
+                for (int i = 0; i < purpleCards.size(); i++) {
+                    cardViews[viewOrder].setImage(getCardImage(purpleCards.get(i)));
+                    cardsInColorOrder[viewOrder] = purpleCards.get(i);
+                    viewOrder++;
+                }
+
+                for (int i = 0; i < greenCards.size(); i++) {
+                    cardViews[viewOrder].setImage(getCardImage(greenCards.get(i)));
+                    cardsInColorOrder[viewOrder] = greenCards.get(i);
+                    viewOrder++;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Gets the Card object and returns its image
+     * @param card Card object
+     * @return the image of the card
+     */
+    public Image getCardImage(Card card){
+        if (card != null) {
+            String cardName = card.cardName;
+            // Get the path of the image
+            String cardPath = Constants.CARD_IMAGE + File.separator + cardName.replaceAll(" ", "").toLowerCase() + ".png";
+            try {
+                FileInputStream inputStream = new FileInputStream(cardPath);
+                return new Image(inputStream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 }
 
