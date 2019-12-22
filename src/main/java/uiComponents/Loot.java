@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
@@ -20,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.*;
 import utils.Constants;
@@ -165,9 +163,9 @@ public class Loot implements Initializable {
             coinLoot.setImage(coin);
             String username = usernameLabel.getText();
             int index = 0;
-            for(int i = 0; i < game.users.length; i++)
+            for(int i = 0; i < game.players.length; i++)
             {
-                if(username.equals(game.users[i].userName))
+                if(username.equals(game.players[i].name))
                     index = i;
             }
 
@@ -289,10 +287,10 @@ public class Loot implements Initializable {
                 Settings settings = dataHandler.getSettings();
                 Game game = DataHandler.getInstance().getGame();
                 String username = usernameLabel.getText();
-                User[] users = DataHandler.getInstance().getGame().users;
+                Player[] players = DataHandler.getInstance().getGame().players;
                 int userIndex = -1;
-                for (int i = 0; i < users.length; i++) {
-                    if (users[i] != null && users[i].userName.equals(username)) {
+                for (int i = 0; i < players.length; i++) {
+                    if (players[i] != null && players[i].name.equals(username)) {
                         userIndex = i;
                     }
                 }
@@ -305,7 +303,7 @@ public class Loot implements Initializable {
                         }
                         focusedCardInBoardIndex++;
                         if (settings.isAudioDescription())
-                            tts.read(cards[focusedCardInBoardIndex].cardName);
+                            tts.read(cards[focusedCardInBoardIndex].name);
                     }
                     else if(keyCode.equals(KeyCode.E))
                     {
@@ -314,7 +312,7 @@ public class Loot implements Initializable {
                         }
                         focusedCardInBoardIndex--;
                         if (settings.isAudioDescription())
-                            tts.read(cards[focusedCardInBoardIndex].cardName);
+                            tts.read(cards[focusedCardInBoardIndex].name);
                     }
                 }
                 event.consume();
@@ -326,10 +324,10 @@ public class Loot implements Initializable {
     private void update() {
         DataHandler dataHandler = DataHandler.getInstance();
         String username = usernameLabel.getText();
-        User[] users = DataHandler.getInstance().getGame().users;
+        Player[] players = DataHandler.getInstance().getGame().players;
         int userIndex = -1;
-        for (int i = 0; i < users.length; i++) {
-            if (users[i] != null && users[i].userName.equals(username)) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] != null && players[i].name.equals(username)) {
                 userIndex = i;
             }
         }
@@ -349,7 +347,7 @@ public class Loot implements Initializable {
      */
     public Image getCardImage(Card card){
         if (card != null) {
-            String cardName = card.cardName;
+            String cardName = card.name;
             // Get the path of the image
             String cardPath = Constants.CARD_IMAGE + File.separator + cardName.replaceAll(" ", "").toLowerCase() + ".png";
             try {
@@ -386,21 +384,21 @@ public class Loot implements Initializable {
         String username = usernameLabel.getText();
         Game game = DataHandler.getInstance().getGame();
         int index = 0;
-        for(int i = 0; i < game.users.length; i++)
+        for(int i = 0; i < game.players.length; i++)
         {
-            if(username.equals(game.users[i].userName))
+            if(username.equals(game.players[i].name))
                index = i;
         }
 
-        for (; cardIndex < game.players[index].playerCards.length; cardIndex++){
+        for (; cardIndex < game.players[index].cards.length; cardIndex++){
             Image image = cardViews[cardIndex].getImage();
             if (image != null && image.equals(currentImage))
                 break;
         }
 
-        if (cardIndex != game.players[index].playerCards.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
+        if (cardIndex != game.players[index].cards.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
             Reader tts = AudioDescriptionHandler.getInstance().getReader();
-            tts.read(game.players[index].playerCards[cardIndex].cardName);
+            tts.read(game.players[index].cards[cardIndex].name);
         }
     }
 

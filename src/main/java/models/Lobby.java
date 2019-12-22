@@ -6,19 +6,22 @@ import java.util.Arrays;
 
 public class Lobby {
     @SerializedName("id")
-    public String lobbyId;
+    public String id;
+
+    @SerializedName("gameId")
+    public String gameId;
 
     @SerializedName("admin")
-    public String lobbyAdmin;
+    public String admin;
 
     @SerializedName("name")
-    public String lobbyName;
+    public String name;
 
     @SerializedName("code")
-    public String lobbyCode;
+    public String code;
 
     @SerializedName("users")
-    public LobbyUser[] lobbyUsers;
+    public LobbyUser[] users;
 
     @SerializedName("mode")
     public Mode mode;
@@ -26,11 +29,11 @@ public class Lobby {
     @Override
     public String toString() {
         return "Lobby{" +
-                "lobbyId='" + lobbyId + '\'' +
-                ", lobbyAdmin='" + lobbyAdmin + '\'' +
-                ", lobbyName='" + lobbyName + '\'' +
-                ", lobbyCode='" + lobbyCode + '\'' +
-                ", lobbyUsers=" + Arrays.toString(lobbyUsers) +
+                "lobbyId='" + id + '\'' +
+                ", lobbyAdmin='" + admin + '\'' +
+                ", lobbyName='" + name + '\'' +
+                ", lobbyCode='" + code + '\'' +
+                ", lobbyUsers=" + Arrays.toString(users) +
                 ", mode=" + mode +
                 '}';
     }

@@ -9,10 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -28,14 +25,12 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import models.*;
 import utils.Constants;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -305,14 +300,14 @@ public class GameScene implements Initializable {
                if (keyCode.equals(KeyCode.C)){
                    keyInput = "deck";
                    if (settings.isAudioDescription())
-                       tts.read("The cards in the deck." + game.players[0].playerCards[selectedCardIndex].cardName);
+                       tts.read("The cards in the deck." + game.players[0].cards[selectedCardIndex].name);
                    selectTheCard(selectedCardIndex);
                }
                //Cards in the board
                else if (keyCode.equals(KeyCode.S)){
                    keyInput = "boardCards";
                    if(settings.isAudioDescription())
-                       tts.read("The cards in the board." + cards[focusedCardInBoardIndex].cardName);
+                       tts.read("The cards in the board." + cards[focusedCardInBoardIndex].name);
                }
                //Cards in the left player's board
                else if (keyCode.equals(KeyCode.A)){
@@ -322,12 +317,12 @@ public class GameScene implements Initializable {
 
                    if (game.players.length  == 3) {
                        Card[] cards = game.players[2].board.cards;
-                       String username = game.users[2].userName;
+                       String username = game.players[2].name;
                        showOtherPlayerCardsHelper(cards, username);
                    }
                    else if (game.players.length  == 4) {
                        Card[] cards = game.players[3].board.cards;
-                       String username = game.users[3].userName;
+                       String username = game.players[3].name;
                        showOtherPlayerCardsHelper(cards, username);
                    }
                }
@@ -338,7 +333,7 @@ public class GameScene implements Initializable {
                        if (settings.isAudioDescription())
                            tts.read("The cards in the across board.");
                        Card[] cards = game.players[2].board.cards;
-                       String username = game.users[2].userName;
+                       String username = game.players[2].name;
                        showOtherPlayerCardsHelper(cards, username);
                    }
                }
@@ -348,14 +343,14 @@ public class GameScene implements Initializable {
                    if(settings.isAudioDescription())
                        tts.read("The cards in the right board.");
                    Card[] cards = game.players[1].board.cards;
-                   String username = game.users[1].userName;
+                   String username = game.players[1].name;
                    showOtherPlayerCardsHelper(cards, username);
                }
                else if (keyCode.equals(KeyCode.B)){
                    keyInput = "boards";
                    boardIndex = 0;
                    if(settings.isAudioDescription())
-                       tts.read("The boards." + game.players[boardIndex].board.wonderName);
+                       tts.read("The boards." + game.players[boardIndex].board.name);
                }
                else if(keyCode.equals(KeyCode.R)) {
                    if (keyInput.equals("boardCards")) {
@@ -365,16 +360,16 @@ public class GameScene implements Initializable {
                        }
                        focusedCardInBoardIndex++;
                        if (settings.isAudioDescription())
-                           tts.read(cards[focusedCardInBoardIndex].cardName);
+                           tts.read(cards[focusedCardInBoardIndex].name);
                    }
                    else if (keyInput.equals("deck")){
-                       if(selectedCardIndex == (game.players[0].playerCards.length - 1) )
+                       if(selectedCardIndex == (game.players[0].cards.length - 1) )
                        {
                            selectedCardIndex = -1;
                        }
                        selectedCardIndex++;
                        if(settings.isAudioDescription())
-                           tts.read(game.players[0].playerCards[selectedCardIndex].cardName);
+                           tts.read(game.players[0].cards[selectedCardIndex].name);
                        selectTheCard(selectedCardIndex);
                    }
                    else if (keyInput.equals("boards")){
@@ -384,7 +379,7 @@ public class GameScene implements Initializable {
                        }
                        boardIndex++;
                        if(settings.isAudioDescription())
-                           tts.read(game.players[boardIndex].board.wonderName);
+                           tts.read(game.players[boardIndex].board.name);
                    }
                }
                else if (keyCode.equals(KeyCode.E)) {
@@ -394,16 +389,16 @@ public class GameScene implements Initializable {
                        }
                        focusedCardInBoardIndex--;
                        if (settings.isAudioDescription())
-                           tts.read(cards[focusedCardInBoardIndex].cardName);
+                           tts.read(cards[focusedCardInBoardIndex].name);
                    }
                    else if (keyInput.equals("deck")){
                        if(selectedCardIndex == 0)
                        {
-                           selectedCardIndex = game.players[0].playerCards.length;
+                           selectedCardIndex = game.players[0].cards.length;
                        }
                        selectedCardIndex--;
                        if(settings.isAudioDescription())
-                           tts.read(game.players[0].playerCards[selectedCardIndex].cardName);
+                           tts.read(game.players[0].cards[selectedCardIndex].name);
                        selectTheCard(selectedCardIndex);
                    }
                    else if (keyInput.equals("boards")){
@@ -413,15 +408,15 @@ public class GameScene implements Initializable {
                        }
                        boardIndex--;
                        if(settings.isAudioDescription())
-                           tts.read(game.players[boardIndex].board.wonderName);
+                           tts.read(game.players[boardIndex].board.name);
                    }
                }
                else if(keyCode.equals(KeyCode.I)){
                     if (settings.isAudioDescription()){
                         String text = "Age is " + game.ageNumber + " and turn is " + game.turnNumber+ " ";
-                        for (int i = 0; i < game.users.length; i++) {
-                            if (game.users[i] != null) {
-                                text = text + game.users[i].userName + " has ";
+                        for (int i = 0; i < game.players.length; i++) {
+                            if (game.players[i] != null) {
+                                text = text + game.players[i].name + " has ";
                                 Player player = game.players[i];
                                 if (player.coin > 1)
                                     text = text + player.coin + " coins ";
@@ -435,7 +430,7 @@ public class GameScene implements Initializable {
                                 else
                                     text = text + player.victoryPoints + " victory token. \n";
 
-                                text = text + " and the wonder stage is " + player.board.wonderStage ;
+                                text = text + " and the wonder stage is " + player.board.stage;
                             }
                         }
                         tts.read(text);
@@ -776,7 +771,7 @@ public class GameScene implements Initializable {
         // --------------------------------------
 
         // To display the cards at the hand of the player
-        Card[] playerCards = players[0].playerCards;
+        Card[] playerCards = players[0].cards;
         for (int i = 0; i < playerCards.length; i++){
             deckCardViews[i].setImage(getCardImage(playerCards[i]));
         }
@@ -794,33 +789,33 @@ public class GameScene implements Initializable {
         ageLabel.setText("Age: " + game.ageNumber);
         turnLabel.setText("Turn: " + game.turnNumber);
 
-        if((game.users != null) && (game.users[0]!= null))
+        if((game.players != null) && (game.players[0]!= null))
         {
-            username1.setText(game.users[0].userName);
+            username1.setText(game.players[0].name);
             coin1.setText(Integer.toString(game.players[0].coin));
             token1.setText(Integer.toString(game.players[0].victoryPoints));
-            stage1.setText(Integer.toString(game.players[0].board.wonderStage));
+            stage1.setText(Integer.toString(game.players[0].board.stage));
         }
-        if((game.users != null) && (game.users.length > 1 )&& (game.users[1]!= null))
+        if((game.players != null) && (game.players.length > 1 )&& (game.players[1]!= null))
         {
-            username2.setText(game.users[1].userName);
+            username2.setText(game.players[1].name);
             coin2.setText(Integer.toString(game.players[1].coin));
             token2.setText(Integer.toString(game.players[1].victoryPoints));
-            stage2.setText(Integer.toString(game.players[1].board.wonderStage));
+            stage2.setText(Integer.toString(game.players[1].board.stage));
         }
-        if((game.users != null) &&  (game.users.length > 2) &&(game.users[2]!= null))
+        if((game.players != null) &&  (game.players.length > 2) &&(game.players[2]!= null))
         {
-            username3.setText(game.users[2].userName);
+            username3.setText(game.players[2].name);
             coin3.setText(Integer.toString(game.players[2].coin));
             token3.setText(Integer.toString(game.players[2].victoryPoints));
-            stage3.setText(Integer.toString(game.players[2].board.wonderStage));
+            stage3.setText(Integer.toString(game.players[2].board.stage));
         }
-        if((game.users != null) && (game.users.length > 3) && (game.users[3]!= null))
+        if((game.players != null) && (game.players.length > 3) && (game.players[3]!= null))
         {
-            username4.setText(game.users[3].userName);
+            username4.setText(game.players[3].name);
             coin4.setText(Integer.toString(game.players[3].coin));
             token4.setText(Integer.toString(game.players[3].victoryPoints));
-            stage4.setText(Integer.toString(game.players[3].board.wonderStage));
+            stage4.setText(Integer.toString(game.players[3].board.stage));
         }
         else {
             username4.setText("");
@@ -842,23 +837,23 @@ public class GameScene implements Initializable {
         if (game.players.length == 4) {
             if (boardView.equals(rightBoard)) {
                 cards = game.players[1].board.cards;
-                username = game.users[1].userName;
+                username = game.players[1].name;
             } else if (boardView.equals(acrossBoard)) {
                 cards = game.players[2].board.cards;
-                username = game.users[2].userName;
+                username = game.players[2].name;
             } else if (boardView.equals(leftBoard)) {
                 cards = game.players[3].board.cards;
-                username = game.users[3].userName;
+                username = game.players[3].name;
             } else
                 return;
         }
         else {
             if (boardView.equals(rightBoard)) {
                 cards = game.players[1].board.cards;
-                username = game.users[1].userName;
+                username = game.players[1].name;
             } else if (boardView.equals(leftBoard)) {
                 cards = game.players[2].board.cards;
-                username = game.users[2].userName;
+                username = game.players[2].name;
             } else
                 return;
         }
@@ -871,13 +866,13 @@ public class GameScene implements Initializable {
         Card [] cards;
         // Get the players cards
         Game game = DataHandler.getInstance().getGame();
-        if (username.equals(game.users[1].userName)) {
+        if (username.equals(game.players[1].name)) {
             cards = game.players[1].board.cards;
         }
-        else if (username.equals(game.users[2].userName)) {
+        else if (username.equals(game.players[2].name)) {
             cards = game.players[2].board.cards;
         }
-        else if (username.equals(game.users[3].userName)) {
+        else if (username.equals(game.players[3].name)) {
             cards = game.players[3].board.cards;
         }
         else
@@ -919,7 +914,7 @@ public class GameScene implements Initializable {
      */
     public Image getCardImage(Card card){
         if (card != null) {
-            String cardName = card.cardName;
+            String cardName = card.name;
             // Get the path of the image
             String cardPath = Constants.CARD_IMAGE + File.separator + cardName.replaceAll(" ", "").toLowerCase() + ".png";
             try {
@@ -941,7 +936,7 @@ public class GameScene implements Initializable {
      */
     public Image getBoardImage(Board board, int index){
         if (board != null) {
-            String boardName = board.wonderName;
+            String boardName = board.name;
             // Get the path of the image according to the location of the player
             String boardPath;
             if (index == 0)
@@ -994,7 +989,7 @@ public class GameScene implements Initializable {
     public void clickToCard(MouseEvent mouseEvent) {
         ImageView currentView = (ImageView) mouseEvent.getSource();
         int cardIndex = 0;
-        Card[] deckCards = DataHandler.getInstance().getGame().players[0].playerCards;
+        Card[] deckCards = DataHandler.getInstance().getGame().players[0].cards;
         for (; cardIndex < deckCards.length; cardIndex++){
             if (deckCards[cardIndex] != null && currentView.equals(deckCardViews[cardIndex])){
                 break;
@@ -1004,7 +999,7 @@ public class GameScene implements Initializable {
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         if (settings.isAudioDescription())
-            tts.read(deckCards[cardIndex].cardName);
+            tts.read(deckCards[cardIndex].name);
     }
 
     private void selectTheCard(int cardIndex){
@@ -1015,7 +1010,7 @@ public class GameScene implements Initializable {
             selectedCardView.setScaleX(1);
             selectedCardView.setScaleY(1);
         }
-        Card[] deckCards = DataHandler.getInstance().getGame().players[0].playerCards;
+        Card[] deckCards = DataHandler.getInstance().getGame().players[0].cards;
         selectedCardView = deckCardViews[cardIndex];
         Glow glow = new Glow();
         glow.setLevel(0.4);
@@ -1040,7 +1035,7 @@ public class GameScene implements Initializable {
 
         if (cardIndex != cards.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
             Reader tts = AudioDescriptionHandler.getInstance().getReader();
-            tts.read(cards[cardIndex].cardName);
+            tts.read(cards[cardIndex].name);
         }
     }
 

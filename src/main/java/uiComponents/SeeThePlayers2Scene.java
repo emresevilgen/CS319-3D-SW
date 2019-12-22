@@ -179,7 +179,11 @@ public class SeeThePlayers2Scene implements Initializable {
 
         DataHandler dataHandler = DataHandler.getInstance();
 
-        if (dataHandler.getLobby().lobbyAdmin.equals(dataHandler.getUser().userName)){
+/*        if (dataHandler.getLobby().gameId != null){
+            SceneHandler.getInstance().moveToGame();
+        }*/
+
+        if (dataHandler.getLobby().admin.equals(dataHandler.getUser().userName)){
             timeLine.stop();
             SceneHandler.getInstance().moveToSeeThePlayers(true);
             return;
@@ -225,11 +229,11 @@ public class SeeThePlayers2Scene implements Initializable {
         try {
             //Change status of the users
             firstPlayerStatus.setImage(null);
-            if(dataHandler.getLobby().lobbyUsers.length > 0 &&  dataHandler.getLobby().lobbyUsers[0] !=  null)
+            if(dataHandler.getLobby().users.length > 0 &&  dataHandler.getLobby().users[0] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[0].isReady || !dataHandler.getLobby().lobbyUsers[0].isActive){
+                if (!dataHandler.getLobby().users[0].isReady || !dataHandler.getLobby().users[0].isActive){
                     Image crossImage = new Image(inputStream);
                     firstPlayerStatus.setImage(crossImage);
                 }
@@ -239,11 +243,11 @@ public class SeeThePlayers2Scene implements Initializable {
                 }
             }
             secondPlayerStatus.setImage(null);
-            if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
+            if(dataHandler.getLobby().users.length > 1 &&  dataHandler.getLobby().users[1] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                if (!dataHandler.getLobby().users[1].isReady || !dataHandler.getLobby().users[1].isActive){
                     Image crossImage = new Image(inputStream);
                     secondPlayerStatus.setImage(crossImage);
                 }
@@ -253,11 +257,11 @@ public class SeeThePlayers2Scene implements Initializable {
                 }
             }
             thirdPlayerStatus.setImage(null);
-            if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
+            if(dataHandler.getLobby().users.length > 2 &&  dataHandler.getLobby().users[2] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
+                if (!dataHandler.getLobby().users[2].isReady || !dataHandler.getLobby().users[2].isActive){
                     Image crossImage = new Image(inputStream);
                     thirdPlayerStatus.setImage(crossImage);
                 }
@@ -267,11 +271,11 @@ public class SeeThePlayers2Scene implements Initializable {
                 }
             }
             fourthPlayerStatus.setImage(null);
-            if(dataHandler.getLobby().lobbyUsers.length == 4 &&  dataHandler.getLobby().lobbyUsers[3] !=  null)
+            if(dataHandler.getLobby().users.length == 4 &&  dataHandler.getLobby().users[3] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
+                if (!dataHandler.getLobby().users[3].isReady || !dataHandler.getLobby().users[3].isActive){
                     Image crossImage = new Image(inputStream);
                     fourthPlayerStatus.setImage(crossImage);
                 }
@@ -292,8 +296,8 @@ public class SeeThePlayers2Scene implements Initializable {
             labelsName[i].setText("");
 
         // Update the labels with the response
-        for (int i = 0; i < lobby.lobbyUsers.length; i++) {
-            labelsName[i].setText(lobby.lobbyUsers[i].username);
+        for (int i = 0; i < lobby.users.length; i++) {
+            labelsName[i].setText(lobby.users[i].username);
         }
 
         // -------------------
@@ -341,7 +345,7 @@ public class SeeThePlayers2Scene implements Initializable {
         readyButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (settings.isAudioDescription() && !first[0])
-                    tts.read("Start Game");
+                    tts.read("Be ready");
                 readyButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -350,7 +354,7 @@ public class SeeThePlayers2Scene implements Initializable {
         });
 
         //Write the lobby code
-        lobbyCode.setText("The lobby code: "+ DataHandler.getInstance().getLobby().lobbyCode );
+        lobbyCode.setText("The lobby code: "+ DataHandler.getInstance().getLobby().code);
 
         // Initialize the label arrays
         labelsName[0] = firstNameLabel;
@@ -367,44 +371,44 @@ public class SeeThePlayers2Scene implements Initializable {
 
                 if(keyCode.equals(KeyCode.C))
                 {
-                    tts.read("The code is " + dataHandler.getLobby().lobbyCode);
+                    tts.read("The code is " + dataHandler.getLobby().code);
                 }
                 if(keyCode.equals(KeyCode.P) && settings.isAudioDescription())
                 {
-                    if(dataHandler.getLobby().lobbyUsers.length > 0 &&  dataHandler.getLobby().lobbyUsers[0] !=  null && !dataHandler.getLobby().lobbyUsers[0].username.equals(dataHandler.getUser().userName))
+                    if(dataHandler.getLobby().users.length > 0 &&  dataHandler.getLobby().users[0] !=  null && !dataHandler.getLobby().users[0].username.equals(dataHandler.getUser().userName))
                     {
-                        if (!dataHandler.getLobby().lobbyUsers[0].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
-                            tts.read(dataHandler.getLobby().lobbyUsers[0].username + " is not active");
+                        if (!dataHandler.getLobby().users[0].isReady || !dataHandler.getLobby().users[1].isActive){
+                            tts.read(dataHandler.getLobby().users[0].username + " is not active");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().lobbyUsers[0].username + " is active");
+                            tts.read(dataHandler.getLobby().users[0].username + " is active");
                         }
                     }
-                    if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null && !dataHandler.getLobby().lobbyUsers[1].username.equals(dataHandler.getUser().userName))
+                    if(dataHandler.getLobby().users.length > 1 &&  dataHandler.getLobby().users[1] !=  null && !dataHandler.getLobby().users[1].username.equals(dataHandler.getUser().userName))
                     {
-                        if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
-                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + " is not active");
+                        if (!dataHandler.getLobby().users[1].isReady || !dataHandler.getLobby().users[1].isActive){
+                            tts.read(dataHandler.getLobby().users[1].username + " is not active");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().lobbyUsers[1].username + " is active");
+                            tts.read(dataHandler.getLobby().users[1].username + " is active");
                         }
                     }
-                    if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null && !dataHandler.getLobby().lobbyUsers[2].username.equals(dataHandler.getUser().userName))
+                    if(dataHandler.getLobby().users.length > 2 &&  dataHandler.getLobby().users[2] !=  null && !dataHandler.getLobby().users[2].username.equals(dataHandler.getUser().userName))
                     {
-                        if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
-                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + " is not active");
+                        if (!dataHandler.getLobby().users[2].isReady || !dataHandler.getLobby().users[2].isActive){
+                            tts.read(dataHandler.getLobby().users[2].username + " is not active");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().lobbyUsers[2].username + " is active");
+                            tts.read(dataHandler.getLobby().users[2].username + " is active");
                         }
                     }
-                    if(dataHandler.getLobby().lobbyUsers.length > 3 &&  dataHandler.getLobby().lobbyUsers[3] !=  null && !dataHandler.getLobby().lobbyUsers[3].username.equals(dataHandler.getUser().userName))
+                    if(dataHandler.getLobby().users.length > 3 &&  dataHandler.getLobby().users[3] !=  null && !dataHandler.getLobby().users[3].username.equals(dataHandler.getUser().userName))
                     {
-                        if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
-                            tts.read(dataHandler.getLobby().lobbyUsers[3].username + " is not active");
+                        if (!dataHandler.getLobby().users[3].isReady || !dataHandler.getLobby().users[3].isActive){
+                            tts.read(dataHandler.getLobby().users[3].username + " is not active");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().lobbyUsers[3].username + " is active");
+                            tts.read(dataHandler.getLobby().users[3].username + " is active");
                         }
                     }
                 }

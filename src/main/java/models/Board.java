@@ -9,25 +9,14 @@ public class Board {
     @SerializedName("cards")
     public Card[] cards;
 
-    @SerializedName("wonderId")
-    public String wonderId;
+    @SerializedName("id")
+    public String id;
 
-    @SerializedName("wonderStage")
-    public int wonderStage;
+    @SerializedName("stage")
+    public int stage;
 
-    @SerializedName("wonderName")
-    public String wonderName;
+    @SerializedName("name")
+    public String name;
 
-    public int cardCount = 0;
-
-    @Override
-    public String toString() {
-        return "Board{" +
-                "cards=" + Arrays.toString(cards) +
-                ", wonderId='" + wonderId + '\'' +
-                ", wonderStage=" + wonderStage +
-                ", wonderName='" + wonderName + '\'' +
-                '}';
-    }
 
 }

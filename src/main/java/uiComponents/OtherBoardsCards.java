@@ -4,12 +4,11 @@ import audioDescription.DescriptionReader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
@@ -18,9 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import models.*;
 import utils.Constants;
@@ -28,9 +24,7 @@ import utils.Constants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class OtherBoardsCards implements Initializable {
@@ -157,10 +151,10 @@ public class OtherBoardsCards implements Initializable {
                 Settings settings = dataHandler.getSettings();
                 Game game = DataHandler.getInstance().getGame();
                 String username = usernameLabel.getText();
-                User[] users = DataHandler.getInstance().getGame().users;
+                Player[] players = DataHandler.getInstance().getGame().players;
                 int userIndex = -1;
-                for (int i = 0; i < users.length; i++) {
-                    if (users[i] != null && users[i].userName.equals(username)) {
+                for (int i = 0; i < players.length; i++) {
+                    if (players[i] != null && players[i].name.equals(username)) {
                         userIndex = i;
                     }
                 }
@@ -173,7 +167,7 @@ public class OtherBoardsCards implements Initializable {
                         }
                         focusedCardInBoardIndex++;
                         if (settings.isAudioDescription())
-                            tts.read(cards[focusedCardInBoardIndex].cardName);
+                            tts.read(cards[focusedCardInBoardIndex].name);
                     }
                     else if(keyCode.equals(KeyCode.E))
                     {
@@ -182,7 +176,7 @@ public class OtherBoardsCards implements Initializable {
                         }
                         focusedCardInBoardIndex--;
                         if (settings.isAudioDescription())
-                            tts.read(cards[focusedCardInBoardIndex].cardName);
+                            tts.read(cards[focusedCardInBoardIndex].name);
                     }
                 }
                 event.consume();
@@ -224,10 +218,10 @@ public class OtherBoardsCards implements Initializable {
     private void update() {
         DataHandler dataHandler = DataHandler.getInstance();
         String username = usernameLabel.getText();
-        User[] users = DataHandler.getInstance().getGame().users;
+        Player[] players = DataHandler.getInstance().getGame().players;
         int userIndex = -1;
-        for (int i = 0; i < users.length; i++) {
-            if (users[i] != null && users[i].userName.equals(username)) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] != null && players[i].name.equals(username)) {
                 userIndex = i;
             }
         }
@@ -247,7 +241,7 @@ public class OtherBoardsCards implements Initializable {
      */
     public Image getCardImage(Card card){
         if (card != null) {
-            String cardName = card.cardName;
+            String cardName = card.name;
             // Get the path of the image
             String cardPath = Constants.CARD_IMAGE + File.separator + cardName.replaceAll(" ", "").toLowerCase() + ".png";
             try {
