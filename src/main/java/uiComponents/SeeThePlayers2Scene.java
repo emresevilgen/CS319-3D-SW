@@ -238,13 +238,13 @@ public class SeeThePlayers2Scene implements Initializable {
             firstActiveStatus.setImage(null);
             firstReadyStatus.setImage(null);
             //Change status of the users
-            if(dataHandler.getLobby().lobbyUsers.length > 0 &&  dataHandler.getLobby().lobbyUsers[0] !=  null)
+            if(dataHandler.getLobby().users.length > 0 &&  dataHandler.getLobby().users[0] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
                 FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[0].isReady ){
+                if (!dataHandler.getLobby().users[0].isReady ){
                     Image crossImage = new Image(inputStream);
                     firstReadyStatus.setImage(crossImage);
                 }
@@ -253,7 +253,7 @@ public class SeeThePlayers2Scene implements Initializable {
                     firstReadyStatus.setImage(checkImage);
                 }
 
-                if (!dataHandler.getLobby().lobbyUsers[0].isActive){
+                if (!dataHandler.getLobby().users[0].isActive){
                     Image crossImage = new Image(inputStream3);
                     firstActiveStatus.setImage(crossImage);
                 }
@@ -265,13 +265,13 @@ public class SeeThePlayers2Scene implements Initializable {
             }
             secondActiveStatus.setImage(null);
             secondReadyStatus.setImage(null);
-            if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
+            if(dataHandler.getLobby().users.length > 1 &&  dataHandler.getLobby().users[1] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
                 FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[1].isReady ){
+                if (!dataHandler.getLobby().users[1].isReady ){
                     Image crossImage = new Image(inputStream);
                     secondReadyStatus.setImage(crossImage);
                 }
@@ -280,7 +280,7 @@ public class SeeThePlayers2Scene implements Initializable {
                     secondReadyStatus.setImage(checkImage);
                 }
 
-                if (!dataHandler.getLobby().lobbyUsers[1].isActive){
+                if (!dataHandler.getLobby().users[1].isActive){
                     Image crossImage = new Image(inputStream3);
                     secondActiveStatus.setImage(crossImage);
                 }
@@ -292,13 +292,13 @@ public class SeeThePlayers2Scene implements Initializable {
 
             thirdActiveStatus.setImage(null);
             thirdReadyStatus.setImage(null);
-            if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
+            if(dataHandler.getLobby().users.length > 2 &&  dataHandler.getLobby().users[2] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
                 FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[2].isReady ){
+                if (!dataHandler.getLobby().users[2].isReady ){
                     Image crossImage = new Image(inputStream);
                     thirdReadyStatus.setImage(crossImage);
                 }
@@ -307,7 +307,7 @@ public class SeeThePlayers2Scene implements Initializable {
                     thirdReadyStatus.setImage(checkImage);
                 }
 
-                if (!dataHandler.getLobby().lobbyUsers[2].isActive){
+                if (!dataHandler.getLobby().users[2].isActive){
                     Image crossImage = new Image(inputStream3);
                     thirdActiveStatus.setImage(crossImage);
                 }
@@ -318,13 +318,13 @@ public class SeeThePlayers2Scene implements Initializable {
             }
             fourthActiveStatus.setImage(null);
             fourthReadyStatus.setImage(null);
-            if(dataHandler.getLobby().lobbyUsers.length == 4 &&  dataHandler.getLobby().lobbyUsers[3] !=  null)
+            if(dataHandler.getLobby().users.length == 4 &&  dataHandler.getLobby().users[3] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
                 FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[3].isReady ){
+                if (!dataHandler.getLobby().users[3].isReady ){
                     Image crossImage = new Image(inputStream);
                     fourthReadyStatus.setImage(crossImage);
                 }
@@ -333,7 +333,7 @@ public class SeeThePlayers2Scene implements Initializable {
                     fourthReadyStatus.setImage(checkImage);
                 }
 
-                if (!dataHandler.getLobby().lobbyUsers[3].isActive){
+                if (!dataHandler.getLobby().users[3].isActive){
                     Image crossImage = new Image(inputStream3);
                     fourthActiveStatus.setImage(crossImage);
                 }
