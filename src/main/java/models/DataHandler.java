@@ -158,6 +158,15 @@ public class DataHandler {
         game.players[2].board = new Board();
         game.players[2].board.wonderName = "Gizah A";
         game.players[2].board.cards = new Card[19];
+        game.players[2].board.cards[1] = new Card();
+        game.players[2].board.cards[1].cardName = "Library";
+        game.players[2].board.cards[1].cardColor = "Green";
+        game.players[2].board.cards[1] = new Card();
+        game.players[2].board.cards[1].cardName = "Walls";
+        game.players[2].board.cards[1].cardColor = "Red";
+        game.players[2].board.cards[1] = new Card();
+        game.players[2].board.cards[1].cardName = "Walls";
+        game.players[2].board.cards[1].cardColor = "Red";
 
         game.players[3] = new Player();
         game.players[3].board = new Board();

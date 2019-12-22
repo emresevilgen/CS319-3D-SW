@@ -3,6 +3,9 @@ package uiComponents;
 import audioDescription.AudioDescriptionHandler;
 import audioDescription.DescriptionReader;
 import audioDescription.Reader;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,11 +21,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import models.DataHandler;
-import models.Game;
-import models.Settings;
+import javafx.util.Duration;
+import models.*;
 import utils.Constants;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -88,6 +91,10 @@ public class Loot implements Initializable {
     boolean first = true;
     Image currentImage; // seçilen kartı bunda tut
 
+    private Card[] cards;
+    private int focusedCardInBoardIndex;
+
+
 
     private ImageView[] cardViews;
     private DescriptionReader tts = new DescriptionReader();
@@ -95,6 +102,17 @@ public class Loot implements Initializable {
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 0.85;";
+
+    // To send a request at every second
+    Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+            // Server request and update the game
+            update();
+
+        }
+    }));
 
     // Initializing function
     @Override
@@ -128,6 +146,16 @@ public class Loot implements Initializable {
         cardViews[18] = card19;
         cardViews[19] = card20;
         cardViews[20] = card21;
+
+        // Start sending requests
+        timeLine.setCycleCount(Animation.INDEFINITE);
+        timeLine.play();
+
+        SceneHandler.getInstance().getStagePopup().setOnCloseRequest(e -> {
+            timeLine.stop();
+        });
+
+        focusedCardInBoardIndex = -1;
 
 
         try {
@@ -248,15 +276,91 @@ public class Loot implements Initializable {
 
 
 
+        focusedCardInBoardIndex = -1;
+
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();
-                if (keyCode.equals(keyCode.ESCAPE))
+                if (keyCode.equals(KeyCode.ESCAPE))
                     SceneHandler.getInstance().getStagePopup().close();
+
+                DataHandler dataHandler = DataHandler.getInstance();
+                Settings settings = dataHandler.getSettings();
+                Game game = DataHandler.getInstance().getGame();
+                String username = usernameLabel.getText();
+                User[] users = DataHandler.getInstance().getGame().users;
+                int userIndex = -1;
+                for (int i = 0; i < users.length; i++) {
+                    if (users[i] != null && users[i].userName.equals(username)) {
+                        userIndex = i;
+                    }
+                }
+                if (dataHandler.getSettings().isAudioDescription() && userIndex != -1) {
+                    if(keyCode.equals(KeyCode.R))
+                    {
+                        if (focusedCardInBoardIndex == game.players[userIndex].board.cards.length - 1)
+                        {
+                            focusedCardInBoardIndex = -1;
+                        }
+                        focusedCardInBoardIndex++;
+                        if (settings.isAudioDescription())
+                            tts.read(cards[focusedCardInBoardIndex].cardName);
+                    }
+                    else if(keyCode.equals(KeyCode.E))
+                    {
+                        if (focusedCardInBoardIndex <= 0) {
+                            focusedCardInBoardIndex = game.players[userIndex].board.cards.length;
+                        }
+                        focusedCardInBoardIndex--;
+                        if (settings.isAudioDescription())
+                            tts.read(cards[focusedCardInBoardIndex].cardName);
+                    }
+                }
                 event.consume();
             }
+
         });
+    }
+
+    private void update() {
+        DataHandler dataHandler = DataHandler.getInstance();
+        String username = usernameLabel.getText();
+        User[] users = DataHandler.getInstance().getGame().users;
+        int userIndex = -1;
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] != null && users[i].userName.equals(username)) {
+                userIndex = i;
+            }
+        }
+        if (userIndex != -1) {
+            cards = dataHandler.getGame().players[userIndex].board.cards;
+            for(int i= 0; i < cards.length; i++ )
+            {
+                cardViews[i].setImage(getCardImage(cards[i]));
+            }
+        }
+    }
+
+    /**
+     * Gets the Card object and returns its image
+     * @param card Card object
+     * @return the image of the card
+     */
+    public Image getCardImage(Card card){
+        if (card != null) {
+            String cardName = card.cardName;
+            // Get the path of the image
+            String cardPath = Constants.CARD_IMAGE + File.separator + cardName.replaceAll(" ", "").toLowerCase() + ".png";
+            try {
+                FileInputStream inputStream = new FileInputStream(cardPath);
+                return new Image(inputStream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 
     public void focusIntoBoardCard(MouseEvent mouseEvent) {

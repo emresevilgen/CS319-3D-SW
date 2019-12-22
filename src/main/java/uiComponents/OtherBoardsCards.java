@@ -22,10 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import models.Card;
-import models.DataHandler;
-import models.Settings;
-import models.User;
+import models.*;
 import utils.Constants;
 
 import java.io.File;
@@ -147,7 +144,7 @@ public class OtherBoardsCards implements Initializable {
             timeLine.stop();
         });
 
-        focusedCardInBoardIndex = 0;
+        focusedCardInBoardIndex = -1;
 
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -158,26 +155,34 @@ public class OtherBoardsCards implements Initializable {
 
                 DataHandler dataHandler = DataHandler.getInstance();
                 Settings settings = dataHandler.getSettings();
-                if (dataHandler.getSettings().isAudioDescription()) {
+                Game game = DataHandler.getInstance().getGame();
+                String username = usernameLabel.getText();
+                User[] users = DataHandler.getInstance().getGame().users;
+                int userIndex = -1;
+                for (int i = 0; i < users.length; i++) {
+                    if (users[i] != null && users[i].userName.equals(username)) {
+                        userIndex = i;
+                    }
+                }
+                if (dataHandler.getSettings().isAudioDescription() && userIndex != -1) {
                     if(keyCode.equals(KeyCode.R))
                     {
-                        if(focusedCardInBoardIndex == 3)//değiştir
+                        if (focusedCardInBoardIndex == game.players[userIndex].board.cards.length - 1)
                         {
                             focusedCardInBoardIndex = -1;
                         }
                         focusedCardInBoardIndex++;
-                        if(settings.isAudioDescription())
-                            tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
+                        if (settings.isAudioDescription())
+                            tts.read(cards[focusedCardInBoardIndex].cardName);
                     }
                     else if(keyCode.equals(KeyCode.E))
                     {
-                        if(focusedCardInBoardIndex == 0)
-                        {
-                            focusedCardInBoardIndex = 4;//değiştir
+                        if (focusedCardInBoardIndex <= 0) {
+                            focusedCardInBoardIndex = game.players[userIndex].board.cards.length;
                         }
                         focusedCardInBoardIndex--;
-                        if(settings.isAudioDescription())
-                            tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
+                        if (settings.isAudioDescription())
+                            tts.read(cards[focusedCardInBoardIndex].cardName);
                     }
                 }
                 event.consume();
@@ -228,94 +233,9 @@ public class OtherBoardsCards implements Initializable {
         }
         if (userIndex != -1) {
             cards = dataHandler.getGame().players[userIndex].board.cards;
-            // Classify the cards
-            ArrayList<Card> brownCards = new ArrayList<>();
-            ArrayList<Card> grayCards = new ArrayList<>();
-            ArrayList<Card> redCards = new ArrayList<>();
-            ArrayList<Card> blueCards = new ArrayList<>();
-            ArrayList<Card> yellowCards = new ArrayList<>();
-            ArrayList<Card> purpleCards = new ArrayList<>();
-            ArrayList<Card> greenCards = new ArrayList<>();
-
-            for (int i = 0; i < cards.length; i++) {
-                if (cards[i] != null) {
-                    Card card = cards[i];
-                    String color = card.cardColor;
-                    switch (color) {
-                        case "Brown":
-                            brownCards.add(card);
-                            break;
-                        case "Gray":
-                            grayCards.add(card);
-                            break;
-                        case "Red":
-                            redCards.add(card);
-                            break;
-                        case "Blue":
-                            blueCards.add(card);
-                            break;
-                        case "Yellow":
-                            yellowCards.add(card);
-                            break;
-                        case "Purple":
-                            purpleCards.add(card);
-                            break;
-                        case "Green":
-                            greenCards.add(card);
-                            break;
-                    }
-                }
-            }
-
-            try {
-                // Display the cards in order(ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(
-                int viewOrder = 0;
-                int length = cards.length;
-                cardsInColorOrder = new Card[length];
-
-                for (int i = 0; i < redCards.size(); i++) {
-                    cardViews[viewOrder].setImage(getCardImage(redCards.get(i)));
-                    cardsInColorOrder[viewOrder] = redCards.get(i);
-                    viewOrder++;
-                }
-
-                for (int i = 0; i < brownCards.size(); i++) {
-                    cardViews[viewOrder].setImage(getCardImage(brownCards.get(i)));
-                    cardsInColorOrder[viewOrder] = brownCards.get(i);
-                    viewOrder++;
-                }
-
-                for (int i = 0; i < grayCards.size(); i++) {
-                    cardViews[viewOrder].setImage(getCardImage(grayCards.get(i)));
-                    cardsInColorOrder[viewOrder] = grayCards.get(i);
-                    viewOrder++;
-                }
-
-                for (int i = 0; i < blueCards.size(); i++) {
-                    cardViews[viewOrder].setImage(getCardImage(blueCards.get(i)));
-                    cardsInColorOrder[viewOrder] = blueCards.get(i);
-                    viewOrder++;
-                }
-
-                for (int i = 0; i < yellowCards.size(); i++) {
-                    cardViews[viewOrder].setImage(getCardImage(yellowCards.get(i)));
-                    cardsInColorOrder[viewOrder] = yellowCards.get(i);
-                    viewOrder++;
-                }
-
-                for (int i = 0; i < purpleCards.size(); i++) {
-                    cardViews[viewOrder].setImage(getCardImage(purpleCards.get(i)));
-                    cardsInColorOrder[viewOrder] = purpleCards.get(i);
-                    viewOrder++;
-                }
-
-                for (int i = 0; i < greenCards.size(); i++) {
-                    cardViews[viewOrder].setImage(getCardImage(greenCards.get(i)));
-                    cardsInColorOrder[viewOrder] = greenCards.get(i);
-                    viewOrder++;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            for(int i= 0; i < cards.length; i++ )
+            {
+                cardViews[i].setImage(getCardImage(cards[i]));
             }
         }
     }

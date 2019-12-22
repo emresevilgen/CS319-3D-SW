@@ -455,8 +455,8 @@ public class GameScene implements Initializable {
                }
                else if(keyCode.equals(keyCode.H))
                {
-                   //SceneHandler.getInstance().showHowToPlayScene();
-                   SceneHandler.getInstance().showLootScene();
+                   SceneHandler.getInstance().showHowToPlayScene();
+                   //showLootScreen("user2");
                }
                event.consume();
            }
@@ -951,18 +951,27 @@ public class GameScene implements Initializable {
         Card [] cards;
         // Get the players cards
         Game game = DataHandler.getInstance().getGame();
-        if (username.equals(game.users[1])) {
+        if (username.equals(game.users[1].userName)) {
             cards = game.players[1].board.cards;
         }
-        else if (username.equals(game.users[2])) {
+        else if (username.equals(game.users[2].userName)) {
             cards = game.players[2].board.cards;
         }
-        else if (username.equals(game.users[3])) {
+        else if (username.equals(game.users[3].userName)) {
             cards = game.players[3].board.cards;
         }
         else
             return;
-        showOtherPlayerCardsHelper(cards,username);
+        try {
+            SceneHandler.getInstance().showLootScene();
+            Stage stage = SceneHandler.getInstance().getStagePopup();
+            AnchorPane root = (AnchorPane) stage.getScene().getRoot();
+            Label usernameLabel = (Label) root.getChildren().get(1);
+            usernameLabel.setText(username);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void showOtherPlayerCardsHelper(Card[] cards, String username)
@@ -1046,15 +1055,6 @@ public class GameScene implements Initializable {
                 viewOrder++;
             }
 
-            for (int i = 0; i < purpleCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(purpleCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < greenCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(greenCards.get(i)));
-                viewOrder++;
-            }*/
         }
         catch (Exception e){
             e.printStackTrace();
