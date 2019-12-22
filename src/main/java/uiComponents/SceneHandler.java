@@ -510,9 +510,35 @@ public class SceneHandler extends Application {
             stagePopup.centerOnScreen();
             stagePopup.show();
 
-            FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
-            Image clay = new Image(inputStream);
-            ((ImageView)root.getChildren().get(1)).setImage(clay);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showLootScene(){
+        stagePopup.setScene(new Scene(new AnchorPane()));
+
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+
+        AnchorPane root = null;
+
+        try{
+            fileInputStream = new FileInputStream(new File(Constants.LOOT_FXML));
+            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
+            root = (AnchorPane)loader.load(fileInputStream);
+
+            // Set background image
+            Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+
+            backgroundView.setImage(backgroundImage);
+
+            stagePopup.getScene().setRoot(root);
+            stagePopup.sizeToScene();
+            stagePopup.centerOnScreen();
+            stagePopup.show();
 
         } catch (IOException e) {
             e.printStackTrace();
