@@ -22,10 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import models.Card;
-import models.DataHandler;
-import models.Settings;
-import models.User;
+import models.*;
 import utils.Constants;
 
 import java.io.File;
@@ -147,7 +144,7 @@ public class OtherBoardsCards implements Initializable {
             timeLine.stop();
         });
 
-        focusedCardInBoardIndex = 0;
+        focusedCardInBoardIndex = -1;
 
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -158,26 +155,34 @@ public class OtherBoardsCards implements Initializable {
 
                 DataHandler dataHandler = DataHandler.getInstance();
                 Settings settings = dataHandler.getSettings();
-                if (dataHandler.getSettings().isAudioDescription()) {
+                Game game = DataHandler.getInstance().getGame();
+                String username = usernameLabel.getText();
+                User[] users = DataHandler.getInstance().getGame().users;
+                int userIndex = -1;
+                for (int i = 0; i < users.length; i++) {
+                    if (users[i] != null && users[i].userName.equals(username)) {
+                        userIndex = i;
+                    }
+                }
+                if (dataHandler.getSettings().isAudioDescription() && userIndex != -1) {
                     if(keyCode.equals(KeyCode.R))
                     {
-                        if(focusedCardInBoardIndex == 3)//değiştir
+                        if (focusedCardInBoardIndex == game.players[userIndex].board.cards.length - 1)
                         {
                             focusedCardInBoardIndex = -1;
                         }
                         focusedCardInBoardIndex++;
-                        if(settings.isAudioDescription())
-                            tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
+                        if (settings.isAudioDescription())
+                            tts.read(cards[focusedCardInBoardIndex].cardName);
                     }
                     else if(keyCode.equals(KeyCode.E))
                     {
-                        if(focusedCardInBoardIndex == 0)
-                        {
-                            focusedCardInBoardIndex = 4;//değiştir
+                        if (focusedCardInBoardIndex <= 0) {
+                            focusedCardInBoardIndex = game.players[userIndex].board.cards.length;
                         }
                         focusedCardInBoardIndex--;
-                        if(settings.isAudioDescription())
-                            tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
+                        if (settings.isAudioDescription())
+                            tts.read(cards[focusedCardInBoardIndex].cardName);
                     }
                 }
                 event.consume();
@@ -228,8 +233,13 @@ public class OtherBoardsCards implements Initializable {
         }
         if (userIndex != -1) {
             cards = dataHandler.getGame().players[userIndex].board.cards;
+            for(int i= 0; i < cards.length; i++ )
+            {
+                cardViews[i].setImage(getCardImage(cards[i]));
+            }
+
             // Classify the cards
-            ArrayList<Card> brownCards = new ArrayList<>();
+            /*ArrayList<Card> brownCards = new ArrayList<>();
             ArrayList<Card> grayCards = new ArrayList<>();
             ArrayList<Card> redCards = new ArrayList<>();
             ArrayList<Card> blueCards = new ArrayList<>();
@@ -316,7 +326,7 @@ public class OtherBoardsCards implements Initializable {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 
