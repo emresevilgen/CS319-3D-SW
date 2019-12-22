@@ -24,7 +24,7 @@ public class HowToPlay implements Initializable {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
         if(settings.isAudioDescription())
-            tts.read( "how to play "+ howToPlayText.getText());
+            tts.read( "how to play \n "+ howToPlayText.getText());
 
             /*    howToPlayText.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
