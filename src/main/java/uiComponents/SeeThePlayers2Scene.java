@@ -2,7 +2,6 @@ package uiComponents;
 
 import audioDescription.AudioDescriptionHandler;
 import audioDescription.Reader;
-import com.google.gson.Gson;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,25 +19,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.DataHandler;
 import models.Game;
 import models.Lobby;
 import models.Settings;
-import rest.ApiClient;
-import rest.ApiInterface;
 import rest.Requester;
 import rest.ServerConnectionHandler;
 import rest.models.GeneralResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import utils.Constants;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -366,7 +358,7 @@ public class SeeThePlayers2Scene implements Initializable {
         labelsName[2] = thirdNameLabel;
         labelsName[3] = fourthNameLabel;
 
-        SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+        SceneHandler.getInstance().getStageMain().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();

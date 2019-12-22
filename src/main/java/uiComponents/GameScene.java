@@ -12,12 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,7 +26,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -316,7 +313,7 @@ public class GameScene implements Initializable {
         selectedCardIndex = 0;
         focusedCardInBoardIndex = 0;
 
-        SceneHandler.getInstance().getStage().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+        SceneHandler.getInstance().getStageMain().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
            @Override
            public void handle(KeyEvent event) {
                KeyCode keyCode = event.getCode();
@@ -494,34 +491,7 @@ public class GameScene implements Initializable {
 
                if(keyCode.equals(keyCode.H))
                {
-                   FXMLLoader loader = new FXMLLoader();
-                   FileInputStream fileInputStream = null;
-                   FileInputStream backgroundFile = null;
-
-                   AnchorPane root = null;
-
-                   try{
-                       fileInputStream = new FileInputStream(new File(Constants.HOW_TO_PLAY_FXML));
-                       backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
-                       root = (AnchorPane)loader.load(fileInputStream);
-
-                       // Set background image
-                       Image backgroundImage = new Image(backgroundFile);
-                       ImageView backgroundView = (ImageView) root.getChildren().get(0);
-
-                       backgroundView.setImage(backgroundImage);
-
-                       howToPlayScene = new Scene(root);
-                       howToPlayStage = new Stage();
-                       howToPlayStage.setScene(howToPlayScene);
-                       howToPlayStage.initStyle(StageStyle.UTILITY);
-                       howToPlayStage.setAlwaysOnTop(true);
-                       howToPlayStage.initOwner(focus.getScene().getWindow());
-                       howToPlayStage.show();
-
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                   }
+                    SceneHandler.getInstance().showHowToPlayScene();
                }
                event.consume();
            }
@@ -682,7 +652,6 @@ public class GameScene implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     // Exit button listener
     public void exit(MouseEvent actionEvent){
@@ -985,42 +954,12 @@ public class GameScene implements Initializable {
 
     public void showOtherPlayerCardsHelper(Card[] cards, String username)
     {
-        // Load FXML and show pop up window
-
-        FXMLLoader loader = new FXMLLoader();
-        FileInputStream fileInputStream = null;
-        FileInputStream backgroundFile = null;
-
-        AnchorPane root = null;
-
-        try{
-            fileInputStream = new FileInputStream(new File(Constants.OTHER_BOARDS_CARDS_FXML));
-            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
-            root = (AnchorPane)loader.load(fileInputStream);
-
-            // Set background image
-            Image backgroundImage = new Image(backgroundFile);
-            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+        try {
+            SceneHandler.getInstance().showOtherBoardsCardsScene();
+            Stage stage = SceneHandler.getInstance().getStagePopup();
+            AnchorPane root = (AnchorPane) stage.getScene().getRoot();
             Label usernameLabel = (Label) root.getChildren().get(1);
-
             usernameLabel.setText(username);
-            backgroundView.setImage(backgroundImage);
-
-            boardScene = new Scene(root);
-            boardStage = new Stage();
-            boardStage.setScene(boardScene);
-            boardStage.initStyle(StageStyle.UTILITY);
-            boardStage.setAlwaysOnTop(true);
-            boardStage.initOwner(focus.getScene().getWindow());
-            boardStage.show();
-/*            boardScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                 @Override
-                 public void handle(KeyEvent event) {
-
-                     event.consume();
-                 }
-            }
-            );*/
 
             // Classify the cards
             ArrayList<Card> brownCards = new ArrayList<>();
@@ -1031,18 +970,32 @@ public class GameScene implements Initializable {
             ArrayList<Card> purpleCards = new ArrayList<>();
             ArrayList<Card> greenCards = new ArrayList<>();
 
-            for (int i = 0; i < cards.length; i++){
-                if (cards[i] != null){
+            for (int i = 0; i < cards.length; i++) {
+                if (cards[i] != null) {
                     Card card = cards[i];
                     String color = card.cardColor;
-                    switch (color){
-                        case "Brown": brownCards.add(card); break;
-                        case "Gray": grayCards.add(card); break;
-                        case "Red": redCards.add(card); break;
-                        case "Blue": blueCards.add(card); break;
-                        case "Yellow": yellowCards.add(card); break;
-                        case "Purple": purpleCards.add(card); break;
-                        case "Green": greenCards.add(card); break;
+                    switch (color) {
+                        case "Brown":
+                            brownCards.add(card);
+                            break;
+                        case "Gray":
+                            grayCards.add(card);
+                            break;
+                        case "Red":
+                            redCards.add(card);
+                            break;
+                        case "Blue":
+                            blueCards.add(card);
+                            break;
+                        case "Yellow":
+                            yellowCards.add(card);
+                            break;
+                        case "Purple":
+                            purpleCards.add(card);
+                            break;
+                        case "Green":
+                            greenCards.add(card);
+                            break;
                     }
                 }
             }
@@ -1050,43 +1003,42 @@ public class GameScene implements Initializable {
             // Display the cards in order
             int viewOrder = 0;
 
-            for (int i = 0; i < redCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(redCards.get(i)));
+            for (int i = 0; i < redCards.size(); i++) {
+                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(redCards.get(i)));
                 viewOrder++;
             }
 
-            for (int i = 0; i < brownCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(brownCards.get(i)));
+            for (int i = 0; i < brownCards.size(); i++) {
+                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(brownCards.get(i)));
                 viewOrder++;
             }
 
-            for (int i = 0; i < grayCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(grayCards.get(i)));
+            for (int i = 0; i < grayCards.size(); i++) {
+                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(grayCards.get(i)));
                 viewOrder++;
             }
 
-            for (int i = 0; i < blueCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(blueCards.get(i)));
+            for (int i = 0; i < blueCards.size(); i++) {
+                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(blueCards.get(i)));
                 viewOrder++;
             }
 
-            for (int i = 0; i < yellowCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(yellowCards.get(i)));
+            for (int i = 0; i < yellowCards.size(); i++) {
+                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(yellowCards.get(i)));
                 viewOrder++;
             }
 
-            for (int i = 0; i < purpleCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(purpleCards.get(i)));
+            for (int i = 0; i < purpleCards.size(); i++) {
+                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(purpleCards.get(i)));
                 viewOrder++;
             }
 
-            for (int i = 0; i < greenCards.size(); i++){
-                ((ImageView)root.getChildren().get(viewOrder+2)).setImage(getCardImage(greenCards.get(i)));
+            for (int i = 0; i < greenCards.size(); i++) {
+                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(greenCards.get(i)));
                 viewOrder++;
             }
-
-
-        } catch (IOException e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }

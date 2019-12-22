@@ -101,10 +101,20 @@ public class OtherBoardsCards implements Initializable {
         cardViews[20] = card21;
 
 
+
+
         // Setting the mouse entered and exited listeners for hover effect
         commerceButton.setOnMouseEntered(e -> { commerceButton.setStyle(HOVERED_BUTTON_STYLE); });
         commerceButton.setOnMouseExited(e -> commerceButton.setStyle(IDLE_BUTTON_STYLE));
 
+        SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+           @Override
+           public void handle(KeyEvent event) {
+
+               event.consume();
+           }
+        }
+        );
     }
 
     public void focusIntoBoardCard(MouseEvent mouseEvent) {

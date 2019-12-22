@@ -3,11 +3,11 @@ package uiComponents;
 import audioDescription.AudioDescriptionHandler;
 import audioDescription.Reader;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
@@ -16,6 +16,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import models.Card;
 import models.DataHandler;
 import models.Settings;
 import utils.Constants;
@@ -23,12 +25,15 @@ import utils.Constants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class SceneHandler extends Application {
 
     private static SceneHandler sceneHandler = new SceneHandler();
-    private Stage stage;
+    private Stage stageMain;
+
+    private Stage stagePopup;
 
     // For the background music
     private MediaPlayer mediaPlayer;
@@ -47,7 +52,7 @@ public class SceneHandler extends Application {
         DataHandler dataHandler = DataHandler.getInstance();
         if (dataHandler.getSettings().isSoundEffects())
             playMusic(); // Starts the music
-        stage = primaryStage;
+        stageMain = primaryStage;
 
         AnchorPane root;
         Scene scene;
@@ -66,7 +71,7 @@ public class SceneHandler extends Application {
 
        //moveToCreateLobby();
         //moveToCredits();
-        //moveToGame();
+        moveToGame();
         //moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
@@ -110,8 +115,8 @@ public class SceneHandler extends Application {
             logoView.setImage(logoImage);
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
 
 
         } catch (IOException e) {
@@ -144,8 +149,8 @@ public class SceneHandler extends Application {
             logoView.setImage(logoImage);
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -178,8 +183,8 @@ public class SceneHandler extends Application {
             logoView.setImage(logoImage);
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
 
 
         } catch (IOException e) {
@@ -213,8 +218,8 @@ public class SceneHandler extends Application {
             backView.setImage(backImage);
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -244,8 +249,8 @@ public class SceneHandler extends Application {
 
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -272,8 +277,8 @@ public class SceneHandler extends Application {
             backgroundView.setImage(backgroundImage);
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -299,8 +304,8 @@ public class SceneHandler extends Application {
             backgroundView.setImage(backgroundImage);
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -336,8 +341,8 @@ public class SceneHandler extends Application {
             backView.setImage(backImage);
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -366,8 +371,8 @@ public class SceneHandler extends Application {
 
 
             // Show scene
-            stage.getScene().setRoot(root);
-            stage.show();
+            stageMain.getScene().setRoot(root);
+            stageMain.show();
 
 
 
@@ -387,7 +392,7 @@ public class SceneHandler extends Application {
         alert.setTitle("Exit Game");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.initOwner(stage);
+        alert.initOwner(stageMain);
 
         if(settings.isAudioDescription())
         {
@@ -416,6 +421,71 @@ public class SceneHandler extends Application {
         }
     }
 
+    public void showOtherBoardsCardsScene(){
+        stagePopup = new Stage();
+        stagePopup.setScene(new Scene(new AnchorPane()));
+
+        // Load FXML and show pop up window
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+
+        AnchorPane root = null;
+
+        try {
+            fileInputStream = new FileInputStream(new File(Constants.OTHER_BOARDS_CARDS_FXML));
+            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
+            root = (AnchorPane) loader.load(fileInputStream);
+
+            // Set background image
+            Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+            backgroundView.setImage(backgroundImage);
+
+            stagePopup.initStyle(StageStyle.UTILITY);
+            stagePopup.setAlwaysOnTop(true);
+            stagePopup.initOwner(stageMain);
+            stagePopup.getScene().setRoot(root);
+            stagePopup.show();
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showHowToPlayScene(){
+        stagePopup = new Stage();
+        stagePopup.setScene(new Scene(new AnchorPane()));
+        
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+
+        AnchorPane root = null;
+
+        try{
+            fileInputStream = new FileInputStream(new File(Constants.HOW_TO_PLAY_FXML));
+            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
+            root = (AnchorPane)loader.load(fileInputStream);
+
+            // Set background image
+            Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+
+            backgroundView.setImage(backgroundImage);
+
+            stagePopup.getScene().setRoot(root);
+            stagePopup.initStyle(StageStyle.UTILITY);
+            stagePopup.setAlwaysOnTop(true);
+            stagePopup.initOwner(stageMain);
+            stagePopup.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
@@ -424,9 +494,17 @@ public class SceneHandler extends Application {
         this.mediaPlayer = mediaPlayer;
     }
 
-    public Stage getStage() { return stage; }
+    public Stage getStageMain() { return stageMain; }
 
-    public void setStage(Stage stage) { this.stage = stage; }
+    public void setStageMain(Stage stage) { this.stageMain = stage; }
+
+    public Stage getStagePopup() {
+        return stagePopup;
+    }
+
+    public void setStagePopup(Stage stagePopup) {
+        this.stagePopup = stagePopup;
+    }
 
 }
 
