@@ -44,7 +44,6 @@ public class SettingsScene implements Initializable {
         settings.setAudioDescription(audioDescriptionCheckBox.isSelected());
         String username = usernameField.getText();
         String password = passwordField.getText();
-        final boolean[] first = {true};
 
         // If there is an input at username of password then confirmation pop up
         if (!username.equals("") || !password.equals("")) {
@@ -60,30 +59,6 @@ public class SettingsScene implements Initializable {
             alert.initOwner(saveButton.getScene().getWindow());
 
             String text;
-
-            Settings settings = DataHandler.getInstance().getSettings();
-
-            //if ( settings.isAudioDescription())
-              //     AudioDescriptionHandler.getInstance().getReader().read(alert.getContentText());
-
-
-            alert.getDialogPane().getButtonTypes().forEach(buttonType -> {
-                alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue && settings.isAudioDescription() && !first[0])
-                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
-                    first[0] = false;
-                });
-            });
-
-            ///çalışmıyor
-            alert.getDialogPane().focusedProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue && settings.isAudioDescription() && !first[0])
-                    AudioDescriptionHandler.getInstance().getReader().read(alert.getContentText());
-                first[0] = false;
-            });
-
-
-
 
             // Change the text according to the input
             if (!username.equals("") && !password.equals("")) {
