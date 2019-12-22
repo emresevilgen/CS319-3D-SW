@@ -43,9 +43,7 @@ public class SettingsScene implements Initializable {
         DataHandler.getInstance().getSettings().setAudioDescription(audioDescriptionCheckBox.isSelected());
         String username = usernameField.getText();
         String password = passwordField.getText();
-
-        //System.out.println("username:::::" +username);
-        
+        final boolean[] first = {true};
 
         // If there is an input at username of password then confirmation pop up
         if (!username.equals("") || !password.equals("")) {
@@ -54,6 +52,30 @@ public class SettingsScene implements Initializable {
             alert.setHeaderText(null);
             alert.initOwner(saveButton.getScene().getWindow());
             alert.setGraphic(null);
+
+            Settings settings = DataHandler.getInstance().getSettings();
+
+            //if ( settings.isAudioDescription())
+              //     AudioDescriptionHandler.getInstance().getReader().read(alert.getContentText());
+
+
+            alert.getDialogPane().getButtonTypes().forEach(buttonType -> {
+                alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue && settings.isAudioDescription() && !first[0])
+                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                    first[0] = false;
+                });
+            });
+
+            ///çalışmıyor
+            alert.getDialogPane().focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue && settings.isAudioDescription() && !first[0])
+                    AudioDescriptionHandler.getInstance().getReader().read("Enter the code of the lobby");
+                first[0] = false;
+            });
+
+
+
 
             // Change the text according to the input
             if (!username.equals("") && !password.equals("")) {
