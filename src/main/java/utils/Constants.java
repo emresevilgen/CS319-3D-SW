@@ -18,6 +18,7 @@ public class Constants {
     public static final String CREATE_LOBBY_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "CreateLobby.fxml");
     public static final String GAME_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "Game.fxml");
     public static final String OTHER_BOARDS_CARDS_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "OtherBoardsCards.fxml");
+    public static final String HOW_TO_PLAY_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "HowToPlay.fxml");
 
     // Background images
     public static final String LOGO_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "logo.png");

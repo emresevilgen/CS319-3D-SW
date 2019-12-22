@@ -66,13 +66,13 @@ public class SceneHandler extends Application {
 
        //moveToCreateLobby();
         //moveToCredits();
-        //moveToGame();
+        moveToGame();
         //moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
         //moveToSettings();
-        moveToSignIn();
+        //moveToSignIn();
         //moveToSignUp();
 
     }
@@ -180,6 +180,7 @@ public class SceneHandler extends Application {
             // Show scene
             stage.getScene().setRoot(root);
             stage.show();
+
 
         } catch (IOException e) {
             e.printStackTrace();

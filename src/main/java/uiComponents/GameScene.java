@@ -198,6 +198,8 @@ public class GameScene implements Initializable {
     private Card[] cardsInColorOrder;
     public Stage boardStage;
     public Scene boardScene;
+    public Stage howToPlayStage;
+    public Scene howToPlayScene;
     public boolean firstTime;
 
     public boolean showError;
@@ -235,6 +237,17 @@ public class GameScene implements Initializable {
             e.printStackTrace();
         }
 
+        //---------------------------------------------------------------------------
+        //Pop for how to play
+       /* Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("How To Play");
+        alert.setHeaderText("Please enter H key for How To Play");
+        alert.initOwner(nextTurnButton.getScene().getWindow());
+        alert.setGraphic(null);
+
+        alert.showAndWait();*/
+
+        //---------------------------------------------------------------------------
 
         // Setting the mouse entered and exited listeners for hover effect
         nextTurnButton.setOnMouseEntered(e -> { nextTurnButton.setStyle(HOVERED_BUTTON_STYLE); });
@@ -246,8 +259,8 @@ public class GameScene implements Initializable {
         wonderButton.setOnMouseEntered(e -> { wonderButton.setStyle(HOVERED_BUTTON_STYLE); });
         wonderButton.setOnMouseExited(e -> wonderButton.setStyle(IDLE_BUTTON_STYLE));
 
-        Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        Settings settings = DataHandler.getInstance().getSettings();
 
         firstTime = true;
         nextTurnButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
@@ -474,6 +487,37 @@ public class GameScene implements Initializable {
                    exitHelper();
                }
 
+               if(keyCode.equals(keyCode.H))
+               {
+                   FXMLLoader loader = new FXMLLoader();
+                   FileInputStream fileInputStream = null;
+                   FileInputStream backgroundFile = null;
+
+                   AnchorPane root = null;
+
+                   try{
+                       fileInputStream = new FileInputStream(new File(Constants.HOW_TO_PLAY_FXML));
+                       backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
+                       root = (AnchorPane)loader.load(fileInputStream);
+
+                       // Set background image
+                       Image backgroundImage = new Image(backgroundFile);
+                       ImageView backgroundView = (ImageView) root.getChildren().get(0);
+
+                       backgroundView.setImage(backgroundImage);
+
+                       howToPlayScene = new Scene(root);
+                       howToPlayStage = new Stage();
+                       howToPlayStage.setScene(howToPlayScene);
+                       howToPlayStage.initStyle(StageStyle.UTILITY);
+                       howToPlayStage.setAlwaysOnTop(true);
+                       howToPlayStage.initOwner(focus.getScene().getWindow());
+                       howToPlayStage.show();
+
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+               }
                event.consume();
            }
         });
