@@ -397,9 +397,14 @@ public class GameScene implements Initializable {
                        tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
                }
 
-               if(keyCode.equals(KeyCode.ENTER) && keyInput.equals("boardCards"))
+               if(keyCode.equals(KeyCode.Q) && keyInput.equals("boards"))
                {
-
+                   if(boardIndex != 0)
+                   {
+                       Card[] cards = game.players[boardIndex].board.cards;
+                       String username = game.users[boardIndex].userName;
+                       showOtherPlayerCardsHelper(cards, username);
+                   }
                }
 
                else if(keyCode.equals(KeyCode.R) && keyInput.equals("deck"))
@@ -955,6 +960,7 @@ public class GameScene implements Initializable {
 
     // Board listeners
     public void showOtherPlayersCards(MouseEvent mouseEvent) {
+
         Card [] cards;
         String username;
         // Get the players cards
@@ -974,7 +980,11 @@ public class GameScene implements Initializable {
         }
         else
             return;
+        showOtherPlayerCardsHelper(cards,username);
+    }
 
+    public void showOtherPlayerCardsHelper(Card[] cards, String username)
+    {
         // Load FXML and show pop up window
 
         FXMLLoader loader = new FXMLLoader();
