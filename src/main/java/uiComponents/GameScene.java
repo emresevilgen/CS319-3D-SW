@@ -456,8 +456,8 @@ public class GameScene implements Initializable {
                }
                else if(keyCode.equals(keyCode.H))
                {
-                   //SceneHandler.getInstance().showHowToPlayScene();
-                   SceneHandler.getInstance().showLootScene();
+                   SceneHandler.getInstance().showHowToPlayScene();
+                   //showLootScreen("user2");
                }
                event.consume();
            }
@@ -952,18 +952,27 @@ public class GameScene implements Initializable {
         Card [] cards;
         // Get the players cards
         Game game = DataHandler.getInstance().getGame();
-        if (username.equals(game.users[1])) {
+        if (username.equals(game.users[1].userName)) {
             cards = game.players[1].board.cards;
         }
-        else if (username.equals(game.users[2])) {
+        else if (username.equals(game.users[2].userName)) {
             cards = game.players[2].board.cards;
         }
-        else if (username.equals(game.users[3])) {
+        else if (username.equals(game.users[3].userName)) {
             cards = game.players[3].board.cards;
         }
         else
             return;
-        showOtherPlayerCardsHelper(cards,username);
+        try {
+            SceneHandler.getInstance().showLootScene();
+            Stage stage = SceneHandler.getInstance().getStagePopup();
+            AnchorPane root = (AnchorPane) stage.getScene().getRoot();
+            Label usernameLabel = (Label) root.getChildren().get(1);
+            usernameLabel.setText(username);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void showOtherPlayerCardsHelper(Card[] cards, String username)
@@ -975,82 +984,7 @@ public class GameScene implements Initializable {
             Label usernameLabel = (Label) root.getChildren().get(1);
             usernameLabel.setText(username);
 
-            /*// Classify the cards
-            ArrayList<Card> brownCards = new ArrayList<>();
-            ArrayList<Card> grayCards = new ArrayList<>();
-            ArrayList<Card> redCards = new ArrayList<>();
-            ArrayList<Card> blueCards = new ArrayList<>();
-            ArrayList<Card> yellowCards = new ArrayList<>();
-            ArrayList<Card> purpleCards = new ArrayList<>();
-            ArrayList<Card> greenCards = new ArrayList<>();
 
-            for (int i = 0; i < cards.length; i++) {
-                if (cards[i] != null) {
-                    Card card = cards[i];
-                    String color = card.cardColor;
-                    switch (color) {
-                        case "Brown":
-                            brownCards.add(card);
-                            break;
-                        case "Gray":
-                            grayCards.add(card);
-                            break;
-                        case "Red":
-                            redCards.add(card);
-                            break;
-                        case "Blue":
-                            blueCards.add(card);
-                            break;
-                        case "Yellow":
-                            yellowCards.add(card);
-                            break;
-                        case "Purple":
-                            purpleCards.add(card);
-                            break;
-                        case "Green":
-                            greenCards.add(card);
-                            break;
-                    }
-                }
-            }
-
-            // Display the cards in order
-            int viewOrder = 0;
-
-            for (int i = 0; i < redCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(redCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < brownCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(brownCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < grayCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(grayCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < blueCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(blueCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < yellowCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(yellowCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < purpleCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(purpleCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < greenCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(greenCards.get(i)));
-                viewOrder++;
-            }*/
         }
         catch (Exception e){
             e.printStackTrace();
