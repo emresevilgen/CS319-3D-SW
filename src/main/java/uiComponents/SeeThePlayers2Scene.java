@@ -227,8 +227,6 @@ public class SeeThePlayers2Scene implements Initializable {
         requestThread.start();
 
         try {
-
-
             //Change status of the users
             firstPlayerStatus.setImage(null);
             if(dataHandler.getLobby().lobbyUsers.length > 0 &&  dataHandler.getLobby().lobbyUsers[0] !=  null)

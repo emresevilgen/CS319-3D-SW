@@ -190,7 +190,6 @@ public class GameScene implements Initializable {
 
 
     private String keyInput = "";
-    private Card[] cardsInColorOrder;
 
     public boolean firstTime;
     public boolean showError;
@@ -914,11 +913,11 @@ public class GameScene implements Initializable {
     // Board listeners
     public void showOtherPlayersCards(MouseEvent mouseEvent) {
 
-        Card [] cards;
         String username;
         // Get the players cards
         ImageView boardView = (ImageView)mouseEvent.getSource();
         Game game = DataHandler.getInstance().getGame();
+        Card[] cards = null;
 
         if (game.players.length == 4) {
             if (boardView.equals(rightBoard)) {
@@ -974,6 +973,11 @@ public class GameScene implements Initializable {
             AnchorPane root = (AnchorPane) stage.getScene().getRoot();
             Label usernameLabel = (Label) root.getChildren().get(1);
             usernameLabel.setText(username);
+
+
+            for (int i = 0; i < cards.length; i++) {
+                ((ImageView) root.getChildren().get(i + 2)).setImage(getCardImage(cards[i]));
+            }
 
             /*// Classify the cards
             ArrayList<Card> brownCards = new ArrayList<>();

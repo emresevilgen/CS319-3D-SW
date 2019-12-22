@@ -208,13 +208,15 @@ public class SeeThePlayersScene implements Initializable {
         checkBoxes[2] = fourthPlayerCheckBox;
 
         Lobby lobby = dataHandler.getLobby();
+        for(int i = 0; i < checkBoxes.length; i++) {
+            checkBoxes[i].setDisable(true);
+        }
+
         for(int i = 1; i < lobby.lobbyUsers.length; i++){
             if (lobby.lobbyUsers[i] != null && lobby.lobbyUsers[i].username != null)
                 checkBoxes[i-1].setDisable(false);
-            else
-                checkBoxes[i-1].setDisable(true);
-
         }
+
         try {
             secondPlayerStatus.setImage(null);
             //Change status of the users
