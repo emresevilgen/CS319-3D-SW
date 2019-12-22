@@ -163,6 +163,10 @@ public class GameScene implements Initializable {
     Label stage3;
     @FXML
     Label stage4;
+    @FXML
+    Label ageLabel;
+    @FXML
+    Label turnLabel;
 
 
     // Button colors for hovered and not
@@ -286,7 +290,13 @@ public class GameScene implements Initializable {
             else
                 wonderButton.setStyle(IDLE_BUTTON_STYLE);
         });
-
+        //-------------------------------------
+        //Change next turn button to next age
+        Game game = DataHandler.getInstance().getGame();
+        if(game.turnNumber == 6)
+            nextTurnButton.setText("Next Age");
+        else
+            nextTurnButton.setText("Next Turn ");
 
         //-------------------------------------
         selectedCardIndex = 0;
@@ -426,7 +436,7 @@ public class GameScene implements Initializable {
 
                if(keyCode.equals(KeyCode.I)){
                     if (settings.isAudioDescription()){
-                        String text = "";
+                        String text = "Age is " + game.ageNumber + " and turn is " + game.turnNumber+ " ";
                         for (int i = 0; i < game.users.length; i++) {
                             if (game.users[i] != null) {
                                 text = text + game.users[i].userName + " has ";
@@ -442,6 +452,8 @@ public class GameScene implements Initializable {
                                     text = text + player.victoryPoints + " victory tokens. \n";
                                 else
                                     text = text + player.victoryPoints + " victory token. \n";
+
+                                text = text + " and the wonder stage is " + player.board.wonderStage ;
                             }
                         }
                         tts.read(text);
@@ -859,8 +871,12 @@ public class GameScene implements Initializable {
             viewOrder++;
         }
 
-        //Update coins and tokens on the table
+        //Update coins, tokens and wonder stage on the table, write turn and age number
         Game game = DataHandler.getInstance().getGame();
+
+        ageLabel.setText("Age: " + game.ageNumber);
+        turnLabel.setText("Turn: " + game.turnNumber);
+
         if((game.users != null) && (game.users[0]!= null))
         {
             username1.setText(game.users[0].userName);

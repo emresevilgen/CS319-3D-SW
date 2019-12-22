@@ -45,6 +45,7 @@ public class SettingsScene implements Initializable {
         String password = passwordField.getText();
 
         //System.out.println("username:::::" +username);
+        
 
         // If there is an input at username of password then confirmation pop up
         if (!username.equals("") || !password.equals("")) {
