@@ -53,6 +53,10 @@ public class SceneHandler extends Application {
         if (dataHandler.getSettings().isSoundEffects())
             playMusic(); // Starts the music
         stageMain = primaryStage;
+        stagePopup = new Stage();
+        stagePopup.initStyle(StageStyle.UTILITY);
+        stagePopup.setAlwaysOnTop(true);
+        stagePopup.initOwner(stageMain);
 
         AnchorPane root;
         Scene scene;
@@ -422,7 +426,6 @@ public class SceneHandler extends Application {
     }
 
     public void showOtherBoardsCardsScene(){
-        stagePopup = new Stage();
         stagePopup.setScene(new Scene(new AnchorPane()));
 
         // Load FXML and show pop up window
@@ -442,10 +445,9 @@ public class SceneHandler extends Application {
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
 
-            stagePopup.initStyle(StageStyle.UTILITY);
-            stagePopup.setAlwaysOnTop(true);
-            stagePopup.initOwner(stageMain);
             stagePopup.getScene().setRoot(root);
+            stagePopup.sizeToScene();
+            stagePopup.centerOnScreen();
             stagePopup.show();
 
         }
@@ -455,9 +457,8 @@ public class SceneHandler extends Application {
     }
 
     public void showHowToPlayScene(){
-        stagePopup = new Stage();
         stagePopup.setScene(new Scene(new AnchorPane()));
-        
+
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
         FileInputStream backgroundFile = null;
@@ -476,10 +477,42 @@ public class SceneHandler extends Application {
             backgroundView.setImage(backgroundImage);
 
             stagePopup.getScene().setRoot(root);
-            stagePopup.initStyle(StageStyle.UTILITY);
-            stagePopup.setAlwaysOnTop(true);
-            stagePopup.initOwner(stageMain);
+            stagePopup.sizeToScene();
+            stagePopup.centerOnScreen();
             stagePopup.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showCommerceScene(){
+        // Load FXML and show pop up window
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+
+        AnchorPane root = null;
+
+        try{
+            fileInputStream = new FileInputStream(new File(Constants.COMMERCE_FXML));
+            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
+            root = (AnchorPane)loader.load(fileInputStream);
+
+            // Set background image
+            Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+
+            backgroundView.setImage(backgroundImage);
+
+            stagePopup.getScene().setRoot(root);
+            stagePopup.sizeToScene();
+            stagePopup.centerOnScreen();
+            stagePopup.show();
+
+            FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
+            Image clay = new Image(inputStream);
+            ((ImageView)root.getChildren().get(1)).setImage(clay);
 
         } catch (IOException e) {
             e.printStackTrace();

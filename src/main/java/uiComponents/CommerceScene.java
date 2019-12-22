@@ -58,9 +58,7 @@ public class CommerceScene implements Initializable {
         makeCommerceButton.setOnMouseEntered(e -> makeCommerceButton.setStyle(HOVERED_BUTTON_STYLE));
         makeCommerceButton.setOnMouseExited(e -> makeCommerceButton.setStyle(IDLE_BUTTON_STYLE));
 
-
         try {
-            System.out.println("esra");
             FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
             Image clay = new Image(inputStream);
             clayImage.setImage(clay);

@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="454.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.CommerceScene">
+<AnchorPane prefHeight="454.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.CommerceScene">
    <children>
-      <ImageView fitHeight="454.0" fitWidth="636.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="454.0" fitWidth="636.0" pickOnBounds="true" />
       <ImageView fx:id="clayImage" fitHeight="70.0" fitWidth="70.0" layoutX="58.0" layoutY="57.0" pickOnBounds="true" preserveRatio="false" />
       <ImageView fx:id="oreImage" fitHeight="70.0" fitWidth="70.0" layoutX="208.0" layoutY="57.0" pickOnBounds="true" preserveRatio="false" />
       <ImageView fx:id="stoneImage" fitHeight="70.0" fitWidth="70.0" layoutX="358.0" layoutY="57.0" pickOnBounds="true" preserveRatio="false" />

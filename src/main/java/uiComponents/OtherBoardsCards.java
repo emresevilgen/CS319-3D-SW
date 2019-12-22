@@ -115,21 +115,19 @@ public class OtherBoardsCards implements Initializable {
         cardViews[19] = card20;
         cardViews[20] = card21;
 
-
-
-
         // Setting the mouse entered and exited listeners for hover effect
         commerceButton.setOnMouseEntered(e -> { commerceButton.setStyle(HOVERED_BUTTON_STYLE); });
         commerceButton.setOnMouseExited(e -> commerceButton.setStyle(IDLE_BUTTON_STYLE));
 
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-           @Override
-           public void handle(KeyEvent event) {
-
-               event.consume();
-           }
-        }
-        );
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                if (keyCode.equals(keyCode.ESCAPE))
+                    SceneHandler.getInstance().getStagePopup().close();
+                event.consume();
+            }
+        });
     }
 
     public void focusIntoBoardCard(MouseEvent mouseEvent) {
@@ -150,44 +148,7 @@ public class OtherBoardsCards implements Initializable {
     }
 
     public void commerce(ActionEvent actionEvent) {
-            // Load FXML and show pop up window
-
-            FXMLLoader loader = new FXMLLoader();
-            FileInputStream fileInputStream = null;
-            FileInputStream backgroundFile = null;
-
-            AnchorPane root = null;
-
-            try{
-                fileInputStream = new FileInputStream(new File(Constants.OTHER_BOARDS_CARDS_FXML));
-                backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
-                root = (AnchorPane)loader.load(fileInputStream);
-
-                // Set background image
-                Image backgroundImage = new Image(backgroundFile);
-                ImageView backgroundView = (ImageView) root.getChildren().get(0);
-
-                backgroundView.setImage(backgroundImage);
-
-                ((Stage)(commerceButton.getScene().getWindow())).close();
-                commerceScene = new Scene(root);
-                commerceStage = new Stage();
-                commerceStage.setScene(commerceScene);
-                commerceStage.initStyle(StageStyle.UTILITY);
-                commerceStage.setAlwaysOnTop(true);
-                commerceStage.initOwner(SceneHandler.getInstance().getStage());
-                commerceStage.show();
-
-
-                /*FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
-                Image clay = new Image(inputStream);
-                ((ImageView)root.getChildren().get(1)).setImage(clay);*/
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
+        SceneHandler.getInstance().showCommerceScene();
     }
 
     public void focusOutBoardCard(MouseEvent mouseEvent) {
