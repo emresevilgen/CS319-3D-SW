@@ -39,8 +39,9 @@ public class SettingsScene implements Initializable {
     // Save button listener
     public void save(ActionEvent event) throws Exception {
         // Get the inputs
-        DataHandler.getInstance().getSettings().setSoundEffects(soundEffectsCheckBox.isSelected());
-        DataHandler.getInstance().getSettings().setAudioDescription(audioDescriptionCheckBox.isSelected());
+        Settings settings = DataHandler.getInstance().getSettings();
+        settings.setSoundEffects(soundEffectsCheckBox.isSelected());
+        settings.setAudioDescription(audioDescriptionCheckBox.isSelected());
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -49,28 +50,52 @@ public class SettingsScene implements Initializable {
 
         // If there is an input at username of password then confirmation pop up
         if (!username.equals("") || !password.equals("")) {
+            disableItems();
+            final boolean[] first = {true};
+            Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Save Settings");
             alert.setHeaderText(null);
             alert.initOwner(saveButton.getScene().getWindow());
             alert.setGraphic(null);
+            alert.initOwner(saveButton.getScene().getWindow());
+
+            String text;
 
             // Change the text according to the input
             if (!username.equals("") && !password.equals("")) {
-                alert.setContentText("Do you want to change your username and password?");
+                text = "Do you want to change your username and password?";
             } else if (username.equals("")) {
-                alert.setContentText("Do you want to change your password?");
+                text = "Do you want to change your password?";
             } else {
-                alert.setContentText("Do you want to change your username?");
+                text = "Do you want to change your username?";
             }
 
+            alert.setContentText(text);
 
+            if (settings.isAudioDescription())
+                tts.read(text + " Press enter to say yes or no. No");
+
+
+            // Add options
+            ButtonType buttonYes = new ButtonType("Yes");
+            ButtonType buttonNo = new ButtonType("No");
+            alert.getButtonTypes().setAll(buttonNo, buttonYes);
+
+            alert.getButtonTypes().forEach(buttonType -> {
+                alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue && settings.isAudioDescription() && !first[0])
+                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                    first[0] = false;
+                });
+            });
 
 
             Optional<ButtonType> result = alert.showAndWait();
 
             // Get the result
-            if (result.get() == ButtonType.OK){
+            if (result.get() == buttonYes){
 
                 // ---------------------------------------------------
                 // ---------------------------------------------------
@@ -82,6 +107,7 @@ public class SettingsScene implements Initializable {
             } else {
                 alert.close();
             }
+            enableItems();
         }
         else {
             if (DataHandler.getInstance().getSettings().isSoundEffects())
@@ -173,5 +199,16 @@ public class SettingsScene implements Initializable {
         soundEffectsCheckBox.setSelected(DataHandler.getInstance().getSettings().isSoundEffects());
         audioDescriptionCheckBox.setSelected(DataHandler.getInstance().getSettings().isAudioDescription());
 
+    }
+
+    private void disableItems(){
+        saveButton.setDisable(true);
+        cancelButton.setDisable(true);
+
+    }
+
+    private void enableItems() {
+        saveButton.setDisable(false);
+        cancelButton.setDisable(false);
     }
 }

@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -253,7 +254,7 @@ public class GameScene implements Initializable {
         nextTurnButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if(settings.isAudioDescription() && !firstTime)
-                    tts.read("Next turn");
+                    tts.read(nextTurnButton.getText());
                 nextTurnButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
@@ -314,10 +315,9 @@ public class GameScene implements Initializable {
                    case C:
                        keyInput = "deck";
                        leftBoardCardsNo = 0; acrossBoardCardsNo= 0; rightBoardCardsNo = 0; boardIndex = 0;
-                       if(settings.isAudioDescription()) {
-                           tts.read("The cards in the deck." + game.players[0].playerCards[selectedCardIndex].cardName);
-                           selectTheCard(selectedCardIndex);
-                       }
+                       if (settings.isAudioDescription())
+                            tts.read("The cards in the deck." + game.players[0].playerCards[selectedCardIndex].cardName);
+                       selectTheCard(selectedCardIndex);
                        break;
 
                    //Cards in the player's board
@@ -396,10 +396,10 @@ public class GameScene implements Initializable {
                        selectedCardIndex = -1;
                    }
                    selectedCardIndex++;
-                   if(settings.isAudioDescription()) {
+                   if(settings.isAudioDescription())
                        tts.read(game.players[0].playerCards[selectedCardIndex].cardName);
-                       selectTheCard(selectedCardIndex);
-                   }
+                   selectTheCard(selectedCardIndex);
+
                }
                else if(keyCode.equals(KeyCode.E) && keyInput.equals("deck"))
                {
@@ -408,10 +408,10 @@ public class GameScene implements Initializable {
                        selectedCardIndex = 7 - turnNumber;
                    }
                    selectedCardIndex--;
-                   if(settings.isAudioDescription()) {
+                   if(settings.isAudioDescription())
                        tts.read(game.players[0].playerCards[selectedCardIndex].cardName);
-                       selectTheCard(selectedCardIndex);
-                   }
+                   selectTheCard(selectedCardIndex);
+
                }
                else if(keyCode.equals(KeyCode.R) && keyInput.equals("boards"))
                {
@@ -633,6 +633,8 @@ public class GameScene implements Initializable {
             e.printStackTrace();
         }
     }
+
+
     // Exit button listener
     public void exit(MouseEvent actionEvent){
         exitHelper();
@@ -957,6 +959,14 @@ public class GameScene implements Initializable {
             boardStage.setAlwaysOnTop(true);
             boardStage.initOwner(focus.getScene().getWindow());
             boardStage.show();
+/*            boardScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                 @Override
+                 public void handle(KeyEvent event) {
+
+                     event.consume();
+                 }
+            }
+            );*/
 
             // Classify the cards
             ArrayList<Card> brownCards = new ArrayList<>();
@@ -1117,9 +1127,10 @@ public class GameScene implements Initializable {
             }
         }
         selectTheCard(cardIndex);
-
+        Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
-        tts.read(deckCards[cardIndex].cardName);
+        if (settings.isAudioDescription())
+            tts.read(deckCards[cardIndex].cardName);
     }
 
     private void selectTheCard(int cardIndex){
@@ -1151,7 +1162,7 @@ public class GameScene implements Initializable {
                 break;
         }
 
-        if (cardIndex != cardsInColorOrder.length) {
+        if (cardIndex != cardsInColorOrder.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
             Reader tts = AudioDescriptionHandler.getInstance().getReader();
             tts.read(cardsInColorOrder[cardIndex].cardName);
         }

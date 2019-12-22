@@ -47,6 +47,7 @@ public class SignInScene implements Initializable{
     private ProgressIndicator progress;
 
     private boolean readCheck = true;
+    private boolean firstTime = true;
 
     // Sign up button listener
     public void signUp(ActionEvent event) throws Exception {
@@ -108,6 +109,10 @@ public class SignInScene implements Initializable{
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
+        if (settings.isAudioDescription()){
+            tts.read("Welcome to the Seven Wonders Game. \n Enter user name.");
+        }
+
         // Setting the mouse entered and exited listeners for hover effect
         signInButton.setOnMouseEntered(e -> { signInButton.setStyle(HOVERED_BUTTON_STYLE); });
         signInButton.setOnMouseExited(e -> signInButton.setStyle(IDLE_BUTTON_STYLE));
@@ -117,9 +122,10 @@ public class SignInScene implements Initializable{
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
 
         usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue && settings.isAudioDescription()){
+            if (newValue && settings.isAudioDescription() && !firstTime){
                 tts.read("Enter  user name");
             }
+            firstTime = false;
         });
 
         passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {

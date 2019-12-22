@@ -67,9 +67,9 @@ public class RankingsScene implements Initializable {
 
         if(settings.isAudioDescription())
         {
-            tts.read( "The first player is " + firstNameLabel.getText()+ ". the second player is " + secondNameLabel.getText()
-                    + ". the third player is " + thirdNameLabel.getText()+ ". the fourth player is " + fourthNameLabel.getText()
-                    + ". 500th is  " + fifthNameLabel.getText() + ". \n Back");
+            tts.read( "1st player is " + firstNameLabel.getText()+ ". 2nd is " + secondNameLabel.getText()
+                    + ". 3rd player is " + thirdNameLabel.getText()+ ". 4th player is " + fourthNameLabel.getText()
+                    + ". 5th is  " + fifthNameLabel.getText() + ". \n Back");
         }
 
         final boolean[] first = {true};
