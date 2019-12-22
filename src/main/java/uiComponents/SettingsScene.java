@@ -70,7 +70,7 @@ public class SettingsScene implements Initializable {
             ///çalışmıyor
             alert.getDialogPane().focusedProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue && settings.isAudioDescription() && !first[0])
-                    AudioDescriptionHandler.getInstance().getReader().read("Enter the code of the lobby");
+                    AudioDescriptionHandler.getInstance().getReader().read(alert.getContentText());
                 first[0] = false;
             });
 
