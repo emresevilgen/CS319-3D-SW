@@ -4,17 +4,29 @@ import audioDescription.DescriptionReader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import models.Card;
 import models.DataHandler;
+import utils.Constants;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class OtherBoardsCards implements Initializable {
@@ -66,6 +78,9 @@ public class OtherBoardsCards implements Initializable {
     public ImageView card21;
     @FXML
     private ImageView focus;
+
+    public Stage commerceStage;
+    public Scene commerceScene;
 
     private ImageView[] cardViews;
     private DescriptionReader tts = new DescriptionReader();
@@ -135,6 +150,44 @@ public class OtherBoardsCards implements Initializable {
     }
 
     public void commerce(ActionEvent actionEvent) {
+            // Load FXML and show pop up window
+
+            FXMLLoader loader = new FXMLLoader();
+            FileInputStream fileInputStream = null;
+            FileInputStream backgroundFile = null;
+
+            AnchorPane root = null;
+
+            try{
+                fileInputStream = new FileInputStream(new File(Constants.OTHER_BOARDS_CARDS_FXML));
+                backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
+                root = (AnchorPane)loader.load(fileInputStream);
+
+                // Set background image
+                Image backgroundImage = new Image(backgroundFile);
+                ImageView backgroundView = (ImageView) root.getChildren().get(0);
+
+                backgroundView.setImage(backgroundImage);
+
+                ((Stage)(commerceButton.getScene().getWindow())).close();
+                commerceScene = new Scene(root);
+                commerceStage = new Stage();
+                commerceStage.setScene(commerceScene);
+                commerceStage.initStyle(StageStyle.UTILITY);
+                commerceStage.setAlwaysOnTop(true);
+                commerceStage.initOwner(SceneHandler.getInstance().getStage());
+                commerceStage.show();
+
+
+                /*FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
+                Image clay = new Image(inputStream);
+                ((ImageView)root.getChildren().get(1)).setImage(clay);*/
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
     }
 
     public void focusOutBoardCard(MouseEvent mouseEvent) {
