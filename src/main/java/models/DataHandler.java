@@ -54,7 +54,7 @@ public class DataHandler {
         game.players[0].board = new Board();
         // System.out.println(DataHandler.getInstance().getGame().users.length);
         game.players[0].board.wonderName = "Alexandria A";
-        game.players[0].board.cards = new Card[19];
+        game.players[0].board.cards = new Card[16];
         game.players[0].board.cards[0] = new Card();
         game.players[0].board.cards[0].cardName = "Tree Farm";
         game.players[0].board.cards[0].cardColor = "Brown";
@@ -107,7 +107,7 @@ public class DataHandler {
         game.players[1] = new Player();
         game.players[1].board = new Board();
         game.players[1].board.wonderName = "Ephesos A";
-        game.players[1].board.cards = new Card[19];
+        game.players[1].board.cards = new Card[15];
         game.players[1].board.cards[0] = new Card();
         game.players[1].board.cards[0].cardName = "Tree Farm";
         game.players[1].board.cards[0].cardColor = "Brown";
