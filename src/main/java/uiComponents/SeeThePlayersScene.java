@@ -41,17 +41,27 @@ public class SeeThePlayersScene implements Initializable {
     @FXML
     public Label firstStateLabel;
     @FXML
+    public ImageView firstReadyStatus;
+    @FXML
+    public ImageView firstActiveStatus;
+    @FXML
     public Label secondNameLabel;
     @FXML
-    public ImageView secondPlayerStatus;
+    public ImageView secondActiveStatus;
+    @FXML
+    public ImageView secondReadyStatus;
     @FXML
     public Label thirdNameLabel;
     @FXML
-    public ImageView thirdPlayerStatus;
+    public ImageView thirdActiveStatus;
+    @FXML
+    public ImageView thirdReadyStatus;
     @FXML
     public Label fourthNameLabel;
     @FXML
-    public ImageView fourthPlayerStatus;
+    public ImageView fourthActiveStatus;
+    @FXML
+    public ImageView fourthReadyStatus;
     @FXML
     public CheckBox secondPlayerCheckBox;
     @FXML
@@ -63,10 +73,11 @@ public class SeeThePlayersScene implements Initializable {
     @FXML
     public Label lobbyCode;
 
+
+
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 1;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 0.85;";
-    public ImageView firstPlayerStatus;
 
     // Label array to change the usernames and states of the players
     Label [] labelsName = new Label[4];
@@ -221,60 +232,111 @@ public class SeeThePlayersScene implements Initializable {
         }
 
         try {
-            secondPlayerStatus.setImage(null);
+            firstActiveStatus.setImage(null);
+            firstReadyStatus.setImage(null);
             //Change status of the users
             if(dataHandler.getLobby().lobbyUsers.length > 0 &&  dataHandler.getLobby().lobbyUsers[0] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[0].isReady || !dataHandler.getLobby().lobbyUsers[0].isActive){
+                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                if (!dataHandler.getLobby().lobbyUsers[0].isReady ){
                     Image crossImage = new Image(inputStream);
-                    firstPlayerStatus.setImage(crossImage);
+                    firstReadyStatus.setImage(crossImage);
                 }
                 else{
                     Image checkImage = new Image(inputStream2);
-                    firstPlayerStatus.setImage(checkImage);
+                    firstReadyStatus.setImage(checkImage);
                 }
+
+                if (!dataHandler.getLobby().lobbyUsers[0].isActive){
+                    Image crossImage = new Image(inputStream3);
+                    firstActiveStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream4);
+                    firstActiveStatus.setImage(checkImage);
+                }
+
             }
+            secondActiveStatus.setImage(null);
+            secondReadyStatus.setImage(null);
             if(dataHandler.getLobby().lobbyUsers.length > 1 &&  dataHandler.getLobby().lobbyUsers[1] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[1].isReady || !dataHandler.getLobby().lobbyUsers[1].isActive){
+                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                if (!dataHandler.getLobby().lobbyUsers[1].isReady ){
                     Image crossImage = new Image(inputStream);
-                    secondPlayerStatus.setImage(crossImage);
+                    secondReadyStatus.setImage(crossImage);
                 }
                 else{
                     Image checkImage = new Image(inputStream2);
-                    secondPlayerStatus.setImage(checkImage);
+                    secondReadyStatus.setImage(checkImage);
+                }
+
+                if (!dataHandler.getLobby().lobbyUsers[1].isActive){
+                    Image crossImage = new Image(inputStream3);
+                    secondActiveStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream4);
+                    secondActiveStatus.setImage(checkImage);
                 }
             }
-            thirdPlayerStatus.setImage(null);
+
+            thirdActiveStatus.setImage(null);
+            thirdReadyStatus.setImage(null);
             if(dataHandler.getLobby().lobbyUsers.length > 2 &&  dataHandler.getLobby().lobbyUsers[2] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[2].isReady || !dataHandler.getLobby().lobbyUsers[2].isActive){
+                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                if (!dataHandler.getLobby().lobbyUsers[2].isReady ){
                     Image crossImage = new Image(inputStream);
-                    thirdPlayerStatus.setImage(crossImage);
+                    thirdReadyStatus.setImage(crossImage);
                 }
                 else{
                     Image checkImage = new Image(inputStream2);
-                    thirdPlayerStatus.setImage(checkImage);
+                    thirdReadyStatus.setImage(checkImage);
+                }
+
+                if (!dataHandler.getLobby().lobbyUsers[2].isActive){
+                    Image crossImage = new Image(inputStream3);
+                    thirdActiveStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream4);
+                    thirdActiveStatus.setImage(checkImage);
                 }
             }
-            fourthPlayerStatus.setImage(null);
+            fourthActiveStatus.setImage(null);
+            fourthReadyStatus.setImage(null);
             if(dataHandler.getLobby().lobbyUsers.length == 4 &&  dataHandler.getLobby().lobbyUsers[3] !=  null)
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                if (!dataHandler.getLobby().lobbyUsers[3].isReady || !dataHandler.getLobby().lobbyUsers[3].isActive){
+                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                if (!dataHandler.getLobby().lobbyUsers[3].isReady ){
                     Image crossImage = new Image(inputStream);
-                    fourthPlayerStatus.setImage(crossImage);
+                    fourthReadyStatus.setImage(crossImage);
                 }
                 else{
                     Image checkImage = new Image(inputStream2);
-                    fourthPlayerStatus.setImage(checkImage);
+                    fourthReadyStatus.setImage(checkImage);
+                }
+
+                if (!dataHandler.getLobby().lobbyUsers[3].isActive){
+                    Image crossImage = new Image(inputStream3);
+                    fourthActiveStatus.setImage(crossImage);
+                }
+                else{
+                    Image checkImage = new Image(inputStream4);
+                    fourthActiveStatus.setImage(checkImage);
                 }
             }
 

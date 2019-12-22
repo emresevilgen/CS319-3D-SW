@@ -237,6 +237,10 @@ public class GameScene implements Initializable {
         wonderButton.setOnMouseEntered(e -> { wonderButton.setStyle(HOVERED_BUTTON_STYLE); });
         wonderButton.setOnMouseExited(e -> wonderButton.setStyle(IDLE_BUTTON_STYLE));
 
+        Game game = DataHandler.getInstance().getGame();
+        if(game.players[0].board.wonderStage == 3)
+            wonderButton.setDisable(true);
+
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
 
@@ -283,7 +287,6 @@ public class GameScene implements Initializable {
         });
 
         //Change next turn button to next age
-        Game game = DataHandler.getInstance().getGame();
         if(game.turnNumber == 6)
             nextTurnButton.setText("Next Age");
         else
@@ -1089,7 +1092,4 @@ public class GameScene implements Initializable {
         structureButton.setDisable(false);
         wonderButton.setDisable(false);
     }
-
-
-
 }

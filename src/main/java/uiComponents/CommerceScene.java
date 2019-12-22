@@ -126,9 +126,6 @@ public class CommerceScene implements Initializable {
                 event.consume();
             }
         });
-
-
-
     }
 
     public void makeCommerce(ActionEvent actionEvent){
