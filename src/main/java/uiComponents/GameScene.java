@@ -975,7 +975,7 @@ public class GameScene implements Initializable {
             Label usernameLabel = (Label) root.getChildren().get(1);
             usernameLabel.setText(username);
 
-            // Classify the cards
+            /*// Classify the cards
             ArrayList<Card> brownCards = new ArrayList<>();
             ArrayList<Card> grayCards = new ArrayList<>();
             ArrayList<Card> redCards = new ArrayList<>();
@@ -1050,7 +1050,7 @@ public class GameScene implements Initializable {
             for (int i = 0; i < greenCards.size(); i++) {
                 ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(greenCards.get(i)));
                 viewOrder++;
-            }
+            }*/
         }
         catch (Exception e){
             e.printStackTrace();
