@@ -974,85 +974,16 @@ public class GameScene implements Initializable {
         }
     }
 
-    public void showOtherPlayerCardsHelper(Card[] cards, String username)
-    {
+    public void showOtherPlayerCardsHelper(Card[] cards, String username) {
         try {
             SceneHandler.getInstance().showOtherBoardsCardsScene();
             Stage stage = SceneHandler.getInstance().getStagePopup();
             AnchorPane root = (AnchorPane) stage.getScene().getRoot();
             Label usernameLabel = (Label) root.getChildren().get(1);
             usernameLabel.setText(username);
-
-
+            
             for (int i = 0; i < cards.length; i++) {
                 ((ImageView) root.getChildren().get(i + 2)).setImage(getCardImage(cards[i]));
-            }
-
-            /*// Classify the cards
-            ArrayList<Card> brownCards = new ArrayList<>();
-            ArrayList<Card> grayCards = new ArrayList<>();
-            ArrayList<Card> redCards = new ArrayList<>();
-            ArrayList<Card> blueCards = new ArrayList<>();
-            ArrayList<Card> yellowCards = new ArrayList<>();
-            ArrayList<Card> purpleCards = new ArrayList<>();
-            ArrayList<Card> greenCards = new ArrayList<>();
-
-            for (int i = 0; i < cards.length; i++) {
-                if (cards[i] != null) {
-                    Card card = cards[i];
-                    String color = card.cardColor;
-                    switch (color) {
-                        case "Brown":
-                            brownCards.add(card);
-                            break;
-                        case "Gray":
-                            grayCards.add(card);
-                            break;
-                        case "Red":
-                            redCards.add(card);
-                            break;
-                        case "Blue":
-                            blueCards.add(card);
-                            break;
-                        case "Yellow":
-                            yellowCards.add(card);
-                            break;
-                        case "Purple":
-                            purpleCards.add(card);
-                            break;
-                        case "Green":
-                            greenCards.add(card);
-                            break;
-                    }
-                }
-            }
-
-            // Display the cards in order
-            int viewOrder = 0;
-
-            for (int i = 0; i < redCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(redCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < brownCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(brownCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < grayCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(grayCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < blueCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(blueCards.get(i)));
-                viewOrder++;
-            }
-
-            for (int i = 0; i < yellowCards.size(); i++) {
-                ((ImageView) root.getChildren().get(viewOrder + 2)).setImage(getCardImage(yellowCards.get(i)));
-                viewOrder++;
             }
 
         }
@@ -1060,7 +991,6 @@ public class GameScene implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     /**
      * Gets the Card object and returns its image
