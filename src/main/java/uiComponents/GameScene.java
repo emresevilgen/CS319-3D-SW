@@ -394,14 +394,23 @@ public class GameScene implements Initializable {
                        tts.read(cardsInColorOrder[focusedCardInBoardIndex].cardName);
                }
 
-               if(keyCode.equals(KeyCode.Q) && keyInput.equals("boards"))
+               if(keyCode.equals(KeyCode.A) )
                {
-                   if(boardIndex != 0)
-                   {
-                       Card[] cards = game.players[boardIndex].board.cards;
-                       String username = game.users[boardIndex].userName;
-                       showOtherPlayerCardsHelper(cards, username);
-                   }
+                   Card[] cards = game.players[3].board.cards;
+                   String username = game.users[3].userName;
+                   showOtherPlayerCardsHelper(cards, username);
+               }
+               if(keyCode.equals(KeyCode.W) )
+               {
+                   Card[] cards = game.players[2].board.cards;
+                   String username = game.users[2].userName;
+                   showOtherPlayerCardsHelper(cards, username);
+               }
+               if(keyCode.equals(KeyCode.D) )
+               {
+                   Card[] cards = game.players[1].board.cards;
+                   String username = game.users[1].userName;
+                   showOtherPlayerCardsHelper(cards, username);
                }
 
                else if(keyCode.equals(KeyCode.R) && keyInput.equals("deck"))
@@ -492,6 +501,7 @@ public class GameScene implements Initializable {
                if(keyCode.equals(keyCode.H))
                {
                     SceneHandler.getInstance().showHowToPlayScene();
+                  // SceneHandler.getInstance().showLootScene();
                }
                event.consume();
            }
@@ -946,6 +956,25 @@ public class GameScene implements Initializable {
         else if (boardView.equals(leftBoard)) {
             cards = game.players[3].board.cards;
             username = game.users[3].userName;
+        }
+        else
+            return;
+        showOtherPlayerCardsHelper(cards,username);
+    }
+
+    public void showLootScreen(String username)
+    {
+        Card [] cards;
+        // Get the players cards
+        Game game = DataHandler.getInstance().getGame();
+        if (username.equals(game.users[1])) {
+            cards = game.players[1].board.cards;
+        }
+        else if (username.equals(game.users[2])) {
+            cards = game.players[2].board.cards;
+        }
+        else if (username.equals(game.users[3])) {
+            cards = game.players[3].board.cards;
         }
         else
             return;
