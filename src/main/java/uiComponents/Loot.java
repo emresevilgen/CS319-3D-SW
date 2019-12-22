@@ -85,6 +85,8 @@ public class Loot implements Initializable {
     public ImageView coinLoot;
     @FXML
     public  ImageView militaryTokenLoot;
+    boolean first = true;
+    Image currentImage; // seçilen kartı bunda tut
 
 
     private ImageView[] cardViews;
@@ -97,6 +99,13 @@ public class Loot implements Initializable {
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        Settings settings = DataHandler.getInstance().getSettings();
+        if(settings.isAudioDescription())
+        {
+            tts.read( "Take a loot. \n take the card ");
+        }
+
         cardViews = new ImageView[21];
         cardViews[0] = card1;
         cardViews[1] = card2;
@@ -126,7 +135,13 @@ public class Loot implements Initializable {
             FileInputStream inputStream = new FileInputStream(Constants.COIN3_IMAGE);
             Image coin = new Image(inputStream);
             coinLoot.setImage(coin);
-
+            String username = usernameLabel.getText();
+            int index = 0;
+            for(int i = 0; i < game.users.length; i++)
+            {
+                if(username.equals(game.users[i].userName))
+                    index = i;
+            }
 
             if(game.ageNumber ==1)
             {
@@ -134,6 +149,18 @@ public class Loot implements Initializable {
                 Image token = new Image(inputStream2);
                 militaryTokenLoot.setImage(token);
                 tokenButton.setText("Take 1 Military Token ");
+                if(game.players[index].coin == 0)
+                    coinButton.setDisable(true);
+                else if(game.players[index].coin < 3)
+                {
+                    coinButton.setDisable(false);
+                    coinButton.setText("Take " +  game.players[index].coin + "s");
+                }
+                else
+                {
+                    coinButton.setDisable(false);
+                    coinButton.setText("Take 3 coins");
+                }
             }
             else if(game.ageNumber ==2)
             {
@@ -141,6 +168,18 @@ public class Loot implements Initializable {
                 Image token = new Image(inputStream2);
                 militaryTokenLoot.setImage(token);
                 tokenButton.setText("Take 3 Military Tokens ");
+                if(game.players[index].coin == 0)
+                    coinButton.setDisable(true);
+                else if(game.players[index].coin < 4)
+                {
+                    coinButton.setDisable(false);
+                    coinButton.setText("Take " +  game.players[index].coin + "coins");
+                }
+                else
+                {
+                    coinButton.setDisable(false);
+                    coinButton.setText("Take 4 coins");
+                }
             }
             else
             {
@@ -148,6 +187,18 @@ public class Loot implements Initializable {
                 Image token = new Image(inputStream2);
                 militaryTokenLoot.setImage(token);
                 tokenButton.setText("Take 5 Military Tokens ");
+                if(game.players[index].coin == 0)
+                    coinButton.setDisable(true);
+                else if(game.players[index].coin < 5)
+                {
+                    coinButton.setDisable(false);
+                    coinButton.setText("Take " +  game.players[index].coin + "coins");
+                }
+                else
+                {
+                    coinButton.setDisable(false);
+                    coinButton.setText("Take 5 coins");
+                }
             }
 
 
@@ -163,35 +214,36 @@ public class Loot implements Initializable {
         tokenButton.setOnMouseEntered(e -> { tokenButton.setStyle(HOVERED_BUTTON_STYLE); });
         tokenButton.setOnMouseExited(e -> tokenButton.setStyle(IDLE_BUTTON_STYLE));
 
-        Settings settings = DataHandler.getInstance().getSettings();
-        Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
         coinButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
-                if (settings.isAudioDescription())
+                if (settings.isAudioDescription() && !first)
                     tts.read(coinButton.getText());
                 coinButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
                 coinButton.setStyle(IDLE_BUTTON_STYLE);
+            first = false;
         });
         cardButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
-                if (settings.isAudioDescription())
-                    tts.read("Pick the Card");////////////////////////////
+                if (settings.isAudioDescription() && !first)
+                    tts.read(cardButton.getText());
                 cardButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
                 cardButton.setStyle(IDLE_BUTTON_STYLE);
+            first = false;
         });
         tokenButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
-                if (settings.isAudioDescription())
+                if (settings.isAudioDescription() && !first)
                     tts.read(tokenButton.getText());
                 tokenButton.setStyle(HOVERED_BUTTON_STYLE);
             }
             else
                 tokenButton.setStyle(IDLE_BUTTON_STYLE);
+            first = false;
         });
 
 
@@ -224,7 +276,32 @@ public class Loot implements Initializable {
         }
     }
 
+    public void clickBoardCard(MouseEvent mouseEvent) {
+        int cardIndex = 0;
+        currentImage = ((ImageView)mouseEvent.getSource()).getImage();
+        String username = usernameLabel.getText();
+        Game game = DataHandler.getInstance().getGame();
+        int index = 0;
+        for(int i = 0; i < game.users.length; i++)
+        {
+            if(username.equals(game.users[i].userName))
+               index = i;
+        }
+
+        for (; cardIndex < game.players[index].playerCards.length; cardIndex++){
+            Image image = cardViews[cardIndex].getImage();
+            if (image != null && image.equals(currentImage))
+                break;
+        }
+
+        if (cardIndex != game.players[index].playerCards.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
+            Reader tts = AudioDescriptionHandler.getInstance().getReader();
+            tts.read(game.players[index].playerCards[cardIndex].cardName);
+        }
+    }
+
     public void cardLoot(ActionEvent actionEvent) {
+       //current image ı burda kullan
     }
     public void coinLoot(ActionEvent actionEvent) {
     }

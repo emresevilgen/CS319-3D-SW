@@ -456,7 +456,8 @@ public class GameScene implements Initializable {
                }
                else if(keyCode.equals(keyCode.H))
                {
-                   SceneHandler.getInstance().showHowToPlayScene();
+                   //SceneHandler.getInstance().showHowToPlayScene();
+                   SceneHandler.getInstance().showLootScene();
                }
                event.consume();
            }

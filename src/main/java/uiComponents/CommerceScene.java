@@ -1,5 +1,8 @@
 package uiComponents;
 
+import audioDescription.AudioDescriptionHandler;
+import audioDescription.Reader;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import models.DataHandler;
+import models.Settings;
 import utils.Constants;
 
 import java.io.FileInputStream;
@@ -54,12 +59,30 @@ public class CommerceScene implements Initializable {
 
     @FXML
     Button makeCommerceButton;
+    boolean first = true;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Setting the mouse entered and exited listeners for hover effect
         makeCommerceButton.setOnMouseEntered(e -> makeCommerceButton.setStyle(HOVERED_BUTTON_STYLE));
         makeCommerceButton.setOnMouseExited(e -> makeCommerceButton.setStyle(IDLE_BUTTON_STYLE));
+
+
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        Settings settings = DataHandler.getInstance().getSettings();
+        if(settings.isAudioDescription())
+            tts.read( "Commerce \n  ");
+
+        makeCommerceButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first)
+                    tts.read(makeCommerceButton.getText());
+                makeCommerceButton.setStyle(HOVERED_BUTTON_STYLE);
+            }
+            else
+                makeCommerceButton.setStyle(IDLE_BUTTON_STYLE);
+            first = false;
+        });
 
         try {
             FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
