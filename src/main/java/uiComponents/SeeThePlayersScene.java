@@ -118,7 +118,10 @@ public class SeeThePlayersScene implements Initializable {
     // Exit lobby request
 
     public void leave(ActionEvent event) throws Exception {
+        leaveHelper();
+    }
 
+    public void leaveHelper(){
         DataHandler dataHandler = DataHandler.getInstance();
 
         Thread requestThread = new Thread(new Runnable() {
@@ -318,6 +321,10 @@ public class SeeThePlayersScene implements Initializable {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         tts.read("The lobby code: "+ DataHandler.getInstance().getLobby().lobbyCode );
 
+        SceneHandler.getInstance().getStageMain().setOnCloseRequest(e->{
+            leaveHelper();
+            leaved = true;
+        });
 
         final boolean[] first = {true};
         leaveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {

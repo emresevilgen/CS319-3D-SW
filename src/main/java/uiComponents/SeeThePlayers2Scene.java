@@ -123,18 +123,14 @@ public class SeeThePlayers2Scene implements Initializable {
             }
         });
         requestThread.start();
-
-
     }
 
     // Leave button listener
     public void leave(ActionEvent event) throws Exception {
-        //------------------------
-        //------------------------
-        // send a request to the server and move to the main menu
-        //------------------------
-        //------------------------
+        leaveHelper();
+    }
 
+    public void leaveHelper(){
         DataHandler dataHandler = DataHandler.getInstance();
 
         Thread requestThread = new Thread(new Runnable() {
@@ -324,6 +320,12 @@ public class SeeThePlayers2Scene implements Initializable {
 
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
+
+        SceneHandler.getInstance().getStageMain().setOnCloseRequest(e->{
+            leaveHelper();
+            leaved = true;
+        });
+
         final boolean[] first = {true};
 
         leaveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {

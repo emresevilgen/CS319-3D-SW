@@ -788,86 +788,6 @@ public class GameScene implements Initializable {
             cardViews[i].setImage(getCardImage(cards[i]));
         }
 
-        /*ArrayList<Card> brownCards = new ArrayList<>();
-        ArrayList<Card> grayCards = new ArrayList<>();
-        ArrayList<Card> redCards = new ArrayList<>();
-        ArrayList<Card> blueCards = new ArrayList<>();
-        ArrayList<Card> yellowCards = new ArrayList<>();
-        ArrayList<Card> purpleCards = new ArrayList<>();
-        ArrayList<Card> greenCards = new ArrayList<>();
-
-        //To use for ordered list in audio description
-        int length = cards.length;
-        cardsInColorOrder = new Card[length]; // Main.game.players[0].board.cardCount
-
-        for (int i = 0; i < cards.length; i++){
-            if (cards[i] != null){
-                Card card = cards[i];
-                String color = card.cardColor;
-                switch (color){
-                    case "Brown": brownCards.add(card); break;
-                    case "Gray": grayCards.add(card); break;
-                    case "Red": redCards.add(card); break;
-                    case "Blue": blueCards.add(card); break;
-                    case "Yellow": yellowCards.add(card); break;
-                    case "Purple": purpleCards.add(card); break;
-                    case "Green": greenCards.add(card); break;
-                }
-            }
-        }
-
-        // Display the cards in order
-        int viewOrder = 0;
-
-        for (int i = 0; i < brownCards.size(); i++){
-            Card card = brownCards.get(i);
-            cardViews[viewOrder].setImage(getCardImage(card));
-            cardsInColorOrder[viewOrder] = card;
-            viewOrder++;
-        }
-
-        for (int i = 0; i < grayCards.size(); i++){
-            Card card = grayCards.get(i);
-            cardViews[viewOrder].setImage(getCardImage(card));
-            cardsInColorOrder[viewOrder] = card;
-            viewOrder++;
-        }
-
-        for (int i = 0; i < greenCards.size(); i++){
-            Card card = greenCards.get(i);
-            cardViews[viewOrder].setImage(getCardImage(card));
-            cardsInColorOrder[viewOrder] = card;
-            viewOrder++;
-        }
-
-        for (int i = 0; i < redCards.size(); i++){
-            Card card = redCards.get(i);
-            cardViews[viewOrder].setImage(getCardImage(card));
-            cardsInColorOrder[viewOrder] = card;
-            viewOrder++;
-        }
-
-        for (int i = 0; i < blueCards.size(); i++){
-            Card card = blueCards.get(i);
-            cardViews[viewOrder].setImage(getCardImage(card));
-            cardsInColorOrder[viewOrder] = card;
-            viewOrder++;
-        }
-
-        for (int i = 0; i < yellowCards.size(); i++){
-            Card card = yellowCards.get(i);
-            cardViews[viewOrder].setImage(getCardImage(card));
-            cardsInColorOrder[viewOrder] = card;
-            viewOrder++;
-        }
-
-        for (int i = 0; i < purpleCards.size(); i++){
-            Card card = purpleCards.get(i);
-            cardViews[viewOrder].setImage(getCardImage(card));
-            cardsInColorOrder[viewOrder] = card;
-            viewOrder++;
-        }*/
-
         //Update coins, tokens and wonder stage on the table, write turn and age number
         Game game = DataHandler.getInstance().getGame();
 
@@ -981,7 +901,7 @@ public class GameScene implements Initializable {
             AnchorPane root = (AnchorPane) stage.getScene().getRoot();
             Label usernameLabel = (Label) root.getChildren().get(1);
             usernameLabel.setText(username);
-            
+
             for (int i = 0; i < cards.length; i++) {
                 ((ImageView) root.getChildren().get(i + 2)).setImage(getCardImage(cards[i]));
             }
