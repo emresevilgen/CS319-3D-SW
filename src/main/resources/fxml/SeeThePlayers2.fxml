@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayers2Scene">
     <children>
         <ImageView fx:id="backgroundView" fitHeight="1087.0" fitWidth="1928.0" pickOnBounds="true" />
-        <ImageView fitHeight="387.0" fitWidth="675.0" layoutX="623.0" layoutY="301.0" pickOnBounds="true" />
+        <ImageView fitHeight="387.0" fitWidth="703.0" layoutX="623.0" layoutY="301.0" pickOnBounds="true" />
 
         <Button fx:id="leaveButton" layoutX="759.0" layoutY="721.0" mnemonicParsing="false" onAction="#leave" prefHeight="65.0" prefWidth="305.0" style="-fx-background-color: #817277;" text="Leave the Lobby" textFill="WHITE">
             <font>
@@ -27,48 +27,57 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="1079.0" layoutY="370.0" prefHeight="36.0" prefWidth="85.0" text="State" textFill="WHITE">
+        <Label layoutX="965.0" layoutY="370.0" prefHeight="36.0" prefWidth="150.0" text="Ready Status" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Line endX="600.0" layoutX="659.0" layoutY="410.0" stroke="WHITE" />
-        <Line endX="600.0" layoutX="659.0" layoutY="475.0" stroke="WHITE" />
-        <Line endX="600.0" layoutX="659.0" layoutY="535.0" stroke="WHITE" />
-        <Line endX="600.0" layoutX="659.0" layoutY="595.0" stroke="WHITE" />
-        <Label fx:id="firstNameLabel" layoutX="692.0" layoutY="430.0" prefHeight="30.0" prefWidth="250.0" textFill="WHITE">
+        <Line endX="621.0" layoutX="659.0" layoutY="410.0" stroke="WHITE" />
+        <Line endX="617.0" layoutX="659.0" layoutY="475.0" stroke="WHITE" />
+        <Line endX="618.0" layoutX="659.0" layoutY="535.0" stroke="WHITE" />
+        <Line endX="618.0" layoutX="659.0" layoutY="595.0" stroke="WHITE" />
+        <Label fx:id="firstNameLabel" layoutX="692.0" layoutY="430.0" prefHeight="36.0" prefWidth="227.0" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="secondNameLabel" layoutX="692.0" layoutY="490.0" prefHeight="30.0" prefWidth="250.0" textFill="WHITE">
+        <Label fx:id="secondNameLabel" layoutX="692.0" layoutY="490.0" prefHeight="36.0" prefWidth="227.0" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="thirdNameLabel" layoutX="692.0" layoutY="550.0" prefHeight="30.0" prefWidth="250.0" textFill="WHITE">
+        <Label fx:id="thirdNameLabel" layoutX="692.0" layoutY="550.0" prefHeight="36.0" prefWidth="227.0" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="fourthNameLabel" layoutX="692.0" layoutY="610.0" prefHeight="30.0" prefWidth="250.0" textFill="WHITE">
+        <Label fx:id="fourthNameLabel" layoutX="692.0" layoutY="610.0" prefHeight="36.0" prefWidth="227.0" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="658.0" layoutY="316.0" prefHeight="36.0" prefWidth="601.0" text="People in the Lobby:" textFill="WHITE">
+        <Label layoutX="658.0" layoutY="316.0" prefHeight="45.0" prefWidth="620.0" text="People in the Lobby:" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
-        <ImageView fx:id="firstPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1095.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="secondPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1095.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="thirdPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1095.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="fourthPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1095.0" layoutY="612.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="firstReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="secondReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="thirdReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="fourthReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="607.0" pickOnBounds="true" preserveRatio="true" />
         <Label fx:id="lobbyCode" layoutX="664.0" layoutY="236.0" prefHeight="36.0" prefWidth="601.0" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
+      <Label layoutX="1131.0" layoutY="370.0" prefHeight="36.0" prefWidth="150.0" text="Active Status" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="firstActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1179.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="secondActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1179.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="thirdActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1179.0" layoutY="548.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fourthActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1179.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

@@ -27,7 +27,7 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="1033.0" layoutY="316.0" prefHeight="30.0" prefWidth="97.0" text="State" textFill="WHITE">
+        <Label layoutX="981.0" layoutY="316.0" prefHeight="36.0" prefWidth="143.0" text="Ready Status" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
@@ -74,9 +74,18 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <ImageView fx:id="secondPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1118.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="thirdPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1118.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="fourthPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1118.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="firstPlayerStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1118.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="secondReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1035.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="thirdReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1035.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fourthReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1035.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="firstReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1035.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="1160.0" layoutY="316.0" prefHeight="36.0" prefWidth="154.0" text="Active Status" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="secondActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1212.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="thirdActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1212.0" layoutY="491.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fourthActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1212.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="firstActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1212.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
