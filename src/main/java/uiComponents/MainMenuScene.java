@@ -66,6 +66,7 @@ public class MainMenuScene implements Initializable {
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
+        // Add listeners to the dialog buttons and audio description read
         dialog.setContentText("Enter the code of the lobby");
         dialog.getEditor().focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue && settings.isAudioDescription() && !first[0])
@@ -318,10 +319,12 @@ public class MainMenuScene implements Initializable {
         final boolean[] first = {true};
         DataHandler dataHandler = DataHandler.getInstance();
 
+        // Read error
         if (dataHandler.getSettings().isAudioDescription()) {
             AudioDescriptionHandler.getInstance().getReader().read("Error. " + errorMsg + " Press enter to say OK");
         }
 
+        // Show alert
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);

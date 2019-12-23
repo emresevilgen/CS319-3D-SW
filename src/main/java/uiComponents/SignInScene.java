@@ -121,6 +121,7 @@ public class SignInScene implements Initializable{
         exitButton.setOnMouseEntered(e -> { exitButton.setStyle(HOVERED_BUTTON_STYLE); });
         exitButton.setOnMouseExited(e -> exitButton.setStyle(IDLE_BUTTON_STYLE));
 
+        // Set the focused property to read the audio descriptions
         usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue && settings.isAudioDescription() && !firstTime){
                 tts.read("Enter  user name");

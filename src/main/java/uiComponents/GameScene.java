@@ -180,6 +180,7 @@ public class GameScene implements Initializable {
     private String IDLE_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 1;";
     private String HOVERED_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 0.85;";
 
+    // Focused and the selected card infos
     private Card selectedCard;
     private ImageView selectedCardView;
     private int selectedCardIndex;
@@ -196,10 +197,10 @@ public class GameScene implements Initializable {
     int ageNumber = 0;
     int turnNumber = 0;
 
+    // Use card option
     int selection = -1;
 
     private String keyInput = "";
-
     public boolean firstTime;
     public boolean showError = true;
 
@@ -221,10 +222,12 @@ public class GameScene implements Initializable {
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set on close operation
         SceneHandler.getInstance().getStageMain().setOnCloseRequest(e->{
             exitHelper();
         });
 
+        // Initialize the images in the game scene
         try {
             FileInputStream inputStream = new FileInputStream(Constants.COIN_IMAGE);
             Image coinImage = new Image(inputStream);
@@ -269,6 +272,7 @@ public class GameScene implements Initializable {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
 
+        // Set the focused properties to read the audio descriptions
         firstTime = true;
         nextTurnButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
@@ -311,6 +315,7 @@ public class GameScene implements Initializable {
                 wonderButton.setStyle(IDLE_BUTTON_STYLE);
         });
 
+        // Set the key listeners
         SceneHandler.getInstance().getStageMain().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
            @Override
            public void handle(KeyEvent event) {
@@ -367,12 +372,14 @@ public class GameScene implements Initializable {
                    String username = game.players[1].name;
                    showOtherPlayerCardsHelper(cards, username);
                }
+               //Boards info
                else if (keyCode.equals(KeyCode.B)){
                    keyInput = "boards";
                    boardIndex = 0;
                    if(settings.isAudioDescription())
                        tts.read("The boards." + game.players[boardIndex].board.name);
                }
+               // Right and left operations
                else if(keyCode.equals(KeyCode.R)) {
                    if (keyInput.equals("boardCards")) {
                        if (focusedCardInBoardIndex == game.players[0].board.cards.length - 1)
@@ -432,6 +439,7 @@ public class GameScene implements Initializable {
                            tts.read(game.players[boardIndex].board.name);
                    }
                }
+               // Inf table read
                else if(keyCode.equals(KeyCode.I)){
                     if (settings.isAudioDescription()){
                         String text = "Age is " + game.ageNumber + " and turn is " + game.turnNumber+ " ";
@@ -457,18 +465,22 @@ public class GameScene implements Initializable {
                         tts.read(text);
                     }
                }
+               // Switch audio description
                else if(keyCode.equals(KeyCode.N))
                {
                    switchAudioDescriptionHelper();
                }
+               // Switch sound effects
                else if(keyCode.equals(KeyCode.M))
                {
                    switchSoundEffectsHelper();
                }
+               // Exit to Escape key
                else if(keyCode.equals(KeyCode.ESCAPE))
                {
                    exitHelper();
                }
+               // How to play scene
                else if(keyCode.equals(keyCode.H))
                {
                    SceneHandler.getInstance().showHowToPlayScene();
@@ -479,6 +491,7 @@ public class GameScene implements Initializable {
            }
         });
         //-------------------------------------
+        // Set the button visibilities and the texts
         try {
             Game game = DataHandler.getInstance().getGame();
             if (game.players[0].board.stage == 3)
@@ -582,9 +595,6 @@ public class GameScene implements Initializable {
         } catch (Exception e ){
             e.printStackTrace();
         }
-
-
-
 
         // Start sending requests
         timeLine.setCycleCount(Animation.INDEFINITE);
@@ -787,7 +797,7 @@ public class GameScene implements Initializable {
     }
 
     public void update(){
-
+        // Get game data request
        DataHandler dataHandler = DataHandler.getInstance();
 
         Thread requestThread = new Thread(new Runnable() {
@@ -826,6 +836,7 @@ public class GameScene implements Initializable {
         });
         requestThread.start();
 
+        // Set the age musics
         try {
             Game game = DataHandler.getInstance().getGame();
             if (ageNumber != DataHandler.getInstance().getGame().ageNumber) {
@@ -851,19 +862,16 @@ public class GameScene implements Initializable {
             e.printStackTrace();
         }
 
+        // Catch the turn change
         if (turnNumber != DataHandler.getInstance().getGame().turnNumber) {
             resetTurn();
         }
 
-
+        // Set the board images
         leftBoard.setImage(null);
         rightBoard.setImage(null);
         acrossBoard.setImage(null);
         playerBoard.setImage(null);
-
-        // --------------------------------------
-        // --------------------------------------
-        // Set the board images
 
         Player[] players = DataHandler.getInstance().getGame().players;
 
@@ -877,8 +885,6 @@ public class GameScene implements Initializable {
             rightBoard.setImage(getBoardImage(players[1].board, 1));
             leftBoard.setImage(getBoardImage(players[2].board, 2));
         }
-        // --------------------------------------
-        // --------------------------------------
 
         // To display the cards at the hand of the player
         for(int i = 0; i < deckCardViews.length; i++){
@@ -949,10 +955,10 @@ public class GameScene implements Initializable {
             stage4.setText("");
         }
 
+        // Selected card effect
         discardButton.setStyle(IDLE_BUTTON_STYLE);
         structureButton.setStyle(IDLE_BUTTON_STYLE);
         wonderButton.setStyle(IDLE_BUTTON_STYLE);
-
 
         if (selection == 0)
             discardButton.setStyle(HOVERED_BUTTON_STYLE);
@@ -961,12 +967,13 @@ public class GameScene implements Initializable {
         else if (selection == 2)
             wonderButton.setStyle(HOVERED_BUTTON_STYLE);
 
-
+        // Update ageNumber and turnNumber
         ageNumber = game.ageNumber;
         turnNumber = game.turnNumber;
     }
 
     private void resetTurn() {
+        // Reset game
         selection = -1;
     }
 
@@ -1136,11 +1143,13 @@ public class GameScene implements Initializable {
     {
         boolean freeBuilding;
         if (DataHandler.getInstance().getGame().players[0].canBuildForFree && selectedCardIndex != -1){
+            // free card alert
             freeBuilding = freeCardPopUp();
         }
         else
             freeBuilding = false;
 
+        // Use card request
         DataHandler dataHandler = DataHandler.getInstance();
         Thread requestThread = new Thread(new Runnable() {
             @Override
@@ -1195,6 +1204,7 @@ public class GameScene implements Initializable {
     }
 
     public void clickToCard(MouseEvent mouseEvent) {
+        // Get game data
         ImageView currentView = (ImageView) mouseEvent.getSource();
         int cardIndex = 0;
         Card[] deckCards = DataHandler.getInstance().getGame().players[0].cards;
@@ -1203,6 +1213,7 @@ public class GameScene implements Initializable {
                 break;
             }
         }
+
         selectTheCard(cardIndex);
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
@@ -1230,6 +1241,7 @@ public class GameScene implements Initializable {
     }
 
     public void clickBoardCard(MouseEvent mouseEvent) {
+        // Get board cards
         int cardIndex = 0;
         Image currentImage = ((ImageView)mouseEvent.getSource()).getImage();
 
@@ -1241,6 +1253,7 @@ public class GameScene implements Initializable {
                 break;
         }
 
+        // Read the card
         if (cardIndex != cards.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
             Reader tts = AudioDescriptionHandler.getInstance().getReader();
             tts.read(cards[cardIndex].name);
@@ -1300,6 +1313,7 @@ public class GameScene implements Initializable {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
 
+        // Show alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Use the the card for free");
         alert.setHeaderText(null);

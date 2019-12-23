@@ -135,6 +135,7 @@ public class SettingsScene implements Initializable {
         saveButton.setOnMouseEntered(e -> saveButton.setStyle(HOVERED_BUTTON_STYLE));
         saveButton.setOnMouseExited(e -> saveButton.setStyle(IDLE_BUTTON_STYLE));
 
+        // Add focused properties to read the audio descriptions
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
         saveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {

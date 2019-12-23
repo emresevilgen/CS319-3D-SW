@@ -61,8 +61,10 @@ public class CreateLobbyScene implements Initializable {
         mode.invalidMovePenalty = invalidMovePenaltyCheckBox.isSelected();
         mode.secretSkills = secretSkillsCheckBox.isSelected();
 
+        // Get the lobby name
         String lobbyName = lobbyNameField.getText();
 
+        // Create lobby request
         DataHandler dataHandler = DataHandler.getInstance();
 
         showProgress();
@@ -124,7 +126,7 @@ public class CreateLobbyScene implements Initializable {
         createButton.setOnMouseEntered(e -> createButton.setStyle(HOVERED_BUTTON_STYLE));
         createButton.setOnMouseExited(e -> createButton.setStyle(IDLE_BUTTON_STYLE));
 
-
+        // Add the audio descriptions of the buttons
         lobbyNameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue && settings.isAudioDescription()){
                 tts.read("Enter the lobby name:");

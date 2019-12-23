@@ -35,11 +35,15 @@ public class CreditsScene implements Initializable {
 
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
+
+        // Read the initial speech
         if(settings.isAudioDescription())
         {
             tts.read("group 3d sw demo.\n Back");
         }
         final boolean[] first = {true};
+
+        // Add the audio descriptions of the buttons
         backButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (settings.isAudioDescription() && !first[0]) {

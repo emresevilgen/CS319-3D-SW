@@ -90,11 +90,7 @@ public class SeeThePlayers2Scene implements Initializable {
 
     // Be ready button listener
     public void beReady(ActionEvent event) throws Exception {
-        //------------------------
-        //------------------------
-        //send request to the server
-        //------------------------
-        //------------------------
+        // Be ready request
         DataHandler dataHandler = DataHandler.getInstance();
 
         Thread requestThread = new Thread(new Runnable() {
@@ -139,6 +135,7 @@ public class SeeThePlayers2Scene implements Initializable {
     }
 
     public void leaveHelper(){
+        // Leave lobby listener
         DataHandler dataHandler = DataHandler.getInstance();
 
         Thread requestThread = new Thread(new Runnable() {
@@ -184,9 +181,9 @@ public class SeeThePlayers2Scene implements Initializable {
 
     // Send request and update the lobby object
     public void update() {
-
         DataHandler dataHandler = DataHandler.getInstance();
 
+        // If game is started then get game data
         if (dataHandler.getLobby().gameId != null){
             timeLine.stop();
             Thread requestThread = new Thread(new Runnable() {
@@ -228,12 +225,14 @@ public class SeeThePlayers2Scene implements Initializable {
             return;
         }
 
+        // If the user becomes admin
         if (dataHandler.getLobby().admin.equals(dataHandler.getUser().userName)){
             timeLine.stop();
             SceneHandler.getInstance().moveToSeeThePlayers(true);
             return;
         }
 
+        // Get lobby info request
         Thread requestThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -412,6 +411,7 @@ public class SeeThePlayers2Scene implements Initializable {
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
 
+        // Set on close operation
         SceneHandler.getInstance().getStageMain().setOnCloseRequest(e->{
             leaveHelper();
             leaved = true;
@@ -419,6 +419,7 @@ public class SeeThePlayers2Scene implements Initializable {
 
         final boolean[] first = {true};
 
+        // Set the focused properties to read the audio descriptions
         leaveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (settings.isAudioDescription() && !first[0])
@@ -449,6 +450,7 @@ public class SeeThePlayers2Scene implements Initializable {
         labelsName[2] = thirdNameLabel;
         labelsName[3] = fourthNameLabel;
 
+        // Set the key listeners
         SceneHandler.getInstance().getStageMain().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -456,10 +458,12 @@ public class SeeThePlayers2Scene implements Initializable {
                 Game game = DataHandler.getInstance().getGame();
                 DataHandler dataHandler = DataHandler.getInstance();
 
+                // Read the lobby code
                 if(keyCode.equals(KeyCode.C))
                 {
                     tts.read("The code is " + dataHandler.getLobby().code);
                 }
+                // Read the players status
                 if(keyCode.equals(KeyCode.P) && settings.isAudioDescription())
                 {
                     if(dataHandler.getLobby().users.length > 0 &&  dataHandler.getLobby().users[0] !=  null )
