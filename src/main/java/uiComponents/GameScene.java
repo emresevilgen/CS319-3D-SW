@@ -233,7 +233,7 @@ public class GameScene implements Initializable {
         wonderButton.setOnMouseExited(e -> wonderButton.setStyle(IDLE_BUTTON_STYLE));
 
         Game game = DataHandler.getInstance().getGame();
-        if(game.players[0].board.wonderStage == 3)
+        if(game.players[0].board.stage == 3)
             wonderButton.setDisable(true);
 
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
@@ -453,8 +453,9 @@ public class GameScene implements Initializable {
                }
                else if(keyCode.equals(keyCode.H))
                {
-                   SceneHandler.getInstance().showHowToPlayScene();
+                   //SceneHandler.getInstance().showHowToPlayScene();
                    //showLootScreen("user2");
+                   showBabylonScreen();
                }
                event.consume();
            }
@@ -886,6 +887,20 @@ public class GameScene implements Initializable {
             AnchorPane root = (AnchorPane) stage.getScene().getRoot();
             Label usernameLabel = (Label) root.getChildren().get(1);
             usernameLabel.setText(username);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showBabylonScreen()
+    {
+        // Get the players cards
+        Game game = DataHandler.getInstance().getGame();
+        try {
+            SceneHandler.getInstance().showBabylonScene();
+            Stage stage = SceneHandler.getInstance().getStagePopup();
+            AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         }
         catch (Exception e){
             e.printStackTrace();
