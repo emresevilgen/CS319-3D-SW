@@ -770,7 +770,7 @@ public class GameScene implements Initializable {
 
        DataHandler dataHandler = DataHandler.getInstance();
 
-        /*Thread requestThread = new Thread(new Runnable() {
+        Thread requestThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Requester requester = ServerConnectionHandler.getInstance().getRequester();
@@ -804,7 +804,7 @@ public class GameScene implements Initializable {
                 }
             }
         });
-        requestThread.start();*/
+        requestThread.start();
 
         try {
             Game game = DataHandler.getInstance().getGame();
