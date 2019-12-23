@@ -15,7 +15,7 @@ public interface Requester {
     GeneralResponse<Lobby> exitLobby(String username, String token);
     GeneralResponse<Lobby> getReady(String username, String token, boolean ready);
     GeneralResponse<Game>  getGameData(String username, String token);
-    GeneralResponse<Game>  commerce(String username, String token, Boolean isWidthLeft, Materials commerceMaterials);
+    GeneralResponse<Game>  commerce(String username, String token, Boolean isWithLeft, Materials commerceMaterials);
     GeneralResponse<Game>  useCard(String username, String token, String cardId, int selectionType, boolean freeBuilding);
 
 }

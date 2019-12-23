@@ -17,6 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.*;
 import utils.Constants;
@@ -205,6 +207,10 @@ public class OtherBoardsCards implements Initializable {
     public void commerce(ActionEvent actionEvent) {
         timeLine.stop();
         SceneHandler.getInstance().showCommerceScene();
+        Stage stage = SceneHandler.getInstance().getStagePopup();
+        AnchorPane root = (AnchorPane) stage.getScene().getRoot();
+        Label nameLabel = (Label) root.getChildren().get(1);
+        nameLabel.setText(usernameLabel.getText());
     }
 
     public void focusOutBoardCard(MouseEvent mouseEvent) {

@@ -406,9 +406,8 @@ public class RequestHandler implements Requester {
         return game[0];
     }
 
-
     @Override
-    public GeneralResponse<Game> commerce(String username, String token, Boolean isWidthLeft, Materials commerceMaterials) {
+    public GeneralResponse<Game> commerce(String username, String token, Boolean isWithLeft, Materials commerceMaterials) {
         final GeneralResponse<Game>[] game = new GeneralResponse[1];
         final boolean[] finished = {false};
 
@@ -416,7 +415,7 @@ public class RequestHandler implements Requester {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Gson gson = new Gson();
         String jsonMaterials = gson.toJson(commerceMaterials);
-        Call<GeneralResponse<Game>> call = apiService.commerce(username, token, isWidthLeft, jsonMaterials);
+        Call<GeneralResponse<Game>> call = apiService.commerce(username, token, isWithLeft, jsonMaterials);
         call.enqueue(new Callback<GeneralResponse<Game>>() {
             // If the connection is valid
             @Override

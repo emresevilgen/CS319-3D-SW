@@ -5,25 +5,30 @@ import audioDescription.Reader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import models.*;
+import rest.Requester;
+import rest.ServerConnectionHandler;
+import rest.models.GeneralResponse;
 import utils.Constants;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CommerceScene implements Initializable {
@@ -59,7 +64,11 @@ public class CommerceScene implements Initializable {
     @FXML
     public Spinner<Integer> papyrusSpin;
     @FXML
+    public Label usernameLabel;
+    @FXML
     private Spinner<Integer> claySpin ;
+
+    public boolean showError = true;
 
     @FXML
     Button makeCommerceButton;
@@ -199,7 +208,7 @@ public class CommerceScene implements Initializable {
                 else if (keyCode.equals(KeyCode.C)){
                     if (settings.isAudioDescription())
                         tts.read("Commerce");
-                    // Request atılacak
+                    commerceHelper();
                 }
                 event.consume();
             }
@@ -213,6 +222,16 @@ public class CommerceScene implements Initializable {
     }
 
     public void update() {
+        String username = usernameLabel.getText();
+        Game game = DataHandler.getInstance().getGame();
+        if (game.players.length == 4){
+            if (game.players[2].name.equals(username)){
+                makeCommerceButton.setVisible(false);
+            }
+            else
+                makeCommerceButton.setVisible(true);
+        }
+
         if((claySpin.getValue() == 0) && (woodSpin.getValue() == 0) &&(stoneSpin.getValue() == 0) &&(oreSpin.getValue() == 0) &&(glassSpin.getValue() == 0) &&(loomSpin.getValue() == 0) &&(papyrusSpin.getValue() == 0) )
         {
             makeCommerceButton.setDisable(true);
@@ -222,5 +241,106 @@ public class CommerceScene implements Initializable {
     }
 
     public void makeCommerce(ActionEvent actionEvent){
+        commerceHelper();
+    }
+
+    public void commerceHelper() {
+        int clay = claySpin.getValue();
+        int ore = oreSpin.getValue();
+        int stone = stoneSpin.getValue();
+        int wood = woodSpin.getValue();
+        int loom = loomSpin.getValue();
+        int glass = glassSpin.getValue();
+        int papyrus = papyrusSpin.getValue();
+
+        Materials materials = new Materials();
+        materials.clay = clay;
+        materials.coin = 0;
+        materials.glassworks = glass;
+        materials.loom = loom;
+        materials.ore = ore;
+        materials.stone = stone;
+        materials.lumber = wood;
+        materials.press = papyrus;
+
+        String username = usernameLabel.getText();
+
+        boolean isWithLeft = !DataHandler.getInstance().getGame().players[1].name.equals(username);
+
+        DataHandler dataHandler = DataHandler.getInstance();
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<Game> gameResponse = requester.commerce(dataHandler.getUser().userName, dataHandler.getUser().token, isWithLeft,materials);
+                if (gameResponse != null) {
+                    if (gameResponse.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setGame(gameResponse.payload);
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(gameResponse.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
+            }
+        });
+        requestThread.start();
+    }
+
+    // Error message
+    private void showErrorMessage(String errorMsg){
+        if (showError) {
+            disableItems();
+
+            final boolean[] first = {true};
+            DataHandler dataHandler = DataHandler.getInstance();
+
+            if (dataHandler.getSettings().isAudioDescription()) {
+                AudioDescriptionHandler.getInstance().getReader().read("Error. " + errorMsg + " Press enter to say OK");
+            }
+
+            showError = false;
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(errorMsg);
+            alert.initOwner(makeCommerceButton.getScene().getWindow());
+            alert.getButtonTypes().forEach(buttonType -> {
+                alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue && dataHandler.getSettings().isAudioDescription() && !first[0])
+                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                    first[0] = false;
+                });
+            });
+
+            Optional<ButtonType> result = alert.showAndWait();
+            showError = true;
+            enableItems();
+        }
+    }
+
+    private void disableItems(){
+        makeCommerceButton.setDisable(true);
+    }
+
+    private void enableItems(){
+        makeCommerceButton.setDisable(false);
     }
 }

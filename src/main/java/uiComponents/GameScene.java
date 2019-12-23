@@ -193,7 +193,7 @@ public class GameScene implements Initializable {
     private String keyInput = "";
 
     public boolean firstTime;
-    public boolean showError;
+    public boolean showError = true;
 
     // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
