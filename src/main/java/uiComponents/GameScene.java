@@ -1198,6 +1198,7 @@ public class GameScene implements Initializable {
     }
 
     public void clickToCard(MouseEvent mouseEvent) {
+        // Get game data
         ImageView currentView = (ImageView) mouseEvent.getSource();
         int cardIndex = 0;
         Card[] deckCards = DataHandler.getInstance().getGame().players[0].cards;
@@ -1206,6 +1207,7 @@ public class GameScene implements Initializable {
                 break;
             }
         }
+
         selectTheCard(cardIndex);
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
@@ -1233,6 +1235,7 @@ public class GameScene implements Initializable {
     }
 
     public void clickBoardCard(MouseEvent mouseEvent) {
+        // Get board cards
         int cardIndex = 0;
         Image currentImage = ((ImageView)mouseEvent.getSource()).getImage();
 
@@ -1244,6 +1247,7 @@ public class GameScene implements Initializable {
                 break;
         }
 
+        // Read the card
         if (cardIndex != cards.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
             Reader tts = AudioDescriptionHandler.getInstance().getReader();
             tts.read(cards[cardIndex].name);
@@ -1303,6 +1307,7 @@ public class GameScene implements Initializable {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
 
+        // Show alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Use the the card for free");
         alert.setHeaderText(null);
