@@ -280,7 +280,7 @@ public class SeeThePlayersScene implements Initializable {
                 allReady = false;
         }
 
-        if(allReady)
+        if(allReady && lobby.users.length > 2)
             startGameButton.setDisable(false);
 
 
@@ -627,7 +627,7 @@ public class SeeThePlayersScene implements Initializable {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(errorMsg);
-            //alert.initOwner(startGameButton.getScene().getWindow());
+            alert.initOwner(SceneHandler.getInstance().getStageMain());
             alert.getButtonTypes().forEach(buttonType -> {
                 alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
                     if(newValue && dataHandler.getSettings().isAudioDescription() && !first[0])

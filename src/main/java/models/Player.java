@@ -43,6 +43,12 @@ public class Player {
     @SerializedName("coin")
     public int coin;
 
+    @SerializedName("isPlayedForTurn")
+    public boolean isPlayedForTurn;
+
+    @SerializedName("canBuildForFree")
+    public boolean canBuildForFree;
+
     @Override
     public String toString() {
         return "Player{" +
