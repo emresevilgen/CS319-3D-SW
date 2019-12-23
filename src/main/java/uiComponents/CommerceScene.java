@@ -92,7 +92,7 @@ public class CommerceScene implements Initializable {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
         if(settings.isAudioDescription())
-            tts.read( "Commerce \n  ");
+            tts.read( "Commerce. \n Clay is  " +claySpin.getValue());
 
         makeCommerceButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
@@ -105,7 +105,55 @@ public class CommerceScene implements Initializable {
             first = false;
         });
 
-        //claySpin.focusedProperty().ad
+        claySpin.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first)
+                    tts.read(" Clay is " +claySpin.getValue());
+            }
+            first = false;
+        });
+        oreSpin.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first)
+                    tts.read(" Ore is " +  oreSpin.getValue());
+            }
+            first = false;
+        });
+        stoneSpin.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first)
+                    tts.read(" Stone is " +  stoneSpin.getValue());
+            }
+            first = false;
+        });
+        woodSpin.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first)
+                    tts.read(" Wood is " +  woodSpin.getValue());
+            }
+            first = false;
+        });
+        glassSpin.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first)
+                    tts.read(" Glass is " +  glassSpin.getValue());
+            }
+            first = false;
+        });
+        papyrusSpin.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first)
+                    tts.read(" Papyrus is " +  papyrusSpin.getValue());
+            }
+            first = false;
+        });
+        loomSpin.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue){
+                if (settings.isAudioDescription() && !first)
+                    tts.read(" Loom is " +  loomSpin.getValue());
+            }
+            first = false;
+        });
 
         try {
             FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
