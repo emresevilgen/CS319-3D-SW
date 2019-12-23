@@ -199,7 +199,7 @@ public class GameScene implements Initializable {
         public void handle(ActionEvent event) {
             // Server request and update the game
             try {
-                update();
+               update();
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -460,8 +460,8 @@ public class GameScene implements Initializable {
                }
                else if(keyCode.equals(keyCode.H))
                {
-                   SceneHandler.getInstance().showHowToPlayScene();
-                   //showLootScreen("user2");
+                   //SceneHandler.getInstance().showHowToPlayScene();
+                   showLootScreen("user2");
                }
                event.consume();
            }
@@ -761,9 +761,9 @@ public class GameScene implements Initializable {
 
     public void update(){
 
-        DataHandler dataHandler = DataHandler.getInstance();
+       DataHandler dataHandler = DataHandler.getInstance();
 
-        Thread requestThread = new Thread(new Runnable() {
+        /*Thread requestThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Requester requester = ServerConnectionHandler.getInstance().getRequester();
@@ -797,7 +797,7 @@ public class GameScene implements Initializable {
                 }
             }
         });
-        requestThread.start();
+        requestThread.start();*/
 
         try {
             // Check the music of the age

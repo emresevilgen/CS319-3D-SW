@@ -6,24 +6,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="454.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.CommerceScene">
+<?import java.lang.Integer?>
+<AnchorPane prefHeight="289.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.CommerceScene">
    <children>
-      <ImageView fitHeight="454.0" fitWidth="636.0" pickOnBounds="true" />
-      <ImageView fx:id="clayImage" fitHeight="70.0" fitWidth="70.0" layoutX="58.0" layoutY="57.0" pickOnBounds="true" preserveRatio="false"  />
+      <ImageView fitHeight="300.0" fitWidth="1096.0" pickOnBounds="true" />
+      <ImageView fx:id="clayImage" fitHeight="70.0" fitWidth="70.0" layoutX="58.0" layoutY="57.0" pickOnBounds="true" preserveRatio="false" />
       <ImageView fx:id="oreImage" fitHeight="70.0" fitWidth="70.0" layoutX="208.0" layoutY="57.0" pickOnBounds="true" preserveRatio="false" />
       <ImageView fx:id="stoneImage" fitHeight="70.0" fitWidth="70.0" layoutX="358.0" layoutY="57.0" pickOnBounds="true" preserveRatio="false" />
       <ImageView fx:id="woodImage" fitHeight="70.0" fitWidth="70.0" layoutX="508.0" layoutY="57.0" pickOnBounds="true" preserveRatio="false" />
-      <ImageView fx:id="glassImage" fitHeight="70.0" fitWidth="70.0" layoutX="128.0" layoutY="200.0" pickOnBounds="true" preserveRatio="false" />
-      <ImageView fx:id="loomImage" fitHeight="70.0" fitWidth="70.0" layoutX="278.0" layoutY="200.0" pickOnBounds="true" preserveRatio="false" />
-      <ImageView fx:id="papyrusImage" fitHeight="70.0" fitWidth="70.0" layoutX="428.0" layoutY="200.0" pickOnBounds="true" preserveRatio="false" />
-      <Spinner fx:id="claySpin" layoutX="46.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" />
-      <Spinner fx:id="oreSpin" layoutX="196.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" />
-      <Spinner fx:id="stoneSpin" layoutX="346.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" />
-      <Spinner fx:id="woodSpin" layoutX="496.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" />
-      <Spinner fx:id="glassSpin" layoutX="116.0" layoutY="289.0" prefHeight="25.0" prefWidth="95.0" />
-      <Spinner fx:id="loomSpin" layoutX="266.0" layoutY="289.0" prefHeight="25.0" prefWidth="95.0" />
-      <Spinner fx:id="papyrusSpin" layoutX="416.0" layoutY="289.0" prefHeight="25.0" prefWidth="95.0" />
-      <Button fx:id="makeCommerceButton" layoutX="193.0" layoutY="366.0" mnemonicParsing="false" onAction="#makeCommerce" prefHeight="45.0" prefWidth="240.0" style="-fx-background-color: #b80028;" text="Commerce" textFill="WHITE">
+      <ImageView fx:id="glassImage" fitHeight="70.0" fitWidth="70.0" layoutX="662.0" layoutY="58.0" pickOnBounds="true" preserveRatio="false" />
+      <ImageView fx:id="loomImage" fitHeight="70.0" fitWidth="70.0" layoutX="812.0" layoutY="58.0" pickOnBounds="true" preserveRatio="false" />
+      <ImageView fx:id="papyrusImage" fitHeight="70.0" fitWidth="70.0" layoutX="962.0" layoutY="58.0" pickOnBounds="true" preserveRatio="false" />
+      <fx:define>
+         <Integer fx:id="min" fx:value="0"/>
+         <Integer fx:id="max" fx:value="10"/>
+      </fx:define>
+      <Spinner fx:id="claySpin" layoutX="46.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" max="$max" min = "$min"/>
+
+
+      <Spinner fx:id="oreSpin" layoutX="196.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0"  max="$max" min = "$min" />
+      <Spinner fx:id="stoneSpin" layoutX="346.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" max="$max" min = "$min" />
+      <Spinner fx:id="woodSpin" layoutX="496.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" max="$max" min = "$min" />
+      <Spinner fx:id="glassSpin" layoutX="650.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" max="$max" min = "$min" />
+      <Spinner fx:id="loomSpin" layoutX="800.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" max="$max" min = "$min" />
+      <Spinner fx:id="papyrusSpin" layoutX="950.0" layoutY="147.0" prefHeight="25.0" prefWidth="95.0" max="$max" min = "$min" />
+      <Button fx:id="makeCommerceButton" layoutX="410.0" layoutY="218.0" mnemonicParsing="false" onAction="#makeCommerce" prefHeight="45.0" prefWidth="240.0" style="-fx-background-color: #b80028;" text="Commerce" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>

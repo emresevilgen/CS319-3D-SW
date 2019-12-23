@@ -87,14 +87,18 @@ public class Loot implements Initializable {
     @FXML
     public  ImageView militaryTokenLoot;
     boolean first = true;
-    Image currentImage; // seçilen kartı bunda tut
-
-    private Card[] cards;
-    private int focusedCardInBoardIndex;
-
-
 
     private ImageView[] cardViews;
+    private ImageView selectedCardView;
+    private Card selectedCard;
+    private int selectedCardIndex;
+
+
+
+    private int focusedCardInIndex;
+
+
+
     private DescriptionReader tts = new DescriptionReader();
 
     // Button colors for hovered and not
@@ -153,7 +157,7 @@ public class Loot implements Initializable {
             timeLine.stop();
         });
 
-        focusedCardInBoardIndex = -1;
+        focusedCardInIndex = -1;
 
 
         try {
@@ -272,10 +276,6 @@ public class Loot implements Initializable {
             first = false;
         });
 
-
-
-        focusedCardInBoardIndex = -1;
-
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -297,22 +297,24 @@ public class Loot implements Initializable {
                 if (dataHandler.getSettings().isAudioDescription() && userIndex != -1) {
                     if(keyCode.equals(KeyCode.R))
                     {
-                        if (focusedCardInBoardIndex == game.players[userIndex].board.cards.length - 1)
+                        if (focusedCardInIndex == game.players[userIndex].board.cards.length - 1)
                         {
-                            focusedCardInBoardIndex = -1;
+                            focusedCardInIndex = -1;
                         }
-                        focusedCardInBoardIndex++;
+                        focusedCardInIndex++;
                         if (settings.isAudioDescription())
-                            tts.read(cards[focusedCardInBoardIndex].name);
+                            tts.read(game.players[userIndex].board.cards[focusedCardInIndex].name);
+                        selectTheCard(focusedCardInIndex);
                     }
                     else if(keyCode.equals(KeyCode.E))
                     {
-                        if (focusedCardInBoardIndex <= 0) {
-                            focusedCardInBoardIndex = game.players[userIndex].board.cards.length;
+                        if (focusedCardInIndex <= 0) {
+                            focusedCardInIndex = game.players[userIndex].board.cards.length;
                         }
-                        focusedCardInBoardIndex--;
+                        focusedCardInIndex--;
                         if (settings.isAudioDescription())
-                            tts.read(cards[focusedCardInBoardIndex].name);
+                            tts.read(game.players[userIndex].board.cards[focusedCardInIndex].name);
+                        selectTheCard(focusedCardInIndex);
                     }
                 }
                 event.consume();
@@ -326,13 +328,14 @@ public class Loot implements Initializable {
         String username = usernameLabel.getText();
         Player[] players = DataHandler.getInstance().getGame().players;
         int userIndex = -1;
+
         for (int i = 0; i < players.length; i++) {
             if (players[i] != null && players[i].name.equals(username)) {
                 userIndex = i;
             }
         }
         if (userIndex != -1) {
-            cards = dataHandler.getGame().players[userIndex].board.cards;
+            Card[] cards = dataHandler.getGame().players[userIndex].board.cards;
             for(int i= 0; i < cards.length; i++ )
             {
                 cardViews[i].setImage(getCardImage(cards[i]));
@@ -361,45 +364,57 @@ public class Loot implements Initializable {
         return null;
     }
 
-    public void focusIntoBoardCard(MouseEvent mouseEvent) {
-        ImageView current = (ImageView) mouseEvent.getSource();
-        if (current.getImage() != null){
-            Glow glow = new Glow();
-            glow.setLevel(0.4);
-            focus.setEffect(glow);
-            focus.setFitHeight(current.getFitHeight());
-            focus.setFitWidth(current.getFitWidth());
-            focus.setLayoutX(current.getLayoutX());
-            focus.setLayoutY(current.getLayoutY());
-            focus.setImage(current.getImage());
-            focus.setScaleX(1.40);
-            focus.setScaleY(1.40);
 
+    public void clickCard(MouseEvent mouseEvent) {
+        ImageView currentView = (ImageView) mouseEvent.getSource();
+        int userIndex =0;
+        String name = usernameLabel.getText();
+        for(int i = 0; i < DataHandler.getInstance().getGame().players.length; i++)
+        {
+            if(name.equals(DataHandler.getInstance().getGame().players[i].name))
+                userIndex = i;
         }
+
+        int cardIndex = 0;
+        Card[] cards = DataHandler.getInstance().getGame().players[userIndex].board.cards;
+        for (; cardIndex < cards.length; cardIndex++){
+            if (cards[cardIndex] != null && currentView.getImage().equals(cardViews[cardIndex].getImage())){
+                break;
+            }
+        }
+        selectTheCard(cardIndex);
+        Settings settings = DataHandler.getInstance().getSettings();
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        if (settings.isAudioDescription())
+            tts.read(cards[cardIndex].name);
     }
 
-    public void clickBoardCard(MouseEvent mouseEvent) {
-        int cardIndex = 0;
-        currentImage = ((ImageView)mouseEvent.getSource()).getImage();
-        String username = usernameLabel.getText();
-        Game game = DataHandler.getInstance().getGame();
-        int index = 0;
-        for(int i = 0; i < game.players.length; i++)
+    private void selectTheCard(int cardIndex){
+        if (selectedCardView != null && selectedCardView.getImage() != null) {
+            Glow glow = new Glow();
+            glow.setLevel(0.0);
+            selectedCardView.setEffect(glow);
+            selectedCardView.setScaleX(1);
+            selectedCardView.setScaleY(1);
+        }
+
+        int userIndex =0;
+        String name = usernameLabel.getText();
+        for(int i = 0; i < DataHandler.getInstance().getGame().players.length; i++)
         {
-            if(username.equals(game.players[i].name))
-               index = i;
+            if(name.equals(DataHandler.getInstance().getGame().players[i].name))
+                userIndex = i;
         }
 
-        for (; cardIndex < game.players[index].cards.length; cardIndex++){
-            Image image = cardViews[cardIndex].getImage();
-            if (image != null && image.equals(currentImage))
-                break;
-        }
-
-        if (cardIndex != game.players[index].cards.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
-            Reader tts = AudioDescriptionHandler.getInstance().getReader();
-            tts.read(game.players[index].cards[cardIndex].name);
-        }
+        Card[] cards = DataHandler.getInstance().getGame().players[userIndex].board.cards;
+        selectedCardView = cardViews[cardIndex];
+        Glow glow = new Glow();
+        glow.setLevel(0.4);
+        selectedCardView.setEffect(glow);
+        selectedCardView.setScaleX(1.30);
+        selectedCardView.setScaleY(1.30);
+        selectedCard = cards[cardIndex];
+        selectedCardIndex = cardIndex;
     }
 
     public void cardLoot(ActionEvent actionEvent) {
@@ -410,11 +425,27 @@ public class Loot implements Initializable {
     public void tokenLoot(ActionEvent actionEvent) {
     }
 
-    public void focusOutBoardCard(MouseEvent mouseEvent) {
-        focus.setLayoutX(0);
-        focus.setLayoutY(0);
-        focus.setFitWidth(0);
-        focus.setFitHeight(0);
-        focus.setImage(null);
+    // Focus on hand card when mouse exited
+    public void effectOn(MouseEvent mouseEvent) {
+        ImageView current = (ImageView) mouseEvent.getSource();
+        if (current.getImage() != null){
+            Glow glow = new Glow();
+            glow.setLevel(0.4);
+            current.setEffect(glow);
+            current.setScaleX(1.30);
+            current.setScaleY(1.30);
+        }
+    }
+
+    // Focus out from hand card when mouse exited
+    public void effectOff(MouseEvent mouseEvent) {
+        ImageView current = (ImageView) mouseEvent.getSource();
+        if (current.getImage() != null && !current.equals(selectedCardView)){
+            Glow glow = new Glow();
+            glow.setLevel(0.0);
+            current.setEffect(glow);
+            current.setScaleX(1);
+            current.setScaleY(1);
+        }
     }
 }

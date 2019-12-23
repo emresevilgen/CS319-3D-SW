@@ -13,8 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import models.DataHandler;
-import models.Settings;
+import models.*;
 import utils.Constants;
 
 import java.io.FileInputStream;
@@ -84,6 +83,8 @@ public class CommerceScene implements Initializable {
             first = false;
         });
 
+        //claySpin.focusedProperty().ad
+
         try {
             FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
             Image clay = new Image(inputStream);
@@ -123,6 +124,11 @@ public class CommerceScene implements Initializable {
                 KeyCode keyCode = event.getCode();
                 if (keyCode.equals(keyCode.ESCAPE))
                     SceneHandler.getInstance().getStagePopup().close();
+                else if (keyCode.equals(KeyCode.C)){
+                    if (settings.isAudioDescription())
+                        tts.read("Commerce");
+                    // Request atılacak
+                }
                 event.consume();
             }
         });

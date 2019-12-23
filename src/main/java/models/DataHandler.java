@@ -12,7 +12,7 @@ public class DataHandler {
     private DataHandler(){
         settings = new Settings();
 
-        /*//-------------------------------------
+        //-------------------------------------
         //-------------------------------------
         // To delete
         Game game = new Game();
@@ -40,7 +40,7 @@ public class DataHandler {
 
         game.players[0].board = new Board();
         // System.out.println(DataHandler.getInstance().getGame().users.length);
-        game.players[0].board.name = "Alexandria A";
+        game.players[0].board.name = "Alexandria";
         game.players[0].board.cards = new Card[16];
         game.players[0].board.cards[0] = new Card();
         game.players[0].board.cards[0].name = "Tree Farm";
@@ -93,7 +93,7 @@ public class DataHandler {
 
         game.players[1] = new Player();
         game.players[1].board = new Board();
-        game.players[1].board.name = "Ephesos A";
+        game.players[1].board.name = "Ephesos";
         game.players[1].board.cards = new Card[15];
         game.players[1].board.cards[0] = new Card();
         game.players[1].board.cards[0].name = "Tree Farm";
@@ -143,7 +143,7 @@ public class DataHandler {
 
         game.players[2] = new Player();
         game.players[2].board = new Board();
-        game.players[2].board.name = "Gizah A";
+        game.players[2].board.name = "Gizah";
         game.players[2].board.cards = new Card[19];
         game.players[2].board.cards[1] = new Card();
         game.players[2].board.cards[1].name = "Library";
@@ -157,7 +157,7 @@ public class DataHandler {
 
         game.players[3] = new Player();
         game.players[3].board = new Board();
-        game.players[3].board.name = "Babylon A";
+        game.players[3].board.name = "Babylon";
         game.players[3].board.cards = new Card[19];
 
         game.players[0].victoryPoints = 0;
@@ -174,7 +174,7 @@ public class DataHandler {
         game.players[2].name = "user3";
         game.players[3].name = "user4";
 
-        setGame(game);*/
+        setGame(game);
 
         //-----------------------------------------------
     }
