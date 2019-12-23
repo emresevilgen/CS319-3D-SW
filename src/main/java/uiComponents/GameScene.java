@@ -5,11 +5,13 @@ import audioDescription.Reader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -27,6 +29,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.*;
+import rest.Requester;
+import rest.ServerConnectionHandler;
+import rest.models.GeneralResponse;
 import utils.Constants;
 
 import java.io.*;
@@ -183,7 +188,6 @@ public class GameScene implements Initializable {
     int ageNumber = 0;
     int turnNumber = 0;
 
-
     private String keyInput = "";
 
     public boolean firstTime;
@@ -195,7 +199,11 @@ public class GameScene implements Initializable {
         @Override
         public void handle(ActionEvent event) {
             // Server request and update the game
-
+            try {
+                update();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
 
         }
     }));
@@ -203,24 +211,39 @@ public class GameScene implements Initializable {
     // Initializing function
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        SceneHandler.getInstance().getStageMain().setOnCloseRequest(e->{
+            exitHelper();
+        });
 
         try {
             FileInputStream inputStream = new FileInputStream(Constants.COIN_IMAGE);
             Image coinImage = new Image(inputStream);
             coins.setImage(coinImage);
-            FileInputStream inputStream2 = new FileInputStream(Constants.TOKEN_IMAGE);
-            Image tokenImage = new Image(inputStream2);
-            militaryTokens.setImage(tokenImage);
-            FileInputStream inputStream3 = new FileInputStream(Constants.TABLE_IMAGE);
-            Image tableImage = new Image(inputStream3);
-            table.setImage(tableImage);
-            FileInputStream inputStream4 = new FileInputStream(Constants.WONDER_IMAGE);
-            Image wonderImage = new Image(inputStream4);
-            wonderStage.setImage(wonderImage);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        try {
+            FileInputStream inputStream2 = new FileInputStream(Constants.TOKEN_IMAGE);
+            Image tokenImage = new Image(inputStream2);
+            militaryTokens.setImage(tokenImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            FileInputStream inputStream3 = new FileInputStream(Constants.TABLE_IMAGE);
+            Image tableImage = new Image(inputStream3);
+            table.setImage(tableImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            FileInputStream inputStream4 = new FileInputStream(Constants.WONDER_IMAGE);
+            Image wonderImage = new Image(inputStream4);
+            wonderStage.setImage(wonderImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         // Setting the mouse entered and exited listeners for hover effect
         nextTurnButton.setOnMouseEntered(e -> { nextTurnButton.setStyle(HOVERED_BUTTON_STYLE); });
@@ -231,10 +254,6 @@ public class GameScene implements Initializable {
         structureButton.setOnMouseExited(e -> structureButton.setStyle(IDLE_BUTTON_STYLE));
         wonderButton.setOnMouseEntered(e -> { wonderButton.setStyle(HOVERED_BUTTON_STYLE); });
         wonderButton.setOnMouseExited(e -> wonderButton.setStyle(IDLE_BUTTON_STYLE));
-
-        Game game = DataHandler.getInstance().getGame();
-        if(game.players[0].board.wonderStage == 3)
-            wonderButton.setDisable(true);
 
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
@@ -281,18 +300,6 @@ public class GameScene implements Initializable {
                 wonderButton.setStyle(IDLE_BUTTON_STYLE);
         });
 
-        //Change next turn button to next age
-        if(game.turnNumber == 6)
-            nextTurnButton.setText("Next Age");
-        else
-            nextTurnButton.setText("Next Turn ");
-
-        //-------------------------------------
-        selectedCardIndex = 0;
-        focusedCardInBoardIndex = 0;
-
-        Card[] cards = DataHandler.getInstance().getGame().players[0].board.cards;
-
         SceneHandler.getInstance().getStageMain().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
            @Override
            public void handle(KeyEvent event) {
@@ -310,7 +317,7 @@ public class GameScene implements Initializable {
                else if (keyCode.equals(KeyCode.S)){
                    keyInput = "boardCards";
                    if(settings.isAudioDescription())
-                       tts.read("The cards in the board." + cards[focusedCardInBoardIndex].name);
+                       tts.read("The cards in the board." + game.players[0].board.cards[focusedCardInBoardIndex].name);
                }
                //Cards in the left player's board
                else if (keyCode.equals(KeyCode.A)){
@@ -363,7 +370,7 @@ public class GameScene implements Initializable {
                        }
                        focusedCardInBoardIndex++;
                        if (settings.isAudioDescription())
-                           tts.read(cards[focusedCardInBoardIndex].name);
+                           tts.read(game.players[0].board.cards[focusedCardInBoardIndex].name);
                    }
                    else if (keyInput.equals("deck")){
                        if(selectedCardIndex == (game.players[0].cards.length - 1) )
@@ -392,7 +399,7 @@ public class GameScene implements Initializable {
                        }
                        focusedCardInBoardIndex--;
                        if (settings.isAudioDescription())
-                           tts.read(cards[focusedCardInBoardIndex].name);
+                           tts.read(game.players[0].board.cards[focusedCardInBoardIndex].name);
                    }
                    else if (keyInput.equals("deck")){
                        if(selectedCardIndex == 0)
@@ -460,6 +467,23 @@ public class GameScene implements Initializable {
            }
         });
         //-------------------------------------
+        try {
+            Game game = DataHandler.getInstance().getGame();
+
+            if (game.players[0].board.stage == 3)
+                wonderButton.setDisable(true);
+
+            //Change next turn button to next age
+            if (game.turnNumber == 6)
+                nextTurnButton.setText("Next Age");
+            else
+                nextTurnButton.setText("Next Turn ");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //-------------------------------------
+        selectedCardIndex = 0;
+        focusedCardInBoardIndex = 0;
 
         // Initialize the card view array
         cardViews = new ImageView[19];
@@ -492,9 +516,6 @@ public class GameScene implements Initializable {
         deckCardViews[5] = deck6;
         deckCardViews[6] = deck7;
 
-        // Start sending requests
-        timeLine.setCycleCount(Animation.INDEFINITE);
-        timeLine.play();
 
         // Initialize the button images and their status
         try {
@@ -528,12 +549,20 @@ public class GameScene implements Initializable {
 
             exitView.setImage(exitImage);
 
-            // Update the data
-            update();
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        try {
+            // Update the data
+            update();
+        } catch (Exception e ){
+            e.printStackTrace();
+        }
+
+        // Start sending requests
+        timeLine.setCycleCount(Animation.INDEFINITE);
+        timeLine.play();
 
     }
 
@@ -732,31 +761,81 @@ public class GameScene implements Initializable {
     }
 
     public void update(){
-        // Check the music of the age
-        if (ageNumber != DataHandler.getInstance().getGame().ageNumber) {
-            ageNumber = DataHandler.getInstance().getGame().ageNumber;
-            DataHandler dataHandler = DataHandler.getInstance();
 
-            if (dataHandler.getSettings().isSoundEffects()) {
-                Media sound;
-                if (ageNumber == 1)
-                    sound = new Media(new File(Constants.AGE_ONE_SOUND).toURI().toString());
-                else if (ageNumber == 2)
-                    sound = new Media(new File(Constants.AGE_TWO_SOUND).toURI().toString());
-                else
-                    sound = new Media(new File(Constants.AGE_THREE_SOUND).toURI().toString());
+        DataHandler dataHandler = DataHandler.getInstance();
 
-                SceneHandler.getInstance().getMediaPlayer().stop();
-                MediaPlayer mediaPlayer = new MediaPlayer(sound);
-                SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
-                mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
-                mediaPlayer.play();
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<Game> gameResponse = requester.getGameData(dataHandler.getUser().userName, dataHandler.getUser().token);
+                if (gameResponse != null) {
+                    if (gameResponse.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setGame(gameResponse.payload);
+                                System.out.println(DataHandler.getInstance().getGame());
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(gameResponse.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
+            }
+        });
+        requestThread.start();
+
+        try {
+            // Check the music of the age
+            if (ageNumber != DataHandler.getInstance().getGame().ageNumber) {
+                ageNumber = DataHandler.getInstance().getGame().ageNumber;
+
+                if (dataHandler.getSettings().isSoundEffects()) {
+                    Media sound;
+                    if (ageNumber == 1)
+                        sound = new Media(new File(Constants.AGE_ONE_SOUND).toURI().toString());
+                    else if (ageNumber == 2)
+                        sound = new Media(new File(Constants.AGE_TWO_SOUND).toURI().toString());
+                    else
+                        sound = new Media(new File(Constants.AGE_THREE_SOUND).toURI().toString());
+
+                    SceneHandler.getInstance().getMediaPlayer().stop();
+                    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                    SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
+                    mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
+                    mediaPlayer.play();
+                }
             }
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        leftBoard.setImage(null);
+        rightBoard.setImage(null);
+        acrossBoard.setImage(null);
+        playerBoard.setImage(null);
 
         // --------------------------------------
         // --------------------------------------
         // Set the board images
+
         Player[] players = DataHandler.getInstance().getGame().players;
 
         if (players.length == 4) {
@@ -764,8 +843,7 @@ public class GameScene implements Initializable {
             rightBoard.setImage(getBoardImage(players[1].board, 1));
             acrossBoard.setImage(getBoardImage(players[2].board, 2));
             leftBoard.setImage(getBoardImage(players[3].board, 3));
-        }
-        else if (players.length == 4) {
+        } else if (players.length == 3) {
             playerBoard.setImage(getBoardImage(players[0].board, 0));
             rightBoard.setImage(getBoardImage(players[1].board, 1));
             leftBoard.setImage(getBoardImage(players[2].board, 2));
@@ -774,16 +852,31 @@ public class GameScene implements Initializable {
         // --------------------------------------
 
         // To display the cards at the hand of the player
-        Card[] playerCards = players[0].cards;
-        for (int i = 0; i < playerCards.length; i++){
-            deckCardViews[i].setImage(getCardImage(playerCards[i]));
+        for(int i = 0; i < deckCardViews.length; i++){
+            deckCardViews[i].setImage(null);
         }
 
-        // To classify the cards at the users board
+        Card[] playerCards = players[0].cards;
+        for (int i = 0; i < playerCards.length; i++){
+            try {
+                deckCardViews[i].setImage(getCardImage(playerCards[i]));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
         Card[] cards = players[0].board.cards;
 
+        for(int i = 0; i < cardViews.length; i++){
+            cardViews[i].setImage(null);
+        }
+
         for (int i = 0; i < cards.length; i++){
-            cardViews[i].setImage(getCardImage(cards[i]));
+            try {
+                cardViews[i].setImage(getCardImage(cards[i]));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         //Update coins, tokens and wonder stage on the table, write turn and age number
@@ -828,9 +921,9 @@ public class GameScene implements Initializable {
         }
     }
 
+
     // Board listeners
     public void showOtherPlayersCards(MouseEvent mouseEvent) {
-
         String username;
         // Get the players cards
         ImageView boardView = (ImageView)mouseEvent.getSource();
@@ -942,16 +1035,29 @@ public class GameScene implements Initializable {
             String boardName = board.name;
             // Get the path of the image according to the location of the player
             String boardPath;
-            if (index == 0)
-                boardPath = Constants.BOARD_IMAGE + File.separator + boardName.replaceAll(" ", "").toLowerCase() + "bottom" + ".png";
-            else if (index == 1)
-                boardPath = Constants.BOARD_IMAGE + File.separator + boardName.replaceAll(" ", "").toLowerCase() + "right" + ".png";
-            else if (index == 2)
-                boardPath = Constants.BOARD_IMAGE + File.separator + boardName.replaceAll(" ", "").toLowerCase() + "top" + ".png";
-            else if (index == 3)
-                boardPath = Constants.BOARD_IMAGE + File.separator + boardName.replaceAll(" ", "").toLowerCase() + "left" + ".png";
-            else
-                return null;
+            String path = Constants.BOARD_IMAGE + File.separator + boardName.replaceAll(" ", "").toLowerCase();
+            if (DataHandler.getInstance().getGame().players.length == 4) {
+                if (index == 0)
+                    boardPath = path + "abottom" + ".png";
+                else if (index == 1)
+                    boardPath = path + "aright" + ".png";
+                else if (index == 2)
+                    boardPath = path + "atop" + ".png";
+                else if (index == 3)
+                    boardPath = path + "aleft" + ".png";
+                else
+                    return null;
+            }
+            else {
+                if (index == 0)
+                    boardPath = path + "abottom" + ".png";
+                else if (index == 1)
+                    boardPath = path + "aright" + ".png";
+                else if (index == 2)
+                    boardPath = path + "aleft" + ".png";
+                else
+                    return null;
+            }
 
             try {
                 FileInputStream inputStream = new FileInputStream(boardPath);

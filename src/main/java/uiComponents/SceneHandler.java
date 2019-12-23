@@ -3,6 +3,7 @@ package uiComponents;
 import audioDescription.AudioDescriptionHandler;
 import audioDescription.Reader;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,7 +20,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.Card;
 import models.DataHandler;
+import models.Game;
 import models.Settings;
+import rest.Requester;
+import rest.ServerConnectionHandler;
+import rest.models.GeneralResponse;
 import utils.Constants;
 
 import java.io.File;
@@ -75,14 +80,14 @@ public class SceneHandler extends Application {
 
        //moveToCreateLobby();
         //moveToCredits();
-        //moveToGame();
+        moveToGame();
         //moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
         //moveToSettings();
         //moveToSignIn();
-        moveToSignUp();
+        //moveToSignUp();
 
     }
 
@@ -356,6 +361,7 @@ public class SceneHandler extends Application {
 
     // Move game scene
     public void moveToGame() {
+
         // Load the fxml
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fileInputStream = null;
@@ -373,12 +379,9 @@ public class SceneHandler extends Application {
             ImageView backgroundView = (ImageView) root.getChildren().get(0);
             backgroundView.setImage(backgroundImage);
 
-
             // Show scene
             stageMain.getScene().setRoot(root);
             stageMain.show();
-
-
 
         } catch (IOException e) {
             e.printStackTrace();

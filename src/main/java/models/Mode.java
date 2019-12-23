@@ -16,4 +16,14 @@ public class Mode {
     @SerializedName("loot")
     public boolean loot;
 
+    @Override
+    public String toString() {
+        return "Mode{" +
+                "shufflePlaces=" + shufflePlaces +
+                ", secretSkills=" + secretSkills +
+                ", invalidMovePenalty=" + invalidMovePenalty +
+                ", loot=" + loot +
+                '}';
+    }
+
 }

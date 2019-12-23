@@ -18,5 +18,13 @@ public class Board {
     @SerializedName("name")
     public String name;
 
-
+    @Override
+    public String toString() {
+        return "Board{" +
+                "cards=" + Arrays.toString(cards) +
+                ", id='" + id + '\'' +
+                ", stage=" + stage +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 
 public class Lobby {
+
     @SerializedName("id")
     public String id;
 
@@ -29,12 +30,15 @@ public class Lobby {
     @Override
     public String toString() {
         return "Lobby{" +
-                "lobbyId='" + id + '\'' +
-                ", lobbyAdmin='" + admin + '\'' +
-                ", lobbyName='" + name + '\'' +
-                ", lobbyCode='" + code + '\'' +
-                ", lobbyUsers=" + Arrays.toString(users) +
+                "id='" + id + '\'' +
+                ", gameId='" + gameId + '\'' +
+                ", admin='" + admin + '\'' +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", users=" + Arrays.toString(users) +
                 ", mode=" + mode +
                 '}';
     }
+
+
 }

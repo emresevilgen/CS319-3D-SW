@@ -12,7 +12,7 @@ public class DataHandler {
     private DataHandler(){
         settings = new Settings();
 
-        //-------------------------------------
+        /*//-------------------------------------
         //-------------------------------------
         // To delete
         Game game = new Game();
@@ -174,7 +174,7 @@ public class DataHandler {
         game.players[2].name = "user3";
         game.players[3].name = "user4";
 
-        setGame(game);
+        setGame(game);*/
 
         //-----------------------------------------------
     }

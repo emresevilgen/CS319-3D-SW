@@ -43,5 +43,21 @@ public class Player {
     @SerializedName("coin")
     public int coin;
 
-
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id='" + id + '\'' +
+                ", gameId='" + gameId + '\'' +
+                ", name='" + name + '\'' +
+                ", secretSkill='" + secretSkill + '\'' +
+                ", cards=" + Arrays.toString(cards) +
+                ", board=" + board +
+                ", leftPlayerId='" + leftPlayerId + '\'' +
+                ", rightPlayerId='" + rightPlayerId + '\'' +
+                ", victoryPoints=" + victoryPoints +
+                ", victoryTokens=" + victoryTokens +
+                ", defeatTokens=" + defeatTokens +
+                ", coin=" + coin +
+                '}';
+    }
 }

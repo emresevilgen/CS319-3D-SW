@@ -18,7 +18,15 @@ public class Game {
     @SerializedName("players")
     public Player[] players;
 
-
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id='" + id + '\'' +
+                ", ageNumber=" + ageNumber +
+                ", turnNumber=" + turnNumber +
+                ", players=" + Arrays.toString(players) +
+                '}';
+    }
 
 
 }

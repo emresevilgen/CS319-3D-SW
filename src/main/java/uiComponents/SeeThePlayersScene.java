@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -91,7 +92,6 @@ public class SeeThePlayersScene implements Initializable {
         // Update the lobby info at every second
         @Override
         public void handle(ActionEvent event) {
-
             // Get the lobby data every seconds and when the game starts move to the game screen
             update();
         }
@@ -106,6 +106,54 @@ public class SeeThePlayersScene implements Initializable {
         // Send request to server if get success move to game screen move to game screen
         // ----------------------------------
         // ----------------------------------
+        Lobby lobby = DataHandler.getInstance().getLobby();
+        boolean allReady = true;
+
+        for (int i = 0; i < lobby.users.length; i++){
+            if (!lobby.users[i].isReady)
+                allReady = false;
+        }
+
+        if (allReady){
+            DataHandler dataHandler = DataHandler.getInstance();
+
+            Thread requestThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                    GeneralResponse<Lobby> lobbyResponse = requester.getReady(dataHandler.getUser().userName, dataHandler.getUser().token, true);
+                    if (lobbyResponse != null) {
+                        if (lobbyResponse.success) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DataHandler.getInstance().setLobby(lobbyResponse.payload);
+                                }
+                            });
+                        }
+                        else {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showErrorMessage(lobbyResponse.message);
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage("There is something wrong with the connection");
+                            }
+                        });
+                    }
+                }
+            });
+            requestThread.start();
+        }
+
+
 
         // To stop requests if the response is okey
         timeLine.stop();
@@ -181,6 +229,61 @@ public class SeeThePlayersScene implements Initializable {
     public void update() {
         DataHandler dataHandler = DataHandler.getInstance();
 
+        if (dataHandler.getLobby().gameId != null){
+            timeLine.stop();
+            Thread requestThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                    GeneralResponse<Game> gameResponse = requester.getGameData(dataHandler.getUser().userName, dataHandler.getUser().token);
+                    if (gameResponse != null) {
+                        if (gameResponse.success) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DataHandler.getInstance().setGame(gameResponse.payload);
+                                    SceneHandler.getInstance().moveToGame();
+                                    timeLine.stop();
+                                }
+                            });
+                        }
+                        else {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showErrorMessage(gameResponse.message);
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage("There is something wrong with the connection");
+                            }
+                        });
+                    }
+                }
+            });
+            requestThread.start();
+            return;
+        }
+
+        startGameButton.setDisable(true);
+
+        Lobby lobby = DataHandler.getInstance().getLobby();
+        boolean allReady = true;
+
+        for (int i = 0; i < lobby.users.length; i++){
+            if (!lobby.users[i].isReady)
+                allReady = false;
+        }
+
+        if(allReady)
+            startGameButton.setDisable(false);
+
+
         Thread requestThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -221,7 +324,6 @@ public class SeeThePlayersScene implements Initializable {
         checkBoxes[1] = thirdPlayerCheckBox;
         checkBoxes[2] = fourthPlayerCheckBox;
 
-        Lobby lobby = dataHandler.getLobby();
         for(int i = 0; i < checkBoxes.length; i++) {
             checkBoxes[i].setDisable(true);
         }

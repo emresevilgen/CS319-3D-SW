@@ -15,5 +15,15 @@ public class Card {
 
     @SerializedName("name")
     public String name;
-    
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id='" + id + '\'' +
+                ", description='" + description + '\'' +
+                ", color='" + color + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
 }

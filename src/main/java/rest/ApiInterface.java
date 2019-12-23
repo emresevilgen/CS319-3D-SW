@@ -51,8 +51,8 @@ public interface ApiInterface {
     Call<GeneralResponse<Game>> startGame(@Field("username") String username, @Field("token") String token, @Field("lobbyCode") String lobbyCode);
 
     @FormUrlEncoded
-    @POST("getGame.php")
-    Call<GeneralResponse<Game>> getGameData(@Field("username") String username, @Field("token") String token, @Field("gameId") String gameId, @Field("playerId") String playerId);
+    @POST("game/")
+    Call<GeneralResponse<Game>> getGameData(@Field("username") String username, @Field("token") String token);
 
     @FormUrlEncoded
     @POST("getReadyGame.php")

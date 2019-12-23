@@ -355,7 +355,8 @@ public class RequestHandler implements Requester {
                 e.printStackTrace();
             }
         }
-        return lobby[0];       }
+        return lobby[0];
+    }
 
     @Override
     public GeneralResponse<Game> startGame(String username, String token, String lobbyCode) {
@@ -363,8 +364,50 @@ public class RequestHandler implements Requester {
     }
 
     @Override
-    public GeneralResponse<Game> getGameData(String username, String token, String gameId, String playerId) {
-        return null;
+    public GeneralResponse<Game> getGameData(String username, String token) {
+        final GeneralResponse<Game>[] game = new GeneralResponse[1];
+        final boolean[] finished = {false};
+
+        // Get Game lobby request
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<GeneralResponse<Game>> call = apiService.getGameData(username, token);
+        call.enqueue(new Callback<GeneralResponse<Game>>() {
+            // If the connection is valid
+            @Override
+            public void onResponse(Call<GeneralResponse<Game>> call, Response<GeneralResponse<Game>> response) {
+                if (response.body() != null) {
+                    // Get the response
+                    game[0] = response.body();
+                }
+                else {
+                    try {
+                        String errorResponse = response.errorBody().string();
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        game[0] = new GeneralResponse<Game>();
+                        if (userGeneralResponse != null)
+                            game[0].message = userGeneralResponse.message;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                finished[0] = true;
+            }
+
+            // When connection is lost
+            @Override
+            public void onFailure(Call<GeneralResponse<Game>> call, Throwable t) {
+                finished[0] = true;
+            }
+        });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return game[0];
     }
 
     @Override

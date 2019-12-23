@@ -13,4 +13,13 @@ public class LobbyUser {
     @SerializedName("isActive")
     public boolean isActive;
 
+    @Override
+    public String toString() {
+        return "LobbyUser{" +
+                "username='" + username + '\'' +
+                ", isReady=" + isReady +
+                ", isActive=" + isActive +
+                '}';
+    }
+
 }

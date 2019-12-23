@@ -19,4 +19,15 @@ public class User {
     @SerializedName("ranking")
     public int ranking;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", token='" + token + '\'' +
+                ", ranking=" + ranking +
+                '}';
+    }
+
 }

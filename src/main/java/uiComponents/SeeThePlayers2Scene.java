@@ -187,9 +187,46 @@ public class SeeThePlayers2Scene implements Initializable {
 
         DataHandler dataHandler = DataHandler.getInstance();
 
-/*        if (dataHandler.getLobby().gameId != null){
-            SceneHandler.getInstance().moveToGame();
-        }*/
+        if (dataHandler.getLobby().gameId != null){
+            timeLine.stop();
+            Thread requestThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                    GeneralResponse<Game> gameResponse = requester.getGameData(dataHandler.getUser().userName, dataHandler.getUser().token);
+                    if (gameResponse != null) {
+                        if (gameResponse.success) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DataHandler.getInstance().setGame(gameResponse.payload);
+                                    SceneHandler.getInstance().moveToGame();
+                                    timeLine.stop();
+                                }
+                            });
+                        }
+                        else {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showErrorMessage(gameResponse.message);
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage("There is something wrong with the connection");
+                            }
+                        });
+                    }
+                }
+            });
+            requestThread.start();
+            return;
+        }
 
         if (dataHandler.getLobby().admin.equals(dataHandler.getUser().userName)){
             timeLine.stop();
@@ -357,14 +394,6 @@ public class SeeThePlayers2Scene implements Initializable {
         for (int i = 0; i < lobby.users.length; i++) {
             labelsName[i].setText(lobby.users[i].username);
         }
-
-        // -------------------
-        // -------------------
-        // if game starts then
-        //         timeLine.stop();
-        // -------------------
-        // -------------------
-
     }
 
     // Initializing function
