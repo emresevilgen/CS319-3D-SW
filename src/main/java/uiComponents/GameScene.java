@@ -42,6 +42,14 @@ import java.util.ResourceBundle;
 public class GameScene implements Initializable {
     @FXML
     public ImageView focus;
+    @FXML
+    public Label name0;
+    @FXML
+    public Label name3;
+    @FXML
+    public Label name2;
+    @FXML
+    public Label name1;
 
     @FXML
     Button nextTurnButton;
@@ -501,6 +509,12 @@ public class GameScene implements Initializable {
         selectedCardIndex = -1;
         focusedCardInBoardIndex = 0;
 
+        //set names
+        Game game = DataHandler.getInstance().getGame();
+        name0.setText(game.players[0].name);
+        name1.setText(game.players[1].name);
+        name2.setText(game.players[2].name);
+        name3.setText(game.players[3].name);
         // Initialize the card view array
         cardViews = new ImageView[19];
         cardViews[0] = card1;

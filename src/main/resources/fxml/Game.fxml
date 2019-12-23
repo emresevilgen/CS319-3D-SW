@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameScene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameScene">
     <children>
 
       <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
@@ -40,7 +40,7 @@
       <ImageView fx:id="playerBoard" fitHeight="225.0" fitWidth="510.0" layoutX="705.0" layoutY="787.0" pickOnBounds="true" AnchorPane.bottomAnchor="68.0" />
       <ImageView fx:id="leftBoard" fitHeight="408.0" fitWidth="180.0" layoutX="67.0" layoutY="379.0" onMouseClicked="#showOtherPlayersCards" pickOnBounds="true" />
       <ImageView fx:id="rightBoard" fitHeight="408.0" fitWidth="180.0" layoutX="1685.0" layoutY="379.0" onMouseClicked="#showOtherPlayersCards" pickOnBounds="true" />
-      <ImageView fx:id="acrossBoard" fitHeight="180.0" fitWidth="480.0" layoutX="720.0" layoutY="46.0" onMouseClicked="#showOtherPlayersCards" pickOnBounds="true" />
+      <ImageView fx:id="acrossBoard" fitHeight="180.0" fitWidth="480.0" layoutX="725.0" layoutY="67.0" onMouseClicked="#showOtherPlayersCards" pickOnBounds="true" />
       <ImageView fx:id="focus" fitHeight="213.0" fitWidth="138.0" layoutX="889.0" layoutY="788.0" onMouseClicked="#clickBoardCard" onMouseExited="#focusOutBoardCard" pickOnBounds="true" />
 
       <ImageView fx:id="soundEffectsView" fitHeight="45.0" fitWidth="45.0" layoutX="1701.0" layoutY="38.0" onMouseClicked="#switchSoundEffects" pickOnBounds="true" />
@@ -154,5 +154,25 @@
       </Label>
       <Line endX="308.0" endY="1.52587890625E-5" layoutX="150.0" layoutY="96.0" startX="-124.0" startY="1.52587890625E-5" stroke="WHITE" />
       <Line endX="-25.999969482421875" endY="188.0" layoutX="220.0" layoutY="54.0" startX="-25.999969482421875" startY="-31.0" stroke="WHITE" />
+      <Label fx:id="name0" layoutX="834.0" layoutY="1012.0" prefHeight="45.0" prefWidth="263.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="name3" layoutX="68.0" layoutY="811.0" prefHeight="45.0" prefWidth="235.0" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="name2" layoutX="834.0" layoutY="16.0" prefHeight="45.0" prefWidth="235.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="name1" layoutX="1684.0" layoutY="821.0" prefHeight="45.0" prefWidth="220.0" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -466,41 +466,73 @@ public class SeeThePlayers2Scene implements Initializable {
                 // Read the players status
                 if(keyCode.equals(KeyCode.P) && settings.isAudioDescription())
                 {
-                    if(dataHandler.getLobby().users.length > 0 &&  dataHandler.getLobby().users[0] !=  null && !dataHandler.getLobby().users[0].username.equals(dataHandler.getUser().userName))
+                    if(dataHandler.getLobby().users.length > 0 &&  dataHandler.getLobby().users[0] !=  null )
                     {
-                        if (!dataHandler.getLobby().users[0].isReady || !dataHandler.getLobby().users[1].isActive){
-                            tts.read(dataHandler.getLobby().users[0].username + " is not active");
+                        String text ="";
+                        if (!dataHandler.getLobby().users[0].isReady){
+                            text =( dataHandler.getLobby().users[0].username + " is not ready ");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().users[0].username + " is active");
+                            text = text +(dataHandler.getLobby().users[0].username + " is ready ");
                         }
+                        if ( !dataHandler.getLobby().users[0].isActive){
+                            text = text + ( " and is not active");
+                        }
+                        else{
+                            text = text + (" and is active");
+                        }
+                        tts.read(text);
                     }
-                    if(dataHandler.getLobby().users.length > 1 &&  dataHandler.getLobby().users[1] !=  null && !dataHandler.getLobby().users[1].username.equals(dataHandler.getUser().userName))
+                    if(dataHandler.getLobby().users.length > 1 &&  dataHandler.getLobby().users[1] !=  null)
                     {
-                        if (!dataHandler.getLobby().users[1].isReady || !dataHandler.getLobby().users[1].isActive){
-                            tts.read(dataHandler.getLobby().users[1].username + " is not active");
+                        String text ="";
+                        if (!dataHandler.getLobby().users[1].isReady){
+                            text =( dataHandler.getLobby().users[1].username + " is not ready ");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().users[1].username + " is active");
+                            text = text +(dataHandler.getLobby().users[1].username + " is ready ");
                         }
+                        if ( !dataHandler.getLobby().users[1].isActive){
+                            text = text + ( " and is not active");
+                        }
+                        else{
+                            text = text + (" and is active");
+                        }
+                        tts.read(text);
                     }
-                    if(dataHandler.getLobby().users.length > 2 &&  dataHandler.getLobby().users[2] !=  null && !dataHandler.getLobby().users[2].username.equals(dataHandler.getUser().userName))
+                    if(dataHandler.getLobby().users.length > 2 &&  dataHandler.getLobby().users[2] !=  null )
                     {
-                        if (!dataHandler.getLobby().users[2].isReady || !dataHandler.getLobby().users[2].isActive){
-                            tts.read(dataHandler.getLobby().users[2].username + " is not active");
+                        String text ="";
+                        if (!dataHandler.getLobby().users[2].isReady){
+                            text =( dataHandler.getLobby().users[2].username + " is not ready ");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().users[2].username + " is active");
+                            text = text +(dataHandler.getLobby().users[2].username + " is ready ");
                         }
+                        if ( !dataHandler.getLobby().users[2].isActive){
+                            text = text + ( " and is not active");
+                        }
+                        else{
+                            text = text + (" and is active");
+                        }
+                        tts.read(text);
                     }
-                    if(dataHandler.getLobby().users.length > 3 &&  dataHandler.getLobby().users[3] !=  null && !dataHandler.getLobby().users[3].username.equals(dataHandler.getUser().userName))
+                    if(dataHandler.getLobby().users.length > 3 &&  dataHandler.getLobby().users[3] !=  null )
                     {
-                        if (!dataHandler.getLobby().users[3].isReady || !dataHandler.getLobby().users[3].isActive){
-                            tts.read(dataHandler.getLobby().users[3].username + " is not active");
+                        String text ="";
+                        if (!dataHandler.getLobby().users[3].isReady){
+                            text =( dataHandler.getLobby().users[3].username + " is not ready ");
                         }
                         else{
-                            tts.read(dataHandler.getLobby().users[3].username + " is active");
+                            text = text +(dataHandler.getLobby().users[3].username + " is ready ");
                         }
+                        if ( !dataHandler.getLobby().users[3].isActive){
+                            text = text + ( " and is not active");
+                        }
+                        else{
+                            text = text + (" and is active");
+                        }
+                        tts.read(text);
                     }
                 }
                 event.consume();

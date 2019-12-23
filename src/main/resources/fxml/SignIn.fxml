@@ -17,7 +17,7 @@
             </font>
         </TextField>
 
-        <PasswordField fx:id="passwordField" layoutX="764.0" layoutY="540.0" prefHeight="65.0" prefWidth="392.0" promptText="Password" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
+        <PasswordField fx:id="passwordField" layoutX="764.0" layoutY="540.0" prefHeight="65.0" prefWidth="373.0" promptText="Password" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
             <font>
                 <Font size="30.0" />
             </font>
