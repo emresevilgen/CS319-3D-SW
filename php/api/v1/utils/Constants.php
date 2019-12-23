@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @author: Aziz Utku Kağıtcı
+ */
+class Constants {
+  
+  // Names of Purple cards
+  const WORKERS_GUILD = "WORKERS_GUILD";
+  const CRAFTSMAN_GUILD = "CRAFTSMAN_GUILD";
+  const TRADERS_GUILD = "TRADERS_GUILD";
+  const PHILOSOPHERS_GUILD = "PHILOSOPHERS_GUILD";
+  const SPIES_GUILD = "SPIES_GUILD";
+  const STRATEGISTS_GUILD = "STRATEGISTS_GUILD";
+  const SHIPOWNERS_GUILD = "SHIPOWNERS_GUILD";
+  const SCIENTISTS_GUILD = "SCIENTISTS_GUILD";
+  const MAGICSTRATES_GUILD = "MAGICSTRATES_GUILD";
+  const BUILDERS_GUILD = "BUILDERS_GUILD";
+
+}
+
+
+?>
