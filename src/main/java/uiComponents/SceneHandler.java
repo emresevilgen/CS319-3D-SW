@@ -80,7 +80,7 @@ public class SceneHandler extends Application {
 
        //moveToCreateLobby();
         //moveToCredits();
-        //moveToGame();
+        moveToGame();
         //moveToMainMenu();
         //moveToRankings();
         //moveToSeeThePlayers(true);
