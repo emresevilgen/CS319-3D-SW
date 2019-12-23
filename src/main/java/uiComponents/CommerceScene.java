@@ -2,6 +2,9 @@ package uiComponents;
 
 import audioDescription.AudioDescriptionHandler;
 import audioDescription.Reader;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 import models.*;
 import utils.Constants;
 
@@ -61,12 +65,29 @@ public class CommerceScene implements Initializable {
     Button makeCommerceButton;
     boolean first = true;
 
+    Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+            // Server request and update the game
+            update();
+
+        }
+    }));
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Setting the mouse entered and exited listeners for hover effect
         makeCommerceButton.setOnMouseEntered(e -> makeCommerceButton.setStyle(HOVERED_BUTTON_STYLE));
         makeCommerceButton.setOnMouseExited(e -> makeCommerceButton.setStyle(IDLE_BUTTON_STYLE));
 
+        // Start sending requests
+        timeLine.setCycleCount(Animation.INDEFINITE);
+        timeLine.play();
+
+        SceneHandler.getInstance().getStagePopup().setOnCloseRequest(e -> {
+            timeLine.stop();
+        });
 
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
@@ -121,13 +142,6 @@ public class CommerceScene implements Initializable {
 
         makeCommerceButton.setDisable(true);
 
-        if((claySpin.getValue() == 0) && (woodSpin.getValue() == 0) &&(stoneSpin.getValue() == 0) &&(oreSpin.getValue() == 0) &&(glassSpin.getValue() == 0) &&(loomSpin.getValue() == 0) &&(papyrusSpin.getValue() == 0) )
-        {
-            makeCommerceButton.setDisable(true);
-        }
-        else
-            makeCommerceButton.setDisable(false);
-
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -148,6 +162,15 @@ public class CommerceScene implements Initializable {
         {
             makeCommerceButton.setDisable(true);
         }*/
+    }
+
+    public void update() {
+        if((claySpin.getValue() == 0) && (woodSpin.getValue() == 0) &&(stoneSpin.getValue() == 0) &&(oreSpin.getValue() == 0) &&(glassSpin.getValue() == 0) &&(loomSpin.getValue() == 0) &&(papyrusSpin.getValue() == 0) )
+        {
+            makeCommerceButton.setDisable(true);
+        }
+        else
+            makeCommerceButton.setDisable(false);
     }
 
     public void makeCommerce(ActionEvent actionEvent){
