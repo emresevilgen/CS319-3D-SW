@@ -7,107 +7,77 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayers2Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayers2Scene">
     <children>
-      <ImageView fx:id="backgroundView" fitHeight="1087.0" fitWidth="1928.0" pickOnBounds="true" />
-        <Button fx:id="leaveButton" layoutX="1073.0" layoutY="675.0" mnemonicParsing="false" onAction="#leave" prefHeight="65.0" prefWidth="263.0" style="-fx-background-color: #b38632;" text="Leave the Lobby" textFill="WHITE">
+        <ImageView fx:id="backgroundView" fitHeight="1087.0" fitWidth="1928.0" pickOnBounds="true" />
+        <ImageView fitHeight="387.0" fitWidth="703.0" layoutX="623.0" layoutY="301.0" pickOnBounds="true" />
+
+        <Button fx:id="leaveButton" layoutX="759.0" layoutY="721.0" mnemonicParsing="false" onAction="#leave" prefHeight="65.0" prefWidth="305.0" style="-fx-background-color: #817277;" text="Leave the Lobby" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="readyButton" layoutX="1072.0" layoutY="580.0" mnemonicParsing="false" onAction="#beReady" prefHeight="65.0" prefWidth="263.0" style="-fx-background-color: #b38632;" text="Ready" textFill="WHITE">
+        <Button fx:id="readyButton" layoutX="1095.0" layoutY="721.0" mnemonicParsing="false" onAction="#beReady" prefHeight="65.0" prefWidth="203.0" style="-fx-background-color: #817277;" text="Ready" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Button>
-        <Label layoutX="648.0" layoutY="226.0" prefHeight="45.0" prefWidth="52.0" text="No" textFill="WHITE">
+        <Label layoutX="692.0" layoutY="370.0" prefHeight="30.0" prefWidth="143.0" text="Username" textFill="WHITE">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Label layoutX="965.0" layoutY="370.0" prefHeight="36.0" prefWidth="150.0" text="Ready Status" textFill="WHITE">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Line endX="621.0" layoutX="659.0" layoutY="410.0" stroke="WHITE" />
+        <Line endX="617.0" layoutX="659.0" layoutY="475.0" stroke="WHITE" />
+        <Line endX="618.0" layoutX="659.0" layoutY="535.0" stroke="WHITE" />
+        <Line endX="618.0" layoutX="659.0" layoutY="595.0" stroke="WHITE" />
+        <Label fx:id="firstNameLabel" layoutX="692.0" layoutY="430.0" prefHeight="36.0" prefWidth="227.0" textFill="WHITE">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Label fx:id="secondNameLabel" layoutX="692.0" layoutY="490.0" prefHeight="36.0" prefWidth="227.0" textFill="WHITE">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Label fx:id="thirdNameLabel" layoutX="692.0" layoutY="550.0" prefHeight="36.0" prefWidth="227.0" textFill="WHITE">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Label fx:id="fourthNameLabel" layoutX="692.0" layoutY="610.0" prefHeight="36.0" prefWidth="227.0" textFill="WHITE">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Label layoutX="658.0" layoutY="316.0" prefHeight="45.0" prefWidth="620.0" text="People in the Lobby:" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
-        <Label layoutX="818.0" layoutY="226.0" prefHeight="30.0" prefWidth="86.0" text="Name" textFill="WHITE">
+        <ImageView fx:id="firstReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="secondReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="thirdReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="fourthReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="607.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="lobbyCode" layoutX="664.0" layoutY="236.0" prefHeight="36.0" prefWidth="601.0" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
-        <Label layoutX="1130.0" layoutY="226.0" prefHeight="30.0" prefWidth="97.0" text="State" textFill="WHITE">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Line endX="609.0" layoutX="718.0" layoutY="277.0" startX="-100.0" stroke="WHITE" />
-        <Line endX="609.0" layoutX="718.0" layoutY="342.0" startX="-100.0" stroke="WHITE" />
-        <Line endX="609.0" layoutX="718.0" layoutY="410.0" startX="-100.0" stroke="WHITE" />
-        <Line endX="609.0" layoutX="718.0" layoutY="474.0" startX="-100.0" stroke="WHITE" />
-        <Label layoutX="659.0" layoutY="295.0" text="1" textFill="WHITE">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label layoutX="659.0" layoutY="356.0" text="2" textFill="WHITE">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label layoutX="659.0" layoutY="424.0" text="3" textFill="WHITE">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label layoutX="659.0" layoutY="490.0" text="4" textFill="WHITE">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label layoutX="830.0" layoutY="434.0">
-            <font>
-                <Font size="23.0" />
-            </font>
-        </Label>
-        <Label fx:id="secondNameLabel" layoutX="782.0" layoutY="356.0" prefHeight="45.0" prefWidth="133.0">
-            <font>
-                <Font size="23.0" />
-            </font>
-        </Label>
-        <Label fx:id="thirdNameLabel" layoutX="790.0" layoutY="290.0" prefHeight="34.0" prefWidth="143.0">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label fx:id="fourthNameLabel" layoutX="791.0" layoutY="424.0" prefHeight="34.0" prefWidth="143.0">
-            <font>
-                <Font size="23.0" />
-            </font>
-        </Label>
-        <Label fx:id="thirdStateLabel" layoutX="1099.0" layoutY="290.0" prefHeight="34.0" prefWidth="143.0">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label fx:id="fourthStateLabel" layoutX="1107.0" layoutY="356.0" prefHeight="34.0" prefWidth="143.0">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label fx:id="firstNameLabel" layoutX="772.0" layoutY="424.0" prefHeight="34.0" prefWidth="143.0">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-      <Label fx:id="firstNameLabel1" layoutX="772.0" layoutY="490.0" prefHeight="34.0" prefWidth="143.0">
+      <Label layoutX="1131.0" layoutY="370.0" prefHeight="36.0" prefWidth="150.0" text="Active Status" textFill="WHITE">
          <font>
-            <Font size="30.0" />
+            <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="fourthStateLabel1" layoutX="1107.0" layoutY="419.0" prefHeight="34.0" prefWidth="143.0">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="fourthStateLabel11" layoutX="1107.0" layoutY="490.0" prefHeight="34.0" prefWidth="143.0">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
+      <ImageView fx:id="firstActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1179.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="secondActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1179.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="thirdActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1179.0" layoutY="548.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fourthActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1179.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

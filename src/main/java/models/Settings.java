@@ -6,7 +6,7 @@ public class Settings {
     boolean audioDescription;
 
     public Settings() {
-        soundEffects = true;
+        soundEffects = false;
         audioDescription = true;
     }
 

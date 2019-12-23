@@ -1,42 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameScene">
     <children>
-      <ImageView fx:id="backgroundView" fitHeight="1090.0" fitWidth="1929.0" pickOnBounds="true" />
-        <ImageView fx:id="card14" fitHeight="213.0" fitWidth="138.0" layoutX="1185.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card11" fitHeight="213.0" fitWidth="138.0" layoutX="889.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card3" fitHeight="213.0" fitWidth="138.0" layoutX="607.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="leftBoard" fitHeight="408.0" fitWidth="180.0" layoutX="67.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="rightBoard" fitHeight="408.0" fitWidth="180.0" layoutX="1685.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="55.0" />
-        <ImageView fx:id="acrossBoard" fitHeight="180.0" fitWidth="480.0" layoutX="720.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="deck1" fitHeight="213.0" fitWidth="138.0" layoutX="355.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="317.0" />
-        <ImageView fx:id="deck2" fitHeight="213.0" fitWidth="138.0" layoutX="537.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="317.0" />
-        <ImageView fx:id="deck3" fitHeight="213.0" fitWidth="138.0" layoutX="712.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="317.0" />
-        <ImageView fx:id="deck4" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="317.0" />
-        <ImageView fx:id="deck5" fitHeight="213.0" fitWidth="138.0" layoutX="1070.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="317.0" />
-        <ImageView fx:id="deck6" fitHeight="213.0" fitWidth="138.0" layoutX="1247.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="317.0" />
-        <ImageView fx:id="deck7" fitHeight="213.0" fitWidth="138.0" layoutX="1423.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="317.0" />
-        <ImageView fx:id="card2" fitHeight="213.0" fitWidth="138.0" layoutX="643.0" layoutY="681.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card1" fitHeight="213.0" fitWidth="138.0" layoutX="675.0" layoutY="733.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card10" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="681.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card9" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="733.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card13" fitHeight="213.0" fitWidth="138.0" layoutX="1147.0" layoutY="681.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card12" fitHeight="213.0" fitWidth="138.0" layoutX="1109.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="playerBoard" fitHeight="225.0" fitWidth="510.0" layoutX="705.0" layoutY="787.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="68.0" />
-        <ImageView fx:id="card8" fitHeight="213.0" fitWidth="138.0" layoutX="308.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card7" fitHeight="213.0" fitWidth="138.0" layoutX="346.0" layoutY="683.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card6" fitHeight="213.0" fitWidth="138.0" layoutX="384.0" layoutY="735.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card5" fitHeight="213.0" fitWidth="138.0" layoutX="422.0" layoutY="788.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card4" fitHeight="213.0" fitWidth="138.0" layoutX="460.0" layoutY="841.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card19" fitHeight="213.0" fitWidth="138.0" layoutX="1490.0" layoutY="629.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card18" fitHeight="213.0" fitWidth="138.0" layoutX="1452.0" layoutY="682.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card17" fitHeight="213.0" fitWidth="138.0" layoutX="1414.0" layoutY="735.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card16" fitHeight="213.0" fitWidth="138.0" layoutX="1376.0" layoutY="788.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="card15" fitHeight="213.0" fitWidth="138.0" layoutX="1338.0" layoutY="841.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="soundEffectsView" fitHeight="45.0" fitWidth="45.0" layoutX="1775.0" layoutY="38.0" onMouseClicked="#switchSoundEffects" pickOnBounds="true" />
-      <ImageView fx:id="audioDescriptionView" fitHeight="45.0" fitWidth="45.0" layoutX="1842.0" layoutY="38.0" onMouseClicked="#switchAudioDescription" pickOnBounds="true" />
+
+      <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
+        <ImageView fx:id="deck1" fitHeight="213.0" fitWidth="138.0" layoutX="353.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.bottomAnchor="584.0" AnchorPane.topAnchor="283.0" />
+        <ImageView fx:id="deck2" fitHeight="213.0" fitWidth="138.0" layoutX="538.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.bottomAnchor="584.0" AnchorPane.topAnchor="283.0" />
+        <ImageView fx:id="deck3" fitHeight="213.0" fitWidth="138.0" layoutX="712.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.topAnchor="283.0" />
+        <ImageView fx:id="deck4" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.topAnchor="283.0" />
+        <ImageView fx:id="deck5" fitHeight="213.0" fitWidth="138.0" layoutX="1070.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.topAnchor="283.0" />
+        <ImageView fx:id="deck6" fitHeight="213.0" fitWidth="138.0" layoutX="1247.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.topAnchor="283.0" />
+        <ImageView fx:id="deck7" fitHeight="213.0" fitWidth="138.0" layoutX="1421.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.topAnchor="283.0" />
+      <ImageView fx:id="card1" fitHeight="213.0" fitWidth="138.0" layoutX="308.0" layoutY="631.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card2" fitHeight="213.0" fitWidth="138.0" layoutX="346.0" layoutY="683.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card3" fitHeight="213.0" fitWidth="138.0" layoutX="384.0" layoutY="735.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card4" fitHeight="213.0" fitWidth="138.0" layoutX="422.0" layoutY="788.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card5" fitHeight="213.0" fitWidth="138.0" layoutX="460.0" layoutY="841.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card6" fitHeight="213.0" fitWidth="138.0" layoutX="607.0" layoutY="630.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card7" fitHeight="213.0" fitWidth="138.0" layoutX="643.0" layoutY="681.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card8" fitHeight="213.0" fitWidth="138.0" layoutX="675.0" layoutY="733.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card9" fitHeight="213.0" fitWidth="138.0" layoutX="889.0" layoutY="629.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card10" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="681.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card11" fitHeight="213.0" fitWidth="138.0" layoutX="891.0" layoutY="733.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card12" fitHeight="213.0" fitWidth="138.0" layoutX="1185.0" layoutY="629.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card13" fitHeight="213.0" fitWidth="138.0" layoutX="1147.0" layoutY="681.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card14" fitHeight="213.0" fitWidth="138.0" layoutX="1109.0" layoutY="734.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card15" fitHeight="213.0" fitWidth="138.0" layoutX="1490.0" layoutY="629.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card16" fitHeight="213.0" fitWidth="138.0" layoutX="1452.0" layoutY="682.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card17" fitHeight="213.0" fitWidth="138.0" layoutX="1414.0" layoutY="735.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card18" fitHeight="213.0" fitWidth="138.0" layoutX="1376.0" layoutY="788.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="card19" fitHeight="213.0" fitWidth="138.0" layoutX="1338.0" layoutY="841.0" onMouseClicked="#clickBoardCard" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
+      <ImageView fx:id="playerBoard" fitHeight="225.0" fitWidth="510.0" layoutX="705.0" layoutY="787.0" pickOnBounds="true" AnchorPane.bottomAnchor="68.0" />
+      <ImageView fx:id="leftBoard" fitHeight="408.0" fitWidth="180.0" layoutX="67.0" layoutY="379.0" onMouseClicked="#showOtherPlayersCards" pickOnBounds="true" />
+      <ImageView fx:id="rightBoard" fitHeight="408.0" fitWidth="180.0" layoutX="1685.0" layoutY="379.0" onMouseClicked="#showOtherPlayersCards" pickOnBounds="true" />
+      <ImageView fx:id="acrossBoard" fitHeight="180.0" fitWidth="480.0" layoutX="725.0" layoutY="67.0" onMouseClicked="#showOtherPlayersCards" pickOnBounds="true" />
+      <ImageView fx:id="focus" fitHeight="213.0" fitWidth="138.0" layoutX="889.0" layoutY="788.0" onMouseClicked="#clickBoardCard" onMouseExited="#focusOutBoardCard" pickOnBounds="true" />
+
+      <ImageView fx:id="soundEffectsView" fitHeight="45.0" fitWidth="45.0" layoutX="1701.0" layoutY="38.0" onMouseClicked="#switchSoundEffects" pickOnBounds="true" />
+      <ImageView fx:id="audioDescriptionView" fitHeight="45.0" fitWidth="45.0" layoutX="1768.0" layoutY="38.0" onMouseClicked="#switchAudioDescription" pickOnBounds="true" />
+      <ImageView fx:id="exitView" fitHeight="45.0" fitWidth="45.0" layoutX="1833.0" layoutY="38.0" onMouseClicked="#exit" pickOnBounds="true" />
+      <Button fx:id="nextTurnButton" layoutX="1729.0" layoutY="1007.0" mnemonicParsing="false" onAction="#nextTurnAction" prefHeight="45.0" prefWidth="138.0" style="-fx-background-color: #b80028;" text="Next Turn" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="discardButton" layoutX="554.0" layoutY="551.0" mnemonicParsing="false" onAction="#discardAction" prefHeight="45.0" prefWidth="244.0" style="-fx-background-color: #b80028;" text="Discard the Card" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="structureButton" layoutX="843.0" layoutY="551.0" mnemonicParsing="false" onAction="#structureAction" prefHeight="45.0" prefWidth="244.0" style="-fx-background-color: #b80028;" text="Build a Structure" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="wonderButton" layoutX="1132.0" layoutY="551.0" mnemonicParsing="false" onAction="#wonderAction" prefHeight="45.0" prefWidth="256.0" style="-fx-background-color: #b80028;" text="Build a Wonder Stage" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="table" fitHeight="237.0" fitWidth="456.0" layoutX="14.0" layoutY="14.0" opacity="0.9" pickOnBounds="true" />
+      <Label fx:id="username1" layoutX="51.0" layoutY="109.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="username2" layoutX="51.0" layoutY="139.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="username3" layoutX="51.0" layoutY="169.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="username4" layoutX="51.0" layoutY="199.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="coins" fitHeight="45.0" fitWidth="45.0" layoutX="213.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="militaryTokens" fitHeight="45.0" fitWidth="45.0" layoutX="301.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="coin1" layoutX="223.0" layoutY="109.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font></Label>
+      <Label fx:id="coin2" layoutX="223.0" layoutY="139.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font></Label>
+      <Label fx:id="coin3" layoutX="223.0" layoutY="169.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font></Label>
+      <Label fx:id="coin4" layoutX="223.0" layoutY="199.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font></Label>
+      <Label fx:id="token1" layoutX="313.0" layoutY="109.0" prefHeight="24.0" prefWidth="50.0" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font></Label>
+      <Label fx:id="token2" layoutX="313.0" layoutY="139.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font></Label>
+      <Label fx:id="token3" layoutX="313.0" layoutY="169.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font></Label>
+      <Label fx:id="token4" layoutX="313.0" layoutY="199.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font></Label>
+      <ImageView fx:id="wonderStage" fitHeight="45.0" fitWidth="45.0" layoutX="384.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="stage1" layoutX="396.0" layoutY="112.0" prefHeight="24.0" prefWidth="50.0" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="stage2" layoutX="396.0" layoutY="142.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="stage3" layoutX="396.0" layoutY="172.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="stage4" layoutX="396.0" layoutY="202.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="ageLabel" layoutX="51.0" layoutY="19.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="turnLabel" layoutX="51.0" layoutY="50.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+         <font>
+            <Font name="MV Boli" size="20.0" />
+         </font>
+      </Label>
+      <Line endX="308.0" endY="1.52587890625E-5" layoutX="150.0" layoutY="96.0" startX="-124.0" startY="1.52587890625E-5" stroke="WHITE" />
+      <Line endX="-25.999969482421875" endY="188.0" layoutX="220.0" layoutY="54.0" startX="-25.999969482421875" startY="-31.0" stroke="WHITE" />
+      <Label fx:id="name0" alignment="CENTER" layoutX="834.0" layoutY="1012.0" prefHeight="45.0" prefWidth="263.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="name3" alignment="CENTER" layoutX="68.0" layoutY="811.0" prefHeight="45.0" prefWidth="235.0" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="name2" alignment="CENTER" layoutX="834.0" layoutY="16.0" prefHeight="45.0" prefWidth="235.0" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="name1" alignment="CENTER" layoutX="1684.0" layoutY="821.0" prefHeight="45.0" prefWidth="220.0" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

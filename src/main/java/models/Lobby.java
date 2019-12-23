@@ -5,17 +5,24 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 
 public class Lobby {
-    @SerializedName("lobbyId")
-    public String lobbyId;
 
-    @SerializedName("lobbyName")
-    public String lobbyName;
+    @SerializedName("id")
+    public String id;
 
-    @SerializedName("lobbyCode")
-    public String lobbyCode;
+    @SerializedName("gameId")
+    public String gameId;
 
-    @SerializedName("lobbyUsers")
-    public LobbyUser[] lobbyUsers;
+    @SerializedName("admin")
+    public String admin;
+
+    @SerializedName("name")
+    public String name;
+
+    @SerializedName("code")
+    public String code;
+
+    @SerializedName("users")
+    public LobbyUser[] users;
 
     @SerializedName("mode")
     public Mode mode;
@@ -23,13 +30,15 @@ public class Lobby {
     @Override
     public String toString() {
         return "Lobby{" +
-                "lobbyId='" + lobbyId + '\'' +
-                ", lobbyName='" + lobbyName + '\'' +
-                ", lobbyCode='" + lobbyCode + '\'' +
-                ", lobbyUsers=" + Arrays.toString(lobbyUsers) +
+                "id='" + id + '\'' +
+                ", gameId='" + gameId + '\'' +
+                ", admin='" + admin + '\'' +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", users=" + Arrays.toString(users) +
                 ", mode=" + mode +
                 '}';
     }
+
+
 }
-
-

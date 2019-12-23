@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="467.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.HowToPlay">
+    <children>
+        <ImageView fx:id="backgroundView" fitHeight="551.0" fitWidth="948.0" pickOnBounds="true" />
+      <TextArea fx:id="howToPlayText" editable="false" layoutX="67.0" layoutY="89.0" prefHeight="374.0" prefWidth="814.0" style="-fx-background-color: #893434;" text="Press C key to listen the cards on the deck.&#10;Press S key to listen the cards on your boards.&#10;Press A key to listen the cards on the left player's board.&#10;Press D key to listen the cards on the right player's board.&#10;Press W key to listen the cards on the across player's board.&#10;Press B key to listen the other player's description of boards.&#10;Press E key or R key to listen other cards and boards.&#10;Press TAB key or RIGHT or LEFT key to listen the buttons.&#10;Press C to commerce when in the other players boards.&#10;Press I key to listen the age number, turn number, coin, victory token and &#10;wonder stage of the players.&#10;Press N key to switch the audio description.&#10;Press M key to switch the sound effect.&#10;Press escape key to exit the game.">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <effect>
+            <DropShadow color="#893434" />
+         </effect>
+      </TextArea>
+      <Label layoutX="347.0" layoutY="26.0" prefHeight="49.0" prefWidth="255.0" text=" HOW TO PLAY" textFill="#893434">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+       
+    </children>
+</AnchorPane>

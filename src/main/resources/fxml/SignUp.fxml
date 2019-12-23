@@ -7,31 +7,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SignUpScene">
     <children>
         <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
         <ImageView fx:id="logoView" fitHeight="260.0" fitWidth="800.0" layoutX="560.0" layoutY="148.0" pickOnBounds="true" />
-        <TextField fx:id="nameField" layoutX="764.0" layoutY="439.0" promptText="Name" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
+        <TextField fx:id="nameField" layoutX="764.0" layoutY="440.0" promptText="Name" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
             <font>
                 <Font size="30.0" />
             </font>
         </TextField>
-        <TextField fx:id="usernameField" layoutX="764.0" layoutY="541.0" promptText="Username" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
+        <TextField fx:id="usernameField" layoutX="764.0" layoutY="540.0" promptText="Username" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
             <font>
                 <Font size="30.0" />
             </font>
         </TextField>
-        <PasswordField fx:id="passwordField" layoutX="764.0" layoutY="643.0" promptText="Password" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
+        <PasswordField fx:id="passwordField" layoutX="764.0" layoutY="640.0" promptText="Password" style="-fx-text-fill: #b38632; -fx-prompt-text-fill: #b38632;">
             <font>
                 <Font size="30.0" />
             </font>
         </PasswordField>
-        <Button fx:id="signUpButton" layoutX="960.0" layoutY="742.0" mnemonicParsing="false" onAction="#signUp" prefHeight="62.0" prefWidth="196.0" style="-fx-background-color: #b38632;" text="Sign Up" textFill="WHITE">
+        <Button fx:id="signUpButton" layoutX="960.0" layoutY="740.0" mnemonicParsing="false" onAction="#signUp" prefHeight="62.0" prefWidth="196.0" style="-fx-background-color: #b38632;" text="Sign Up" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Button>
-        <Button fx:id="backButton" layoutX="764.0" layoutY="742.0" mnemonicParsing="false" onAction="#back" prefHeight="62.0" prefWidth="152.0" style="-fx-background-color: #b38632;" text="Back" textFill="WHITE">
+        <Button fx:id="backButton" layoutX="764.0" layoutY="740.0" mnemonicParsing="false" onAction="#back" prefHeight="62.0" prefWidth="152.0" style="-fx-background-color: #b38632;" text="Back" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>

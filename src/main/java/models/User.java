@@ -7,17 +7,14 @@ public class User {
     @SerializedName("username")
     public String userName;
 
-    @SerializedName("userId")
-    public String userId;
+    @SerializedName("id")
+    public String id;
 
     @SerializedName("name")
     public String name;
 
     @SerializedName("token")
     public String token;
-
-    @SerializedName("createdAt")
-    public String createdAt;
 
     @SerializedName("ranking")
     public int ranking;
@@ -26,11 +23,11 @@ public class User {
     public String toString() {
         return "User{" +
                 "userName='" + userName + '\'' +
-                ", userId='" + userId + '\'' +
+                ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", token='" + token + '\'' +
-                ", createdAt='" + createdAt + '\'' +
                 ", ranking=" + ranking +
                 '}';
     }
+
 }

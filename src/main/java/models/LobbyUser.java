@@ -2,25 +2,23 @@ package models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LobbyUser extends User{
+public class LobbyUser {
 
-    @SerializedName("readyState")
+    @SerializedName("username")
+    public String username;
+
+    @SerializedName("isReady")
     public boolean isReady;
 
-    @SerializedName("creatorState")
-    public boolean isCreator;
+    @SerializedName("isActive")
+    public boolean isActive;
 
     @Override
     public String toString() {
         return "LobbyUser{" +
-                "isReady=" + isReady +
-                ", isCreator=" + isCreator +
-                ", userName='" + userName + '\'' +
-                ", userId='" + userId + '\'' +
-                ", name='" + name + '\'' +
-                ", token='" + token + '\'' +
-                ", createdAt='" + createdAt + '\'' +
-                ", ranking=" + ranking +
+                "username='" + username + '\'' +
+                ", isReady=" + isReady +
+                ", isActive=" + isActive +
                 '}';
     }
 

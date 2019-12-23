@@ -10,45 +10,54 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
+/**
+ * This interface is used for specifying the requests
+ */
 public interface ApiInterface {
     @FormUrlEncoded
-    @POST("login.php")
+    @POST("user/login/")
     Call<GeneralResponse<User>> login(@Field("username") String username, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("signup.php")
+    @POST("user/signup/")
     Call<GeneralResponse<User>> signUp(@Field("name") String name, @Field("username") String username, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("updateUser.php")
-    Call<GeneralResponse<User>> updateUser(@Field("name") String name, @Field("password") String password);
+    Call<GeneralResponse<User>> updateUser(@Field("name") String name, @Field("password") String password, @Field("token") String token);
 
     @FormUrlEncoded
-    @POST("enterLobby.php")
-    Call<GeneralResponse<Lobby>> enterLobby(@Field("username") String username, @Field("token") String token, @Field("lobbyCode") String lobbyCode);
+    @POST("lobby/join/")
+    Call<GeneralResponse<Lobby>> enterLobby(@Field("username") String username, @Field("token") String token, @Field("code") String lobbyCode);
 
     @FormUrlEncoded
-    @POST("createLobby.php")
-    Call<GeneralResponse<Lobby>> createLobby(@Field("username") String username, @Field("token") String token, @Field("mode") Mode mode);
+    @POST("lobby/create/")
+    Call<GeneralResponse<Lobby>> createLobby(@Field("username") String username, @Field("name") String lobbyName, @Field("token") String token, @Field("mode") String mode);
 
     @FormUrlEncoded
-    @POST("getReady.php")
+    @POST("lobby/")
+    Call<GeneralResponse<Lobby>> getLobby(@Field("username") String username, @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("lobby/exit/")
+    Call<GeneralResponse<Lobby>> exitLobby(@Field("username") String username, @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("lobby/ready/")
     Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") boolean ready);
 
     @FormUrlEncoded
-    @POST("startGame.php")
-    Call<GeneralResponse<Game>> startGame(@Field("username") String username, @Field("token") String token, @Field("lobbyCode") String lobbyCode);
+    @POST("game/")
+    Call<GeneralResponse<Game>> getGameData(@Field("username") String username, @Field("token") String token);
 
     @FormUrlEncoded
-    @POST("getGame.php")
-    Call<GeneralResponse<Game>> getGameData(@Field("username") String username, @Field("token") String token, @Field("gameId") String gameId);
+    @POST("game/commerce/")
+    Call<GeneralResponse<Game>> commerce(@Field("username") String username, @Field("token") String token, @Field("isWithLeft") Boolean isWidthLeft, @Field("commerceMaterials") String commerceMaterials);
 
     @FormUrlEncoded
-    @POST("commerce.php")
-    Call<GeneralResponse<Game>> bargain(@Field("gameId") String gameId, @Field("username") String username, @Field("token") String token, @Field("sellerPlayerId") String sellerPlayerId, @Field("materialTypes") int[] materialTypes, @Field("materialAmounts") int[] materialAmounts);
+    @POST("card/use/")
+    Call<GeneralResponse<Game>> useCard(@Field("username") String username, @Field("token") String token, @Field("cardId") String cardId, @Field("selectionType") int selectionType, @Field("freeBuilding") boolean freeBuilding);
 
-    @FormUrlEncoded
-    @POST("pickCard.php")
-    Call<GeneralResponse<Game>> pickCard(@Field("gameId") String gameId, @Field("username") String username, @Field("token") String token, @Field("selectedCardId") String selectedCardId);
+
 
 }
