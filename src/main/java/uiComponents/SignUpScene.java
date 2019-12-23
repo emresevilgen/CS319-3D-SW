@@ -127,6 +127,7 @@ public class SignUpScene implements Initializable{
         signUpButton.setOnMouseEntered(e -> signUpButton.setStyle(HOVERED_BUTTON_STYLE));
         signUpButton.setOnMouseExited(e -> signUpButton.setStyle(IDLE_BUTTON_STYLE));
 
+        // Set the focused properties to get the audio descriptions
         nameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue && settings.isAudioDescription()){
                 tts.read("Enter name");
@@ -193,6 +194,7 @@ public class SignUpScene implements Initializable{
         final boolean[] first = {true};
         DataHandler dataHandler = DataHandler.getInstance();
 
+        // Read the error
         if (dataHandler.getSettings().isAudioDescription()) {
             AudioDescriptionHandler.getInstance().getReader().read("Error. " + errorMsg + " Press enter to say OK");
         }

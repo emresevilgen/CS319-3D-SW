@@ -181,6 +181,7 @@ public class SeeThePlayersScene implements Initializable {
     }
 
     public void leaveHelper(){
+        // Leave lobby request
         DataHandler dataHandler = DataHandler.getInstance();
 
         Thread requestThread = new Thread(new Runnable() {
@@ -228,9 +229,10 @@ public class SeeThePlayersScene implements Initializable {
     // Send request and update the lobby object
     public void update() {
         DataHandler dataHandler = DataHandler.getInstance();
-
+        // If game starts
         if (dataHandler.getLobby().gameId != null){
             timeLine.stop();
+            // Get game request
             Thread requestThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -270,6 +272,7 @@ public class SeeThePlayersScene implements Initializable {
             return;
         }
 
+        // Make the start game inactive if everyone is not ready and the number of players is less than three
         startGameButton.setDisable(true);
 
         Lobby lobby = DataHandler.getInstance().getLobby();
@@ -283,7 +286,7 @@ public class SeeThePlayersScene implements Initializable {
         if(allReady && lobby.users.length > 2)
             startGameButton.setDisable(false);
 
-
+        // Get lobby data request
         Thread requestThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -320,6 +323,7 @@ public class SeeThePlayersScene implements Initializable {
         });
         requestThread.start();
 
+        // Enable or disable the checkboxes
         checkBoxes[0] = secondPlayerCheckBox;
         checkBoxes[1] = thirdPlayerCheckBox;
         checkBoxes[2] = fourthPlayerCheckBox;
@@ -485,12 +489,15 @@ public class SeeThePlayersScene implements Initializable {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         tts.read("The lobby code: "+ DataHandler.getInstance().getLobby().code);
 
+        // Set on close operation
         SceneHandler.getInstance().getStageMain().setOnCloseRequest(e->{
             leaveHelper();
             leaved = true;
         });
 
         final boolean[] first = {true};
+
+        // Set the focused property
         leaveButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (settings.isAudioDescription() && !first[0])
@@ -562,17 +569,19 @@ public class SeeThePlayersScene implements Initializable {
             first[0] = false;
         });
 
+        // Set the key listeners
         SceneHandler.getInstance().getStageMain().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();
                 Game game = DataHandler.getInstance().getGame();
                 DataHandler dataHandler = DataHandler.getInstance();
-
+                // Read the code of the lobby
                 if(keyCode.equals(KeyCode.C))
                 {
                     tts.read("The code is " + dataHandler.getLobby().code);
                 }
+                // Read the people info in the lobby
                 if(keyCode.equals(KeyCode.P) && settings.isAudioDescription())
                 {
                     if(dataHandler.getLobby().users.length > 1 &&  dataHandler.getLobby().users[1] !=  null)

@@ -72,6 +72,7 @@ public class RankingsScene implements Initializable {
                     + ". 5th is  " + fifthNameLabel.getText() + ". \n Back");
         }
 
+        // Set the focused property to read descriptions
         final boolean[] first = {true};
         backButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){

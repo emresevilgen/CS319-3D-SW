@@ -136,19 +136,23 @@ public class OtherBoardsCards implements Initializable {
         timeLine.setCycleCount(Animation.INDEFINITE);
         timeLine.play();
 
+        // Set on close operation stop the requests
         SceneHandler.getInstance().getStagePopup().setOnCloseRequest(e -> {
             timeLine.stop();
         });
 
         focusedCardInBoardIndex = -1;
 
+        // Add key listeners
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();
+                // Exit with ESCAPE
                 if (keyCode.equals(KeyCode.ESCAPE))
                     SceneHandler.getInstance().getStagePopup().close();
 
+                // Get the user data
                 DataHandler dataHandler = DataHandler.getInstance();
                 Settings settings = dataHandler.getSettings();
                 Game game = DataHandler.getInstance().getGame();
@@ -160,6 +164,8 @@ public class OtherBoardsCards implements Initializable {
                         userIndex = i;
                     }
                 }
+
+                // Add left right key for the audio description to read all the cards
                 if (dataHandler.getSettings().isAudioDescription() && userIndex != -1) {
                     if(keyCode.equals(KeyCode.R))
                     {
@@ -222,6 +228,7 @@ public class OtherBoardsCards implements Initializable {
     }
 
     private void update() {
+        // Get the user data
         DataHandler dataHandler = DataHandler.getInstance();
         String username = usernameLabel.getText();
         Player[] players = DataHandler.getInstance().getGame().players;
@@ -231,6 +238,8 @@ public class OtherBoardsCards implements Initializable {
                 userIndex = i;
             }
         }
+
+        // Update the card views
         if (userIndex != -1) {
             cards = dataHandler.getGame().players[userIndex].board.cards;
             for(int i= 0; i < cards.length; i++ )

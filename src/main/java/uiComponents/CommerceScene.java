@@ -98,11 +98,13 @@ public class CommerceScene implements Initializable {
             timeLine.stop();
         });
 
+        // Read the entrance speech
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
         if(settings.isAudioDescription())
             tts.read( "Commerce. \n Clay is  " +claySpin.getValue());
 
+        // Set hover effects to the buttons and the spinners and read the button if it is focused
         makeCommerceButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (settings.isAudioDescription() && !first)
@@ -165,6 +167,8 @@ public class CommerceScene implements Initializable {
         });
 
         try {
+
+            // Load the images of the scene
             FileInputStream inputStream = new FileInputStream(Constants.CLAY_IMAGE);
             Image clay = new Image(inputStream);
             clayImage.setImage(clay);
@@ -203,8 +207,10 @@ public class CommerceScene implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();
+                // Escape key to exit
                 if (keyCode.equals(keyCode.ESCAPE))
                     SceneHandler.getInstance().getStagePopup().close();
+                // C key to commerce
                 else if (keyCode.equals(KeyCode.C)){
                     if (settings.isAudioDescription())
                         tts.read("Commerce");
@@ -224,6 +230,8 @@ public class CommerceScene implements Initializable {
     public void update() {
         String username = usernameLabel.getText();
         Game game = DataHandler.getInstance().getGame();
+
+        // Dont show the commerce button to the across board
         if (game.players.length == 4){
             if (game.players[2].name.equals(username)){
                 makeCommerceButton.setVisible(false);
@@ -232,6 +240,7 @@ public class CommerceScene implements Initializable {
                 makeCommerceButton.setVisible(true);
         }
 
+        // Disable commerce button if there is no material to commerce
         if((claySpin.getValue() == 0) && (woodSpin.getValue() == 0) &&(stoneSpin.getValue() == 0) &&(oreSpin.getValue() == 0) &&(glassSpin.getValue() == 0) &&(loomSpin.getValue() == 0) &&(papyrusSpin.getValue() == 0) )
         {
             makeCommerceButton.setDisable(true);
@@ -245,6 +254,8 @@ public class CommerceScene implements Initializable {
     }
 
     public void commerceHelper() {
+
+        // Get the material amounts
         int clay = claySpin.getValue();
         int ore = oreSpin.getValue();
         int stone = stoneSpin.getValue();
@@ -263,10 +274,13 @@ public class CommerceScene implements Initializable {
         materials.lumber = wood;
         materials.press = papyrus;
 
+        // Get the username
         String username = usernameLabel.getText();
 
+        // Get the isWithLeft boolean
         boolean isWithLeft = !DataHandler.getInstance().getGame().players[1].name.equals(username);
 
+        // Commerce request
         DataHandler dataHandler = DataHandler.getInstance();
         Thread requestThread = new Thread(new Runnable() {
             @Override

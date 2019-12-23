@@ -9,6 +9,7 @@ public class DescriptionReader implements Reader {
     private Thread thread;
 
     public DescriptionReader(){
+        // Allocate the voice
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
         VoiceManager vm  = VoiceManager.getInstance();
         voice = vm.getVoice("kevin16");
@@ -18,6 +19,7 @@ public class DescriptionReader implements Reader {
     }
 
     public void read(String text){
+        // Interrupt the current speech
         if (thread != null && thread.isAlive()){
             try {
                 thread.interrupt();
@@ -26,7 +28,7 @@ public class DescriptionReader implements Reader {
                 e.printStackTrace();
             }
         }
-
+        // Read the new speech at the new thread
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

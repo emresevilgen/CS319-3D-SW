@@ -153,18 +153,23 @@ public class Loot implements Initializable {
         timeLine.setCycleCount(Animation.INDEFINITE);
         timeLine.play();
 
+        // Stop requests on close
         SceneHandler.getInstance().getStagePopup().setOnCloseRequest(e -> {
             timeLine.stop();
         });
 
+        // Focused card initial
         focusedCardInIndex = -1;
 
 
         try {
+            // Initialize the scene images
             Game game = DataHandler.getInstance().getGame();
             FileInputStream inputStream = new FileInputStream(Constants.COIN3_IMAGE);
             Image coin = new Image(inputStream);
             coinLoot.setImage(coin);
+
+            // Get the user to loot
             String username = usernameLabel.getText();
             int index = 0;
             for(int i = 0; i < game.players.length; i++)
@@ -173,6 +178,7 @@ public class Loot implements Initializable {
                     index = i;
             }
 
+            // Initialize the scenes according to the age number
             if(game.ageNumber ==1)
             {
                 FileInputStream inputStream2 = new FileInputStream(Constants.TOKEN_IMAGE);
@@ -244,7 +250,7 @@ public class Loot implements Initializable {
         tokenButton.setOnMouseEntered(e -> { tokenButton.setStyle(HOVERED_BUTTON_STYLE); });
         tokenButton.setOnMouseExited(e -> tokenButton.setStyle(IDLE_BUTTON_STYLE));
 
-
+        // Audio descriptions fot the buttons
         coinButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
                 if (settings.isAudioDescription() && !first)
@@ -276,13 +282,16 @@ public class Loot implements Initializable {
             first = false;
         });
 
+        // Add the key listeners
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();
+                // Exit with Escape
                 if (keyCode.equals(KeyCode.ESCAPE))
                     SceneHandler.getInstance().getStagePopup().close();
 
+                // Get the player data
                 DataHandler dataHandler = DataHandler.getInstance();
                 Settings settings = dataHandler.getSettings();
                 Game game = DataHandler.getInstance().getGame();
@@ -295,6 +304,7 @@ public class Loot implements Initializable {
                     }
                 }
                 if (dataHandler.getSettings().isAudioDescription() && userIndex != -1) {
+                    // Read the cards with the keys
                     if(keyCode.equals(KeyCode.R))
                     {
                         if (focusedCardInIndex == game.players[userIndex].board.cards.length - 1)
@@ -331,12 +341,14 @@ public class Loot implements Initializable {
         int userIndex = -1;
         int cardViewIndex = 0;
 
+        // Get the user data
         for (int i = 0; i < players.length; i++) {
             if (players[i] != null && players[i].name.equals(username)) {
                 userIndex = i;
             }
         }
         if (userIndex != -1) {
+            // Initialize the loot cards
             Card[] cards = dataHandler.getGame().players[userIndex].board.cards;
             for(int i= 0; i < cards.length; i++ )
             {
@@ -385,12 +397,15 @@ public class Loot implements Initializable {
         ImageView currentView = (ImageView) mouseEvent.getSource();
         int userIndex =0;
         String name = usernameLabel.getText();
+
+        // Get the user data
         for(int i = 0; i < DataHandler.getInstance().getGame().players.length; i++)
         {
             if(name.equals(DataHandler.getInstance().getGame().players[i].name))
                 userIndex = i;
         }
 
+        // Get the card data
         int cardIndex = 0;
         Card[] cards = DataHandler.getInstance().getGame().players[userIndex].board.cards;
         for (; cardIndex < cards.length; cardIndex++){
@@ -398,6 +413,7 @@ public class Loot implements Initializable {
                 break;
             }
         }
+        // Select the card and read
         selectTheCard(cardIndex);
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
@@ -413,7 +429,7 @@ public class Loot implements Initializable {
             selectedCardView.setScaleX(1);
             selectedCardView.setScaleY(1);
         }
-
+        // Get the user data
         int userIndex =0;
         String name = usernameLabel.getText();
         for(int i = 0; i < DataHandler.getInstance().getGame().players.length; i++)
@@ -422,6 +438,7 @@ public class Loot implements Initializable {
                 userIndex = i;
         }
 
+        // Select card effect
         Card[] cards = DataHandler.getInstance().getGame().players[userIndex].board.cards;
         selectedCardView = cardViews[cardIndex];
         Glow glow = new Glow();
@@ -441,7 +458,7 @@ public class Loot implements Initializable {
     public void tokenLoot(ActionEvent actionEvent) {
     }
 
-    // Focus on hand card when mouse exited
+    // Focus on card when mouse exited
     public void effectOn(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null){
@@ -453,7 +470,7 @@ public class Loot implements Initializable {
         }
     }
 
-    // Focus out from hand card when mouse exited
+    // Focus out from card when mouse exited
     public void effectOff(MouseEvent mouseEvent) {
         ImageView current = (ImageView) mouseEvent.getSource();
         if (current.getImage() != null && !current.equals(selectedCardView)){
