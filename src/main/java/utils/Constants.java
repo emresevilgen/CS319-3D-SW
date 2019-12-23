@@ -21,6 +21,8 @@ public class Constants {
     public static final String HOW_TO_PLAY_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "HowToPlay.fxml");
     public static final String COMMERCE_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "Commerce.fxml");
     public static final String LOOT_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "Loot.fxml");
+    public static final String BABYLON_STAGE2_FXML = String.join(File.separator, "src", "main", "resources", "fxml", "BabylonStage2.fxml");
+
 
     // Background images
     public static final String LOGO_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "backgrounds", "logo.png");
@@ -67,6 +69,9 @@ public class Constants {
     public static final String TOKEN3_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "fight2.png");
     public static final String TOKEN5_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "fight3.png");
     public static final String WONDER_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "stage.png");
+    public static final String COMPASS_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "compass.png");
+    public static final String WHEEL_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "wheel.png");
+    public static final String SCRIPT_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "script.png");
 
     //Materials
     public static final String WOOD_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "tokens", "wood.png");

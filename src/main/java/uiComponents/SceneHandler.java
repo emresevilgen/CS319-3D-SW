@@ -548,6 +548,36 @@ public class SceneHandler extends Application {
         }
     }
 
+    public void showBabylonScene(){
+        stagePopup.setScene(new Scene(new AnchorPane()));
+
+        FXMLLoader loader = new FXMLLoader();
+        FileInputStream fileInputStream = null;
+        FileInputStream backgroundFile = null;
+
+        AnchorPane root = null;
+
+        try{
+            fileInputStream = new FileInputStream(new File(Constants.BABYLON_STAGE2_FXML));
+            backgroundFile = new FileInputStream(Constants.CREATE_LOBBY_BACK_IMAGE);
+            root = (AnchorPane)loader.load(fileInputStream);
+
+            // Set background image
+            Image backgroundImage = new Image(backgroundFile);
+            ImageView backgroundView = (ImageView) root.getChildren().get(0);
+
+            backgroundView.setImage(backgroundImage);
+
+            stagePopup.getScene().setRoot(root);
+            stagePopup.sizeToScene();
+            stagePopup.centerOnScreen();
+            stagePopup.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }

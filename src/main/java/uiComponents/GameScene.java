@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -240,6 +239,7 @@ public class GameScene implements Initializable {
             FileInputStream inputStream4 = new FileInputStream(Constants.WONDER_IMAGE);
             Image wonderImage = new Image(inputStream4);
             wonderStage.setImage(wonderImage);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -254,6 +254,10 @@ public class GameScene implements Initializable {
         structureButton.setOnMouseExited(e -> structureButton.setStyle(IDLE_BUTTON_STYLE));
         wonderButton.setOnMouseEntered(e -> { wonderButton.setStyle(HOVERED_BUTTON_STYLE); });
         wonderButton.setOnMouseExited(e -> wonderButton.setStyle(IDLE_BUTTON_STYLE));
+
+        Game game = DataHandler.getInstance().getGame();
+        if(game.players[0].board.stage == 3)
+            wonderButton.setDisable(true);
 
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
@@ -979,6 +983,20 @@ public class GameScene implements Initializable {
             AnchorPane root = (AnchorPane) stage.getScene().getRoot();
             Label usernameLabel = (Label) root.getChildren().get(1);
             usernameLabel.setText(username);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showBabylonScreen()
+    {
+        // Get the players cards
+        Game game = DataHandler.getInstance().getGame();
+        try {
+            SceneHandler.getInstance().showBabylonScene();
+            Stage stage = SceneHandler.getInstance().getStagePopup();
+            AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         }
         catch (Exception e){
             e.printStackTrace();
