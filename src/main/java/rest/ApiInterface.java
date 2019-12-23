@@ -47,23 +47,17 @@ public interface ApiInterface {
     Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") boolean ready);
 
     @FormUrlEncoded
-    @POST("startGame.php")
-    Call<GeneralResponse<Game>> startGame(@Field("username") String username, @Field("token") String token, @Field("lobbyCode") String lobbyCode);
-
-    @FormUrlEncoded
     @POST("game/")
     Call<GeneralResponse<Game>> getGameData(@Field("username") String username, @Field("token") String token);
 
     @FormUrlEncoded
-    @POST("getReadyGame.php")
-    Call<GeneralResponse<Game>> getReadyGame(@Field("username") String username, @Field("token") String token, @Field("gameId") String gameId, @Field("ready") boolean ready);
+    @POST("game/commerce/")
+    Call<GeneralResponse<Game>> commerce(@Field("username") String username, @Field("token") String token, @Field("isWithLeft") Boolean isWidthLeft, @Field("commerceMaterials") String commerceMaterials);
 
     @FormUrlEncoded
-    @POST("commerce.php")
-    Call<GeneralResponse<Game>> commerce(@Field("gameId") String gameId, @Field("username") String username, @Field("token") String token, @Field("sellerPlayerId") String sellerPlayerId, @Field("materialTypes") int[] materialTypes, @Field("materialAmounts") int[] materialAmounts);
+    @POST("card/use/")
+    Call<GeneralResponse<Game>> useCard(@Field("username") String username, @Field("token") String token, @Field("cardId") String cardId, @Field("selectionType") int selectionType, @Field("freeBuilding") boolean freeBuilding);
 
-    @FormUrlEncoded
-    @POST("pickCard.php")
-    Call<GeneralResponse<Game>> pickCard(@Field("gameId") String gameId, @Field("username") String username, @Field("token") String token, @Field("selectedCardId") String selectedCardId);
+
 
 }

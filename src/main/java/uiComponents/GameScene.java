@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -168,8 +169,8 @@ public class GameScene implements Initializable {
 
 
     // Button colors for hovered and not
-    private final String IDLE_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 1;";
-    private final String HOVERED_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 0.85;";
+    private String IDLE_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 1;";
+    private String HOVERED_BUTTON_STYLE = "-fx-background-color: #b80028; -fx-opacity: 0.85;";
 
     private Card selectedCard;
     private ImageView selectedCardView;
@@ -186,6 +187,8 @@ public class GameScene implements Initializable {
 
     int ageNumber = 0;
     int turnNumber = 0;
+
+    int selection = -1;
 
     private String keyInput = "";
 
@@ -276,7 +279,7 @@ public class GameScene implements Initializable {
                     tts.read("Discard the card");
                 discardButton.setStyle(HOVERED_BUTTON_STYLE);
             }
-            else
+            else if (selection != 0)
                 discardButton.setStyle(IDLE_BUTTON_STYLE);
         });
 
@@ -286,7 +289,7 @@ public class GameScene implements Initializable {
                     tts.read("Build a structure");
                 structureButton.setStyle(HOVERED_BUTTON_STYLE);
             }
-            else
+            else if (selection != 1)
                 structureButton.setStyle(IDLE_BUTTON_STYLE);
         });
 
@@ -296,7 +299,7 @@ public class GameScene implements Initializable {
                     tts.read("Build a wonder stage");
                 wonderButton.setStyle(HOVERED_BUTTON_STYLE);
             }
-            else
+            else if (selection != 2)
                 wonderButton.setStyle(IDLE_BUTTON_STYLE);
         });
 
@@ -402,7 +405,7 @@ public class GameScene implements Initializable {
                            tts.read(game.players[0].board.cards[focusedCardInBoardIndex].name);
                    }
                    else if (keyInput.equals("deck")){
-                       if(selectedCardIndex == 0)
+                       if(selectedCardIndex <= 0)
                        {
                            selectedCardIndex = game.players[0].cards.length;
                        }
@@ -460,9 +463,9 @@ public class GameScene implements Initializable {
                }
                else if(keyCode.equals(keyCode.H))
                {
-                   //SceneHandler.getInstance().showHowToPlayScene();
+                   SceneHandler.getInstance().showHowToPlayScene();
                    //showLootScreen("user2");
-                   freeCardPopUp();
+                   //freeCardPopUp();
                }
                event.consume();
            }
@@ -482,7 +485,7 @@ public class GameScene implements Initializable {
             e.printStackTrace();
         }
         //-------------------------------------
-        selectedCardIndex = 0;
+        selectedCardIndex = -1;
         focusedCardInBoardIndex = 0;
 
         // Initialize the card view array
@@ -559,6 +562,9 @@ public class GameScene implements Initializable {
         } catch (Exception e ){
             e.printStackTrace();
         }
+
+
+
 
         // Start sending requests
         timeLine.setCycleCount(Animation.INDEFINITE);
@@ -801,15 +807,14 @@ public class GameScene implements Initializable {
         requestThread.start();*/
 
         try {
-            // Check the music of the age
+            Game game = DataHandler.getInstance().getGame();
             if (ageNumber != DataHandler.getInstance().getGame().ageNumber) {
-                ageNumber = DataHandler.getInstance().getGame().ageNumber;
 
                 if (dataHandler.getSettings().isSoundEffects()) {
                     Media sound;
-                    if (ageNumber == 1)
+                    if (game.ageNumber == 1)
                         sound = new Media(new File(Constants.AGE_ONE_SOUND).toURI().toString());
-                    else if (ageNumber == 2)
+                    else if (game.ageNumber == 2)
                         sound = new Media(new File(Constants.AGE_TWO_SOUND).toURI().toString());
                     else
                         sound = new Media(new File(Constants.AGE_THREE_SOUND).toURI().toString());
@@ -824,6 +829,10 @@ public class GameScene implements Initializable {
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (turnNumber != DataHandler.getInstance().getGame().turnNumber) {
+            resetTurn();
         }
 
 
@@ -919,6 +928,26 @@ public class GameScene implements Initializable {
             token4.setText("");
             stage4.setText("");
         }
+
+        discardButton.setStyle(IDLE_BUTTON_STYLE);
+        structureButton.setStyle(IDLE_BUTTON_STYLE);
+        wonderButton.setStyle(IDLE_BUTTON_STYLE);
+
+
+        if (selection == 0)
+            discardButton.setStyle(HOVERED_BUTTON_STYLE);
+        else if (selection == 1)
+            structureButton.setStyle(HOVERED_BUTTON_STYLE);
+        else if (selection == 2)
+            wonderButton.setStyle(HOVERED_BUTTON_STYLE);
+
+
+        ageNumber = game.ageNumber;
+        turnNumber = game.turnNumber;
+    }
+
+    private void resetTurn() {
+        selection = -1;
     }
 
 
@@ -1085,28 +1114,64 @@ public class GameScene implements Initializable {
 
     public void nextTurnAction(ActionEvent event)
     {
-        update();
+        boolean freeBuilding;
+        if (DataHandler.getInstance().getGame().players[0].canBuildForFree && selectedCardIndex != -1){
+            freeBuilding = freeCardPopUp();
+        }
+        else
+            freeBuilding = false;
+
+        DataHandler dataHandler = DataHandler.getInstance();
+        Thread requestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                GeneralResponse<Game> gameResponse = requester.useCard(dataHandler.getUser().userName, dataHandler.getUser().token, selectedCard.id, selection,freeBuilding);
+                if (gameResponse != null) {
+                    if (gameResponse.success) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataHandler.getInstance().setGame(gameResponse.payload);
+                            }
+                        });
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage(gameResponse.message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showErrorMessage("There is something wrong with the connection");
+                        }
+                    });
+                }
+            }
+        });
+        requestThread.start();
     }
 
     public void wonderAction(ActionEvent event)
     {
-        DataHandler.getInstance().getGame().ageNumber = 3;
-
-        update();
+        selection = 2;
     }
 
     public void structureAction(ActionEvent event)
     {
-        DataHandler.getInstance().getGame().ageNumber = 2;
+        selection = 1;
 
-        update();
     }
 
     public void discardAction(ActionEvent event)
     {
-        DataHandler.getInstance().getGame().ageNumber = 1;
-
-        update();
+        selection = 0;
     }
 
     public void clickToCard(MouseEvent mouseEvent) {
@@ -1208,49 +1273,51 @@ public class GameScene implements Initializable {
         wonderButton.setDisable(false);
     }
 
-    public void freeCardPopUp()
+    public boolean freeCardPopUp()
     {
-            disableItems();
-            final boolean[] first = {true};
-            Reader tts = AudioDescriptionHandler.getInstance().getReader();
-            Settings settings = DataHandler.getInstance().getSettings();
+        disableItems();
+        final boolean[] first = {true};
+        Reader tts = AudioDescriptionHandler.getInstance().getReader();
+        Settings settings = DataHandler.getInstance().getSettings();
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Use the the card for free");
-            alert.setHeaderText(null);
-            alert.initOwner(nextTurnButton.getScene().getWindow());
-            alert.setGraphic(null);
-            alert.initOwner(nextTurnButton.getScene().getWindow());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Use the the card for free");
+        alert.setHeaderText(null);
+        alert.initOwner(nextTurnButton.getScene().getWindow());
+        alert.setGraphic(null);
+        alert.initOwner(nextTurnButton.getScene().getWindow());
 
-            String text = "Do you want to use the "+ DataHandler.getInstance().getGame().players[0].cards[selectedCardIndex].name  +" card for free?";
+        String text = "Do you want to use the "+ DataHandler.getInstance().getGame().players[0].cards[selectedCardIndex].name  +" card for free?";
 
-            alert.setContentText(text);
+        alert.setContentText(text);
 
-            if (settings.isAudioDescription())
-                tts.read(text + " Press enter to say yes or no. No");
+        if (settings.isAudioDescription())
+            tts.read(text + " Press enter to say yes or no. No");
 
 
-            // Add options
-            ButtonType buttonYes = new ButtonType("Yes");
-            ButtonType buttonNo = new ButtonType("No");
-            alert.getButtonTypes().setAll(buttonNo, buttonYes);
+        // Add options
+        ButtonType buttonYes = new ButtonType("Yes");
+        ButtonType buttonNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(buttonNo, buttonYes);
 
-            alert.getButtonTypes().forEach(buttonType -> {
-                alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
-                    if(newValue && settings.isAudioDescription() && !first[0])
-                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
-                    first[0] = false;
-                });
+        alert.getButtonTypes().forEach(buttonType -> {
+            alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue && settings.isAudioDescription() && !first[0])
+                    AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                first[0] = false;
             });
+        });
 
 
-            Optional<ButtonType> result = alert.showAndWait();
-
-            // Get the result
-            if (result.get() == buttonYes)
-                alert.close();
-            else
-                alert.close();
-            enableItems();
-        }
+        Optional<ButtonType> result = alert.showAndWait();
+        boolean isWanted;
+        // Get the result
+        if (result.get() == buttonYes)
+            isWanted = true;
+        else
+            isWanted = false;
+        alert.close();
+        enableItems();
+        return isWanted;
+    }
 }

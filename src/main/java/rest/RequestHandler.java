@@ -6,6 +6,7 @@ import rest.models.GeneralResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 
 import java.io.IOException;
 
@@ -359,11 +360,6 @@ public class RequestHandler implements Requester {
     }
 
     @Override
-    public GeneralResponse<Game> startGame(String username, String token, String lobbyCode) {
-        return null;
-    }
-
-    @Override
     public GeneralResponse<Game> getGameData(String username, String token) {
         final GeneralResponse<Game>[] game = new GeneralResponse[1];
         final boolean[] finished = {false};
@@ -410,18 +406,99 @@ public class RequestHandler implements Requester {
         return game[0];
     }
 
-    @Override
-    public GeneralResponse<Game> getReadyGame(String username, String token, String gameId, boolean ready) {
-        return null;
-    }
 
     @Override
-    public GeneralResponse<Game> commerce(String gameId, String username, String token, String sellerPlayerId, int[] materialTypes, int[] materialAmounts) {
-        return null;
-    }
+    public GeneralResponse<Game> commerce(String username, String token, Boolean isWidthLeft, Materials commerceMaterials) {
+        final GeneralResponse<Game>[] game = new GeneralResponse[1];
+        final boolean[] finished = {false};
+
+        // Get Game lobby request
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Gson gson = new Gson();
+        String jsonMaterials = gson.toJson(commerceMaterials);
+        Call<GeneralResponse<Game>> call = apiService.commerce(username, token, isWidthLeft, jsonMaterials);
+        call.enqueue(new Callback<GeneralResponse<Game>>() {
+            // If the connection is valid
+            @Override
+            public void onResponse(Call<GeneralResponse<Game>> call, Response<GeneralResponse<Game>> response) {
+                if (response.body() != null) {
+                    // Get the response
+                    game[0] = response.body();
+                }
+                else {
+                    try {
+                        String errorResponse = response.errorBody().string();
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        game[0] = new GeneralResponse<Game>();
+                        if (userGeneralResponse != null)
+                            game[0].message = userGeneralResponse.message;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                finished[0] = true;
+            }
+
+            // When connection is lost
+            @Override
+            public void onFailure(Call<GeneralResponse<Game>> call, Throwable t) {
+                finished[0] = true;
+            }
+        });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return game[0];    }
 
     @Override
-    public GeneralResponse<Game> pickCard(String gameId, String username, String token, String selectedCardId) {
-        return null;
+    public GeneralResponse<Game> useCard(String username, String token, String cardId, int selectionType, boolean freeBuilding) {
+        final GeneralResponse<Game>[] game = new GeneralResponse[1];
+        final boolean[] finished = {false};
+
+        // Get Game lobby request
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<GeneralResponse<Game>> call = apiService.useCard(username, token, cardId, selectionType, freeBuilding);
+        call.enqueue(new Callback<GeneralResponse<Game>>() {
+            // If the connection is valid
+            @Override
+            public void onResponse(Call<GeneralResponse<Game>> call, Response<GeneralResponse<Game>> response) {
+                if (response.body() != null) {
+                    // Get the response
+                    game[0] = response.body();
+                }
+                else {
+                    try {
+                        String errorResponse = response.errorBody().string();
+                        GeneralResponse userGeneralResponse = new Gson().fromJson(errorResponse, GeneralResponse.class);
+                        game[0] = new GeneralResponse<Game>();
+                        if (userGeneralResponse != null)
+                            game[0].message = userGeneralResponse.message;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                finished[0] = true;
+            }
+
+            // When connection is lost
+            @Override
+            public void onFailure(Call<GeneralResponse<Game>> call, Throwable t) {
+                finished[0] = true;
+            }
+        });
+
+        while (!finished[0]) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return game[0];
     }
 }
