@@ -41,20 +41,21 @@ public class CommerceScene implements Initializable {
     public ImageView loomImage;
     @FXML
     public ImageView papyrusImage;
+
     @FXML
-    public Spinner claySpin;
+    public Spinner<Integer> stoneSpin;
     @FXML
-    public Spinner stoneSpin;
+    public Spinner<Integer> oreSpin;
     @FXML
-    public Spinner oreSpin;
+    public Spinner<Integer> woodSpin;
     @FXML
-    public Spinner woodSpin;
+    public Spinner<Integer> glassSpin;
     @FXML
-    public Spinner glassSpin;
+    public Spinner<Integer> loomSpin;
     @FXML
-    public Spinner loomSpin;
+    public Spinner<Integer> papyrusSpin;
     @FXML
-    public Spinner papyrusSpin;
+    private Spinner<Integer> claySpin ;
 
     @FXML
     Button makeCommerceButton;
@@ -118,6 +119,15 @@ public class CommerceScene implements Initializable {
             e.printStackTrace();
         }
 
+        makeCommerceButton.setDisable(true);
+
+        if((claySpin.getValue() == 0) && (woodSpin.getValue() == 0) &&(stoneSpin.getValue() == 0) &&(oreSpin.getValue() == 0) &&(glassSpin.getValue() == 0) &&(loomSpin.getValue() == 0) &&(papyrusSpin.getValue() == 0) )
+        {
+            makeCommerceButton.setDisable(true);
+        }
+        else
+            makeCommerceButton.setDisable(false);
+
         SceneHandler.getInstance().getStagePopup().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -132,6 +142,12 @@ public class CommerceScene implements Initializable {
                 event.consume();
             }
         });
+
+
+       /* if(((((Integer)(claySpin.getValue())) == 0)) && ((((Integer)(stoneSpin.getValue())) == 0)) &&((((Integer)(oreSpin.getValue())) == 0)) &&((((Integer)(woodSpin.getValue())) == 0)) &&((((Integer)(glassSpin.getValue())) == 0)) &&((((Integer)(loomSpin.getValue())) == 0)) &&((((Integer)(papyrusSpin.getValue())) == 0)))
+        {
+            makeCommerceButton.setDisable(true);
+        }*/
     }
 
     public void makeCommerce(ActionEvent actionEvent){
