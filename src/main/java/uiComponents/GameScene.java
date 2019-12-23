@@ -461,7 +461,8 @@ public class GameScene implements Initializable {
                else if(keyCode.equals(keyCode.H))
                {
                    //SceneHandler.getInstance().showHowToPlayScene();
-                   showLootScreen("user2");
+                   //showLootScreen("user2");
+                   freeCardPopUp();
                }
                event.consume();
            }
@@ -1206,4 +1207,50 @@ public class GameScene implements Initializable {
         structureButton.setDisable(false);
         wonderButton.setDisable(false);
     }
+
+    public void freeCardPopUp()
+    {
+            disableItems();
+            final boolean[] first = {true};
+            Reader tts = AudioDescriptionHandler.getInstance().getReader();
+            Settings settings = DataHandler.getInstance().getSettings();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Use the the card for free");
+            alert.setHeaderText(null);
+            alert.initOwner(nextTurnButton.getScene().getWindow());
+            alert.setGraphic(null);
+            alert.initOwner(nextTurnButton.getScene().getWindow());
+
+            String text = "Do you want to use the "+ DataHandler.getInstance().getGame().players[0].cards[selectedCardIndex].name  +" card for free?";
+
+            alert.setContentText(text);
+
+            if (settings.isAudioDescription())
+                tts.read(text + " Press enter to say yes or no. No");
+
+
+            // Add options
+            ButtonType buttonYes = new ButtonType("Yes");
+            ButtonType buttonNo = new ButtonType("No");
+            alert.getButtonTypes().setAll(buttonNo, buttonYes);
+
+            alert.getButtonTypes().forEach(buttonType -> {
+                alert.getDialogPane().lookupButton(buttonType).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue && settings.isAudioDescription() && !first[0])
+                        AudioDescriptionHandler.getInstance().getReader().read(buttonType.getText());
+                    first[0] = false;
+                });
+            });
+
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            // Get the result
+            if (result.get() == buttonYes)
+                alert.close();
+            else
+                alert.close();
+            enableItems();
+        }
 }

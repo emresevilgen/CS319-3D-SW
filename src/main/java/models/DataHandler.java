@@ -16,7 +16,7 @@ public class DataHandler {
         //-------------------------------------
         // To delete
         Game game = new Game();
-        game.ageNumber = 3;
+        game.ageNumber = 1;
         game.turnNumber = 1;
         game.players = new Player[4];
         game.players[0] = new Player();
@@ -132,8 +132,8 @@ public class DataHandler {
         game.players[1].board.cards[11].name = "Walls";
         game.players[1].board.cards[11].color = "Red";
         game.players[1].board.cards[12] = new Card();
-        game.players[1].board.cards[12].name = "Walls";
-        game.players[1].board.cards[12].color = "Red";
+        game.players[1].board.cards[12].name = "Caravansery";
+        game.players[1].board.cards[12].color = "Yellow";
         game.players[1].board.cards[13] = new Card();
         game.players[1].board.cards[13].name = "Walls";
         game.players[1].board.cards[13].color = "Red";

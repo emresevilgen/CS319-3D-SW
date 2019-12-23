@@ -325,9 +325,11 @@ public class Loot implements Initializable {
 
     private void update() {
         DataHandler dataHandler = DataHandler.getInstance();
+        int ageNumber = DataHandler.getInstance().getGame().ageNumber;
         String username = usernameLabel.getText();
         Player[] players = DataHandler.getInstance().getGame().players;
         int userIndex = -1;
+        int cardViewIndex = 0;
 
         for (int i = 0; i < players.length; i++) {
             if (players[i] != null && players[i].name.equals(username)) {
@@ -338,7 +340,21 @@ public class Loot implements Initializable {
             Card[] cards = dataHandler.getGame().players[userIndex].board.cards;
             for(int i= 0; i < cards.length; i++ )
             {
-                cardViews[i].setImage(getCardImage(cards[i]));
+                if((ageNumber == 1) && cards[i].color.equals("Brown"))
+                {
+                    cardViews[cardViewIndex].setImage(getCardImage(cards[i]));
+                    cardViewIndex++;
+                }
+                else if((ageNumber == 2) && (cards[i].color.equals("Brown") ||cards[i].color.equals("Gray") ))
+                {
+                    cardViews[cardViewIndex].setImage(getCardImage(cards[i]));
+                    cardViewIndex++;
+                }
+                else if((ageNumber == 3) && (!cards[i].color.equals("Yellow") || !cards[i].color.equals("Purple") ))
+                {
+                    cardViews[cardViewIndex].setImage(getCardImage(cards[i]));
+                    cardViewIndex++;
+                }
             }
         }
     }
