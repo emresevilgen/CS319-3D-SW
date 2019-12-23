@@ -325,6 +325,8 @@ public class GameScene implements Initializable {
                //Cards in the deck
                if (keyCode.equals(KeyCode.C)){
                    keyInput = "deck";
+                   if(selectedCardIndex == -1)
+                       selectedCardIndex++;
                    if (settings.isAudioDescription())
                        tts.read("The cards in the deck." + game.players[0].cards[selectedCardIndex].name);
                    selectTheCard(selectedCardIndex);
@@ -510,17 +512,23 @@ public class GameScene implements Initializable {
         focusedCardInBoardIndex = 0;
 
         //set names
-        Game game = DataHandler.getInstance().getGame();
-        name0.setText("");
-        name1.setText("");
-        name2.setText("");
-        name3.setText("");
 
-        name0.setText(game.players[0].name);
-        name1.setText(game.players[1].name);
-        name2.setText(game.players[2].name);
-        if(game.players.length > 3)
-            name3.setText(game.players[3].name);
+        try {
+            Game game = DataHandler.getInstance().getGame();
+            name0.setText("");
+            name1.setText("");
+            name2.setText("");
+            name3.setText("");
+
+            name0.setText(game.players[0].name);
+            name1.setText(game.players[1].name);
+            name2.setText(game.players[2].name);
+            if (game.players.length > 3)
+                name3.setText(game.players[3].name);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         // Initialize the card view array
         cardViews = new ImageView[19];
         cardViews[0] = card1;
