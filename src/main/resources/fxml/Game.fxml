@@ -154,7 +154,7 @@
       </Label>
       <Line endX="308.0" endY="1.52587890625E-5" layoutX="150.0" layoutY="96.0" startX="-124.0" startY="1.52587890625E-5" stroke="WHITE" />
       <Line endX="-25.999969482421875" endY="188.0" layoutX="220.0" layoutY="54.0" startX="-25.999969482421875" startY="-31.0" stroke="WHITE" />
-      <Label fx:id="name0" layoutX="834.0" layoutY="1012.0" prefHeight="45.0" prefWidth="263.0" textFill="WHITE">
+      <Label fx:id="name0" layoutX="834.0" layoutY="1012.0" prefHeight="45.0" prefWidth="263.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>
@@ -164,7 +164,7 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="name2" layoutX="834.0" layoutY="16.0" prefHeight="45.0" prefWidth="235.0" textFill="WHITE">
+      <Label fx:id="name2" layoutX="834.0" layoutY="16.0" prefHeight="45.0" prefWidth="235.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>
