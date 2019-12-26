@@ -466,9 +466,9 @@ public class GameScene implements Initializable {
                                 text = text + " and ";
 
                                 if (player.victoryPoints > 1)
-                                    text = text + player.victoryPoints + " victory tokens. \n";
+                                    text = text + player.victoryPoints + " victory points. \n";
                                 else
-                                    text = text + player.victoryPoints + " victory token. \n";
+                                    text = text + player.victoryPoints + " victory point. \n";
 
                                 text = text + " and the wonder stage is " + player.board.stage;
                             }
@@ -870,7 +870,13 @@ public class GameScene implements Initializable {
             name2.setText("");
             name3.setText("");
 
-            name0.setText(game.players[0].name);
+            //If secret skill mode is selected, show the secret skill next to the name
+            Lobby lobby = DataHandler.getInstance().getLobby();
+            if(lobby.mode.secretSkills)
+                name0.setText(game.players[0].name + ": " + game.players[0].secretSkill);
+            else
+                name0.setText(game.players[0].name);
+
             name1.setText(game.players[1].name);
             if(game.players.length > 3)
             {
@@ -1036,28 +1042,28 @@ public class GameScene implements Initializable {
         {
             username1.setText(game.players[0].name);
             coin1.setText(Integer.toString(game.players[0].coin));
-            token1.setText(Integer.toString(game.players[0].victoryPoints));
+            token1.setText(Integer.toString((game.players[0].victoryTokens) - (game.players[0].defeatTokens)));
             stage1.setText(Integer.toString(game.players[0].board.stage));
         }
         if((game.players != null) && (game.players.length > 1 )&& (game.players[1]!= null))
         {
             username2.setText(game.players[1].name);
             coin2.setText(Integer.toString(game.players[1].coin));
-            token2.setText(Integer.toString(game.players[1].victoryPoints));
+            token2.setText(Integer.toString((game.players[1].victoryTokens) - (game.players[1].defeatTokens)));
             stage2.setText(Integer.toString(game.players[1].board.stage));
         }
         if((game.players != null) &&  (game.players.length > 2) &&(game.players[2]!= null))
         {
             username3.setText(game.players[2].name);
             coin3.setText(Integer.toString(game.players[2].coin));
-            token3.setText(Integer.toString(game.players[2].victoryPoints));
+            token3.setText(Integer.toString((game.players[2].victoryTokens) - (game.players[2].defeatTokens)));
             stage3.setText(Integer.toString(game.players[2].board.stage));
         }
         if((game.players != null) && (game.players.length > 3) && (game.players[3]!= null))
         {
             username4.setText(game.players[3].name);
             coin4.setText(Integer.toString(game.players[3].coin));
-            token4.setText(Integer.toString(game.players[3].victoryPoints));
+            token4.setText(Integer.toString((game.players[3].victoryTokens) - (game.players[3].defeatTokens)));
             stage4.setText(Integer.toString(game.players[3].board.stage));
         }
         else {

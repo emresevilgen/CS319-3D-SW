@@ -346,8 +346,8 @@ public class SeeThePlayersScene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[0].isReady ){
                     Image crossImage = new Image(inputStream);
                     firstReadyStatus.setImage(crossImage);
@@ -373,8 +373,8 @@ public class SeeThePlayersScene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[1].isReady ){
                     Image crossImage = new Image(inputStream);
                     secondReadyStatus.setImage(crossImage);
@@ -400,8 +400,8 @@ public class SeeThePlayersScene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[2].isReady ){
                     Image crossImage = new Image(inputStream);
                     thirdReadyStatus.setImage(crossImage);
@@ -426,8 +426,8 @@ public class SeeThePlayersScene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[3].isReady ){
                     Image crossImage = new Image(inputStream);
                     fourthReadyStatus.setImage(crossImage);
