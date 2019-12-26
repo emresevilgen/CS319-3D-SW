@@ -1264,6 +1264,7 @@ public class GameScene implements Initializable {
             // free card alert
             freeBuilding = freeCardPopUp();
         }
+
         else
             freeBuilding = false;
 
