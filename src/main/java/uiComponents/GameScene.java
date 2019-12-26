@@ -50,6 +50,15 @@ public class GameScene implements Initializable {
     public Label name2;
     @FXML
     public Label name1;
+    @FXML
+    public ImageView isPlayed1;
+    @FXML
+    public ImageView isPlayed2;
+    @FXML
+    public ImageView isPlayed3;
+    @FXML
+    public ImageView isPlayed4;
+
 
     @FXML
     Button nextTurnButton;
@@ -511,24 +520,7 @@ public class GameScene implements Initializable {
         selectedCardIndex = -1;
         focusedCardInBoardIndex = 0;
 
-        //set names
 
-        try {
-            Game game = DataHandler.getInstance().getGame();
-            name0.setText("");
-            name1.setText("");
-            name2.setText("");
-            name3.setText("");
-
-            name0.setText(game.players[0].name);
-            name1.setText(game.players[1].name);
-            name2.setText(game.players[2].name);
-            if (game.players.length > 3)
-                name3.setText(game.players[3].name);
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
         // Initialize the card view array
         cardViews = new ImageView[19];
         cardViews[0] = card1;
@@ -867,6 +859,118 @@ public class GameScene implements Initializable {
             }
         }
         catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //set names
+        try {
+            Game game = DataHandler.getInstance().getGame();
+            name0.setText("");
+            name1.setText("");
+            name2.setText("");
+            name3.setText("");
+
+            name0.setText(game.players[0].name);
+            name1.setText(game.players[1].name);
+            if(game.players.length > 3)
+            {
+                name2.setText(game.players[2].name);
+                name3.setText(game.players[3].name);
+            }
+            else
+                name3.setText(game.players[2].name);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        //show the status of the player, whether that played or not
+        try {
+            isPlayed1.setImage(null);
+            isPlayed1.setImage(null);
+            //Change status of the users
+            if(dataHandler.getGame().players.length > 0 &&  dataHandler.getGame().players[0] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[0].isPlayedForTurn ){
+                    Image green = new Image(inputStream);
+                    isPlayed1.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream2);
+                    isPlayed1.setImage(red);
+                }
+            }
+
+            isPlayed2.setImage(null);
+            isPlayed2.setImage(null);
+            //Change status of the users
+            if(dataHandler.getGame().players.length > 1 &&  dataHandler.getGame().players[1] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[1].isPlayedForTurn ){
+                    Image green = new Image(inputStream);
+                    isPlayed2.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream2);
+                    isPlayed2.setImage(red);
+                }
+            }
+
+            isPlayed3.setImage(null);
+            isPlayed3.setImage(null);
+            isPlayed4.setImage(null);
+            isPlayed4.setImage(null);
+
+            if(dataHandler.getGame().players.length > 3 &&  dataHandler.getGame().players[2] !=  null &&  dataHandler.getGame().players[3] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[2].isPlayedForTurn ){
+                    Image green = new Image(inputStream);
+                    isPlayed3.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream2);
+                    isPlayed3.setImage(red);
+                }
+
+                FileInputStream inputStream3 = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[3].isPlayedForTurn ){
+                    Image green = new Image(inputStream3);
+                    isPlayed4.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream4);
+                    isPlayed4.setImage(red);
+                }
+            }
+            else if(dataHandler.getGame().players.length == 3 &&  dataHandler.getGame().players[2] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[2].isPlayedForTurn ){
+                    Image green = new Image(inputStream);
+                    isPlayed4.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream2);
+                    isPlayed4.setImage(red);
+                }
+            }
+
+
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 

@@ -48,6 +48,9 @@ public class Constants {
     public static final String EXIT_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "exit.png");
     public static final String CHECK_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "check.png");
     public static final String CROSS_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "cross.png");
+    public static final String RED_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "red1.png");
+    public static final String GREEN_IMAGE = String.join(File.separator, "src", "main", "resources", "images", "icons", "green1.png");
+
 
 
     // Wonders
