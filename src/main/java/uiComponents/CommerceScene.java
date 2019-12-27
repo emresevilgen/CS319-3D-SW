@@ -286,13 +286,27 @@ public class CommerceScene implements Initializable {
             @Override
             public void run() {
                 Requester requester = ServerConnectionHandler.getInstance().getRequester();
-                GeneralResponse<Game> gameResponse = requester.commerce(dataHandler.getUser().userName, dataHandler.getUser().token, isWithLeft,materials);
+                GeneralResponse<Game> gameResponse = requester.commerce(dataHandler.getUser().userName, dataHandler.getUser().token, isWithLeft, materials);
                 if (gameResponse != null) {
                     if (gameResponse.success) {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
+                                disableItems();
                                 DataHandler.getInstance().setGame(gameResponse.payload);
+                                DataHandler dataHandler = DataHandler.getInstance();
+                                if (dataHandler.getSettings().isAudioDescription()) {
+                                    AudioDescriptionHandler.getInstance().getReader().read("Commerce is succeed.");
+                                }
+
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Commerce");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Commerce is succeed.");
+                                alert.initOwner(makeCommerceButton.getScene().getWindow());
+                                alert.showAndWait();
+                                enableItems();
+                                SceneHandler.getInstance().getStagePopup().close();
                             }
                         });
                     }

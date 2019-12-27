@@ -18,6 +18,9 @@ public class Game {
     @SerializedName("players")
     public Player[] players;
 
+    @SerializedName("gameResult")
+    public String gameResult;
+
     @Override
     public String toString() {
         return "Game{" +

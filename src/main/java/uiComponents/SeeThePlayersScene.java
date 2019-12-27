@@ -129,6 +129,42 @@ public class SeeThePlayersScene implements Initializable {
                                 @Override
                                 public void run() {
                                     DataHandler.getInstance().setLobby(lobbyResponse.payload);
+                                    timeLine.stop();
+                                    Thread requestThread = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                                            GeneralResponse<Game> gameResponse = requester.getGameData(dataHandler.getUser().userName, dataHandler.getUser().token);
+                                            if (gameResponse != null) {
+                                                if (gameResponse.success) {
+                                                    Platform.runLater(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            DataHandler.getInstance().setGame(gameResponse.payload);
+                                                            SceneHandler.getInstance().moveToGame();
+                                                        }
+                                                    });
+                                                }
+                                                else {
+                                                    Platform.runLater(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            showErrorMessage(gameResponse.message);
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                            else {
+                                                Platform.runLater(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        showErrorMessage("There is something wrong with the connection");
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                    requestThread.start();
                                 }
                             });
                         }
@@ -153,12 +189,6 @@ public class SeeThePlayersScene implements Initializable {
             });
             requestThread.start();
         }
-
-
-
-        // To stop requests if the response is okey
-        timeLine.stop();
-        SceneHandler.getInstance().moveToGame();
     }
 
     // Dismiss button listener
@@ -246,7 +276,6 @@ public class SeeThePlayersScene implements Initializable {
                                 public void run() {
                                     DataHandler.getInstance().setGame(gameResponse.payload);
                                     SceneHandler.getInstance().moveToGame();
-                                    timeLine.stop();
                                 }
                             });
                         }
@@ -346,8 +375,8 @@ public class SeeThePlayersScene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[0].isReady ){
                     Image crossImage = new Image(inputStream);
                     firstReadyStatus.setImage(crossImage);
@@ -373,8 +402,8 @@ public class SeeThePlayersScene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[1].isReady ){
                     Image crossImage = new Image(inputStream);
                     secondReadyStatus.setImage(crossImage);
@@ -400,8 +429,8 @@ public class SeeThePlayersScene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[2].isReady ){
                     Image crossImage = new Image(inputStream);
                     thirdReadyStatus.setImage(crossImage);
@@ -426,8 +455,8 @@ public class SeeThePlayersScene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[3].isReady ){
                     Image crossImage = new Image(inputStream);
                     fourthReadyStatus.setImage(crossImage);
@@ -534,7 +563,7 @@ public class SeeThePlayersScene implements Initializable {
 
         // Show the lobby code
         lobbyCode.setText("The lobby code: "+ DataHandler.getInstance().getLobby().code);
-        lobbyCodeTitle.setText("People in the Lobby: " );
+        lobbyCodeTitle.setText("People in the " + DataHandler.getInstance().getLobby().name + " Lobby: ");
 
         // Initialize the label arrays
         labelsName[0] = firstNameLabel;

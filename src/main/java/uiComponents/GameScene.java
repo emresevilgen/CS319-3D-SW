@@ -50,6 +50,16 @@ public class GameScene implements Initializable {
     public Label name2;
     @FXML
     public Label name1;
+    @FXML
+    public ImageView isPlayed1;
+    @FXML
+    public ImageView isPlayed2;
+    @FXML
+    public ImageView isPlayed3;
+    @FXML
+    public ImageView isPlayed4;
+    @FXML
+    public Label secretSkillLabel;
 
     @FXML
     Button nextTurnButton;
@@ -203,6 +213,7 @@ public class GameScene implements Initializable {
     private String keyInput = "";
     public boolean firstTime;
     public boolean showError = true;
+    public boolean gameEnded = false;
 
     // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -328,14 +339,14 @@ public class GameScene implements Initializable {
                    if(selectedCardIndex == -1)
                        selectedCardIndex++;
                    if (settings.isAudioDescription())
-                       tts.read("The cards in the deck." + game.players[0].cards[selectedCardIndex].name);
+                       tts.read("The cards in the deck." + game.players[0].cards[selectedCardIndex].description);
                    selectTheCard(selectedCardIndex);
                }
                //Cards in the board
                else if (keyCode.equals(KeyCode.S)){
                    keyInput = "boardCards";
                    if(settings.isAudioDescription())
-                       tts.read("The cards in the board." + game.players[0].board.cards[focusedCardInBoardIndex].name);
+                       tts.read("The cards in the board." + game.players[0].board.cards[focusedCardInBoardIndex].description);
                }
                //Cards in the left player's board
                else if (keyCode.equals(KeyCode.A)){
@@ -379,7 +390,7 @@ public class GameScene implements Initializable {
                    keyInput = "boards";
                    boardIndex = 0;
                    if(settings.isAudioDescription())
-                       tts.read("The boards." + game.players[boardIndex].board.name);
+                       tts.read("The boards." + game.players[boardIndex].board.description);
                }
                // Right and left operations
                else if(keyCode.equals(KeyCode.R)) {
@@ -390,7 +401,7 @@ public class GameScene implements Initializable {
                        }
                        focusedCardInBoardIndex++;
                        if (settings.isAudioDescription())
-                           tts.read(game.players[0].board.cards[focusedCardInBoardIndex].name);
+                           tts.read(game.players[0].board.cards[focusedCardInBoardIndex].description);
                    }
                    else if (keyInput.equals("deck")){
                        if(selectedCardIndex == (game.players[0].cards.length - 1) )
@@ -399,7 +410,7 @@ public class GameScene implements Initializable {
                        }
                        selectedCardIndex++;
                        if(settings.isAudioDescription())
-                           tts.read(game.players[0].cards[selectedCardIndex].name);
+                           tts.read(game.players[0].cards[selectedCardIndex].description);
                        selectTheCard(selectedCardIndex);
                    }
                    else if (keyInput.equals("boards")){
@@ -409,7 +420,7 @@ public class GameScene implements Initializable {
                        }
                        boardIndex++;
                        if(settings.isAudioDescription())
-                           tts.read(game.players[boardIndex].board.name);
+                           tts.read(game.players[boardIndex].board.description);
                    }
                }
                else if (keyCode.equals(KeyCode.E)) {
@@ -419,7 +430,7 @@ public class GameScene implements Initializable {
                        }
                        focusedCardInBoardIndex--;
                        if (settings.isAudioDescription())
-                           tts.read(game.players[0].board.cards[focusedCardInBoardIndex].name);
+                           tts.read(game.players[0].board.cards[focusedCardInBoardIndex].description);
                    }
                    else if (keyInput.equals("deck")){
                        if(selectedCardIndex <= 0)
@@ -428,7 +439,7 @@ public class GameScene implements Initializable {
                        }
                        selectedCardIndex--;
                        if(settings.isAudioDescription())
-                           tts.read(game.players[0].cards[selectedCardIndex].name);
+                           tts.read(game.players[0].cards[selectedCardIndex].description);
                        selectTheCard(selectedCardIndex);
                    }
                    else if (keyInput.equals("boards")){
@@ -438,13 +449,17 @@ public class GameScene implements Initializable {
                        }
                        boardIndex--;
                        if(settings.isAudioDescription())
-                           tts.read(game.players[boardIndex].board.name);
+                           tts.read(game.players[boardIndex].board.description);
                    }
                }
                // Inf table read
                else if(keyCode.equals(KeyCode.I)){
                     if (settings.isAudioDescription()){
-                        String text = "Age is " + game.ageNumber + " and turn is " + game.turnNumber+ " ";
+                        //If secret skill mode is selected, read the secret skill
+                        String text = "";
+                        if(game.players[0] != null)
+                             text = "Secret skill is the " + game.players[0].secretSkill + ". \n ";
+                        text = text + "Age is " + game.ageNumber + " and turn is " + game.turnNumber+ " ";
                         for (int i = 0; i < game.players.length; i++) {
                             if (game.players[i] != null) {
                                 text = text + game.players[i].name + " has ";
@@ -457,9 +472,9 @@ public class GameScene implements Initializable {
                                 text = text + " and ";
 
                                 if (player.victoryPoints > 1)
-                                    text = text + player.victoryPoints + " victory tokens. \n";
+                                    text = text + player.victoryPoints + " victory points. \n";
                                 else
-                                    text = text + player.victoryPoints + " victory token. \n";
+                                    text = text + player.victoryPoints + " victory point. \n";
 
                                 text = text + " and the wonder stage is " + player.board.stage;
                             }
@@ -492,43 +507,12 @@ public class GameScene implements Initializable {
                event.consume();
            }
         });
-        //-------------------------------------
-        // Set the button visibilities and the texts
-        try {
-            Game game = DataHandler.getInstance().getGame();
-            if (game.players[0].board.stage == 3)
-                wonderButton.setDisable(true);
 
-            //Change next turn button to next age
-            if (game.turnNumber == 6)
-                nextTurnButton.setText("Next Age");
-            else
-                nextTurnButton.setText("Next Turn ");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         //-------------------------------------
         selectedCardIndex = -1;
         focusedCardInBoardIndex = 0;
 
-        //set names
 
-        try {
-            Game game = DataHandler.getInstance().getGame();
-            name0.setText("");
-            name1.setText("");
-            name2.setText("");
-            name3.setText("");
-
-            name0.setText(game.players[0].name);
-            name1.setText(game.players[1].name);
-            name2.setText(game.players[2].name);
-            if (game.players.length > 3)
-                name3.setText(game.players[3].name);
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
         // Initialize the card view array
         cardViews = new ImageView[19];
         cardViews[0] = card1;
@@ -731,22 +715,57 @@ public class GameScene implements Initializable {
 
         // Get the result
         if (result.get() == buttonYes){
-            timeLine.stop(); // Stop requests
+            // Exit game data request
             DataHandler dataHandler = DataHandler.getInstance();
 
-            if (dataHandler.getSettings().isSoundEffects()) {
-                // Play menu music
-                SceneHandler.getInstance().getMediaPlayer().stop();
+            Thread requestThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                    GeneralResponse<Game> gameResponse = requester.exitGame(dataHandler.getUser().userName, dataHandler.getUser().token);
+                    if (gameResponse != null) {
+                        if (gameResponse.success) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    timeLine.stop(); // Stop requests
 
-                Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(sound);
-                SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
-                mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
-                mediaPlayer.play();
-            }
-            dataHandler.setLobby(null);
-            dataHandler.setGame(null);
-            SceneHandler.getInstance().moveToMainMenu();
+                                    if (dataHandler.getSettings().isSoundEffects()) {
+                                        // Play menu music
+                                        SceneHandler.getInstance().getMediaPlayer().stop();
+
+                                        Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
+                                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                                        SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
+                                        mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
+                                        mediaPlayer.play();
+                                    }
+                                    dataHandler.setLobby(null);
+                                    dataHandler.setGame(null);
+                                    alert.close();
+                                    SceneHandler.getInstance().moveToMainMenu();                                }
+                            });
+                        }
+                        else {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showErrorMessage(gameResponse.message);
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorMessage("There is something wrong with the connection");
+                            }
+                        });
+                    }
+                }
+            });
+            requestThread.start();
 
         } else {
             alert.close();
@@ -806,7 +825,7 @@ public class GameScene implements Initializable {
 
     public void update(){
         // Get game data request
-       DataHandler dataHandler = DataHandler.getInstance();
+        DataHandler dataHandler = DataHandler.getInstance();
 
         Thread requestThread = new Thread(new Runnable() {
             @Override
@@ -819,7 +838,75 @@ public class GameScene implements Initializable {
                             @Override
                             public void run() {
                                 DataHandler.getInstance().setGame(gameResponse.payload);
-                                System.out.println(DataHandler.getInstance().getGame());
+                                Game game = DataHandler.getInstance().getGame();
+                                if (game.gameResult != null && !gameEnded) {
+                                    timeLine.stop();
+                                    gameEnded = true;
+                                    String text = game.gameResult;
+                                    disableItems();
+                                    if (dataHandler.getSettings().isAudioDescription()) {
+                                        AudioDescriptionHandler.getInstance().getReader().read(text);
+                                    }
+
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Game Over");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText(text);
+                                    alert.initOwner(nextTurnButton.getScene().getWindow());
+                                    alert.setResizable(true);
+                                    alert.showAndWait();
+
+                                    // Exit game request
+                                    Thread requestThread2 = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Requester requester = ServerConnectionHandler.getInstance().getRequester();
+                                            GeneralResponse<Game> gameResponse = requester.exitGame(dataHandler.getUser().userName, dataHandler.getUser().token);
+                                            if (gameResponse != null) {
+                                                if (gameResponse.success) {
+                                                    Platform.runLater(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            timeLine.stop(); // Stop requests
+
+                                                            if (dataHandler.getSettings().isSoundEffects()) {
+                                                                // Play menu music
+                                                                SceneHandler.getInstance().getMediaPlayer().stop();
+
+                                                                Media sound = new Media(new File(Constants.MENU_SOUND).toURI().toString());
+                                                                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                                                                SceneHandler.getInstance().setMediaPlayer(mediaPlayer);
+                                                                mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
+                                                                mediaPlayer.play();
+                                                            }
+                                                            dataHandler.setLobby(null);
+                                                            dataHandler.setGame(null);
+                                                            SceneHandler.getInstance().moveToMainMenu();                                }
+                                                    });
+                                                }
+                                                else {
+                                                    Platform.runLater(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            if (!gameEnded)
+                                                                showErrorMessage(gameResponse.message);
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                            else {
+                                                Platform.runLater(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        if (!gameEnded)
+                                                            showErrorMessage("There is something wrong with the connection");
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                    requestThread2.start();
+                                }
                             }
                         });
                     }
@@ -827,7 +914,8 @@ public class GameScene implements Initializable {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                showErrorMessage(gameResponse.message);
+                                if (!gameEnded)
+                                    showErrorMessage(gameResponse.message);
                             }
                         });
                     }
@@ -836,13 +924,46 @@ public class GameScene implements Initializable {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            showErrorMessage("There is something wrong with the connection");
+                            if (!gameEnded)
+                                showErrorMessage("There is something wrong with the connection");
                         }
                     });
                 }
             }
         });
         requestThread.start();
+
+        if (DataHandler.getInstance().getGame() == null)
+            return;
+
+        //-------------------------------------
+        // Set the button visibilities and the texts
+        try {
+            Game game = DataHandler.getInstance().getGame();
+            if (game.players[0].board.stage == 3)
+                wonderButton.setDisable(true);
+
+            //Change next turn button to next age
+            if (game.turnNumber == 6)
+                nextTurnButton.setText("Next Age");
+            else
+                nextTurnButton.setText("Next Turn ");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Set the visibilty of next turn button
+        try {
+            Game game = DataHandler.getInstance().getGame();
+            if (game.players[0].isPlayedForTurn)
+                nextTurnButton.setDisable(true);
+            else
+                nextTurnButton.setDisable(false);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 
         // Set the age musics
         try {
@@ -869,6 +990,127 @@ public class GameScene implements Initializable {
         catch (Exception e) {
             e.printStackTrace();
         }
+
+        //set names
+        try {
+            Game game = DataHandler.getInstance().getGame();
+            name0.setText("");
+            name1.setText("");
+            name2.setText("");
+            name3.setText("");
+
+            //If secret skill mode is selected, show the secret skill next to the name
+            if(game.players[0].secretSkill != null) {
+                secretSkillLabel.setText("Skill: " + game.players[0].secretSkill);
+                secretSkillLabel.setWrapText(true);
+            }
+            else
+                secretSkillLabel.setText("");
+
+            name0.setText(game.players[0].name);
+            name1.setText(game.players[1].name);
+            if(game.players.length > 3)
+            {
+                name2.setText(game.players[2].name);
+                name3.setText(game.players[3].name);
+            }
+            else
+                name3.setText(game.players[2].name);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        //show the status of the player, whether that played or not
+        try {
+            isPlayed1.setImage(null);
+            isPlayed1.setImage(null);
+            //Change status of the users
+            if(dataHandler.getGame().players.length > 0 &&  dataHandler.getGame().players[0] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[0].isPlayedForTurn ){
+                    Image green = new Image(inputStream);
+                    isPlayed1.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream2);
+                    isPlayed1.setImage(red);
+                }
+            }
+
+            isPlayed2.setImage(null);
+            isPlayed2.setImage(null);
+            //Change status of the users
+            if(dataHandler.getGame().players.length > 1 &&  dataHandler.getGame().players[1] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[1].isPlayedForTurn ){
+                    Image green = new Image(inputStream);
+                    isPlayed2.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream2);
+                    isPlayed2.setImage(red);
+                }
+            }
+
+            isPlayed3.setImage(null);
+            isPlayed3.setImage(null);
+            isPlayed4.setImage(null);
+            isPlayed4.setImage(null);
+
+            if(dataHandler.getGame().players.length > 3 &&  dataHandler.getGame().players[2] !=  null &&  dataHandler.getGame().players[3] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[2].isPlayedForTurn ){
+                    Image green = new Image(inputStream);
+                    isPlayed3.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream2);
+                    isPlayed3.setImage(red);
+                }
+
+                FileInputStream inputStream3 = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[3].isPlayedForTurn ){
+                    Image green = new Image(inputStream3);
+                    isPlayed4.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream4);
+                    isPlayed4.setImage(red);
+                }
+            }
+            else if(dataHandler.getGame().players.length == 3 &&  dataHandler.getGame().players[2] !=  null)
+            {
+                FileInputStream inputStream = new FileInputStream(Constants.GREEN_IMAGE);
+                FileInputStream inputStream2 = new FileInputStream(Constants.RED_IMAGE);
+
+                if (dataHandler.getGame().players[2].isPlayedForTurn ){
+                    Image green = new Image(inputStream);
+                    isPlayed4.setImage(green);
+                }
+                else{
+                    Image red = new Image(inputStream2);
+                    isPlayed4.setImage(red);
+                }
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         // Catch the turn change
         if (turnNumber != DataHandler.getInstance().getGame().turnNumber) {
@@ -932,28 +1174,28 @@ public class GameScene implements Initializable {
         {
             username1.setText(game.players[0].name);
             coin1.setText(Integer.toString(game.players[0].coin));
-            token1.setText(Integer.toString(game.players[0].victoryPoints));
+            token1.setText(Integer.toString((game.players[0].victoryTokens) - (game.players[0].defeatTokens)));
             stage1.setText(Integer.toString(game.players[0].board.stage));
         }
         if((game.players != null) && (game.players.length > 1 )&& (game.players[1]!= null))
         {
             username2.setText(game.players[1].name);
             coin2.setText(Integer.toString(game.players[1].coin));
-            token2.setText(Integer.toString(game.players[1].victoryPoints));
+            token2.setText(Integer.toString((game.players[1].victoryTokens) - (game.players[1].defeatTokens)));
             stage2.setText(Integer.toString(game.players[1].board.stage));
         }
         if((game.players != null) &&  (game.players.length > 2) &&(game.players[2]!= null))
         {
             username3.setText(game.players[2].name);
             coin3.setText(Integer.toString(game.players[2].coin));
-            token3.setText(Integer.toString(game.players[2].victoryPoints));
+            token3.setText(Integer.toString((game.players[2].victoryTokens) - (game.players[2].defeatTokens)));
             stage3.setText(Integer.toString(game.players[2].board.stage));
         }
         if((game.players != null) && (game.players.length > 3) && (game.players[3]!= null))
         {
             username4.setText(game.players[3].name);
             coin4.setText(Integer.toString(game.players[3].coin));
-            token4.setText(Integer.toString(game.players[3].victoryPoints));
+            token4.setText(Integer.toString((game.players[3].victoryTokens) - (game.players[3].defeatTokens)));
             stage4.setText(Integer.toString(game.players[3].board.stage));
         }
         else {
@@ -963,17 +1205,17 @@ public class GameScene implements Initializable {
             stage4.setText("");
         }
 
-        // Selected card effect
-        discardButton.setStyle(IDLE_BUTTON_STYLE);
-        structureButton.setStyle(IDLE_BUTTON_STYLE);
-        wonderButton.setStyle(IDLE_BUTTON_STYLE);
+        discardButton.setDisable(false);
+        structureButton.setDisable(false);
+        wonderButton.setDisable(false);
 
+        // Selected button effect
         if (selection == 0)
-            discardButton.setStyle(HOVERED_BUTTON_STYLE);
+            discardButton.setDisable(true);
         else if (selection == 1)
-            structureButton.setStyle(HOVERED_BUTTON_STYLE);
+            structureButton.setDisable(true);
         else if (selection == 2)
-            wonderButton.setStyle(HOVERED_BUTTON_STYLE);
+            wonderButton.setDisable(true);
 
         // Update ageNumber and turnNumber
         ageNumber = game.ageNumber;
@@ -1150,11 +1392,16 @@ public class GameScene implements Initializable {
     public void nextTurnAction(ActionEvent event)
     {
         boolean freeBuilding;
+
+        if (selectedCardIndex == -1){
+            showErrorMessage("You didn't pick a card.");
+            return;
+        }
+
         if (DataHandler.getInstance().getGame().players[0].canBuildForFree && selectedCardIndex != -1){
             // free card alert
             freeBuilding = freeCardPopUp();
         }
-
         else
             freeBuilding = false;
 
@@ -1171,6 +1418,16 @@ public class GameScene implements Initializable {
                             @Override
                             public void run() {
                                 DataHandler.getInstance().setGame(gameResponse.payload);
+                                if (selectedCardView.getImage() != null){
+                                    Glow glow = new Glow();
+                                    glow.setLevel(0.0);
+                                    selectedCardView.setEffect(glow);
+                                    selectedCardView.setScaleX(1);
+                                    selectedCardView.setScaleY(1);
+                                }
+                                selectedCard = null;
+                                selectedCardIndex = -1;
+                                selectedCardView = null;
                             }
                         });
                     }
@@ -1227,7 +1484,7 @@ public class GameScene implements Initializable {
         Settings settings = DataHandler.getInstance().getSettings();
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         if (settings.isAudioDescription())
-            tts.read(deckCards[cardIndex].name);
+            tts.read(deckCards[cardIndex].description);
     }
 
     private void selectTheCard(int cardIndex){
@@ -1265,7 +1522,7 @@ public class GameScene implements Initializable {
         // Read the card
         if (cardIndex != cards.length && DataHandler.getInstance().getSettings().isAudioDescription()) {
             Reader tts = AudioDescriptionHandler.getInstance().getReader();
-            tts.read(cards[cardIndex].name);
+            tts.read(cards[cardIndex].description);
         }
     }
 
@@ -1328,7 +1585,6 @@ public class GameScene implements Initializable {
         alert.setHeaderText(null);
         alert.initOwner(nextTurnButton.getScene().getWindow());
         alert.setGraphic(null);
-        alert.initOwner(nextTurnButton.getScene().getWindow());
 
         String text = "Do you want to use the "+ DataHandler.getInstance().getGame().players[0].cards[selectedCardIndex].name  +" card for free?";
 

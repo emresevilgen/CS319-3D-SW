@@ -44,7 +44,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("lobby/ready/")
-    Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") boolean ready);
+    Call<GeneralResponse<Lobby>> getReady(@Field("username") String username, @Field("token") String token, @Field("ready") int ready);
 
     @FormUrlEncoded
     @POST("game/")
@@ -52,12 +52,14 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("game/commerce/")
-    Call<GeneralResponse<Game>> commerce(@Field("username") String username, @Field("token") String token, @Field("isWithLeft") Boolean isWidthLeft, @Field("commerceMaterials") String commerceMaterials);
+    Call<GeneralResponse<Game>> commerce(@Field("username") String username, @Field("token") String token, @Field("isWithLeft") int isWidthLeft, @Field("commerceMaterials") String commerceMaterials);
 
     @FormUrlEncoded
     @POST("card/use/")
-    Call<GeneralResponse<Game>> useCard(@Field("username") String username, @Field("token") String token, @Field("cardId") String cardId, @Field("selectionType") int selectionType, @Field("freeBuilding") boolean freeBuilding);
+    Call<GeneralResponse<Game>> useCard(@Field("username") String username, @Field("token") String token, @Field("cardId") String cardId, @Field("selectionType") int selectionType, @Field("freeBuilding") int freeBuilding);
 
-
+    @FormUrlEncoded
+    @POST("game/exit/")
+    Call<GeneralResponse<Game>> exitGame(@Field("username") String username, @Field("token") String token);
 
 }

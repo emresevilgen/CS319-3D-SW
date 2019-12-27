@@ -175,7 +175,7 @@ public class OtherBoardsCards implements Initializable {
                         }
                         focusedCardInBoardIndex++;
                         if (settings.isAudioDescription())
-                            tts.read(cards[focusedCardInBoardIndex].name);
+                            tts.read(cards[focusedCardInBoardIndex].description);
                     }
                     else if(keyCode.equals(KeyCode.E))
                     {
@@ -184,13 +184,18 @@ public class OtherBoardsCards implements Initializable {
                         }
                         focusedCardInBoardIndex--;
                         if (settings.isAudioDescription())
-                            tts.read(cards[focusedCardInBoardIndex].name);
+                            tts.read(cards[focusedCardInBoardIndex].description);
                     }
                 }
                 event.consume();
             }
 
         });
+
+        // Update the interface
+        update();
+
+        timeLine.play();
     }
 
     public void focusIntoBoardCard(MouseEvent mouseEvent) {
@@ -246,6 +251,18 @@ public class OtherBoardsCards implements Initializable {
             {
                 cardViews[i].setImage(getCardImage(cards[i]));
             }
+        }
+
+        // Set the visibilty of commerce button
+        try {
+            Game game = DataHandler.getInstance().getGame();
+            if (game.players[0].isPlayedForTurn)
+                commerceButton.setDisable(true);
+            else
+                commerceButton.setDisable(false);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 

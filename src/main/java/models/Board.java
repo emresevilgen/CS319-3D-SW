@@ -12,6 +12,9 @@ public class Board {
     @SerializedName("id")
     public String id;
 
+    @SerializedName("description")
+    public String description;
+
     @SerializedName("stage")
     public int stage;
 

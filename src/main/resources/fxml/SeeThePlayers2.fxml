@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayers2Scene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayers2Scene">
     <children>
         <ImageView fx:id="backgroundView" fitHeight="1087.0" fitWidth="1928.0" pickOnBounds="true" />
         <ImageView fitHeight="387.0" fitWidth="703.0" layoutX="623.0" layoutY="301.0" pickOnBounds="true" />
@@ -27,7 +27,7 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="965.0" layoutY="370.0" prefHeight="36.0" prefWidth="150.0" text="Ready Status" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="930.0" layoutY="370.0" prefHeight="36.0" prefWidth="174.0" text="Ready Status" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
@@ -56,21 +56,21 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="658.0" layoutY="316.0" prefHeight="45.0" prefWidth="620.0" text="People in the Lobby:" textFill="WHITE">
+        <Label fx:id="lobbyCodeTitle" layoutX="658.0" layoutY="316.0" prefHeight="45.0" prefWidth="620.0" text="People in the Lobby:" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
-        <ImageView fx:id="firstReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="secondReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="thirdReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="fourthReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1022.0" layoutY="607.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="firstReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="999.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="secondReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="999.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="thirdReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="999.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="fourthReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="999.0" layoutY="607.0" pickOnBounds="true" preserveRatio="true" />
         <Label fx:id="lobbyCode" layoutX="664.0" layoutY="236.0" prefHeight="36.0" prefWidth="601.0" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
-      <Label layoutX="1131.0" layoutY="370.0" prefHeight="36.0" prefWidth="150.0" text="Active Status" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="1113.0" layoutY="370.0" prefHeight="36.0" prefWidth="168.0" text="Active Status" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>

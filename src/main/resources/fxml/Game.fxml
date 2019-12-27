@@ -7,10 +7,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameScene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.GameScene">
     <children>
 
       <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
+      <ImageView fx:id="table" fitHeight="256.0" fitWidth="456.0" layoutX="14.0" layoutY="13.0" opacity="0.9" pickOnBounds="true" />
         <ImageView fx:id="deck1" fitHeight="213.0" fitWidth="138.0" layoutX="353.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.bottomAnchor="584.0" AnchorPane.topAnchor="283.0" />
         <ImageView fx:id="deck2" fitHeight="213.0" fitWidth="138.0" layoutX="538.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.bottomAnchor="584.0" AnchorPane.topAnchor="283.0" />
         <ImageView fx:id="deck3" fitHeight="213.0" fitWidth="138.0" layoutX="712.0" layoutY="283.0" onMouseClicked="#clickToCard" onMouseEntered="#effectOn" onMouseExited="#effectOff" pickOnBounds="true" AnchorPane.topAnchor="283.0" />
@@ -66,78 +67,77 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <ImageView fx:id="table" fitHeight="237.0" fitWidth="456.0" layoutX="14.0" layoutY="14.0" opacity="0.9" pickOnBounds="true" />
-      <Label fx:id="username1" layoutX="51.0" layoutY="109.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+      <Label fx:id="username1" layoutX="51.0" layoutY="97.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="username2" layoutX="51.0" layoutY="139.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+      <Label fx:id="username2" layoutX="51.0" layoutY="127.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="username3" layoutX="51.0" layoutY="169.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+      <Label fx:id="username3" layoutX="51.0" layoutY="157.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="username4" layoutX="51.0" layoutY="199.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
+      <Label fx:id="username4" layoutX="51.0" layoutY="187.0" prefHeight="24.0" prefWidth="120.0" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
       <ImageView fx:id="coins" fitHeight="45.0" fitWidth="45.0" layoutX="213.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="militaryTokens" fitHeight="45.0" fitWidth="45.0" layoutX="301.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="coin1" layoutX="223.0" layoutY="109.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="coin1" layoutX="223.0" layoutY="97.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="coin2" layoutX="223.0" layoutY="139.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="coin2" layoutX="223.0" layoutY="127.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="coin3" layoutX="223.0" layoutY="169.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="coin3" layoutX="223.0" layoutY="157.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="coin4" layoutX="223.0" layoutY="199.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="coin4" layoutX="223.0" layoutY="187.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="token1" layoutX="313.0" layoutY="109.0" prefHeight="24.0" prefWidth="50.0" textFill="WHITE" wrapText="true">
+      <Label fx:id="token1" layoutX="313.0" layoutY="97.0" prefHeight="24.0" prefWidth="50.0" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="token2" layoutX="313.0" layoutY="139.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="token2" layoutX="313.0" layoutY="127.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="token3" layoutX="313.0" layoutY="169.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="token3" layoutX="313.0" layoutY="157.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
-      <Label fx:id="token4" layoutX="313.0" layoutY="199.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="token4" layoutX="313.0" layoutY="187.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font></Label>
       <ImageView fx:id="wonderStage" fitHeight="45.0" fitWidth="45.0" layoutX="384.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="stage1" layoutX="396.0" layoutY="112.0" prefHeight="24.0" prefWidth="50.0" textFill="WHITE" wrapText="true">
+      <Label fx:id="stage1" layoutX="396.0" layoutY="100.0" prefHeight="24.0" prefWidth="50.0" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="stage2" layoutX="396.0" layoutY="142.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="stage2" layoutX="396.0" layoutY="130.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="stage3" layoutX="396.0" layoutY="172.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="stage3" layoutX="396.0" layoutY="160.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="stage4" layoutX="396.0" layoutY="202.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="stage4" layoutX="396.0" layoutY="190.0" prefHeight="24.0" prefWidth="50.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MV Boli" size="20.0" />
          </font>
@@ -152,15 +152,14 @@
             <Font name="MV Boli" size="20.0" />
          </font>
       </Label>
-      <Line endX="308.0" endY="1.52587890625E-5" layoutX="150.0" layoutY="96.0" startX="-124.0" startY="1.52587890625E-5" stroke="WHITE" />
-      <Line endX="-25.999969482421875" endY="188.0" layoutX="220.0" layoutY="54.0" startX="-25.999969482421875" startY="-31.0" stroke="WHITE" />
-      <Label fx:id="name0" alignment="CENTER" layoutX="834.0" layoutY="1012.0" prefHeight="45.0" prefWidth="263.0" textAlignment="CENTER" textFill="WHITE">
+      <Line endX="308.0" endY="1.52587890625E-5" layoutX="150.0" layoutY="86.0" startX="-124.0" startY="1.52587890625E-5" stroke="WHITE" />
+      <Line endX="-25.999969482421875" endY="172.0" layoutX="220.0" layoutY="54.0" startX="-25.999969482421875" startY="-31.0" stroke="WHITE" />
+      <Label fx:id="name0" alignment="CENTER" layoutX="745.0" layoutY="1013.0" prefHeight="45.0" prefWidth="433.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="name3" alignment="CENTER" layoutX="68.0" layoutY="811.0" prefHeight="45.0" prefWidth="235.0" textFill="WHITE">
-         <font>
+        <Label fx:id="name3" layoutX="68.0" layoutY="811.0" prefHeight="45.0" prefWidth="235.0" textFill="WHITE">         <font>
             <Font size="30.0" />
          </font>
       </Label>
@@ -169,9 +168,17 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="name1" alignment="CENTER" layoutX="1684.0" layoutY="821.0" prefHeight="45.0" prefWidth="220.0" textFill="WHITE">
-         <font>
+        <Label fx:id="name1" alignment="CENTER_RIGHT" layoutX="1637.0" layoutY="822.0" prefHeight="45.0" prefWidth="220.0" textFill="WHITE">         <font>
             <Font size="30.0" />
+         </font>
+      </Label>
+        <ImageView fx:id="isPlayed1" fitHeight="36.0" fitWidth="35.0" layoutX="708.0" layoutY="1017.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="isPlayed2" fitHeight="36.0" fitWidth="35.0" layoutX="1867.0" layoutY="826.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="isPlayed3" fitHeight="36.0" fitWidth="35.0" layoutX="790.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="isPlayed4" fitHeight="36.0" fitWidth="35.0" layoutX="26.0" layoutY="816.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="secretSkillLabel" layoutX="34.0" layoutY="224.0" prefHeight="45.0" prefWidth="426.0" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
          </font>
       </Label>
     </children>

@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="664.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.OtherBoardsCards">
    <children>
    <ImageView fx:id="backgroundView" fitHeight="664.0" fitWidth="846.0" pickOnBounds="true" />
-   <Label fx:id="usernameLabel" layoutX="347.0" layoutY="29.0" text="username" textFill="WHITE">
+   <Label fx:id="usernameLabel" alignment="CENTER" layoutX="348.0" layoutY="33.0" text="username" textFill="WHITE">
       <font>
          <Font size="30.0" />
       </font>
@@ -35,7 +35,7 @@
 <ImageView fx:id="card19" fitHeight="137.5" fitWidth="87.5" layoutX="493.0" layoutY="414.0" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
 <ImageView fx:id="card20" fitHeight="137.5" fitWidth="87.5" layoutX="607.0" layoutY="414.0" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
 <ImageView fx:id="card21" fitHeight="137.5" fitWidth="87.5" layoutX="721.0" layoutY="414.0" onMouseEntered="#focusIntoBoardCard" pickOnBounds="true" />
-   <Button fx:id="commerceButton" layoutX="312.0" layoutY="580.0" mnemonicParsing="false" onAction="#commerce" prefHeight="56.0" prefWidth="223.0" style="-fx-background-color: #B80028;" text="Commerce" textFill="WHITE">
+   <Button fx:id="commerceButton" layoutX="312.0" layoutY="579.0" mnemonicParsing="false" onAction="#commerce" prefHeight="56.0" prefWidth="223.0" style="-fx-background-color: #B80028;" text="Commerce" textFill="WHITE">
       <font>
          <Font size="30.0" />
       </font>

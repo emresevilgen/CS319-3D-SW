@@ -86,8 +86,8 @@ public class SceneHandler extends Application {
         //moveToSeeThePlayers(true);
         //moveToSeeThePlayers(false);
         //moveToSettings();
-        //moveToSignIn();
-        moveToSignUp();
+        moveToSignIn();
+        //moveToSignUp();
 
     }
 

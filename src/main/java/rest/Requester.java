@@ -17,5 +17,7 @@ public interface Requester {
     GeneralResponse<Game>  getGameData(String username, String token);
     GeneralResponse<Game>  commerce(String username, String token, Boolean isWithLeft, Materials commerceMaterials);
     GeneralResponse<Game>  useCard(String username, String token, String cardId, int selectionType, boolean freeBuilding);
+    GeneralResponse<Game> exitGame(String username, String token);
 
-}
+
+    }

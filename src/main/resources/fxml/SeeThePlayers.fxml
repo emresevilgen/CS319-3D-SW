@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayersScene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.SeeThePlayersScene">
     <children>
       <ImageView fx:id="backgroundView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" />
       <ImageView fitHeight="387.0" fitWidth="784.0" layoutX="568.0" layoutY="244.0" pickOnBounds="true" />
@@ -27,7 +27,7 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="981.0" layoutY="316.0" prefHeight="36.0" prefWidth="143.0" text="Ready Status" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="943.0" layoutY="316.0" prefHeight="36.0" prefWidth="181.0" text="Ready Status" textFill="WHITE">
             <font>
                 <Font size="25.0" />
             </font>
@@ -74,18 +74,18 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <ImageView fx:id="secondReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1035.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="thirdReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1035.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="fourthReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1035.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="firstReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1035.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="1160.0" layoutY="316.0" prefHeight="36.0" prefWidth="154.0" text="Active Status" textFill="WHITE">
+      <ImageView fx:id="secondReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1016.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="thirdReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1016.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fourthReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1016.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="firstReadyStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1016.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true" />
+      <Label alignment="CENTER" layoutX="1133.0" layoutY="316.0" prefHeight="36.0" prefWidth="181.0" text="Active Status" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <ImageView fx:id="secondActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1212.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="thirdActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1212.0" layoutY="491.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="fourthActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1212.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="firstActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1212.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="secondActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1201.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="thirdActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1201.0" layoutY="491.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fourthActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1201.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="firstActiveStatus" fitHeight="36.0" fitWidth="36.0" layoutX="1201.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

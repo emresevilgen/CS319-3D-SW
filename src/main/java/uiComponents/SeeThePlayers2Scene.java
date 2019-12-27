@@ -66,6 +66,9 @@ public class SeeThePlayers2Scene implements Initializable {
     public ImageView fourthReadyStatus;
     @FXML
     public Label lobbyCode;
+    @FXML
+    public Label lobbyCodeTitle;
+
 
     // Button colors for hovered and not
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: #817277; -fx-opacity: 1;";
@@ -198,7 +201,6 @@ public class SeeThePlayers2Scene implements Initializable {
                                 public void run() {
                                     DataHandler.getInstance().setGame(gameResponse.payload);
                                     SceneHandler.getInstance().moveToGame();
-                                    timeLine.stop();
                                 }
                             });
                         }
@@ -278,8 +280,8 @@ public class SeeThePlayers2Scene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[0].isReady ){
                     Image crossImage = new Image(inputStream);
                     firstReadyStatus.setImage(crossImage);
@@ -305,8 +307,8 @@ public class SeeThePlayers2Scene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[1].isReady ){
                     Image crossImage = new Image(inputStream);
                     secondReadyStatus.setImage(crossImage);
@@ -332,8 +334,8 @@ public class SeeThePlayers2Scene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[2].isReady ){
                     Image crossImage = new Image(inputStream);
                     thirdReadyStatus.setImage(crossImage);
@@ -358,8 +360,8 @@ public class SeeThePlayers2Scene implements Initializable {
             {
                 FileInputStream inputStream = new FileInputStream(Constants.CROSS_IMAGE);
                 FileInputStream inputStream2 = new FileInputStream(Constants.CHECK_IMAGE);
-                FileInputStream inputStream3 = new FileInputStream(Constants.CROSS_IMAGE);
-                FileInputStream inputStream4 = new FileInputStream(Constants.CHECK_IMAGE);
+                FileInputStream inputStream3 = new FileInputStream(Constants.RED_IMAGE);
+                FileInputStream inputStream4 = new FileInputStream(Constants.GREEN_IMAGE);
                 if (!dataHandler.getLobby().users[3].isReady ){
                     Image crossImage = new Image(inputStream);
                     fourthReadyStatus.setImage(crossImage);
@@ -443,6 +445,7 @@ public class SeeThePlayers2Scene implements Initializable {
 
         //Write the lobby code
         lobbyCode.setText("The lobby code: "+ DataHandler.getInstance().getLobby().code);
+        lobbyCodeTitle.setText("People in the " + DataHandler.getInstance().getLobby().name + " Lobby: ");
 
         // Initialize the label arrays
         labelsName[0] = firstNameLabel;
