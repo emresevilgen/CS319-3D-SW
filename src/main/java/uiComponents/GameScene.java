@@ -211,9 +211,11 @@ public class GameScene implements Initializable {
     int selection = -1;
 
     private String keyInput = "";
-    public boolean firstTime;
-    public boolean showError = true;
-    public boolean gameEnded = false;
+    boolean firstTime;
+    boolean showError = true;
+    boolean gameEnded = false;
+    boolean newTurn = true;
+
 
     // To send a request at every second
     Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -283,6 +285,15 @@ public class GameScene implements Initializable {
         Reader tts = AudioDescriptionHandler.getInstance().getReader();
         Settings settings = DataHandler.getInstance().getSettings();
 
+        // Read game is started
+        try{
+            if (settings.isAudioDescription()){
+                tts.read("Game is started.");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         // Set the focused properties to read the audio descriptions
         firstTime = true;
         nextTurnButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
@@ -298,9 +309,10 @@ public class GameScene implements Initializable {
 
         discardButton.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue){
-                if(settings.isAudioDescription())
+                if(settings.isAudioDescription() && !newTurn)
                     tts.read("Discard the card");
                 discardButton.setStyle(HOVERED_BUTTON_STYLE);
+                newTurn = false;
             }
             else if (selection != 0)
                 discardButton.setStyle(IDLE_BUTTON_STYLE);
@@ -471,12 +483,12 @@ public class GameScene implements Initializable {
 
                                 text = text + " and ";
 
-                                if (player.victoryPoints > 1)
-                                    text = text + player.victoryPoints + " victory points. \n";
+                                if ((player.victoryTokens) - (player.defeatTokens) > 1)
+                                    text = text + ((player.victoryTokens) - (player.defeatTokens)) + " victory tokens. \n";
                                 else
-                                    text = text + player.victoryPoints + " victory point. \n";
+                                    text = text + ((player.victoryTokens) - (player.defeatTokens)) + " victory tokens. \n";
 
-                                text = text + " and the wonder stage is " + player.board.stage;
+                                text = text + " and the wonder stage is " + player.board.stage + ". \n";
                             }
                         }
                         tts.read(text);
@@ -956,9 +968,9 @@ public class GameScene implements Initializable {
         try {
             Game game = DataHandler.getInstance().getGame();
             if (game.players[0].isPlayedForTurn)
-                nextTurnButton.setDisable(true);
+                disableItems();
             else
-                nextTurnButton.setDisable(false);
+                enableItems();
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -1225,8 +1237,14 @@ public class GameScene implements Initializable {
     private void resetTurn() {
         // Reset game
         selection = -1;
+        try {
+            Reader reader = AudioDescriptionHandler.getInstance().getReader();
+            reader.read("New turn.");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        newTurn = true;
     }
-
 
     // Board listeners
     public void showOtherPlayersCards(MouseEvent mouseEvent) {
@@ -1428,6 +1446,12 @@ public class GameScene implements Initializable {
                                 selectedCard = null;
                                 selectedCardIndex = -1;
                                 selectedCardView = null;
+                                try{
+                                    Reader reader = AudioDescriptionHandler.getInstance().getReader();
+                                    reader.read("You played your turn.");
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
                             }
                         });
                     }
