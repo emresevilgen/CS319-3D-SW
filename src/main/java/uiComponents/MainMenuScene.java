@@ -134,8 +134,8 @@ public class MainMenuScene implements Initializable {
 
     // Rankings button listener
     public void rankings(ActionEvent event) throws Exception {
-        //SceneHandler.getInstance().moveToRankings();
-        SceneHandler.getInstance().moveToGame();
+        SceneHandler.getInstance().moveToRankings();
+        //SceneHandler.getInstance().moveToGame();
     }
 
     // Settings button listener
