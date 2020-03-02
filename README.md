@@ -39,7 +39,3 @@ Iteration 2:
 - [Analysis Report](https://docs.google.com/document/d/1XJNsbI7gstyb_r8-L1cl4pPRrjysDSdBD5x0qoMIWEo/edit?ts=5ddd4d83#)
 - [Design Report](https://docs.google.com/document/d/1Splm2Ayn__dja-78CtnCScQwhMzLa7AXe_TjYq7cKAY/edit?usp=sharing)
 - [Final Report](https://docs.google.com/document/d/1Bq2bTTv_duuWr89KmKWRwQtrbh5olmbizOrrngg_TRo/edit#)
-
-Meeting Hours and Agenda
--------------
-Tuesdays, 18.00-22.00 / [Meeting Agenda](https://docs.google.com/document/d/1wur8KFRKE3CdrKLQakjvKO5Un3WoKlW-3x-mb8U-ofk/edit?usp=sharing)
